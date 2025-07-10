@@ -3,7 +3,7 @@ package org.gaztelubira.kmp
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class ComposeAppCommonTest {
+class AppCommonTest {
 
     @Test
     fun example() {

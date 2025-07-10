@@ -2,6 +2,7 @@ package org.gaztelubira.kmp
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,11 +13,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import gbmultiplatform.composeapp.generated.resources.Res
-import gbmultiplatform.composeapp.generated.resources.compose_multiplatform
+import gbmultiplatform.app.generated.resources.Res
+import gbmultiplatform.app.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
@@ -26,7 +28,8 @@ fun App() {
         Column(
             modifier = Modifier
                 .safeContentPadding()
-                .fillMaxSize(),
+                .fillMaxSize()
+                .background(Color.Yellow),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Button(onClick = { showContent = !showContent }) {

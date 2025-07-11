@@ -1,21 +1,23 @@
 [versions]
 agp = "8.9.2"
 koin = "4.1.0"
-kotlin = "2.1.21"
+kotlin = "2.2.0"
 compose = "1.8.2"
-androidx-lifecycle = "2.9.0"
+androidx-lifecycle = "2.9.1"
 androidx-activity = "1.10.1"
 androidx-appcompat = "1.7.1"
 androidx-constraintlayout = "2.2.1"
 androidx-core = "1.16.0"
 androidx-espresso = "3.6.1"
 androidx-testExt = "1.2.1"
-composeMultiplatform = "1.8.1"
+composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 loggingVersion = "2.0.3"
 material = "1.12.0"
 hilt = "2.56.2"
 hiltNavigationCompose = "1.2.0"
+firebase-bom = "33.16.0"
+gitlive = "1.13.0"
 
 [libraries]
 # build-logic
@@ -46,6 +48,8 @@ koin-android = { module = "io.insert-koin:koin-android"}
 # android
 compose-preview = { group = "org.jetbrains.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+android-firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+gitlive-firebase-firestore = { group = "dev.gitlive", name = "firebase-firestore", version.ref = "gitlive" }
 
 # testing
 kotlin-test = { group = "org.jetbrains.kotlin", name="kotlin-test", version.ref = "kotlin" }

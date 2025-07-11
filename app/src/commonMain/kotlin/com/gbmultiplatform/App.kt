@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.app
+package com.gbmultiplatform
 
-import android.os.Build
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
-class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
+@Composable
+@Preview
+fun App() {
+    MaterialTheme {
+
+    }
 }
-
-actual fun getPlatform(): Platform = AndroidPlatform()

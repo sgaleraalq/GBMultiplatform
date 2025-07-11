@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "739731347806",
+    "project_id": "gbmultiplatform",
+    "storage_bucket": "gbmultiplatform.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739731347806:android:d60c2cdc83d166e4ebd7cf",
+        "android_client_info": {
+          "package_name": "com.gbmultiplatform"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBElBP2qqEQeEeCFfBgAPa7gW2AHxCSdUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739731347806:android:bafa62ab805df808ebd7cf",
+        "android_client_info": {
+          "package_name": "com.gbmultiplatform.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBElBP2qqEQeEeCFfBgAPa7gW2AHxCSdUQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

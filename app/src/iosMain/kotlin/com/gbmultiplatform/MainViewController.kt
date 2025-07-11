@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.app
+package com.gbmultiplatform
 
-class Greeting {
-    private val platform = getPlatform()
+import androidx.compose.ui.window.ComposeUIViewController
 
-    fun greet(): String {
-        return "Hello, ${platform.name}!"
-    }
-}
+fun MainViewController() = ComposeUIViewController { App() }

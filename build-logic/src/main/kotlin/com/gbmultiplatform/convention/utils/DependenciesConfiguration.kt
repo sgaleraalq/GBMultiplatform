@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp.utils
+package com.gbmultiplatform.convention.utils
 
 object Plugins {
     const val KOTLIN_MULTIPLATFORM = "kotlinMultiplatform"
@@ -33,8 +33,8 @@ object KmpConfiguration {
     const val LIFECYCLE_VIEWMODEL = "androidx.lifecycle.viewmodel"
     const val LIFECYCLE_RUNTIME_COMPOSE = "androidx.lifecycle.runtimeCompose"
 
-    const val KOTLIN_TEST = "kotlin.test"
 
+    const val KOTLIN_TEST = "kotlin.test"
     const val COMPOSE_UI_TOOLING = "compose.ui.tooling"
 
     //const val COMPOSE_COMPONENTS_RESOURCES = "org.jetbrains.compose.components:components-resources"

@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp
+package com.gbmultiplatform.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.gbmultiplatform.convention.configureKotlinAndroid
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_UI_TOOLING
-import com.gbmultiplatform.convention.kmp.utils.Plugins.ANDROID_APPLICATION
-import com.gbmultiplatform.convention.kmp.utils.Plugins.COMPOSE_COMPILER
-import com.gbmultiplatform.convention.kmp.utils.Plugins.COMPOSE_MULTIPLATFORM
-import com.gbmultiplatform.convention.kmp.utils.Plugins.KOTLIN_MULTIPLATFORM
-import com.gbmultiplatform.convention.kmp.utils.configureAndroidKmp
-import com.gbmultiplatform.convention.kmp.utils.configureCommonDependencies
-import com.gbmultiplatform.convention.kmp.utils.configureiOSKmp
+import com.gbmultiplatform.configureKotlinAndroid
+import com.gbmultiplatform.convention.utils.KmpConfiguration
+import com.gbmultiplatform.convention.utils.Plugins
+import com.gbmultiplatform.convention.utils.Plugins.ANDROID_APPLICATION
+import com.gbmultiplatform.convention.utils.Plugins.COMPOSE_COMPILER
+import com.gbmultiplatform.convention.utils.Plugins.COMPOSE_MULTIPLATFORM
+import com.gbmultiplatform.convention.utils.Plugins.KOTLIN_MULTIPLATFORM
+import com.gbmultiplatform.convention.utils.configureAndroidKmp
+import com.gbmultiplatform.convention.utils.configureCommonDependencies
+import com.gbmultiplatform.convention.utils.configureiOSKmp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -55,7 +56,7 @@ class KmpAppConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("debugImplementation", libs.findLibrary(COMPOSE_UI_TOOLING).get())
+            add("debugImplementation", libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING).get())
         }
     }
 }

@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp
+package com.gbmultiplatform.convention.dependencies
 
-import com.android.build.gradle.LibraryExtension
-import com.gbmultiplatform.convention.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -25,33 +23,31 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-class KotlinMultiplatformConventionPlugin : Plugin<Project> {
+class FirebaseConventionPlugin : Plugin<Project> {
+    companion object {
+        const val ANDROID_FIREBASE_BOM = "android.firebase.bom"
+        const val GITLIVE_FIREBASE = "gitlive.firebase.firestore"
+        const val KOTLIN_SERIALIZATION = "kotlinx.serialization.json"
+    }
+
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
             with(pluginManager) {
-                apply("com.android.library")
-                apply("org.jetbrains.kotlin.multiplatform")
+                apply("com.google.gms.google-services")
+                apply("kotlinx-serialization")
             }
 
             extensions.configure<KotlinMultiplatformExtension> {
-                androidTarget()
-                iosArm64()
-                iosX64()
-                iosSimulatorArm64()
+                sourceSets.commonMain.dependencies {
+                    implementation(libs.findLibrary(GITLIVE_FIREBASE).get())
+                    implementation(libs.findLibrary(KOTLIN_SERIALIZATION).get())
+                }
 
                 sourceSets.androidMain.dependencies {
-                    implementation(libs.findLibrary("androidx.core.ktx").get())
+                    implementation(project.dependencies.platform(libs.findLibrary(ANDROID_FIREBASE_BOM).get()))
                 }
-
-                sourceSets.commonMain.dependencies {
-                    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-                }
-            }
-
-            extensions.configure<LibraryExtension> {
-                configureKotlinAndroid(this)
-                defaultConfig.targetSdk = 35
             }
         }
     }

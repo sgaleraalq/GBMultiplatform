@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention
+package com.gbmultiplatform
 
 import com.android.build.api.dsl.CommonExtension
-import com.gbmultiplatform.convention.ProjectConfiguration.COMPILE_SDK
-import com.gbmultiplatform.convention.ProjectConfiguration.MIN_SDK
+import com.gbmultiplatform.ProjectConfiguration.COMPILE_SDK
+import com.gbmultiplatform.ProjectConfiguration.MIN_SDK
 import org.gradle.api.JavaVersion.VERSION_17
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17

@@ -22,16 +22,25 @@ gradlePlugin {
          * Kotlin Multiplatform
          */
         register("kotlinMultiplatform") {
-            id = "com.gbmultiplatform.kmp"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KotlinMultiplatformConventionPlugin"
+            id = "com.gbmultiplatform"
+            implementationClass = "com.gbmultiplatform.convention.KotlinMultiplatformConventionPlugin"
         }
         register("kmpAppMultiplatform") {
-            id = "com.gbmultiplatform.kmp.app"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KmpAppConventionPlugin"
+            id = "com.gbmultiplatform.app"
+            implementationClass = "com.gbmultiplatform.convention.KmpAppConventionPlugin"
         }
         register("kmpLibraryMultiplatform") {
-            id = "com.gbmultiplatform.kmp.library"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KmpLibraryConventionPlugin"
+            id = "com.gbmultiplatform.library"
+            implementationClass = "com.gbmultiplatform.convention.KmpLibraryConventionPlugin"
+        }
+
+        /**
+         * Dependencies
+         */
+        register("firebaseConvention") {
+            id = "com.gbmultiplatform.firebase"
+            implementationClass =
+                "com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin"
         }
     }
 }

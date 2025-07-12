@@ -1,8 +1,6 @@
 plugins {
-    id("com.gbmultiplatform.kmp.app")
-
-    kotlin("plugin.serialization")
-    id("com.google.gms.google-services")
+    id("com.gbmultiplatform.app")
+    id("com.gbmultiplatform.firebase")
 }
 
 android {
@@ -27,12 +25,10 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(libs.androidx.core.ktx)
-            api(project.dependencies.platform(libs.android.firebase.bom))
         }
         commonMain.dependencies {
             implementation(projects.communication)
             implementation(compose.components.resources)
-            api(libs.gitlive.firebase.firestore)
         }
     }
 }

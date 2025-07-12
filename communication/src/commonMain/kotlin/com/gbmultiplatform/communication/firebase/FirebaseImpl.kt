@@ -19,10 +19,16 @@ package com.gbmultiplatform.communication.firebase
 import com.gbmultiplatform.communication.response.TestResponse
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
+import dev.gitlive.firebase.firestore.firestoreSettings
 
 class FirebaseImpl: IFirebase {
 
-    private val firestore = Firebase.firestore
+    private val firestore by lazy {
+        val instance = Firebase.firestore
+        // Only set settings if not yet initialized (guard with flag or config)
+//        instance.settings = firestoreSettings()
+        instance
+    }
 
     override suspend fun readData(): String? {
         val snapshot = firestore

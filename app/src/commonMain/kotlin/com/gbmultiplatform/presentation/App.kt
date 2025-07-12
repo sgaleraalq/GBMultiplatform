@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.presentation
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

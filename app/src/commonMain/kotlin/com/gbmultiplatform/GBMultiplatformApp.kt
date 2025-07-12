@@ -15,8 +15,22 @@
  */
 
 package com.gbmultiplatform
-
-import androidx.compose.ui.window.ComposeUIViewController
-import com.gbmultiplatform.presentation.App
-
-fun MainViewController() = ComposeUIViewController { App() }
+//
+//import android.app.Application
+//import org.koin.core.context.loadKoinModules
+//import org.koin.core.context.startKoin
+//
+//class GBMultiplatformApp : Application() {
+//
+//    companion object {
+//        private val modules = appModules
+//    }
+//
+//    override fun onCreate() {
+//        super.onCreate()
+//        startKoin {
+//            androidContext(this@GBMultiplatformApp)
+//            loadKoinModules(modules)
+//        }
+//    }
+//}

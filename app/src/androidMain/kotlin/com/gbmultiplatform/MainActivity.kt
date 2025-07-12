@@ -22,6 +22,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.gbmultiplatform.presentation.App
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {

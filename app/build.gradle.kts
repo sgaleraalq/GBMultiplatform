@@ -1,4 +1,6 @@
 plugins {
+    id("com.android.application")
+
     id("com.gbmultiplatform.app")
     id("com.gbmultiplatform.firebase")
 }
@@ -28,6 +30,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.communication)
+            implementation(projects.core.di)
             implementation(compose.components.resources)
         }
     }

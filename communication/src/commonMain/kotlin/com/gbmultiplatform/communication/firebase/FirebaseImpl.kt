@@ -36,7 +36,7 @@ class FirebaseImpl: IFirebase {
             .document("test")
             .get()
 
-        val response = snapshot.data<TestResponse>() // usa la extensión de GitLive Firestore
+        val response = snapshot.data<TestResponse>()
 
         println("Received document: $response")
 

@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.di
 
-import androidx.compose.ui.window.ComposeUIViewController
-import com.gbmultiplatform.presentation.App
+import org.koin.core.module.Module
 
-fun MainViewController() = ComposeUIViewController { App() }
+private val screenModules = listOf<Module>()
+
+val appModules: List<Module> = screenModules

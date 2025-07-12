@@ -15,22 +15,24 @@
  */
 
 package com.gbmultiplatform
-//
-//import android.app.Application
-//import org.koin.core.context.loadKoinModules
-//import org.koin.core.context.startKoin
-//
-//class GBMultiplatformApp : Application() {
-//
-//    companion object {
-//        private val modules = appModules
-//    }
-//
-//    override fun onCreate() {
-//        super.onCreate()
-//        startKoin {
-//            androidContext(this@GBMultiplatformApp)
-//            loadKoinModules(modules)
-//        }
-//    }
-//}
+
+import android.app.Application
+import com.gbmultiplatform.di.appModules
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.startKoin
+
+class GBMultiplatformApp : Application() {
+
+    companion object {
+        private val modules = appModules
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@GBMultiplatformApp)
+            loadKoinModules(modules)
+        }
+    }
+}

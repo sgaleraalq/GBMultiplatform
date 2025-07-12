@@ -17,13 +17,35 @@
 package com.gbmultiplatform
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.sp
+import com.gbmultiplatform.communication.firebase.FirebaseImpl
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-
+        MyTest()
     }
+}
+
+@Composable
+fun MyTest() {
+    var myData by remember { mutableStateOf("") }
+    val firebaseImpl = FirebaseImpl()
+    LaunchedEffect(true) {
+        myData = firebaseImpl.readData() ?: "No data"
+    }
+
+    Text(
+        text = myData,
+        fontSize = 200.sp
+    )
 }

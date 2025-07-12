@@ -1,5 +1,7 @@
 plugins {
-    id("com.gbmultiplatform.kmp.app.multiplatform")
+    id("com.gbmultiplatform.kmp.app")
+
+    kotlin("plugin.serialization")
     id("com.google.gms.google-services")
 }
 
@@ -30,7 +32,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.communication)
             implementation(compose.components.resources)
-            implementation(libs.gitlive.firebase.firestore)
+            api(libs.gitlive.firebase.firestore)
         }
     }
 }

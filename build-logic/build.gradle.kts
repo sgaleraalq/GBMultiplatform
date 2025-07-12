@@ -26,11 +26,11 @@ gradlePlugin {
             implementationClass = "com.gbmultiplatform.convention.kmp.KotlinMultiplatformConventionPlugin"
         }
         register("kmpAppMultiplatform") {
-            id = "com.gbmultiplatform.kmp.app.multiplatform"
+            id = "com.gbmultiplatform.kmp.app"
             implementationClass = "com.gbmultiplatform.convention.kmp.KmpAppConventionPlugin"
         }
         register("kmpLibraryMultiplatform") {
-            id = "com.gbmultiplatform.kmp.library.multiplatform"
+            id = "com.gbmultiplatform.kmp.library"
             implementationClass = "com.gbmultiplatform.convention.kmp.KmpLibraryConventionPlugin"
         }
     }

@@ -37,6 +37,11 @@ gradlePlugin {
         /**
          * Dependencies
          */
+        register("koinConvention") {
+            id = "com.gbmultiplatform.koin"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.KoinConventionPlugin"
+        }
+
         register("firebaseConvention") {
             id = "com.gbmultiplatform.firebase"
             implementationClass =

@@ -19,9 +19,9 @@ package com.gbmultiplatform.communication.firebase
 import com.gbmultiplatform.communication.response.TestResponse
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.firestore.firestore
-import dev.gitlive.firebase.firestore.firestoreSettings
 
 class FirebaseImpl: IFirebase {
+
 
     private val firestore by lazy {
         val instance = Firebase.firestore

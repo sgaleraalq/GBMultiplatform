@@ -18,15 +18,24 @@ package com.gbmultiplatform.presentation
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
 
 @Composable
 fun MainScreen() {
+    var initDestination: MainDestination? = null
     val viewModel = MainViewModel()
     val state = rememberMainNavigationState()
 
+    LaunchedEffect(true) {
+        initDestination = viewModel.initDestination()
+    }
+
     Scaffold {
-        MainNavigation(state)
+        if (initDestination != null) {
+            MainNavigation(state, initDestination)
+        }
     }
 }

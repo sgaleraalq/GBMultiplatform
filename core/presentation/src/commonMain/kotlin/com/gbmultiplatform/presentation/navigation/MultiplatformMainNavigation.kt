@@ -33,12 +33,13 @@ interface MultiplatformMainNavigationState : MainNavigationState {
 
 @Composable
 fun MultiplatformMainNavigation(
-    state: MainNavigationState
+    state: MainNavigationState,
+    initDestination: MainDestination
 ) {
     state as MultiplatformMainNavigationState
     MultiplatformBackHandler { state.navigateBack() }
     Crossfade(
-        targetState = state.currentDestination.value
+        targetState = initDestination
     ) { destination ->
         state.stateHolder.SaveableStateProvider(destination.toString()) {
             key(destination) { destination.Content(state) }
@@ -47,8 +48,9 @@ fun MultiplatformMainNavigation(
 }
 
 @Composable
-fun rememberMultiplatformMainNavigationState(): MainNavigationState {
-    val initDestination = MainDestination.Welcome
+fun rememberMultiplatformMainNavigationState(
+    initDestination: MainDestination = MainDestination.Welcome
+): MainNavigationState {
     val stack = remember {
         mutableStateOf<List<MainDestination>>(
             listOf(initDestination)

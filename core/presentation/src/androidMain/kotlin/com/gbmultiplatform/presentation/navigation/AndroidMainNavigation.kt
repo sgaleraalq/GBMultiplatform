@@ -47,13 +47,14 @@ actual fun rememberMainNavigationState(): MainNavigationState {
 
 @Composable
 actual fun MainNavigation(
-    state: MainNavigationState
+    state: MainNavigationState,
+    initDestination: MainDestination
 ) {
     state as AndroidMainNavigationState
 
     NavHost(
         navController = state.navHostController,
-        startDestination = state.getRoute(state.defaultDestination::class),
+        startDestination = state.getRoute(initDestination::class),
         modifier = Modifier.fillMaxSize()
     ) {
         state.applyDestinations(this)

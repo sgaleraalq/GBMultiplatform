@@ -36,7 +36,7 @@ interface MainNavigationState {
 expect fun rememberMainNavigationState(): MainNavigationState
 
 @Composable
-expect fun MainNavigation(state: MainNavigationState)
+expect fun MainNavigation(state: MainNavigationState, initDestination: MainDestination)
 
 interface MainDestination {
 

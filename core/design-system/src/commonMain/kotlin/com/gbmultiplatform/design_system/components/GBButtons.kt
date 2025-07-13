@@ -17,27 +17,36 @@
 package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.style.GBTextFontFamily
 
 @Composable
 fun GBElevatedButton(
+    modifier: Modifier = Modifier,
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    backgroundColor: Color = White,
+    textColor: Color = Black,
 ) {
     ElevatedButton(
-        modifier = Modifier.fillMaxWidth().padding(16.dp),
+        modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
-        elevation = ButtonDefaults.buttonElevation(8.dp)
+        elevation = ButtonDefaults.buttonElevation(8.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = backgroundColor,
+            contentColor = textColor
+        )
     ) {
         Text(
             text = text,

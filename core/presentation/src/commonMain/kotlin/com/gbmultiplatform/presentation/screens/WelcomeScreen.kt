@@ -16,34 +16,124 @@
 
 package com.gbmultiplatform.presentation.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBDialog
+import com.gbmultiplatform.design_system.components.GBDialogTextContent
+import com.gbmultiplatform.design_system.components.GBDialogTitle
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.components.GBTitle
 import com.gbmultiplatform.design_system.style.welcome_screen_blue_bg
 import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.app_name
 import gbmultiplatform.core.presentation.generated.resources.create_new_team
+import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
+import gbmultiplatform.core.presentation.generated.resources.insert_team_code_to_join
 import gbmultiplatform.core.presentation.generated.resources.join_existing_team
+import gbmultiplatform.core.presentation.generated.resources.join_team
+import gbmultiplatform.core.presentation.generated.resources.welcome_image
+import gbmultiplatform.core.presentation.generated.resources.welcome_to
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun WelcomeScreen() {
+    var showJoinToExistingTeamDialog by remember { mutableStateOf(false) }
     Column(
-        modifier = Modifier.fillMaxSize().background(welcome_screen_blue_bg).padding(16.dp)
-    ) {
-        Spacer(modifier = Modifier.weight(1f))
-        GBElevatedButton(
-            text = stringResource(Res.string.create_new_team),
-            onClick = { }
+        modifier = Modifier.fillMaxSize().background(welcome_screen_blue_bg).padding(
+            top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),
+            bottom = 36.dp
         )
+    ) {
+        GBTitle(
+            modifier = Modifier.fillMaxWidth().padding(24.dp),
+            title = "${stringResource(Res.string.welcome_to)} ${stringResource(Res.string.app_name)}"
+        )
+        Spacer(Modifier.height(16.dp))
+        GBText(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+            text = stringResource(Res.string.gaztelu_bira_welcome_text), // TODO
+            alignment = TextAlign.Center
+        )
+        Box(
+            modifier = Modifier.weight(1f).fillMaxWidth()
+        ) {
+            Image(
+                modifier = Modifier.fillMaxSize(),
+                painter = painterResource(Res.drawable.welcome_image),
+                contentDescription = stringResource(Res.string.app_name),
+            )
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
         GBElevatedButton(
+            modifier = Modifier.padding(horizontal = 18.dp),
+            text = stringResource(Res.string.create_new_team),
+            onClick = {
+//                navigateToCreateNewTeamScreen()
+            }
+        )
+        Spacer(Modifier.height(8.dp))
+        GBElevatedButton(
+            modifier = Modifier.padding(horizontal = 18.dp),
             text = stringResource(Res.string.join_existing_team),
-            onClick = { }
+            onClick = { showJoinToExistingTeamDialog = true },
+            backgroundColor = Gray,
+            textColor = White
+        )
+    }
+
+    GBDialog(
+        show = showJoinToExistingTeamDialog,
+        dismiss = { showJoinToExistingTeamDialog = false },
+        content = { JoinExistingTeamDialogContent() }
+    )
+}
+
+@Composable
+fun JoinExistingTeamDialogContent() {
+    Column(
+        modifier = Modifier
+            .clip(shape = RoundedCornerShape(8.dp))
+            .background(White)
+            .padding(16.dp)
+    ) {
+        GBDialogTitle(
+            titleText = stringResource(Res.string.join_team)
+        )
+
+        Spacer(Modifier.height(8.dp))
+        GBDialogTextContent(
+            contentText = stringResource(Res.string.insert_team_code_to_join)
+        )
+        TextField(
+            value = "",
+            onValueChange = {}
         )
     }
 }

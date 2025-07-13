@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmultiplatform.presentation.screens
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.unit.sp
-import com.gbmultiplatform.communication.firebase.FirebaseImpl
-import com.gbmultiplatform.presentation.screens.WelcomeScreen
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.Modifier
+import com.gbmultiplatform.presentation.theme.Colors.WELCOME_SCREEN_BACKGROUND
 
 @Composable
-fun App() {
-    MaterialTheme {
-        WelcomeScreen()
+fun WelcomeScreen() {
+    Column(
+        modifier = Modifier.fillMaxSize().background(WELCOME_SCREEN_BACKGROUND)
+    ) {
     }
 }

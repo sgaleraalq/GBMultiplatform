@@ -46,10 +46,7 @@ fun WelcomeScreen(
     var teamCode by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(welcome_screen_blue_bg).padding(
-            top = WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),
-            bottom = 36.dp
-        )
+        modifier = Modifier.background(welcome_screen_blue_bg)
     ) {
         WelcomeScreenTitle()
         WelcomeScreenImage(Modifier.weight(1f))

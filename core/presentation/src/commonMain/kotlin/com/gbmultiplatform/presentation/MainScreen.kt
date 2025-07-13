@@ -16,23 +16,16 @@
 
 package com.gbmultiplatform.presentation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.style.GBTheme
-import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
+import com.gbmultiplatform.presentation.navigation.MainNavigation
+import com.gbmultiplatform.presentation.navigation.rememberMultiplatformMainNavigationState
 
 @Composable
-fun App() {
-    GBTheme {
-        Surface {
-            Box(
-                modifier = Modifier.safeDrawingPadding()
-            ) {
-                WelcomeScreen()
-            }
-        }
+fun MainScreen() {
+    val state = rememberMultiplatformMainNavigationState()
+
+    Scaffold {
+        MainNavigation(state)
     }
 }

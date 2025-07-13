@@ -9,7 +9,8 @@ android {
 kotlin {
     sourceSets {
         androidMain.dependencies {
-            api(libs.androidx.core.ktx)
+            implementation(libs.androidx.core.ktx)
+            implementation(libs.androidx.navigation.compose)
         }
         commonMain.dependencies {
             implementation(projects.core.di)

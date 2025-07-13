@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.ui.window.ComposeUIViewController
+import androidx.compose.runtime.Composable
 
-fun MainViewController() = ComposeUIViewController { App() }
+//@Composable
+//actual fun rememberMainNavigationState(): MainNavigationState =
+//    rememberMultiplatformMainNavigationState()
+//
+@Composable
+actual fun MainNavigation(state: MainNavigationState) = MultiplatformMainNavigation(state)

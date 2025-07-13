@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.ui.window.ComposeUIViewController
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.backhandler.BackHandler
 
-fun MainViewController() = ComposeUIViewController { App() }
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+actual fun MultiplatformBackHandler(onBack: () -> Unit) {
+    BackHandler(true, onBack)
+}

@@ -28,6 +28,12 @@ interface MainNavigationState {
     fun navigateToTop(destination: MainDestination)
 }
 
+@Composable
+expect fun rememberMainNavigationState(): MainNavigationState
+
+@Composable
+expect fun MainNavigation(state: MainNavigationState)
+
 interface MainDestination {
 
     @Composable

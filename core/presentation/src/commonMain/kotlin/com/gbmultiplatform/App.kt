@@ -14,7 +14,22 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.navigation
+package com.gbmultiplatform
 
-class Navigation {
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import com.gbmultiplatform.design_system.style.GBTheme
+import com.gbmultiplatform.presentation.MainScreen
+import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
+
+@Composable
+fun App() {
+    GBTheme {
+        Surface {
+            MainScreen()
+        }
+    }
 }

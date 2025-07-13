@@ -19,6 +19,7 @@ firebase-bom = "33.16.0"
 gitlive = "1.13.0"
 kotlinx-serialization = "1.8.1"
 koin = "4.1.0"
+navigationCompose = "2.9.1"
 
 [libraries]
 # build-logic
@@ -35,6 +36,9 @@ compose-ui-tooling = { group = "org.jetbrains.compose.ui", name = "ui-tooling", 
 compose-ui-tooling-preview = { group = "org.jetbrains.compose.components", name = "components-ui-tooling-preview", version.ref = "compose" }
 compose-resources = { group = "org.jetbrains.compose.components", name = "components-resources", version.ref = "compose" }
 diamondedge-logging = { module = "com.diamondedge:logging", version.ref = "loggingVersion" }
+
+# navigation
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 # viewModel
 androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }

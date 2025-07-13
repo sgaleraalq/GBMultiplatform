@@ -14,25 +14,32 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.style.GBTheme
-import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun App() {
-    GBTheme {
-        Surface {
-            Box(
-                modifier = Modifier.safeDrawingPadding()
-            ) {
-                WelcomeScreen()
-            }
+fun GBProgressDialog(
+    show: Boolean,
+    color: Color
+) {
+    if (show) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Center
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(32.dp),
+                color = color
+            )
         }
     }
 }

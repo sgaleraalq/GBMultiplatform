@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.style.GBTheme
+import androidx.compose.runtime.State
 import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
 
-@Composable
-fun App() {
-    GBTheme {
-        Surface {
-            Box(
-                modifier = Modifier.safeDrawingPadding()
-            ) {
-                WelcomeScreen()
-            }
+interface MainNavigationState {
+    val currentDestination: State<MainDestination?>
+    fun navigateBack()
+    fun popUpToHome()
+    fun navigate(destination: MainDestination)
+    fun navigateToTop(destination: MainDestination)
+}
+
+interface MainDestination {
+
+    @Composable
+    fun Content(state: MainNavigationState)
+
+    object Welcome : MainDestination {
+        @Composable
+        override fun Content(state: MainNavigationState) {
+            WelcomeScreen(mainNavigationState = state)
+        }
+    }
+
+    object Home : MainDestination {
+        @Composable
+        override fun Content(state: MainNavigationState) {
+//            HomeScreen()
         }
     }
 }

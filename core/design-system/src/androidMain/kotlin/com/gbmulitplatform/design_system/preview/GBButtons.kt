@@ -14,15 +14,20 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmulitplatform.design_system.preview
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.style.GBTheme
-import com.gbmultiplatform.presentation.screens.WelcomeScreen
 
+@Preview
 @Composable
-fun App() {
+fun PreviewElevatedButton() {
     GBTheme {
-        WelcomeScreen()
+        GBElevatedButton(
+            text = "Elevated Button",
+            onClick = {}
+        )
     }
 }

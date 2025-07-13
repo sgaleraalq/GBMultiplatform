@@ -1,0 +1,4 @@
+<resources>
+    <string name="create_new_team">Create a new team</string>
+    <string name="join_existing_team">Or join an existing one</string>
+</resources>

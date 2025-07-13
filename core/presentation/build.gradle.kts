@@ -14,6 +14,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.di)
             implementation(projects.communication)
+            implementation(projects.core.designSystem)
             implementation(compose.components.resources)
         }
     }

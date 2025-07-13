@@ -18,15 +18,32 @@ package com.gbmultiplatform.presentation.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gbmultiplatform.presentation.theme.Colors.WELCOME_SCREEN_BACKGROUND
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.style.welcome_screen_blue_bg
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.create_new_team
+import gbmultiplatform.core.presentation.generated.resources.join_existing_team
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun WelcomeScreen() {
     Column(
-        modifier = Modifier.fillMaxSize().background(WELCOME_SCREEN_BACKGROUND)
+        modifier = Modifier.fillMaxSize().background(welcome_screen_blue_bg).padding(16.dp)
     ) {
+        Spacer(modifier = Modifier.weight(1f))
+        GBElevatedButton(
+            text = stringResource(Res.string.create_new_team),
+            onClick = { }
+        )
+        GBElevatedButton(
+            text = stringResource(Res.string.join_existing_team),
+            onClick = { }
+        )
     }
 }

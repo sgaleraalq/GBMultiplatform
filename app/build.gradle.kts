@@ -1,8 +1,6 @@
 plugins {
-    id("com.android.application")
-
-    id("com.gbmultiplatform.app")
-    id("com.gbmultiplatform.firebase")
+    id("com.gbmultiplatform.android.app")
+    id("com.gbmultiplatform.android.firebase")
 }
 
 android {
@@ -23,15 +21,9 @@ android {
     }
 }
 
-kotlin {
-    sourceSets {
-        androidMain.dependencies {
-            api(libs.androidx.core.ktx)
-        }
-        commonMain.dependencies {
-            implementation(projects.communication)
-            implementation(projects.core.di)
-            implementation(compose.components.resources)
-        }
-    }
+dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation(projects.core.di)
+    implementation(projects.core.presentation)
+    implementation(projects.communication)
 }

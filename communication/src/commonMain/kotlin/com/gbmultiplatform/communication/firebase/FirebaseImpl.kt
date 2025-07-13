@@ -22,10 +22,8 @@ import dev.gitlive.firebase.firestore.firestore
 
 class FirebaseImpl: IFirebase {
 
-
     private val firestore by lazy {
         val instance = Firebase.firestore
-        // Only set settings if not yet initialized (guard with flag or config)
 //        instance.settings = firestoreSettings()
         instance
     }

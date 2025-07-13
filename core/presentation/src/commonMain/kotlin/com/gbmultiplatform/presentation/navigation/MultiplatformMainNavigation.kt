@@ -48,7 +48,12 @@ fun MultiplatformMainNavigation(
 
 @Composable
 fun rememberMultiplatformMainNavigationState(): MainNavigationState {
-    val stack = remember { mutableStateOf<List<MainDestination>>(listOf(MainDestination.Home)) }
+    val initDestination = MainDestination.Welcome
+    val stack = remember {
+        mutableStateOf<List<MainDestination>>(
+            listOf(initDestination)
+        )
+    }
     val currentDestinationState = remember { derivedStateOf { stack.value.last() } }
 
     val stateHolder = rememberSaveableStateHolder()

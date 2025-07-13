@@ -73,7 +73,7 @@ private class AndroidMainNavigationState(
     private val _currentDestination = mutableStateOf<MainDestination?>(null)
     override val currentDestination: State<MainDestination?> = _currentDestination
 
-    val defaultDestination = MainDestination.Home
+    val defaultDestination = MainDestination.Welcome
 
     override fun navigateBack() {
         navHostController.navigateUp()

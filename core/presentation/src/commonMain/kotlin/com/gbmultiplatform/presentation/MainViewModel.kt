@@ -16,17 +16,11 @@
 
 package com.gbmultiplatform.presentation
 
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import com.gbmultiplatform.presentation.navigation.MainNavigation
-import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
+import androidx.lifecycle.ViewModel
+import com.gbmultiplatform.presentation.navigation.MainDestination
 
-@Composable
-fun MainScreen() {
-    val viewModel = MainViewModel()
-    val state = rememberMainNavigationState()
-
-    Scaffold {
-        MainNavigation(state)
+class MainViewModel : ViewModel() {
+    fun initDestination(): MainDestination {
+        return MainDestination.Welcome
     }
 }

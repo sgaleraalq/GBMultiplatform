@@ -18,11 +18,7 @@ package com.gbmultiplatform.presentation.screens.welcome
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,29 +26,34 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBDialog
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.design_system.style.welcome_screen_blue_bg
+import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainNavigationState
 
 @Composable
 fun WelcomeScreen(
-    mainNavigationState: MainNavigationState? = null
+    mainNavigationState: MainNavigationState
 ) {
     var showJoinToExistingTeamDialog by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(true) }
-
+    var isLoading by remember { mutableStateOf(false) }
     var teamCode by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.background(welcome_screen_blue_bg)
+        modifier = Modifier
+            .background(welcome_screen_blue_bg)
+            .safeDrawingPadding()
     ) {
         WelcomeScreenTitle()
         WelcomeScreenImage(Modifier.weight(1f))
         WelcomeScreenButtons(
-            navigateToCreateNewTeamScreen = { /* TODO */ },
-            onJoinToExistingTeamClick = { showJoinToExistingTeamDialog = true }
+            navigateToCreateNewTeamScreen = {
+                mainNavigationState.navigate(Home)
+            },
+            onJoinToExistingTeamClick = {
+                showJoinToExistingTeamDialog = true
+            }
         )
     }
 
@@ -62,7 +63,9 @@ fun WelcomeScreen(
         content = {
             JoinExistingTeamDialogContent(
                 groupId = teamCode,
-                onGroupIdChange = { teamCode = it }
+                onGroupIdChange = {
+                    teamCode = it
+                }
             )
         }
     )

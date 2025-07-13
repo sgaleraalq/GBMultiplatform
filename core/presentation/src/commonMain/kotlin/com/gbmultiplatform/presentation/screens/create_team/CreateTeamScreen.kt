@@ -14,19 +14,5 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmultiplatform.presentation.screens.create_team
 
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import com.gbmultiplatform.presentation.navigation.MainNavigation
-import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
-
-@Composable
-fun MainScreen() {
-    val viewModel = MainViewModel()
-    val state = rememberMainNavigationState()
-
-    Scaffold {
-        MainNavigation(state)
-    }
-}

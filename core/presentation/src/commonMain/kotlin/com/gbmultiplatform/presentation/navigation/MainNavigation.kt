@@ -53,7 +53,6 @@ interface MainDestination {
 
     @Serializable
     object Home : MainDestination {
-
         @Composable
         override fun Content(state: MainNavigationState) {
             HomeScreen()
@@ -62,7 +61,6 @@ interface MainDestination {
 }
 
 sealed interface MainDestinationConfiguration<T : MainDestination> {
-
     val clazz: KClass<T>
     val subclassRegisterer: (PolymorphicModuleBuilder<MainDestination>) -> Unit
 
@@ -76,7 +74,6 @@ sealed interface MainDestinationConfiguration<T : MainDestination> {
         override val clazz: KClass<T>,
         override val subclassRegisterer: (PolymorphicModuleBuilder<MainDestination>) -> Unit
     ) : MainDestinationConfiguration<T>
-
 }
 
 inline fun <reified T : MainDestination> T.configuration(): MainDestinationConfiguration.NoParams<T> {

@@ -19,11 +19,11 @@ package com.gbmultiplatform.presentation
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.navigation.MainNavigation
-import com.gbmultiplatform.presentation.navigation.rememberMultiplatformMainNavigationState
+import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
 
 @Composable
 fun MainScreen() {
-    val state = rememberMultiplatformMainNavigationState()
+    val state = rememberMainNavigationState()
 
     Scaffold {
         MainNavigation(state)

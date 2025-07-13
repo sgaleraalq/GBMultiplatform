@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.navigation
+package com.gbmultiplatform
 
 import androidx.compose.runtime.Composable
+import com.gbmultiplatform.design_system.style.GBTheme
+import com.gbmultiplatform.presentation.MainScreen
 
 @Composable
-actual fun rememberMainNavigationState(): MainNavigationState =
-    rememberMultiplatformMainNavigationState()
-
-@Composable
-actual fun MainNavigation(state: MainNavigationState) = MultiplatformMainNavigation(state)
+fun App() {
+    GBTheme {
+        MainScreen()
+    }
+}

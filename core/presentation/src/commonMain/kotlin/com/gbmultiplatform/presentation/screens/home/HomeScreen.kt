@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.presentation.screens.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.style.GBTheme
-import com.gbmultiplatform.presentation.MainScreen
-import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
+import androidx.compose.ui.graphics.Color.Companion.Red
 
 @Composable
-fun App() {
-    GBTheme {
-        Surface {
-            MainScreen()
-        }
-    }
+fun HomeScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize().background(Red)
+    )
 }

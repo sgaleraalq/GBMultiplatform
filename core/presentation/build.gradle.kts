@@ -1,5 +1,6 @@
 plugins {
     id("com.gbmultiplatform.library")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -17,6 +18,7 @@ kotlin {
             implementation(projects.communication)
             implementation(projects.core.designSystem)
             implementation(compose.components.resources)
+            api(libs.kotlinx.serialization.json)
         }
     }
 }

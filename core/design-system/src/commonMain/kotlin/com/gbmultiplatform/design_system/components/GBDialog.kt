@@ -23,10 +23,14 @@ import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import com.gbmultiplatform.design_system.style.GBTypography
+import com.gbmultiplatform.design_system.style.gb_text_field_background
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -73,11 +77,20 @@ fun GBDialogTextContent(
 
 @Composable
 fun GBDialogTextField(
+    modifier: Modifier = Modifier,
     text: String,
-    onTextChanged: (String) -> Unit
+    onTextChanged: (String) -> Unit,
+    enabled: Boolean = true
 ) {
     TextField(
+        modifier = modifier,
         value = text,
         onValueChange = { onTextChanged(it) },
+        enabled = enabled,
+        colors = TextFieldDefaults.colors(
+            unfocusedContainerColor = White,
+            focusedContainerColor = gb_text_field_background,
+            unfocusedIndicatorColor = Black
+        )
     )
 }

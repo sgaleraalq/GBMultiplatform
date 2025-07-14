@@ -39,11 +39,13 @@ import com.gbmultiplatform.design_system.components.GBDialogTitle
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.components.GBTitle
+import com.gbmultiplatform.design_system.style.gb_text_field_background
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.app_name
 import gbmultiplatform.core.presentation.generated.resources.create_new_team
 import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
 import gbmultiplatform.core.presentation.generated.resources.insert_team_code_to_join
+import gbmultiplatform.core.presentation.generated.resources.join
 import gbmultiplatform.core.presentation.generated.resources.join_existing_team
 import gbmultiplatform.core.presentation.generated.resources.join_team
 import gbmultiplatform.core.presentation.generated.resources.welcome_image
@@ -104,7 +106,8 @@ fun WelcomeScreenButtons(
 @Composable
 fun JoinExistingTeamDialogContent(
     groupId: String,
-    onGroupIdChange: (String) -> Unit = {}
+    onGroupIdChange: (String) -> Unit = {},
+    onJoinGroup: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -120,9 +123,16 @@ fun JoinExistingTeamDialogContent(
         GBDialogTextContent(
             contentText = stringResource(Res.string.insert_team_code_to_join)
         )
+        Spacer(Modifier.height(12.dp))
         GBDialogTextField(
             text = groupId,
             onTextChanged = { onGroupIdChange(it) }
+        )
+        Spacer(Modifier.height(12.dp))
+        GBElevatedButton(
+            text = stringResource(Res.string.join),
+            onClick = { /* join app */ },
+            backgroundColor = gb_text_field_background
         )
     }
 }

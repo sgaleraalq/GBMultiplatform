@@ -54,7 +54,7 @@ actual fun MainNavigation(
 
     NavHost(
         navController = state.navHostController,
-        startDestination = state.getRoute(initDestination::class),
+        startDestination = state.getRoute(MainDestination.Welcome::class),
         modifier = Modifier.fillMaxSize()
     ) {
         state.applyDestinations(this)

@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home
+package com.gbmulitplatform.design_system.preview
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.gbmultiplatform.design_system.components.GBBottomNavigation
+import com.gbmultiplatform.design_system.style.GBTheme
 
+@Preview
 @Composable
-fun HomeScreen() {
-
+fun GBBottomNavigationPreview() {
+    GBTheme {
+        GBBottomNavigation(
+            true
+        )
+    }
 }

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home
+package com.gbmultiplatform.di
 
-import androidx.compose.runtime.Composable
+import org.koin.dsl.module
 
-@Composable
-fun HomeScreen() {
+val appModule = module {
 
 }

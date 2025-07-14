@@ -20,6 +20,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,14 +32,16 @@ import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.design_system.style.welcome_screen_blue_bg
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainNavigationState
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun WelcomeScreen(
-    mainNavigationState: MainNavigationState
+    mainNavigationState: MainNavigationState,
+    viewModel: WelcomeViewModel = koinViewModel<WelcomeViewModel>()
 ) {
     var showJoinToExistingTeamDialog by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
-    var teamCode by remember { mutableStateOf("") }
+    val isLoading by viewModel.isLoading.collectAsState()
+    val groupId by viewModel.groupId.collectAsState()
 
     Column(
         modifier = Modifier
@@ -62,9 +65,16 @@ fun WelcomeScreen(
         dismiss = { showJoinToExistingTeamDialog = false },
         content = {
             JoinExistingTeamDialogContent(
-                groupId = teamCode,
+                groupId = groupId,
                 onGroupIdChange = {
-                    teamCode = it
+                    viewModel.onGroupIdChanged(it)
+                },
+                onJoinGroup = {
+                    viewModel.joinTeam(
+                        onSuccessfulJoin = {
+                            mainNavigationState.navigate(Home)
+                        }
+                    )
                 }
             )
         }

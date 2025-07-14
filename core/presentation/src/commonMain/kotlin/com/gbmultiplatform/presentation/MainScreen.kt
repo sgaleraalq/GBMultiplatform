@@ -19,23 +19,37 @@ package com.gbmultiplatform.presentation
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun MainScreen() {
-    var initDestination: MainDestination? = null
-    val viewModel = MainViewModel()
+fun MainScreen(
+    viewModel: MainViewModel = koinViewModel<MainViewModel>()
+) {
+    var initDestination: MainDestination = MainDestination.Welcome
     val state = rememberMainNavigationState()
 
-    LaunchedEffect(true) {
-        initDestination = viewModel.initDestination()
+    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
+
+    LaunchedEffect(state.currentDestination.value) {
+        println("Changing destination to ${state.currentDestination.value}")
+        state.currentDestination.let { destination ->
+            viewModel.updateBottomNavVisibility(destination.value)
+        }
     }
 
-    Scaffold {
-        if (initDestination != null) {
-            MainNavigation(state, initDestination)
+    Scaffold(
+        bottomBar = {
+            GBBottomNavigation(
+                show = showBottomNavigation
+            )
         }
+    ){
+        MainNavigation(state, initDestination)
     }
 }

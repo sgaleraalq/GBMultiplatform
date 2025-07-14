@@ -14,25 +14,32 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation
+package com.gbmultiplatform.presentation.screens.welcome
 
 import androidx.lifecycle.ViewModel
-import com.gbmultiplatform.presentation.navigation.MainDestination
-import com.gbmultiplatform.presentation.navigation.MainDestination.Home
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class WelcomeViewModel : ViewModel() {
 
-    private val screensWithBottomNavigation = listOf(
-        Home
-    )
+    private val _groupId = MutableStateFlow("")
+    val groupId = _groupId
 
-    private val _showBottomNav = MutableStateFlow(false)
-    val showBottomNav = _showBottomNav
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading
 
+    fun onGroupIdChanged(newGroupId: String) {
+        _groupId.value = newGroupId
+    }
 
-    fun updateBottomNavVisibility(destination: MainDestination?) {
-        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
-        println("Bottom nav visibility updated: ${_showBottomNav.value} for destination: $destination")
+    fun joinTeam(onSuccessfulJoin: () -> Unit) {
+        viewModelScope.launch {
+            _isLoading.value = true
+            /**
+             *
+             */
+            _isLoading.value = false
+        }
     }
 }

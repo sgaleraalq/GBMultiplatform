@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home
+package com.gbmultiplatform.di
 
-import androidx.compose.runtime.Composable
+import com.gbmultiplatform.presentation.MainViewModel
+import com.gbmultiplatform.presentation.screens.welcome.WelcomeViewModel
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
 
-@Composable
-fun HomeScreen() {
-
+val viewModelModule = module {
+    viewModelOf(::MainViewModel)
+    viewModelOf(::WelcomeViewModel)
 }

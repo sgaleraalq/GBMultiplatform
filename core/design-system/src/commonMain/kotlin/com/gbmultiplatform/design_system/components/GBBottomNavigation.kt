@@ -14,10 +14,25 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.design_system.components
 
-import org.koin.core.module.Module
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.unit.dp
 
-private val screenModules = listOf<Module>()
+@Composable
+fun GBBottomNavigation(
+    show: Boolean
+) {
+    if (!show) return
+    Row(
+        modifier = Modifier.fillMaxWidth().height(50.dp).background(Red)
+    ) {
 
-val appModules: List<Module> = screenModules
+    }
+}

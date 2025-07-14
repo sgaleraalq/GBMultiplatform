@@ -16,9 +16,8 @@
 
 package com.gbmultiplatform.presentation.screens.home
 
-import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
 
-@Composable
-fun HomeScreen() {
+class HomeViewModel: ViewModel() {
 
 }

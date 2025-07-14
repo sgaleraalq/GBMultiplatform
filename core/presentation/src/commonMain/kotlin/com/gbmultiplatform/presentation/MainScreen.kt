@@ -38,7 +38,6 @@ fun MainScreen(
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()
 
     LaunchedEffect(state.currentDestination.value) {
-        println("Changing destination to ${state.currentDestination.value}")
         state.currentDestination.let { destination ->
             viewModel.updateBottomNavVisibility(destination.value)
         }

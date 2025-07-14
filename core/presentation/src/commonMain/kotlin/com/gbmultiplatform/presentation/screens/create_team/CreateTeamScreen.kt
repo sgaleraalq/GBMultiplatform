@@ -16,3 +16,9 @@
 
 package com.gbmultiplatform.presentation.screens.create_team
 
+import androidx.compose.runtime.Composable
+
+@Composable
+fun CreateTeamScreen() {
+
+}

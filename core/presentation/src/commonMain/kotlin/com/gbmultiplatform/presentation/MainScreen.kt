@@ -22,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
+import com.gbmultiplatform.design_system.components.GBBottomNavigationState
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
@@ -46,7 +47,8 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
-                show = showBottomNavigation
+                show = showBottomNavigation,
+                states = emptyList<GBBottomNavigationState>()
             )
         }
     ){

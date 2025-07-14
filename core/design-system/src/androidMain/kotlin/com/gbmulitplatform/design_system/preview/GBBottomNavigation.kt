@@ -26,7 +26,8 @@ import com.gbmultiplatform.design_system.style.GBTheme
 fun GBBottomNavigationPreview() {
     GBTheme {
         GBBottomNavigation(
-            true
+            show = true,
+            states = emptyList()
         )
     }
 }

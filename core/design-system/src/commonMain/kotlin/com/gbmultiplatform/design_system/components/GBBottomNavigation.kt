@@ -16,23 +16,57 @@
 
 package com.gbmultiplatform.design_system.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.unit.dp
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
+
+data class GBBottomNavigationState(
+    var isSelected: Boolean,
+    val icon: DrawableResource,
+    val onIconPressed: () -> Unit
+)
 
 @Composable
 fun GBBottomNavigation(
-    show: Boolean
+    show: Boolean,
+    states: List<GBBottomNavigationState>
 ) {
     if (!show) return
-    Row(
-        modifier = Modifier.fillMaxWidth().height(50.dp).background(Red)
+    BottomAppBar(
+        modifier = Modifier.fillMaxWidth()
     ) {
-
+        states.forEach { bottomNav ->
+            GBBottomNavItem(
+                isSelected = bottomNav.isSelected,
+                icon = bottomNav.icon,
+                navigate = bottomNav.onIconPressed
+            )
+        }
     }
+}
+
+// create GBBottomNavItem on bottom nav scope
+@Composable
+fun RowScope.GBBottomNavItem(
+    isSelected: Boolean,
+    icon: DrawableResource,
+    navigate: () -> Unit
+) {
+    NavigationBarItem(
+        selected = isSelected,
+        onClick = { navigate() },
+        icon = {
+            Icon(
+                painter = painterResource(icon),
+                contentDescription = null
+            )
+        },
+        alwaysShowLabel = true
+    )
 }

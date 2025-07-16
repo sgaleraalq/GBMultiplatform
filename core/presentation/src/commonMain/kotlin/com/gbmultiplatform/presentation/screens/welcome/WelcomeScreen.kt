@@ -45,7 +45,6 @@ fun WelcomeScreen(
 
     Column(
         modifier = Modifier
-            .background(welcome_screen_blue_bg)
             .safeDrawingPadding()
     ) {
         WelcomeScreenTitle()
@@ -53,9 +52,6 @@ fun WelcomeScreen(
         WelcomeScreenButtons(
             navigateToCreateNewTeamScreen = {
                 mainNavigationState.navigate(Home)
-            },
-            onJoinToExistingTeamClick = {
-                showJoinToExistingTeamDialog = true
             }
         )
     }

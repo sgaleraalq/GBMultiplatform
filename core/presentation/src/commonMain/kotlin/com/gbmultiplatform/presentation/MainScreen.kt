@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +27,9 @@ import com.gbmultiplatform.design_system.components.GBBottomNavigationState
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.img_background
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -51,6 +55,10 @@ fun MainScreen(
             )
         }
     ){
+        Image(
+            painter = painterResource(Res.drawable.img_background),
+            contentDescription = null
+        )
         MainNavigation(state, initDestination)
     }
 }

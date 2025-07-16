@@ -11,5 +11,6 @@
 
     <string name="join_team">Join team</string>
     <string name="join">Join</string>
+    <string name="join_gaztelu_bira">Join Gaztelu Bira</string>
     <string name="insert_team_code_to_join">Insert team's code to join their group</string>
 </resources>

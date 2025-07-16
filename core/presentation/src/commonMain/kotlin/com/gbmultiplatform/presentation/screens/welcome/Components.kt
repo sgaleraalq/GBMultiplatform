@@ -29,7 +29,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -46,7 +45,7 @@ import gbmultiplatform.core.presentation.generated.resources.create_new_team
 import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
 import gbmultiplatform.core.presentation.generated.resources.insert_team_code_to_join
 import gbmultiplatform.core.presentation.generated.resources.join
-import gbmultiplatform.core.presentation.generated.resources.join_existing_team
+import gbmultiplatform.core.presentation.generated.resources.join_gaztelu_bira
 import gbmultiplatform.core.presentation.generated.resources.join_team
 import gbmultiplatform.core.presentation.generated.resources.welcome_image
 import gbmultiplatform.core.presentation.generated.resources.welcome_to
@@ -85,22 +84,21 @@ fun WelcomeScreenImage(
 
 @Composable
 fun WelcomeScreenButtons(
-    navigateToCreateNewTeamScreen: () -> Unit,
-    onJoinToExistingTeamClick: () -> Unit
+    navigateToCreateNewTeamScreen: () -> Unit
 ) {
     GBElevatedButton(
         modifier = Modifier.padding(horizontal = 18.dp),
-        text = stringResource(Res.string.create_new_team),
+        text = stringResource(Res.string.join_gaztelu_bira),
         onClick = { navigateToCreateNewTeamScreen() }
     )
-    Spacer(Modifier.height(8.dp))
-    GBElevatedButton(
-        modifier = Modifier.padding(horizontal = 18.dp),
-        text = stringResource(Res.string.join_existing_team),
-        onClick = { onJoinToExistingTeamClick() },
-        backgroundColor = Gray,
-        textColor = White
-    )
+    Spacer(Modifier.height(32.dp))
+//    GBElevatedButton(
+//        modifier = Modifier.padding(horizontal = 18.dp),
+//        text = stringResource(Res.string.join_existing_team),
+//        onClick = { onJoinToExistingTeamClick() },
+//        backgroundColor = Gray,
+//        textColor = White
+//    )
 }
 
 @Composable

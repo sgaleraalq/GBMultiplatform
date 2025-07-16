@@ -14,27 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.welcome
+package com.gbmultiplatform.di
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.communication.AuthService
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
+import org.koin.dsl.module
 
-class WelcomeViewModel(
-    private val authService: AuthService
-): ViewModel() {
-
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading = _isLoading
-
-    fun onJoinGazteluBira(onSuccessfulJoin: () -> Unit) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            authService.joinGazteluBira()
-            _isLoading.value = false
-        }
-    }
-
+val authModules = module {
+    single { AuthService() }
 }

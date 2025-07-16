@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.communication
 
-import org.koin.core.module.Module
+import org.koin.core.definition.Callbacks
 
-private val screenModules = listOf<Module>(
-    appModule,
-    authModules,
-    viewModelModule
-)
-
-val appModules: List<Module> = screenModules
+interface IAuthentication {
+    suspend fun signUp(email: String, password: String, onResult: (AuthResult) -> Unit)
+    suspend fun joinGazteluBira()
+}

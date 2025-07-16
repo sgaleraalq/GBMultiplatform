@@ -41,7 +41,6 @@ import com.gbmultiplatform.design_system.components.GBTitle
 import com.gbmultiplatform.design_system.style.gb_text_field_background
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.app_name
-import gbmultiplatform.core.presentation.generated.resources.create_new_team
 import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
 import gbmultiplatform.core.presentation.generated.resources.insert_team_code_to_join
 import gbmultiplatform.core.presentation.generated.resources.join
@@ -104,8 +103,7 @@ fun WelcomeScreenButtons(
 @Composable
 fun JoinExistingTeamDialogContent(
     groupId: String,
-    onGroupIdChange: (String) -> Unit = {},
-    onJoinGroup: () -> Unit
+    onGroupIdChange: (String) -> Unit = {}
 ) {
     Column(
         modifier = Modifier

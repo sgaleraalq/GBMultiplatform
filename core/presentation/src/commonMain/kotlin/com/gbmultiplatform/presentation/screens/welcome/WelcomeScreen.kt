@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.presentation.screens.welcome
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
@@ -29,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.design_system.components.GBDialog
 import com.gbmultiplatform.design_system.components.GBProgressDialog
-import com.gbmultiplatform.design_system.style.welcome_screen_blue_bg
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainNavigationState
 import org.koin.compose.viewmodel.koinViewModel
@@ -39,9 +37,7 @@ fun WelcomeScreen(
     mainNavigationState: MainNavigationState,
     viewModel: WelcomeViewModel = koinViewModel<WelcomeViewModel>()
 ) {
-    var showJoinToExistingTeamDialog by remember { mutableStateOf(false) }
     val isLoading by viewModel.isLoading.collectAsState()
-    val groupId by viewModel.groupId.collectAsState()
 
     Column(
         modifier = Modifier
@@ -51,30 +47,14 @@ fun WelcomeScreen(
         WelcomeScreenImage(Modifier.weight(1f))
         WelcomeScreenButtons(
             navigateToCreateNewTeamScreen = {
-                mainNavigationState.navigate(Home)
+                viewModel.onJoinGazteluBira(
+                    onSuccessfulJoin = {
+                        mainNavigationState.navigate(Home)
+                    }
+                )
             }
         )
     }
-
-    GBDialog(
-        show = showJoinToExistingTeamDialog,
-        dismiss = { showJoinToExistingTeamDialog = false },
-        content = {
-            JoinExistingTeamDialogContent(
-                groupId = groupId,
-                onGroupIdChange = {
-                    viewModel.onGroupIdChanged(it)
-                },
-                onJoinGroup = {
-                    viewModel.joinTeam(
-                        onSuccessfulJoin = {
-                            mainNavigationState.navigate(Home)
-                        }
-                    )
-                }
-            )
-        }
-    )
 
     GBProgressDialog(
         show = isLoading,

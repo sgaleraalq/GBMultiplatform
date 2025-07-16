@@ -14,14 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.communication
 
-import org.koin.core.module.Module
-
-private val screenModules = listOf<Module>(
-    appModule,
-    authModules,
-    viewModelModule
+data class AuthResult(
+    val success: Boolean,
+    val user: String,
+    val error: String
 )
-
-val appModules: List<Module> = screenModules

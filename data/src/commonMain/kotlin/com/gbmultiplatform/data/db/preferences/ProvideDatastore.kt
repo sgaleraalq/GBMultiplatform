@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.db.preferences
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import okio.Path.Companion.toPath
 
-val authModules = module {
-    single { AuthService() }
+fun createDataStore(producePath: () -> String) : DataStore<Preferences> {
+    return PreferenceDataStoreFactory.createWithPath(
+        produceFile = { producePath().toPath() }
+    )
 }
+
+internal const val USER_PREFERENCES = "gbmultiplatform.user_preferences_pb"

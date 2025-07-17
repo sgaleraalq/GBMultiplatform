@@ -16,8 +16,9 @@
 
 package com.gbmultiplatform.di
 
+import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import org.koin.dsl.module
 
 val appModule = module {
-
+    single { UserPreferencesImpl() }
 }

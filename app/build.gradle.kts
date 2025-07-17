@@ -25,5 +25,5 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation(projects.core.di)
     implementation(projects.core.presentation)
-    implementation(projects.communication)
+    implementation(projects.data)
 }

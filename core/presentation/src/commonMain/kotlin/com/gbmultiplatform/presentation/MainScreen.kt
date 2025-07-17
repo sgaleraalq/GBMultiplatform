@@ -36,7 +36,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-    var initDestination: MainDestination = MainDestination.Welcome
+    val initDestination: MainDestination = MainDestination.Welcome
     val state = rememberMainNavigationState()
 
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()

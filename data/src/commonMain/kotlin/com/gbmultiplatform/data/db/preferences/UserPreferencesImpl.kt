@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.db.preferences
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
+class UserPreferencesImpl: ISharedPreferences {
+    override suspend fun insertUserId(userId: String) {
 
-val authModules = module {
-    single { AuthService() }
+    }
+
+    override suspend fun getUserId(): String? {
+        return null
+    }
+
+    override suspend fun isSessionExpired(): Boolean {
+        return false
+    }
 }

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.network.auth
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
-
-val authModules = module {
-    single { AuthService() }
+interface IAuthentication {
+    suspend fun signUp(email: String, password: String, onResult: (AuthResult) -> Unit)
+    suspend fun joinGazteluBira()
 }

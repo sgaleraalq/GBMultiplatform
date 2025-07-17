@@ -1,17 +1,18 @@
 plugins {
     id("com.gbmultiplatform.library")
+    id("com.gbmultiplatform.firebase")
     id("com.gbmultiplatform.koin")
 }
 
 android {
-    namespace = "com.gbmultiplatform.di"
+    namespace = "com.gbmultiplatform.data"
 }
 
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.core.presentation)
-            implementation(projects.data)
+            api(libs.datastore)
+            api(libs.datastore.preferences)
         }
     }
 }

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.db.preferences
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 
-val authModules = module {
-    single { AuthService() }
-}
+fun createDataStoreAndroid(context: Context): DataStore<Preferences> = createDataStore(
+    producePath = { context.filesDir.resolve(USER_PREFERENCES).absolutePath }
+)

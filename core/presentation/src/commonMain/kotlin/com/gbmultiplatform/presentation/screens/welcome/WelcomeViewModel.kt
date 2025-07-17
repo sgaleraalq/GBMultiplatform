@@ -18,7 +18,7 @@ package com.gbmultiplatform.presentation.screens.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gbmultiplatform.communication.AuthService
+import com.gbmultiplatform.data.network.auth.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 

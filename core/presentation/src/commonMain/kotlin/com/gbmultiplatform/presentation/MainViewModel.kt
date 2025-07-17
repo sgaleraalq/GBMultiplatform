@@ -17,11 +17,14 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
+import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class MainViewModel : ViewModel() {
+class MainViewModel(
+    private val userPreferences: UserPreferencesImpl
+) : ViewModel() {
 
     private val screensWithBottomNavigation = listOf(
         Home

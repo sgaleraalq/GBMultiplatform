@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.network.auth
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
-
-val authModules = module {
-    single { AuthService() }
-}
+data class AuthResult(
+    val success: Boolean,
+    val user: String,
+    val error: String
+)

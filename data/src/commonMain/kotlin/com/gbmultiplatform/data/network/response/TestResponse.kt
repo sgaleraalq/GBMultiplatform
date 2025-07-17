@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.data.network.response
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
+import kotlinx.serialization.Serializable
 
-val authModules = module {
-    single { AuthService() }
-}
+@Serializable
+data class TestResponse(
+    val test: String
+)

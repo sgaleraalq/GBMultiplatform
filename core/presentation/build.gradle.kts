@@ -14,7 +14,7 @@ kotlin {
             implementation(libs.androidx.navigation.compose)
         }
         commonMain.dependencies {
-            implementation(projects.communication)
+            implementation(projects.data)
             implementation(projects.core.designSystem)
             implementation(compose.components.resources)
             api(libs.kotlinx.serialization.json)

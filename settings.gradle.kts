@@ -30,7 +30,7 @@ dependencyResolutionManagement {
 }
 
 include(":app")
-include(":communication")
+include(":data")
 include(":core:di")
 include(":core:presentation")
 include(":core:design-system")

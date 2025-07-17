@@ -16,16 +16,6 @@
 
 package com.gbmultiplatform.convention.kmp.utils
 
-import com.gbmultiplatform.convention.kmp.utils.AndroidConfiguration.ACTIVITY_COMPOSE
-import com.gbmultiplatform.convention.kmp.utils.AndroidConfiguration.COMPOSE_PREVIEW
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_FOUNDATION
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_MATERIAL3
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_RUNTIME
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_UI
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_UI_TOOLING_PREVIEW
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.KOTLIN_TEST
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.LIFECYCLE_RUNTIME_COMPOSE
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.LIFECYCLE_VIEWMODEL
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -34,17 +24,17 @@ internal fun KotlinMultiplatformExtension.configureCommonDependencies(
     libs: VersionCatalog
 ) {
     sourceSets.commonMain.dependencies {
-        implementation(libs.findLibrary(COMPOSE_RUNTIME).get())
-        implementation(libs.findLibrary(COMPOSE_FOUNDATION).get())
-        implementation(libs.findLibrary(COMPOSE_MATERIAL3).get())
-        implementation(libs.findLibrary(COMPOSE_UI).get())
-        implementation(libs.findLibrary(COMPOSE_UI_TOOLING_PREVIEW).get())
-        implementation(libs.findLibrary(LIFECYCLE_VIEWMODEL).get())
-        implementation(libs.findLibrary(LIFECYCLE_RUNTIME_COMPOSE).get())
+        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_RUNTIME).get())
+        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_FOUNDATION).get())
+        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_MATERIAL3).get())
+        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_UI).get())
+        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING_PREVIEW).get())
+        implementation(libs.findLibrary(KmpConfiguration.LIFECYCLE_VIEWMODEL).get())
+        implementation(libs.findLibrary(KmpConfiguration.LIFECYCLE_RUNTIME_COMPOSE).get())
     }
 
     sourceSets.commonTest.dependencies {
-        implementation(libs.findLibrary(KOTLIN_TEST).get())
+        implementation(libs.findLibrary(KmpConfiguration.KOTLIN_TEST).get())
     }
 }
 
@@ -57,8 +47,8 @@ internal fun KotlinMultiplatformExtension.configureAndroidKmp(
         }
     }
     sourceSets.androidMain.dependencies {
-        implementation(libs.findLibrary(ACTIVITY_COMPOSE).get())
-        implementation(libs.findLibrary(COMPOSE_PREVIEW).get())
+        implementation(libs.findLibrary(AndroidConfiguration.ACTIVITY_COMPOSE).get())
+        implementation(libs.findLibrary(AndroidConfiguration.COMPOSE_PREVIEW).get())
     }
 }
 

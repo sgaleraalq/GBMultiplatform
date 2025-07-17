@@ -17,12 +17,9 @@
 package com.gbmultiplatform.convention.kmp
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.gbmultiplatform.convention.configureKotlinAndroid
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_UI_TOOLING
-import com.gbmultiplatform.convention.kmp.utils.Plugins.ANDROID_APPLICATION
-import com.gbmultiplatform.convention.kmp.utils.Plugins.COMPOSE_COMPILER
-import com.gbmultiplatform.convention.kmp.utils.Plugins.COMPOSE_MULTIPLATFORM
-import com.gbmultiplatform.convention.kmp.utils.Plugins.KOTLIN_MULTIPLATFORM
+import com.gbmultiplatform.configureKotlinAndroid
+import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration
+import com.gbmultiplatform.convention.kmp.utils.Plugins
 import com.gbmultiplatform.convention.kmp.utils.configureAndroidKmp
 import com.gbmultiplatform.convention.kmp.utils.configureCommonDependencies
 import com.gbmultiplatform.convention.kmp.utils.configureiOSKmp
@@ -39,10 +36,10 @@ class KmpAppConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-        plugins.apply(libs.findPlugin(KOTLIN_MULTIPLATFORM).get().get().pluginId)
-        plugins.apply(libs.findPlugin(ANDROID_APPLICATION).get().get().pluginId)
-        plugins.apply(libs.findPlugin(COMPOSE_MULTIPLATFORM).get().get().pluginId)
-        plugins.apply(libs.findPlugin(COMPOSE_COMPILER).get().get().pluginId)
+        plugins.apply(libs.findPlugin(Plugins.KOTLIN_MULTIPLATFORM).get().get().pluginId)
+        plugins.apply(libs.findPlugin(Plugins.ANDROID_APPLICATION).get().get().pluginId)
+        plugins.apply(libs.findPlugin(Plugins.COMPOSE_MULTIPLATFORM).get().get().pluginId)
+        plugins.apply(libs.findPlugin(Plugins.COMPOSE_COMPILER).get().get().pluginId)
 
         extensions.configure<BaseAppModuleExtension> {
             configureKotlinAndroid(this)
@@ -55,7 +52,7 @@ class KmpAppConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("debugImplementation", libs.findLibrary(COMPOSE_UI_TOOLING).get())
+            add("debugImplementation", libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING).get())
         }
     }
 }

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Gaztelu Bira</string>
+    <string name="welcome_to">Welcome to</string>
+
+    <string name="gaztelu_bira_welcome_text">
+        All your Gaztelu Bira match stats and player records — ready to review and relive
+    </string>
+
+    <string name="create_new_team">Create a new team</string>
+    <string name="join_existing_team">Or join an existing one</string>
+
+    <string name="join_team">Join team</string>
+    <string name="join">Join</string>
+    <string name="join_gaztelu_bira">Join Gaztelu Bira</string>
+    <string name="insert_team_code_to_join">Insert team's code to join their group</string>
+</resources>

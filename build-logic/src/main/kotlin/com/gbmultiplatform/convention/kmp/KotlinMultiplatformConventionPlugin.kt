@@ -17,7 +17,7 @@
 package com.gbmultiplatform.convention.kmp
 
 import com.android.build.gradle.LibraryExtension
-import com.gbmultiplatform.convention.configureKotlinAndroid
+import com.gbmultiplatform.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension

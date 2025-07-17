@@ -1,5 +1,7 @@
- plugins {
-     id("com.gbmultiplatform.kmp.library.multiplatform")
+plugins {
+    id("com.gbmultiplatform.library")
+    id("com.gbmultiplatform.firebase")
+    id("com.gbmultiplatform.koin")
 }
 
 android {

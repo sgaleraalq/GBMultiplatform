@@ -17,8 +17,8 @@
 package com.gbmultiplatform.convention.kmp
 
 import com.android.build.gradle.LibraryExtension
-import com.gbmultiplatform.convention.configureKotlinAndroid
-import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration.COMPOSE_UI_TOOLING
+import com.gbmultiplatform.configureKotlinAndroid
+import com.gbmultiplatform.convention.kmp.utils.KmpConfiguration
 import com.gbmultiplatform.convention.kmp.utils.configureAndroidKmp
 import com.gbmultiplatform.convention.kmp.utils.configureCommonDependencies
 import com.gbmultiplatform.convention.kmp.utils.configureiOSKmp
@@ -53,7 +53,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("debugImplementation", libs.findLibrary(COMPOSE_UI_TOOLING).get())
+            add("debugImplementation", libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING).get())
         }
     }
 }

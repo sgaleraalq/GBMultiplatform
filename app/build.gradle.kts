@@ -1,6 +1,6 @@
 plugins {
-    id("com.gbmultiplatform.kmp.app.multiplatform")
-    id("com.google.gms.google-services")
+    id("com.gbmultiplatform.android.app")
+    id("com.gbmultiplatform.android.firebase")
 }
 
 android {
@@ -21,16 +21,9 @@ android {
     }
 }
 
-kotlin {
-    sourceSets {
-        androidMain.dependencies {
-            api(libs.androidx.core.ktx)
-            api(project.dependencies.platform(libs.android.firebase.bom))
-        }
-        commonMain.dependencies {
-            implementation(projects.communication)
-            implementation(compose.components.resources)
-            implementation(libs.gitlive.firebase.firestore)
-        }
-    }
+dependencies {
+    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation(projects.core.di)
+    implementation(projects.core.presentation)
+    implementation(projects.communication)
 }

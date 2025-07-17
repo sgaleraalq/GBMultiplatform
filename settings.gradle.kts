@@ -31,3 +31,6 @@ dependencyResolutionManagement {
 
 include(":app")
 include(":communication")
+include(":core:di")
+include(":core:presentation")
+include(":core:design-system")

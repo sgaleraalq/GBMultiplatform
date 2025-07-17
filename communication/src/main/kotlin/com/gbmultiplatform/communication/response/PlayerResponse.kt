@@ -18,10 +18,7 @@ package com.gbmultiplatform.communication.response
 
 data class PlayerResponse(
     val id: String,
-    val goals: Int,
-    val assists: Int,
-    val cleanSheets: Int,
-    val penaltiesProduced: Int,
-    val gamesPlayed: Int,
-    val currentRanking: Int
+    val name: String,
+    val position: String,
+    val image: String
 )

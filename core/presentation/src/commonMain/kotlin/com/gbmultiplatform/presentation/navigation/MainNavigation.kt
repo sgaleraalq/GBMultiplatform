@@ -18,16 +18,15 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
-import com.gbmultiplatform.presentation.MainScreen
+import com.gbmultiplatform.presentation.screens.auth.AuthScreen
+import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
-import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.PolymorphicModuleBuilder
 import kotlin.reflect.KClass
 
 interface MainNavigationState {
     val currentDestination: State<MainDestination?>
-//    fun onNavigationChanged()
     fun navigateBack()
     fun popUpToHome()
     fun navigate(destination: MainDestination)
@@ -46,18 +45,18 @@ interface MainDestination {
     fun Content(state: MainNavigationState)
 
     @Serializable
-    object Init : MainDestination {
+    object Welcome : MainDestination {
         @Composable
         override fun Content(state: MainNavigationState) {
-            MainScreen()
+            WelcomeScreen()
         }
     }
 
     @Serializable
-    object Welcome : MainDestination {
+    object Auth : MainDestination {
         @Composable
         override fun Content(state: MainNavigationState) {
-            WelcomeScreen(mainNavigationState = state)
+            AuthScreen()
         }
     }
 
@@ -112,7 +111,7 @@ inline fun <reified T : MainDestination> KClass<T>.configuration(): MainDestinat
 }
 
 val defaultMainDestinations: List<MainDestinationConfiguration<*>> = listOf(
-    MainDestination.Init.configuration(),
     MainDestination.Home.configuration(),
-    MainDestination.Welcome.configuration()
+    MainDestination.Welcome.configuration(),
+    MainDestination.Auth.configuration()
 )

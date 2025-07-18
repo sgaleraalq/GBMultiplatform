@@ -14,14 +14,5 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.presentation.screens.auth.login
 
-import com.gbmultiplatform.presentation.MainViewModel
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.module
-
-val viewModelModule = module {
-    viewModelOf(::MainViewModel)
-    viewModelOf(::WelcomeViewModel)
-}

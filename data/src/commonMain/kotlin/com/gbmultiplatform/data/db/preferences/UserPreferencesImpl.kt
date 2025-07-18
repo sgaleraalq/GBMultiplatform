@@ -23,10 +23,10 @@ import kotlinx.coroutines.flow.map
 class UserPreferencesImpl(
     private val dataStore: PreferencesDatastore
 ): ISharedPreferences {
+
     companion object {
         val USER_EMAIL = stringPreferencesKey("user_email")
     }
-
 
     override suspend fun insertUserId(email: String) {
         dataStore.updateData { preferences ->
@@ -40,6 +40,6 @@ class UserPreferencesImpl(
         dataStore.data.map { it[USER_EMAIL] }.firstOrNull()
 
     override suspend fun isSessionActive(): Boolean {
-        return true
+        return false
     }
 }

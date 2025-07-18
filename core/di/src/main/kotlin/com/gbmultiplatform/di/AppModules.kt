@@ -17,8 +17,11 @@
 package com.gbmultiplatform.di
 
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import com.gbmultiplatform.presentation.navigation.MainNavigationState
+import com.gbmultiplatform.presentation.navigation.NavigationHandler
 import org.koin.dsl.module
 
 val appModule = module {
     single { UserPreferencesImpl(get()) }
+    single<MainNavigationState> { get<NavigationHandler>() }
 }

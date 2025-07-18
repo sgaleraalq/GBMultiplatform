@@ -14,36 +14,25 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.welcome
+package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.data.network.auth.AuthService
+import com.gbmultiplatform.presentation.navigation.MainDestination.Auth
+import com.gbmultiplatform.presentation.navigation.MainNavigationState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class WelcomeViewModel(
-    private val userPreferences: UserPreferencesImpl
+    private val mainNavigationState: MainNavigationState
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading
 
-    fun onJoinGazteluBira(onSuccessfulJoin: () -> Unit) {
-        viewModelScope.launch {
-            _isLoading.value = true
-            userPreferences.insertUserId("example.email@gmail.com")
-            _isLoading.value = false
-        }
+    fun onJoinGazteluBira() {
+        mainNavigationState.navigate(Auth)
     }
-
-
-    fun onRetrieveUserId() {
-        viewModelScope.launch {
-            val userEmail = userPreferences.getUserId()
-            println("And this is my user email: $userEmail")
-        }
-    }
-
 }

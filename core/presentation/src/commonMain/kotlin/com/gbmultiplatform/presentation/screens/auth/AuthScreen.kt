@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.presentation.screens.auth
 
-import com.gbmultiplatform.presentation.MainViewModel
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.module
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
 
-val viewModelModule = module {
-    viewModelOf(::MainViewModel)
-    viewModelOf(::WelcomeViewModel)
+@Composable
+fun AuthScreen() {
+    Box(
+        modifier = Modifier.background(Red),
+        contentAlignment = Center
+    ) {
+        Text("AuthScreen", color = White)
+    }
 }

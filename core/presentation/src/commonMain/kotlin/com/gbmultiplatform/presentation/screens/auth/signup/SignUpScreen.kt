@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.presentation.screens.auth.signup
 
-import com.gbmultiplatform.presentation.MainViewModel
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.module
+import androidx.compose.runtime.Composable
 
-val viewModelModule = module {
-    viewModelOf(::MainViewModel)
-    viewModelOf(::WelcomeViewModel)
+@Composable
+fun SignUpScreen(
+
+) {
+
 }

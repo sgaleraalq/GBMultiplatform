@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.welcome
+package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -86,49 +86,8 @@ fun WelcomeScreenButtons(
     navigateToCreateNewTeamScreen: () -> Unit
 ) {
     GBElevatedButton(
-        modifier = Modifier.padding(horizontal = 18.dp),
+        modifier = Modifier.padding(start = 18.dp, end = 18.dp, bottom = 32.dp),
         text = stringResource(Res.string.join_gaztelu_bira),
         onClick = { navigateToCreateNewTeamScreen() }
     )
-    Spacer(Modifier.height(32.dp))
-//    GBElevatedButton(
-//        modifier = Modifier.padding(horizontal = 18.dp),
-//        text = stringResource(Res.string.join_existing_team),
-//        onClick = { onJoinToExistingTeamClick() },
-//        backgroundColor = Gray,
-//        textColor = White
-//    )
-}
-
-@Composable
-fun JoinExistingTeamDialogContent(
-    groupId: String,
-    onGroupIdChange: (String) -> Unit = {}
-) {
-    Column(
-        modifier = Modifier
-            .clip(shape = RoundedCornerShape(8.dp))
-            .background(White)
-            .padding(16.dp)
-    ) {
-        GBDialogTitle(
-            titleText = stringResource(Res.string.join_team)
-        )
-
-        Spacer(Modifier.height(8.dp))
-        GBDialogTextContent(
-            contentText = stringResource(Res.string.insert_team_code_to_join)
-        )
-        Spacer(Modifier.height(12.dp))
-        GBDialogTextField(
-            text = groupId,
-            onTextChanged = { onGroupIdChange(it) }
-        )
-        Spacer(Modifier.height(12.dp))
-        GBElevatedButton(
-            text = stringResource(Res.string.join),
-            onClick = { /* join app */ },
-            backgroundColor = gb_text_field_background
-        )
-    }
 }

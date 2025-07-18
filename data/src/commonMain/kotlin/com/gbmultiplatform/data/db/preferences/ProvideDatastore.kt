@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import kotlinx.coroutines.flow.Flow
 import okio.Path.Companion.toPath
 
 fun createDataStore(producePath: () -> String) : DataStore<Preferences> {

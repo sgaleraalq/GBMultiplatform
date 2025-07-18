@@ -33,7 +33,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.gbmultiplatform.presentation.MainScreen
+import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainDestination.Init
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.json.Json
@@ -75,8 +75,6 @@ private class AndroidMainNavigationState(
 
     private val _currentDestination = mutableStateOf<MainDestination?>(null)
     override val currentDestination: State<MainDestination?> = _currentDestination
-
-    val initDestination = MainDestination.Init
 
     override fun navigateBack() {
         navHostController.navigateUp()
@@ -156,7 +154,7 @@ private class AndroidMainNavigationState(
     }
 
     private fun getDestination(entry: NavBackStackEntry): MainDestination {
-        val route = entry.destination.route ?: getRoute(initDestination::class)
+        val route = entry.destination.route ?: getRoute(Home::class)
         val configuration = routeToConfiguration.getValue(route)
 
         if (configuration is MainDestinationConfiguration.NoParams) {

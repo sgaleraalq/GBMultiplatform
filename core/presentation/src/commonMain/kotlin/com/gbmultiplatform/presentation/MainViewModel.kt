@@ -17,18 +17,13 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainDestination.Welcome
-import com.gbmultiplatform.presentation.navigation.MainNavigationState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainViewModel(
@@ -57,8 +52,7 @@ class MainViewModel(
      * [Welcome] or go [Home] directly
      */
     suspend fun initApp() {
-        val sessionActive = sessionActive()
-        if (sessionActive) {
+        if (sessionActive()) {
             _initScreen.value = Home
         } else {
             _initScreen.value = Welcome

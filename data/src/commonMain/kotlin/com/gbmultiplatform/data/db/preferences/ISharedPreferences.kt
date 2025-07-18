@@ -22,5 +22,5 @@ interface ISharedPreferences {
     }
     suspend fun insertUserId(email: String)
     suspend fun getUserId(): String?
-    suspend fun isSessionExpired(): Boolean
+    suspend fun isSessionActive(): Boolean
 }

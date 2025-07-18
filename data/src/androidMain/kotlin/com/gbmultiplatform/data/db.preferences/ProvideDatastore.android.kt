@@ -16,10 +16,18 @@
 
 package com.gbmultiplatform.data.db.preferences
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 
-fun createDataStoreAndroid(context: Context): DataStore<Preferences> = createDataStore(
-    producePath = { context.filesDir.resolve(USER_PREFERENCES).absolutePath }
-)
+@Composable
+actual fun rememberDataStore(): PreferencesDatastore {
+    val context = LocalContext.current
+    return remember {
+        createDataStore(
+            producePath = {
+                context.filesDir.resolve(USER_PREFERENCES).absolutePath
+            },
+        )
+    }
+}

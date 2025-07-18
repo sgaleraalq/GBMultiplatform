@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import com.gbmultiplatform.data.db.preferences.rememberDataStore
 import com.gbmultiplatform.design_system.components.GBDialog
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBProgressDialog
@@ -39,6 +40,7 @@ fun WelcomeScreen(
     viewModel: WelcomeViewModel = koinViewModel<WelcomeViewModel>()
 ) {
     val isLoading by viewModel.isLoading.collectAsState()
+    val datastore = rememberDataStore()
 
     Column(
         modifier = Modifier

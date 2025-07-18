@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import com.gbmultiplatform.presentation.MainScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.welcome.WelcomeScreen
 import kotlinx.serialization.Serializable
@@ -37,12 +38,20 @@ interface MainNavigationState {
 expect fun rememberMainNavigationState(): MainNavigationState
 
 @Composable
-expect fun MainNavigation(state: MainNavigationState, initDestination: MainDestination?)
+expect fun MainNavigation(state: MainNavigationState, initDestination: MainDestination)
 
 interface MainDestination {
 
     @Composable
     fun Content(state: MainNavigationState)
+
+    @Serializable
+    object Init : MainDestination {
+        @Composable
+        override fun Content(state: MainNavigationState) {
+            MainScreen()
+        }
+    }
 
     @Serializable
     object Welcome : MainDestination {
@@ -103,6 +112,7 @@ inline fun <reified T : MainDestination> KClass<T>.configuration(): MainDestinat
 }
 
 val defaultMainDestinations: List<MainDestinationConfiguration<*>> = listOf(
+    MainDestination.Init.configuration(),
     MainDestination.Home.configuration(),
     MainDestination.Welcome.configuration()
 )

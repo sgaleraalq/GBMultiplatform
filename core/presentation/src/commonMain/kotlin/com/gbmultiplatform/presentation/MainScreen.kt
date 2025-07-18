@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.gbmultiplatform.data.db.preferences.rememberDataStore
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
@@ -35,12 +36,11 @@ fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
     val state = rememberMainNavigationState()
-
-    val initDestination by viewModel.currentScreen.collectAsState()
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()
+    val initScreen by viewModel.initScreen.collectAsState()
 
     LaunchedEffect(true) {
-        viewModel.initListener(state)
+        viewModel.initApp()
     }
 
     Scaffold(
@@ -55,6 +55,8 @@ fun MainScreen(
             painter = painterResource(Res.drawable.img_background),
             contentDescription = null
         )
-        MainNavigation(state, initDestination)
+        if (initScreen != null) {
+            MainNavigation(state, initScreen!!)
+        }
     }
 }

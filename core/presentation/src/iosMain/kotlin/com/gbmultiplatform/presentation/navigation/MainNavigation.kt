@@ -25,5 +25,5 @@ actual fun rememberMainNavigationState(): MainNavigationState =
 @Composable
 actual fun MainNavigation(
     state: MainNavigationState,
-    initDestination: MainDestination?
+    initDestination: MainDestination
 ) = MultiplatformMainNavigation(state, initDestination)

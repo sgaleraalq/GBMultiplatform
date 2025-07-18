@@ -17,20 +17,26 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
+import com.gbmultiplatform.presentation.navigation.MainDestination.Welcome
 import com.gbmultiplatform.presentation.navigation.MainNavigationState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class MainViewModel() :
-    ViewModel() {
+class MainViewModel(
+    private val userPreferencesImpl: UserPreferencesImpl
+) : ViewModel() {
 
-    private val _currentScreenListener = MutableStateFlow<MainDestination?>(null)
-    val currentScreen = _currentScreenListener
-
-    fun initListener(navState: MainNavigationState) {
-        _currentScreenListener.value = navState.currentDestination.value
-    }
+    private val _initScreen = MutableStateFlow<MainDestination?>(null)
+    val initScreen = _initScreen
 
     /**
      * Handles bottom navigation on screens
@@ -44,5 +50,24 @@ class MainViewModel() :
 
     fun updateBottomNavVisibility(destination: MainDestination?) {
         _showBottomNav.value = screensWithBottomNavigation.contains(destination)
+    }
+
+    /**
+     * Decides whether or not the user has to join the
+     * [Welcome] or go [Home] directly
+     */
+    suspend fun initApp() {
+        val sessionActive = sessionActive()
+        if (sessionActive) {
+            _initScreen.value = Home
+        } else {
+            _initScreen.value = Welcome
+        }
+    }
+
+    private suspend fun sessionActive(): Boolean {
+        return withContext(Dispatchers.IO) {
+            userPreferencesImpl.isSessionActive()
+        }
     }
 }

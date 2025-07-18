@@ -16,14 +16,12 @@
 
 package com.gbmultiplatform.data.db.preferences
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 
 class UserPreferencesImpl(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: PreferencesDatastore
 ): ISharedPreferences {
     companion object {
         val USER_EMAIL = stringPreferencesKey("user_email")
@@ -41,7 +39,7 @@ class UserPreferencesImpl(
     override suspend fun getUserId() =
         dataStore.data.map { it[USER_EMAIL] }.firstOrNull()
 
-    override suspend fun isSessionExpired(): Boolean {
-        return false
+    override suspend fun isSessionActive(): Boolean {
+        return true
     }
 }

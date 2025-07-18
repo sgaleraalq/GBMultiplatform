@@ -26,6 +26,7 @@ import kotlin.reflect.KClass
 
 interface MainNavigationState {
     val currentDestination: State<MainDestination?>
+//    fun onNavigationChanged()
     fun navigateBack()
     fun popUpToHome()
     fun navigate(destination: MainDestination)
@@ -36,7 +37,7 @@ interface MainNavigationState {
 expect fun rememberMainNavigationState(): MainNavigationState
 
 @Composable
-expect fun MainNavigation(state: MainNavigationState, initDestination: MainDestination)
+expect fun MainNavigation(state: MainNavigationState, initDestination: MainDestination?)
 
 interface MainDestination {
 

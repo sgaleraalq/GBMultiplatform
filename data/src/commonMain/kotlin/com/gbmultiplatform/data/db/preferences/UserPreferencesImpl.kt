@@ -16,14 +16,30 @@
 
 package com.gbmultiplatform.data.db.preferences
 
-class UserPreferencesImpl: ISharedPreferences {
-    override suspend fun insertUserId(userId: String) {
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 
+class UserPreferencesImpl(
+    private val dataStore: DataStore<Preferences>
+): ISharedPreferences {
+    companion object {
+        val USER_EMAIL = stringPreferencesKey("user_email")
     }
 
-    override suspend fun getUserId(): String? {
-        return null
+
+    override suspend fun insertUserId(email: String) {
+        dataStore.updateData { preferences ->
+            preferences.toMutablePreferences().apply {
+                this[USER_EMAIL] = email
+            }
+        }
     }
+
+    override suspend fun getUserId() =
+        dataStore.data.map { it[USER_EMAIL] }.firstOrNull()
 
     override suspend fun isSessionExpired(): Boolean {
         return false

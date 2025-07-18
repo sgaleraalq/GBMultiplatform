@@ -34,7 +34,7 @@ interface MultiplatformMainNavigationState : MainNavigationState {
 @Composable
 fun MultiplatformMainNavigation(
     state: MainNavigationState,
-    initDestination: MainDestination
+    initDestination: MainDestination?
 ) {
     state as MultiplatformMainNavigationState
     MultiplatformBackHandler { state.navigateBack() }
@@ -42,17 +42,17 @@ fun MultiplatformMainNavigation(
         targetState = initDestination
     ) { destination ->
         state.stateHolder.SaveableStateProvider(destination.toString()) {
-            key(destination) { destination.Content(state) }
+            key(destination) { destination?.Content(state) }
         }
     }
 }
 
 @Composable
 fun rememberMultiplatformMainNavigationState(
-    initDestination: MainDestination = MainDestination.Welcome
+    initDestination: MainDestination
 ): MainNavigationState {
     val stack = remember {
-        mutableStateOf<List<MainDestination>>(
+        mutableStateOf(
             listOf(initDestination)
         )
     }

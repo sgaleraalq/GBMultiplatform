@@ -18,12 +18,13 @@ package com.gbmultiplatform.presentation.screens.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.data.network.auth.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class WelcomeViewModel(
-    private val authService: AuthService
+    private val userPreferences: UserPreferencesImpl
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -32,8 +33,16 @@ class WelcomeViewModel(
     fun onJoinGazteluBira(onSuccessfulJoin: () -> Unit) {
         viewModelScope.launch {
             _isLoading.value = true
-            authService.joinGazteluBira()
+            userPreferences.insertUserId("example.email@gmail.com")
             _isLoading.value = false
+        }
+    }
+
+
+    fun onRetrieveUserId() {
+        viewModelScope.launch {
+            val userEmail = userPreferences.getUserId()
+            println("And this is my user email: $userEmail")
         }
     }
 

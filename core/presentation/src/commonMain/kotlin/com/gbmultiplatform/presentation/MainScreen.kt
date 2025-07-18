@@ -23,8 +23,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
-import com.gbmultiplatform.design_system.components.GBBottomNavigationState
-import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
 import gbmultiplatform.core.presentation.generated.resources.Res
@@ -36,22 +34,20 @@ import org.koin.compose.viewmodel.koinViewModel
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-    val initDestination: MainDestination = MainDestination.Welcome
     val state = rememberMainNavigationState()
 
+    val initDestination by viewModel.currentScreen.collectAsState()
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()
 
-    LaunchedEffect(state.currentDestination.value) {
-        state.currentDestination.let { destination ->
-            viewModel.updateBottomNavVisibility(destination.value)
-        }
+    LaunchedEffect(true) {
+        viewModel.initListener(state)
     }
 
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
                 show = showBottomNavigation,
-                states = emptyList<GBBottomNavigationState>()
+                states = emptyList()
             )
         }
     ){

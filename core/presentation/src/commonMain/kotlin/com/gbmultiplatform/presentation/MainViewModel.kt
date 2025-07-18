@@ -17,25 +17,32 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
-import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.presentation.navigation.MainDestination
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
+import com.gbmultiplatform.presentation.navigation.MainNavigationState
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class MainViewModel(
-    private val userPreferences: UserPreferencesImpl
-) : ViewModel() {
+class MainViewModel() :
+    ViewModel() {
+
+    private val _currentScreenListener = MutableStateFlow<MainDestination?>(null)
+    val currentScreen = _currentScreenListener
+
+    fun initListener(navState: MainNavigationState) {
+        _currentScreenListener.value = navState.currentDestination.value
+    }
+
+    /**
+     * Handles bottom navigation on screens
+     */
 
     private val screensWithBottomNavigation = listOf(
         Home
     )
-
     private val _showBottomNav = MutableStateFlow(false)
     val showBottomNav = _showBottomNav
 
-
     fun updateBottomNavVisibility(destination: MainDestination?) {
         _showBottomNav.value = screensWithBottomNavigation.contains(destination)
-        println("Bottom nav visibility updated: ${_showBottomNav.value} for destination: $destination")
     }
 }

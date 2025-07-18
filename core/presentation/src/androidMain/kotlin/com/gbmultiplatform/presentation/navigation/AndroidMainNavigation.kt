@@ -48,7 +48,7 @@ actual fun rememberMainNavigationState(): MainNavigationState {
 @Composable
 actual fun MainNavigation(
     state: MainNavigationState,
-    initDestination: MainDestination
+    initDestination: MainDestination?
 ) {
     state as AndroidMainNavigationState
 

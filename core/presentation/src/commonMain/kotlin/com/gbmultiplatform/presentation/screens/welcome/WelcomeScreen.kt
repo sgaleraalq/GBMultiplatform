@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.design_system.components.GBDialog
+import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.presentation.navigation.MainDestination.Home
 import com.gbmultiplatform.presentation.navigation.MainNavigationState
@@ -53,6 +54,10 @@ fun WelcomeScreen(
                     }
                 )
             }
+        )
+        GBElevatedButton(
+            text = "getUser ID",
+            onClick = {viewModel.onRetrieveUserId()}
         )
     }
 

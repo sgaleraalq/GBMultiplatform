@@ -16,9 +16,18 @@
 
 package com.gbmultiplatform.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import com.gbmultiplatform.data.db.preferences.ISharedPreferences.Companion.USER_DB
+import com.gbmultiplatform.data.db.preferences.createDataStore
 import com.gbmultiplatform.data.network.auth.AuthService
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import java.io.File
 
 val authModules = module {
+    single<DataStore<Preferences>> {
+        createDataStore { File(androidContext().filesDir, USER_DB).absolutePath }
+    }
     single { AuthService() }
 }

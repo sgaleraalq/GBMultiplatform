@@ -17,7 +17,10 @@
 package com.gbmultiplatform.data.db.preferences
 
 interface ISharedPreferences {
-    suspend fun insertUserId(userId: String)
+    companion object {
+        const val USER_DB = USER_PREFERENCES
+    }
+    suspend fun insertUserId(email: String)
     suspend fun getUserId(): String?
     suspend fun isSessionExpired(): Boolean
 }

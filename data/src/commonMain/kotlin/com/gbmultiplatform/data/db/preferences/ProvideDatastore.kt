@@ -19,6 +19,7 @@ package com.gbmultiplatform.data.db.preferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
+import kotlinx.coroutines.flow.Flow
 import okio.Path.Companion.toPath
 
 fun createDataStore(producePath: () -> String) : DataStore<Preferences> {
@@ -27,4 +28,4 @@ fun createDataStore(producePath: () -> String) : DataStore<Preferences> {
     )
 }
 
-internal const val USER_PREFERENCES = "gbmultiplatform.user_preferences_pb"
+internal const val USER_PREFERENCES = "gbmultiplatformUser.preferences_pb"

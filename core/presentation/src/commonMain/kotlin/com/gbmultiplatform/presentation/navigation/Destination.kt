@@ -19,11 +19,13 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
+import kotlinx.serialization.Serializable
 
 interface Destination {
     @Composable
     fun Content()
 
+    @Serializable
     object Welcome: Destination {
         @Composable
         override fun Content() {
@@ -31,6 +33,7 @@ interface Destination {
         }
     }
 
+    @Serializable
     object Home: Destination {
         @Composable
         override fun Content() {

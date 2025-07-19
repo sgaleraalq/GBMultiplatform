@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.presentation.navigation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 
@@ -23,5 +24,9 @@ import androidx.navigation.NavHostController
 fun Navigation(
     navController: NavHostController
 ) {
+    Crossfade(
+        targetState = navController.currentDestination?.route ?: Destination.Welcome::class
+    ) {
 
+    }
 }

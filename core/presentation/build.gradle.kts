@@ -17,7 +17,12 @@ kotlin {
             implementation(projects.data)
             implementation(projects.core.designSystem)
             implementation(compose.components.resources)
+
+            /**
+             * Navigation
+             */
             api(libs.kotlinx.serialization.json)
+            api(libs.navigation.compose)
         }
     }
 }

@@ -19,7 +19,9 @@ package com.gbmultiplatform.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.navigation.compose.rememberNavController
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
+import com.gbmultiplatform.presentation.navigation.Navigation
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
@@ -33,18 +35,24 @@ fun MainScreen(
 //    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
 //    val initScreen by viewModel.initScreen.collectAsState()
 
-    Scaffold(
-        bottomBar = {
-            GBBottomNavigation(
-                show = false,
-                states = emptyList()
-            )
-        }
-    ){
-        Image(
-            painter = painterResource(Res.drawable.img_background),
-            contentDescription = null
-        )
-        WelcomeScreen()
-    }
+    val navController = rememberNavController()
+
+    Navigation(
+        navController = navController
+    )
+
+//    Scaffold(
+//        bottomBar = {
+//            GBBottomNavigation(
+//                show = false,
+//                states = emptyList()
+//            )
+//        }
+//    ){
+//        Image(
+//            painter = painterResource(Res.drawable.img_background),
+//            contentDescription = null
+//        )
+//        WelcomeScreen()
+//    }
 }

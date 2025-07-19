@@ -18,50 +18,41 @@ package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import com.gbmultiplatform.presentation.navigation.MainDestination
-import com.gbmultiplatform.presentation.navigation.MainDestination.Home
-import com.gbmultiplatform.presentation.navigation.MainDestination.Welcome
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.withContext
 
 class MainViewModel(
     private val userPreferencesImpl: UserPreferencesImpl
 ) : ViewModel() {
 
-    private val _initScreen = MutableStateFlow<MainDestination?>(null)
-    val initScreen = _initScreen
 
     /**
      * Handles bottom navigation on screens
      */
 
-    private val screensWithBottomNavigation = listOf(
-        Home
-    )
-    private val _showBottomNav = MutableStateFlow(false)
-    val showBottomNav = _showBottomNav
-
-    fun updateBottomNavVisibility(destination: MainDestination?) {
-        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
-    }
+//    private val screensWithBottomNavigation = listOf(
+//        Home
+//    )
+//    private val _showBottomNav = MutableStateFlow(false)
+//    val showBottomNav = _showBottomNav
+//
+//    fun updateBottomNavVisibility(destination: MainDestination?) {
+//        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
+//    }
 
     /**
      * Decides whether or not the user has to join the
      * [Welcome] or go [Home] directly
      */
-    suspend fun initApp() {
-        if (sessionActive()) {
-            _initScreen.value = Home
-        } else {
-            _initScreen.value = Welcome
-        }
-    }
-
-    private suspend fun sessionActive(): Boolean {
-        return withContext(Dispatchers.IO) {
-            userPreferencesImpl.isSessionActive()
-        }
-    }
+//    suspend fun initApp() {
+//        if (sessionActive()) {
+//            _initScreen.value = Home
+//        } else {
+//            _initScreen.value = Welcome
+//        }
+//    }
+//
+//    private suspend fun sessionActive(): Boolean {
+//        return withContext(Dispatchers.IO) {
+//            userPreferencesImpl.isSessionActive()
+//        }
+//    }
 }

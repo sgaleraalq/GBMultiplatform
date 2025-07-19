@@ -17,22 +17,14 @@
 package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import com.gbmultiplatform.data.network.auth.AuthService
-import com.gbmultiplatform.presentation.navigation.MainDestination.Auth
-import com.gbmultiplatform.presentation.navigation.MainNavigationState
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
 
-class WelcomeViewModel(
-    private val mainNavigationState: MainNavigationState
-): ViewModel() {
+class WelcomeViewModel(): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading = _isLoading
 
     fun onJoinGazteluBira() {
-        mainNavigationState.navigate(Auth)
+
     }
 }

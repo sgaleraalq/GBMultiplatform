@@ -19,38 +19,24 @@ package com.gbmultiplatform.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
-import com.gbmultiplatform.presentation.navigation.MainNavigation
-import com.gbmultiplatform.presentation.navigation.MainNavigationState
-import com.gbmultiplatform.presentation.navigation.NavigationHandler
-import com.gbmultiplatform.presentation.navigation.rememberMainNavigationState
+import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
 import org.jetbrains.compose.resources.painterResource
-import org.koin.compose.getKoin
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-    val state = rememberMainNavigationState()
-    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
-    val initScreen by viewModel.initScreen.collectAsState()
-    val injectedNavState = getKoin().get<NavigationHandler>()
-
-    LaunchedEffect(true) {
-        viewModel.initApp()
-        injectedNavState.attach(state)
-    }
+//    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
+//    val initScreen by viewModel.initScreen.collectAsState()
 
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
-                show = showBottomNavigation,
+                show = false,
                 states = emptyList()
             )
         }
@@ -59,8 +45,6 @@ fun MainScreen(
             painter = painterResource(Res.drawable.img_background),
             contentDescription = null
         )
-        if (initScreen != null) {
-            MainNavigation(state, initScreen!!)
-        }
+        WelcomeScreen()
     }
 }

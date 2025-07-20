@@ -44,19 +44,25 @@ import org.koin.compose.viewmodel.koinViewModel
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-//    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
     val navController = rememberNavigation()
     val currentDestination by navController.currentDestination
+    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
+    val bottomNavState by viewModel.bottomNavState.collectAsState()
 
     LaunchedEffect(true) {
         viewModel.initApp(navController)
+        viewModel.initializeNavigationState(navController)
+    }
+
+    LaunchedEffect(currentDestination) {
+        viewModel.updateBottomNavVisibility(currentDestination)
     }
 
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
-                show = false,
-                states = emptyList()
+                show = showBottomNavigation,
+                states = bottomNavState
             )
         }
     ){
@@ -68,13 +74,13 @@ fun MainScreen(
         )
 
         when (currentDestination) {
-            null -> {
-                SplashScreen()
-            }
-            else -> {
+            is Destination -> {
                 Navigation(
                     state = navController
                 )
+            }
+            null -> {
+                SplashScreen()
             }
         }
     }

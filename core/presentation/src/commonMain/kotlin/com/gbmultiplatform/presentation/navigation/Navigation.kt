@@ -43,6 +43,14 @@ fun Navigation(
             composable<Home> {
                 Home.Content(state)
             }
+
+            composable<Matches> {
+                Matches.Content(state)
+            }
+
+            composable<Stats> {
+                Stats.Content(state)
+            }
         }
     }
 }

@@ -14,30 +14,27 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home
+package com.gbmultiplatform.presentation.screens.gbapp.stats
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
-import com.gbmultiplatform.design_system.components.GBElevatedButton
-import com.gbmultiplatform.presentation.navigation.NavigationState
+import androidx.compose.ui.graphics.Color.Companion.Blue
+import androidx.compose.ui.graphics.Color.Companion.White
 
 @Composable
-fun HomeScreen(
-    state: NavigationState
-) {
+fun StatsScreen() {
     Box(
-        modifier = Modifier.fillMaxSize().background(Red),
+        modifier = Modifier.fillMaxSize().background(Blue),
         contentAlignment = Center
     ) {
-        GBElevatedButton(
-            text = "Go back",
-            onClick = { state.navigateBack() }
+        Text(
+            text = "Stats Screen",
+            color = White
         )
     }
-
 }

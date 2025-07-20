@@ -28,6 +28,8 @@ interface NavigationState {
     val currentDestination: State<Destination?>
     fun navigateTo(destination: Destination)
     fun navigateBack()
+
+    companion object
 }
 
 @Composable

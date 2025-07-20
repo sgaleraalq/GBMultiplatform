@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home
+package com.gbmultiplatform.presentation.screens.gbapp.home
 
 import androidx.lifecycle.ViewModel
 

@@ -19,14 +19,16 @@ package com.gbmultiplatform.presentation
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import com.gbmultiplatform.design_system.components.GBBottomNavigationState
 import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Destination.Home
-import com.gbmultiplatform.presentation.navigation.Destination.Welcome
+import com.gbmultiplatform.presentation.navigation.Destination.*
 import com.gbmultiplatform.presentation.navigation.NavigationState
+import gbmultiplatform.core.presentation.generated.resources.Res
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
+import org.jetbrains.compose.resources.painterResource
 
 class MainViewModel(
     private val userPreferencesImpl: UserPreferencesImpl
@@ -36,15 +38,32 @@ class MainViewModel(
      * Handles bottom navigation on screens
      */
 
-//    private val screensWithBottomNavigation = listOf(
-//        Home
-//    )
-//    private val _showBottomNav = MutableStateFlow(false)
-//    val showBottomNav = _showBottomNav
-//
-//    fun updateBottomNavVisibility(destination: MainDestination?) {
-//        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
-//    }
+    private lateinit var navState: NavigationState
+
+    fun initializeNavigationState(state: NavigationState) {
+        navState = state
+    }
+
+    private val screensWithBottomNavigation = listOf(
+        Home, Matches, Stats
+    )
+    private val _showBottomNav = MutableStateFlow(false)
+    val showBottomNav = _showBottomNav
+
+    private val _bottomNavState = MutableStateFlow(
+        screensWithBottomNavigation.map { bottomDestination ->
+            GBBottomNavigationState(
+                isSelected = false,
+                icon = null,
+                onNavigationPressed = { navState.navigateTo(bottomDestination) }
+            )
+        }
+    )
+    val bottomNavState = _bottomNavState
+
+    fun updateBottomNavVisibility(destination: Destination?) {
+        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
+    }
 
     /**
      * Decides whether or not the user has to join the

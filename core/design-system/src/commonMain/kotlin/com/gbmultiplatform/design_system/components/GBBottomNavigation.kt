@@ -23,13 +23,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import gbmultiplatform.core.design_system.generated.resources.Res
+import gbmultiplatform.core.design_system.generated.resources.ic_home
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 data class GBBottomNavigationState(
     var isSelected: Boolean,
-    val icon: DrawableResource,
-    val onIconPressed: () -> Unit
+    val icon: DrawableResource?,
+    val onNavigationPressed: () -> Unit
 )
 
 @Composable
@@ -45,7 +47,7 @@ fun GBBottomNavigation(
             GBBottomNavItem(
                 isSelected = bottomNav.isSelected,
                 icon = bottomNav.icon,
-                navigate = bottomNav.onIconPressed
+                navigate = bottomNav.onNavigationPressed
             )
         }
     }
@@ -55,7 +57,7 @@ fun GBBottomNavigation(
 @Composable
 fun RowScope.GBBottomNavItem(
     isSelected: Boolean,
-    icon: DrawableResource,
+    icon: DrawableResource?,
     navigate: () -> Unit
 ) {
     NavigationBarItem(
@@ -63,7 +65,7 @@ fun RowScope.GBBottomNavItem(
         onClick = { navigate() },
         icon = {
             Icon(
-                painter = painterResource(icon),
+                painter = painterResource(icon?: Res.drawable.ic_home),
                 contentDescription = null
             )
         },

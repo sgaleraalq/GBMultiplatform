@@ -17,12 +17,20 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import com.gbmultiplatform.presentation.navigation.Destination
+import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
+import com.gbmultiplatform.presentation.navigation.NavigationState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.withContext
 
 class MainViewModel(
     private val userPreferencesImpl: UserPreferencesImpl
 ) : ViewModel() {
-
 
     /**
      * Handles bottom navigation on screens
@@ -42,17 +50,17 @@ class MainViewModel(
      * Decides whether or not the user has to join the
      * [Welcome] or go [Home] directly
      */
-//    suspend fun initApp() {
-//        if (sessionActive()) {
-//            _initScreen.value = Home
-//        } else {
-//            _initScreen.value = Welcome
-//        }
-//    }
-//
-//    private suspend fun sessionActive(): Boolean {
-//        return withContext(Dispatchers.IO) {
-//            userPreferencesImpl.isSessionActive()
-//        }
-//    }
+    suspend fun initApp(navController: NavigationState) {
+        if (sessionActive()) {
+            navController.navigateTo(Home)
+        } else {
+            navController.navigateTo(Welcome)
+        }
+    }
+
+    private suspend fun sessionActive(): Boolean {
+        return withContext(Dispatchers.IO) {
+            userPreferencesImpl.isSessionActive()
+        }
+    }
 }

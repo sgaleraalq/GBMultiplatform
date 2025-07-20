@@ -17,22 +17,32 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.gbmultiplatform.presentation.navigation.Destination.Home
-import com.gbmultiplatform.presentation.navigation.Destination.Welcome
+import com.gbmultiplatform.presentation.navigation.Destination.*
 
 @Composable
 fun Navigation(
     state: NavigationState
 ) {
-    val destination = state.currentDestination.value
+    state as NavigatorHandler
 
-    when (destination) {
-        is Welcome -> Welcome.Content(state)
-        is Home -> Home.Content(state)
-        null -> {}
+    println("Destination: ${state.getCurrentDestination()}")
+    println("Destination: ${state.currentDestination.value}")
+
+    val current = state.currentDestination.value
+    if (current != null) {
+        NavHost(
+            navController = state.navController,
+            startDestination = current,
+        ) {
+            composable<Welcome> {
+                Welcome.Content(state)
+            }
+
+            composable<Home> {
+                Home.Content(state)
+            }
+        }
     }
 }

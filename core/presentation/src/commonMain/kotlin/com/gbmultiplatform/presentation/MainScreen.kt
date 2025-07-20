@@ -17,18 +17,24 @@
 package com.gbmultiplatform.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Destination.Home
-import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.Navigation
-import com.gbmultiplatform.presentation.navigation.NavigationState
-import com.gbmultiplatform.presentation.navigation.rememberNavState
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
+import com.gbmultiplatform.presentation.navigation.rememberNavigation
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
 import org.jetbrains.compose.resources.painterResource
@@ -39,12 +45,11 @@ fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
 //    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
-//    val initScreen by viewModel.initScreen.collectAsState()
-
-    val state = rememberNavState()
+    val navController = rememberNavigation()
+    val currentDestination by navController.currentDestination
 
     LaunchedEffect(true) {
-        InitAppNavigationHandler(state).initApp()
+        viewModel.initApp(navController)
     }
 
     Scaffold(
@@ -56,19 +61,35 @@ fun MainScreen(
         }
     ){
         Image(
+            modifier = Modifier.fillMaxSize(),
+            contentScale = Crop,
             painter = painterResource(Res.drawable.img_background),
             contentDescription = null
         )
-        Navigation(
-            state = state
-        )
+
+        when (currentDestination) {
+            null -> {
+                SplashScreen()
+            }
+            else -> {
+                Navigation(
+                    state = navController
+                )
+            }
+        }
     }
 }
 
-class InitAppNavigationHandler(
-    private val state: NavigationState
-) {
-    fun initApp() {
-        state.navigateTo(Welcome)
+
+@Composable
+fun SplashScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Center
+    ) {
+        Text(
+            "Splash screen",
+            color = White
+        )
     }
 }

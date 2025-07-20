@@ -21,38 +21,38 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.gbmultiplatform.presentation.InitAppNavigationHandler
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 interface NavigationState {
     val currentDestination: State<Destination?>
-    fun addDestination(destination: Destination)
     fun navigateTo(destination: Destination)
     fun navigateBack()
 }
 
 @Composable
-fun rememberNavState(): NavigationState {
-    return remember {
-        object : NavigationState {
-            private val stack = mutableListOf<Destination>()
-            override val currentDestination: State<Destination?> = mutableStateOf(null)
+fun rememberNavigation(): NavigationState {
+    val navController = rememberNavController()
+    return remember { NavigatorHandler(navController) }
+}
 
-            override fun addDestination(destination: Destination) {
-                stack.add(destination)
-            }
+class NavigatorHandler(
+    val navController: NavHostController
+): NavigationState {
+    private val stack = mutableListOf<Destination>()
+    override val currentDestination: State<Destination?> = mutableStateOf(null)
 
-            override fun navigateTo(destination: Destination) {
-                println("Navigating to: $destination")
-                stack.add(destination)
-                (currentDestination as MutableState).value = destination
-            }
+    override fun navigateTo(destination: Destination) {
+        stack.add(destination)
+        (currentDestination as MutableState).value = destination
+    }
 
-            override fun navigateBack() {
-                if (stack.size > 1) {
-                    stack.removeLast()
-                    (currentDestination as MutableState).value = stack.last()
-                }
-            }
+    override fun navigateBack() {
+        if (stack.size > 1) {
+            stack.removeLast()
+            (currentDestination as MutableState).value = stack.last()
         }
     }
+
+    fun getCurrentDestination() = currentDestination.value
 }

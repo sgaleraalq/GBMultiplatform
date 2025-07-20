@@ -16,10 +16,35 @@
 
 package com.gbmultiplatform.presentation.navigation
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 interface NavigationState {
     val currentDestination: State<Destination>
     fun navigateTo(destination: Destination)
     fun navigateBack(destination: Destination)
+}
+
+@Composable
+fun rememberNavState(): NavigationState {
+    return remember {
+        object : NavigationState {
+            private val stack = mutableListOf<Destination>(Destination.Home)
+            override val currentDestination: State<Destination> = mutableStateOf(stack.last())
+
+            override fun navigateTo(destination: Destination) {
+                stack.add(destination)
+                (currentDestination as androidx.compose.runtime.MutableState).value = destination
+            }
+
+            override fun navigateBack(destination: Destination) {
+                if (stack.size > 1) {
+                    stack.removeLast()
+                    (currentDestination as androidx.compose.runtime.MutableState).value = stack.last()
+                }
+            }
+        }
+    }
 }

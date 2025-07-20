@@ -16,17 +16,27 @@
 
 package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 
 @Composable
 fun Navigation(
-    navController: NavHostController
+    navController: NavHostController,
+    destinations: List<Destination>
 ) {
-    Crossfade(
-        targetState = navController.currentDestination?.route ?: Destination.Welcome::class
+    NavHost(
+        navController = navController,
+        startDestination = Welcome.route
     ) {
-
+        destinations.forEach { destination ->
+            composable(
+                route = destination.route
+            ) {
+                destination.Content()
+            }
+        }
     }
 }

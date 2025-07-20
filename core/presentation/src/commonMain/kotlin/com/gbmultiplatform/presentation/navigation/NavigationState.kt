@@ -17,32 +17,40 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import com.gbmultiplatform.presentation.InitAppNavigationHandler
 
 interface NavigationState {
-    val currentDestination: State<Destination>
+    val currentDestination: State<Destination?>
+    fun addDestination(destination: Destination)
     fun navigateTo(destination: Destination)
-    fun navigateBack(destination: Destination)
+    fun navigateBack()
 }
 
 @Composable
 fun rememberNavState(): NavigationState {
     return remember {
         object : NavigationState {
-            private val stack = mutableListOf<Destination>(Destination.Home)
-            override val currentDestination: State<Destination> = mutableStateOf(stack.last())
+            private val stack = mutableListOf<Destination>()
+            override val currentDestination: State<Destination?> = mutableStateOf(null)
 
-            override fun navigateTo(destination: Destination) {
+            override fun addDestination(destination: Destination) {
                 stack.add(destination)
-                (currentDestination as androidx.compose.runtime.MutableState).value = destination
             }
 
-            override fun navigateBack(destination: Destination) {
+            override fun navigateTo(destination: Destination) {
+                println("Navigating to: $destination")
+                stack.add(destination)
+                (currentDestination as MutableState).value = destination
+            }
+
+            override fun navigateBack() {
                 if (stack.size > 1) {
                     stack.removeLast()
-                    (currentDestination as androidx.compose.runtime.MutableState).value = stack.last()
+                    (currentDestination as MutableState).value = stack.last()
                 }
             }
         }

@@ -17,26 +17,22 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 
 @Composable
 fun Navigation(
-    navController: NavHostController,
-    destinations: List<Destination>
+    state: NavigationState
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = Welcome.route
-    ) {
-        destinations.forEach { destination ->
-            composable(
-                route = destination.route
-            ) {
-                destination.Content()
-            }
-        }
+    val destination = state.currentDestination.value
+
+    when (destination) {
+        is Welcome -> Welcome.Content(state)
+        is Home -> Home.Content(state)
+        null -> {}
     }
 }

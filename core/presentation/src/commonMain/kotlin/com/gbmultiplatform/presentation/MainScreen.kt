@@ -19,12 +19,15 @@ package com.gbmultiplatform.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.rememberNavController
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.Navigation
+import com.gbmultiplatform.presentation.navigation.NavigationState
+import com.gbmultiplatform.presentation.navigation.rememberNavState
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
@@ -38,8 +41,11 @@ fun MainScreen(
 //    val showBottomNavigation by viewModel.showBottomNav.collectAsState()
 //    val initScreen by viewModel.initScreen.collectAsState()
 
-    val navController = rememberNavController()
-    val navState = rememberNavState()
+    val state = rememberNavState()
+
+    LaunchedEffect(true) {
+        InitAppNavigationHandler(state).initApp()
+    }
 
     Scaffold(
         bottomBar = {
@@ -54,10 +60,15 @@ fun MainScreen(
             contentDescription = null
         )
         Navigation(
-            navController = navController,
-            destinations = listOf(
-                Welcome, Home
-            )
+            state = state
         )
+    }
+}
+
+class InitAppNavigationHandler(
+    private val state: NavigationState
+) {
+    fun initApp() {
+        state.navigateTo(Welcome)
     }
 }

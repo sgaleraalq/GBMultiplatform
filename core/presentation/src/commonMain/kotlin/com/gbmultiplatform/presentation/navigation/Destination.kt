@@ -22,28 +22,22 @@ import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import kotlinx.serialization.Serializable
 
 interface Destination {
-    val route: String
-
     @Composable
-    fun Content()
+    fun Content(state: NavigationState)
 
     @Serializable
-    object Welcome: Destination {
-        override val route = "welcome"
-
+    data object Welcome: Destination {
         @Composable
-        override fun Content() {
-            WelcomeScreen()
+        override fun Content(state: NavigationState) {
+            WelcomeScreen(state)
         }
     }
 
     @Serializable
     object Home: Destination {
-        override val route = "home"
-
         @Composable
-        override fun Content() {
-            HomeScreen()
+        override fun Content(state: NavigationState) {
+            HomeScreen(state)
         }
     }
 }

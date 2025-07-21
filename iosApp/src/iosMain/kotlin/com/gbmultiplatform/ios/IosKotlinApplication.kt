@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.iosApp
+package com.gbmultiplatform.ios
 
 import com.gbmultiplatform.di.appModules
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.component.KoinComponent
 import org.koin.dsl.module
 import org.koin.core.context.startKoin
@@ -25,6 +26,7 @@ val iosAppModule = module {
 
 }
 
+@OptIn(ExperimentalResourceApi::class)
 class IosKotlinApplication : KoinComponent {
     init {
         val koinModules = appModules.plus(iosAppModule)

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.ios
 
-import com.gbmultiplatform.data.network.auth.AuthService
-import org.koin.dsl.module
+import androidx.compose.ui.window.ComposeUIViewController
+import com.gbmultiplatform.App
 
-val authModules = module {
-    single { AuthService() }
-}
+fun MainViewController() =
+    ComposeUIViewController {
+        App()
+    }

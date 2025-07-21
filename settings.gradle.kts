@@ -29,9 +29,4 @@ dependencyResolutionManagement {
     }
 }
 
-include(":app")
-include(":iosApp")
-include(":data")
-include(":core:di")
-include(":core:presentation")
-include(":core:design-system")
+include(":app", ":iosApp", ":data", ":core:di", ":core:presentation", ":core:design-system")

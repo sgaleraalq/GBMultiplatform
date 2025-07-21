@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1
+
 plugins {
     kotlin("multiplatform")
     kotlin("plugin.compose")
@@ -15,10 +17,11 @@ kotlin {
             isStatic = true
         }
     }
+
     jvmToolchain(17)
     compilerOptions {
-        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1)
-        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1)
+        languageVersion.set(KOTLIN_2_1)
+        apiVersion.set(KOTLIN_2_1)
     }
 }
 
@@ -29,5 +32,5 @@ dependencies {
 
 compose.resources {
     generateResClass = always
-    packageOfResClass = "com.gbmultiplatform.iosApp"
+    packageOfResClass = "com.gbmultiplatform.ios"
 }

@@ -1,6 +1,6 @@
 import SwiftUI
 import Firebase
-
+import ComposeApp
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,

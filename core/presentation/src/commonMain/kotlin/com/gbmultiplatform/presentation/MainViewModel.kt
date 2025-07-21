@@ -37,7 +37,6 @@ class MainViewModel(
     /**
      * Handles bottom navigation on screens
      */
-
     private lateinit var navState: NavigationState
 
     private fun initializeNavigationState(state: NavigationState) {

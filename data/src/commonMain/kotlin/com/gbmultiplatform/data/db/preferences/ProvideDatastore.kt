@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.data.db.preferences
 
-import androidx.compose.runtime.Composable
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
@@ -31,6 +30,3 @@ fun createDataStore(producePath: () -> String) : DataStore<Preferences> {
 internal const val USER_PREFERENCES = "gbmultiplatformUser.preferences_pb"
 
 typealias PreferencesDatastore = DataStore<Preferences>
-
-@Composable
-expect fun rememberDataStore(): PreferencesDatastore

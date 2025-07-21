@@ -34,6 +34,7 @@ class IosKotlinApplication : KoinComponent {
             modules(
                 koinModules
             )
+            println("✅ Koin started with modules: ${koinModules.map { it.toString() }}")
         }
     }
 }

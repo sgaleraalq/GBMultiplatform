@@ -16,13 +16,9 @@
 
 package com.gbmultiplatform.di
 
-import org.koin.core.module.Module
+import com.gbmultiplatform.data.db.preferences.createDataStore
+import org.koin.dsl.module
 
-private val screenModules = listOf<Module>(
-    appModule,
-    authModules,
-    viewModelModule,
-    preferencesModule
-)
-
-val appModules: List<Module> = screenModules
+actual val preferencesModule = module {
+    single { createDataStore() }
+}

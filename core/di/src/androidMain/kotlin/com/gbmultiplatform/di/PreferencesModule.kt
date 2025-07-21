@@ -16,16 +16,10 @@
 
 package com.gbmultiplatform.di
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import com.gbmultiplatform.data.db.preferences.ISharedPreferences.Companion.USER_DB
 import com.gbmultiplatform.data.db.preferences.createDataStore
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
-import java.io.File
 
-val androidAuthModules = module {
-    single<DataStore<Preferences>> {
-        createDataStore { File(androidContext().filesDir, USER_DB).absolutePath }
-    }
+actual val preferencesModule = module {
+    single { createDataStore(androidContext()) }
 }

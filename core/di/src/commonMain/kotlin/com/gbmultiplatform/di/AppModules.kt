@@ -17,7 +17,10 @@
 package com.gbmultiplatform.di
 
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import org.koin.core.module.Module
 import org.koin.dsl.module
+
+expect val preferencesModule: Module
 
 val appModule = module {
     single { UserPreferencesImpl(get()) }

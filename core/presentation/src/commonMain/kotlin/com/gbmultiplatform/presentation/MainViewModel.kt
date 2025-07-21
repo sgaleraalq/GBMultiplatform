@@ -40,11 +40,11 @@ class MainViewModel(
 
     private lateinit var navState: NavigationState
 
-    fun initializeNavigationState(state: NavigationState) {
+    private fun initializeNavigationState(state: NavigationState) {
         navState = state
     }
 
-    private val screensWithBottomNavigation = listOf(
+    private val screensWithBottomNavigation: List<Destination> = listOf(
         Home, Matches, Stats
     )
     private val _showBottomNav = MutableStateFlow(false)
@@ -70,6 +70,7 @@ class MainViewModel(
      * [Welcome] or go [Home] directly
      */
     suspend fun initApp(navController: NavigationState) {
+        initializeNavigationState(navController)
         if (sessionActive()) {
             navController.navigateTo(Home)
         } else {

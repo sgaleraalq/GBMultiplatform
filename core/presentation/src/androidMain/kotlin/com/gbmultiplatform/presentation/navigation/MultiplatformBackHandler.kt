@@ -16,14 +16,10 @@
 
 package com.gbmultiplatform.presentation.navigation
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 
 @Composable
-actual fun rememberMainNavigationState(): MainNavigationState =
-    rememberMultiplatformMainNavigationState()
-
-@Composable
-actual fun MainNavigation(
-    state: MainNavigationState,
-    initDestination: MainDestination
-) = MultiplatformMainNavigation(state, initDestination)
+actual fun MultiplatformBackHandler(onBack: () -> Unit) {
+    BackHandler { onBack() }
+}

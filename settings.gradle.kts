@@ -30,6 +30,7 @@ dependencyResolutionManagement {
 }
 
 include(":app")
+include(":iosApp")
 include(":data")
 include(":core:di")
 include(":core:presentation")

@@ -16,6 +16,8 @@ struct iOSApp: App {
 
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
+    let kotlinApplication = IosKotlinApplication()
+
     var body: some Scene {
         WindowGroup {
             ContentView()

@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.iosApp
 
-import androidx.compose.ui.window.ComposeUIViewController
+import com.gbmultiplatform.di.appModules
+import org.koin.core.component.KoinComponent
+import org.koin.dsl.module
+import org.koin.core.context.startKoin
 
-fun MainViewController() =
-    ComposeUIViewController {
-        App()
+val iosAppModule = module {
+
+}
+
+class IosKotlinApplication : KoinComponent {
+    init {
+        val koinModules = appModules.plus(iosAppModule)
+        startKoin {
+            modules(
+                koinModules
+            )
+        }
     }
-
+}

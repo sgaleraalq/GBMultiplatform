@@ -51,7 +51,6 @@ fun MainScreen(
 
     LaunchedEffect(true) {
         viewModel.initApp(navController)
-        viewModel.initializeNavigationState(navController)
     }
 
     LaunchedEffect(currentDestination) {

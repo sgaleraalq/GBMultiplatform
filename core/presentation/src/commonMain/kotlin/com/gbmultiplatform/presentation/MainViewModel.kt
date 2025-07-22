@@ -17,18 +17,15 @@
 package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavHostController
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import com.gbmultiplatform.design_system.components.GBBottomNavigationState
-import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Destination.*
+import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
+import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import gbmultiplatform.core.presentation.generated.resources.Res
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
-import org.jetbrains.compose.resources.painterResource
 
 class MainViewModel(
     private val userPreferencesImpl: UserPreferencesImpl
@@ -43,32 +40,21 @@ class MainViewModel(
         navState = state
     }
 
-    private val screensWithBottomNavigation: List<Destination> = listOf(
-        Home, Matches, Stats
-    )
     private val _showBottomNav = MutableStateFlow(false)
     val showBottomNav = _showBottomNav
 
-    private val _bottomNavState = MutableStateFlow(
-        screensWithBottomNavigation.map { bottomDestination ->
-            GBBottomNavigationState(
-                isSelected = false,
-                icon = null,
-                onNavigationPressed = { navState.navigateTo(bottomDestination) }
-            )
-        }
-    )
-    val bottomNavState = _bottomNavState
 
-    fun updateBottomNavVisibility(destination: Destination?) {
-        _showBottomNav.value = screensWithBottomNavigation.contains(destination)
+    fun updateBottomNavVisibility(screensWithBottomNav: List<GBBottomNavigationTab>) {
+        _showBottomNav.value = screensWithBottomNav.any { it.isSelected }
     }
 
     /**
      * Decides whether or not the user has to join the
      * [Welcome] or go [Home] directly
      */
-    suspend fun initApp(navController: NavigationState) {
+    suspend fun initApp(
+        navController: NavigationState
+    ) {
         initializeNavigationState(navController)
         if (sessionActive()) {
             navController.navigateTo(Home)

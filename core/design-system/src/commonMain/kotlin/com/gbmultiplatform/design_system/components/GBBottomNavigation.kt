@@ -16,39 +16,61 @@
 
 package com.gbmultiplatform.design_system.components
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBarItem
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import gbmultiplatform.core.design_system.generated.resources.Res
-import gbmultiplatform.core.design_system.generated.resources.ic_home
-import org.jetbrains.compose.resources.DrawableResource
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.style.bottom_nav_bg
+import com.gbmultiplatform.design_system.style.bottom_nav_selected
 
-data class GBBottomNavigationState(
+data class GBBottomNavigationTab(
     var isSelected: Boolean,
-    val icon: DrawableResource?,
+    val content: @Composable () -> Unit,
     val onNavigationPressed: () -> Unit
 )
 
 @Composable
 fun GBBottomNavigation(
     show: Boolean,
-    states: List<GBBottomNavigationState>
+    states: List<GBBottomNavigationTab>
 ) {
     if (!show) return
-    BottomAppBar(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        states.forEach { bottomNav ->
-            GBBottomNavItem(
-                isSelected = bottomNav.isSelected,
-                icon = bottomNav.icon,
-                navigate = bottomNav.onNavigationPressed
-            )
+    Column(Modifier.shadow(10.dp)) {
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .background(MaterialTheme.colorScheme.surface)
+                .windowInsetsPadding(NavigationBarDefaults.windowInsets)
+                .wrapContentWidth(align = Alignment.CenterHorizontally)
+                .padding(horizontal = 20.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            states.forEach { bottomNav ->
+                GBBottomNavItem(
+                    isSelected = bottomNav.isSelected,
+                    content = bottomNav.content,
+                    navigate = bottomNav.onNavigationPressed
+                )
+            }
         }
     }
 }
@@ -57,18 +79,33 @@ fun GBBottomNavigation(
 @Composable
 fun RowScope.GBBottomNavItem(
     isSelected: Boolean,
-    icon: DrawableResource?,
+    content: @Composable () -> Unit,
     navigate: () -> Unit
 ) {
-    NavigationBarItem(
-        selected = isSelected,
-        onClick = { navigate() },
-        icon = {
-            Icon(
-                painter = painterResource(icon?: Res.drawable.ic_home),
-                contentDescription = null
-            )
-        },
-        alwaysShowLabel = true
+    val interactionSource = remember { MutableInteractionSource() }
+    val backgroundColor = animateColorAsState(
+        if (isSelected) bottom_nav_selected else bottom_nav_bg
     )
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .weight(1f)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = { navigate() }
+            )
+            .wrapContentWidth()
+            .size(48.dp)
+            .clip(MaterialTheme.shapes.medium)
+            .background(backgroundColor.value)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = LocalIndication.current,
+                onClick = { navigate() }
+            )
+    ) {
+        content()
+    }
 }

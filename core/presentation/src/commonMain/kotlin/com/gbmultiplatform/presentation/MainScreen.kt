@@ -17,7 +17,6 @@
 package com.gbmultiplatform.presentation
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -28,7 +27,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
@@ -45,23 +43,24 @@ fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
     val navController = rememberNavigation()
+
     val currentDestination by navController.currentDestination
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()
-    val bottomNavState by viewModel.bottomNavState.collectAsState()
+    val bottomTabs by navController.bottomNavTabs
 
     LaunchedEffect(true) {
         viewModel.initApp(navController)
     }
 
     LaunchedEffect(currentDestination) {
-        viewModel.updateBottomNavVisibility(currentDestination)
+        viewModel.updateBottomNavVisibility(bottomTabs)
     }
 
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
                 show = showBottomNavigation,
-                states = bottomNavState
+                states = bottomTabs
             )
         }
     ){

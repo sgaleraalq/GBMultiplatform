@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.presentation.navigation
 
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -23,8 +24,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
+import com.gbmultiplatform.design_system.icons.GBHomeOutline
+import com.gbmultiplatform.design_system.icons.GBIcons
+import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Matches
+import com.gbmultiplatform.presentation.navigation.Destination.Stats
+import kotlin.collections.emptyList
 
 interface NavigationState {
+    val bottomNavTabs: State<List<GBBottomNavigationTab>>
     val currentDestination: State<Destination?>
     fun navigateTo(destination: Destination)
     fun navigateBack()
@@ -38,13 +47,14 @@ fun rememberNavigation(): NavigationState {
 
 class NavigatorHandler(
     val navController: NavHostController
-): NavigationState {
+) : NavigationState {
     private val stack = mutableListOf<Destination>()
     override val currentDestination: State<Destination?> = mutableStateOf(null)
 
     override fun navigateTo(destination: Destination) {
         stack.add(destination)
         (currentDestination as MutableState).value = destination
+        updateBottomNavTabs()
     }
 
     override fun navigateBack() {
@@ -54,5 +64,27 @@ class NavigatorHandler(
         }
     }
 
+    override val bottomNavTabs = mutableStateOf(emptyList<GBBottomNavigationTab>())
+
     fun getCurrentDestination() = currentDestination.value
+
+    private fun updateBottomNavTabs() {
+        bottomNavTabs.value = listOf(
+            GBBottomNavigationTab(
+                isSelected = currentDestination.value == Home,
+                content = { Icon(GBIcons.GBHomeOutline, null) },
+                onNavigationPressed = { navigateTo(Home) }
+            ),
+            GBBottomNavigationTab(
+                isSelected = currentDestination.value == Matches,
+                content = { Icon(GBIcons.GBHomeOutline, null) },
+                onNavigationPressed = { navigateTo(Matches) }
+            ),
+            GBBottomNavigationTab(
+                isSelected = currentDestination.value == Stats,
+                content = { Icon(GBIcons.GBHomeOutline, null) },
+                onNavigationPressed = { navigateTo(Stats) }
+            ),
+        )
+    }
 }

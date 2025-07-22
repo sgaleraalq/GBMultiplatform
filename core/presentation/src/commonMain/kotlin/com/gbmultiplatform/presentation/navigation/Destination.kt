@@ -40,12 +40,12 @@ interface Destination {
     }
 
     @Serializable
-    object Stats: Destination {
-        override val routeName = "stats"
+    object Home: Destination {
+        override val routeName = "home"
 
         @Composable
         override fun Content(state: NavigationState) {
-            StatsScreen()
+            HomeScreen(state)
         }
     }
 
@@ -60,8 +60,28 @@ interface Destination {
     }
 
     @Serializable
+    object Stats: Destination {
+        override val routeName = "stats"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            StatsScreen()
+        }
+    }
+
+    @Serializable
     object Team: Destination {
         override val routeName = "team"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            HomeScreen(state)
+        }
+    }
+
+    @Serializable
+    object About: Destination {
+        override val routeName = "about"
 
         @Composable
         override fun Content(state: NavigationState) {

@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.vector.path
 
-val GBIcons.GBHomeOutline by lazy {
-    materialIcon("HomeOutline") {
+val GBIcons.GBHomeBottomTab by lazy {
+    materialIcon("HomeBottomTab") {
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,

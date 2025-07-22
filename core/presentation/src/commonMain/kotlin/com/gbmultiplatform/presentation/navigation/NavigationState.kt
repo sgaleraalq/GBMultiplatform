@@ -27,10 +27,9 @@ import androidx.navigation.compose.rememberNavController
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
 import com.gbmultiplatform.design_system.icons.GBHomeOutline
 import com.gbmultiplatform.design_system.icons.GBIcons
-import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
-import kotlin.collections.emptyList
+import com.gbmultiplatform.presentation.navigation.Destination.Team
 
 interface NavigationState {
     val bottomNavTabs: List<GBBottomNavigationTab>
@@ -65,9 +64,9 @@ class NavigatorHandler(
 
     override val bottomNavTabs = listOf(
         GBBottomNavigationTab(
-            destination = Home.routeName,
+            destination = Stats.routeName,
             content = { Icon(GBIcons.GBHomeOutline, null) },
-            onNavigationPressed = { navigateTo(Home) }
+            onNavigationPressed = { navigateTo(Stats) }
         ),
         GBBottomNavigationTab(
             destination = Matches.routeName,
@@ -75,9 +74,9 @@ class NavigatorHandler(
             onNavigationPressed = { navigateTo(Matches) }
         ),
         GBBottomNavigationTab(
-            destination = Stats.routeName,
+            destination = Team.routeName,
             content = { Icon(GBIcons.GBHomeOutline, null) },
-            onNavigationPressed = { navigateTo(Stats) }
+            onNavigationPressed = { navigateTo(Team) }
         )
     )
 

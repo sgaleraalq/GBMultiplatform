@@ -55,7 +55,7 @@ import org.jetbrains.compose.resources.stringResource
 fun WelcomeScreenTitle() {
     GBTitle(
         modifier = Modifier.fillMaxWidth().padding(24.dp),
-        title = "${stringResource(Res.string.welcome_to)} ${stringResource(Res.string.app_name)}"
+        title = "${stringResource(Res.string.welcome_to)} \n${stringResource(Res.string.app_name)}"
     )
     Spacer(Modifier.height(16.dp))
     GBText(

@@ -19,7 +19,7 @@ package com.gbmultiplatform.presentation
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
-import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import kotlinx.coroutines.Dispatchers
@@ -59,7 +59,7 @@ class MainViewModel(
     ) {
         initializeNavigationState(navController)
         if (sessionActive()) {
-            navController.navigateTo(Home)
+            navController.navigateTo(Stats)
         } else {
             navController.navigateTo(Welcome)
         }

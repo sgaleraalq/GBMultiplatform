@@ -27,6 +27,8 @@ fun Navigation(
 ) {
     state as NavigatorHandler
 
+    MultiplatformBackHandler { state.navigateBack() }
+
     val current = state.currentDestination.value
     if (current != null) {
         NavHost(
@@ -37,16 +39,16 @@ fun Navigation(
                 Welcome.Content(state)
             }
 
-            composable<Home> {
-                Home.Content(state)
+            composable<Stats> {
+                Stats.Content(state)
             }
 
             composable<Matches> {
                 Matches.Content(state)
             }
 
-            composable<Stats> {
-                Stats.Content(state)
+            composable<Team> {
+                Team.Content(state)
             }
         }
     }

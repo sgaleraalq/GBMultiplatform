@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
 
 @Composable
@@ -36,7 +37,7 @@ fun HomeScreen(
     ) {
         GBElevatedButton(
             text = "Go back",
-            onClick = { state.navigateBack() }
+            onClick = { state.navigateTo(Welcome) }
         )
     }
 }

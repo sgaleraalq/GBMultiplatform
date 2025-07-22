@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import com.gbmultiplatform.design_system.style.GBTypography
 
 @Composable
@@ -34,7 +35,8 @@ fun GBTitle(
         modifier = modifier,
         text = title,
         style = GBTypography().headlineLarge,
-        color = textColor
+        color = textColor,
+        textAlign = Center
     )
 }
 

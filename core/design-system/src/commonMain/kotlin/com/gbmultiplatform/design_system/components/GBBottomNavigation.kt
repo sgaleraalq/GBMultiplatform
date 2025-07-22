@@ -31,11 +31,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -64,25 +67,27 @@ fun GBBottomNavigation(
                 .windowInsetsPadding(NavigationBarDefaults.windowInsets)
                 .wrapContentWidth(align = Alignment.CenterHorizontally)
                 .padding(horizontal = 20.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
+            verticalAlignment = CenterVertically
         ) {
-            states.forEach { bottomNav ->
+            states.forEachIndexed { index, bottomNavTab ->
                 GBBottomNavItem(
-                    isSelected = bottomNav.destination == currentDestination,
-                    content = bottomNav.content,
-                    navigate = bottomNav.onNavigationPressed
+                    isSelected = bottomNavTab.destination == currentDestination,
+                    content = bottomNavTab.content,
+                    navigate = bottomNavTab.onNavigationPressed,
+                    isMiddleScreen = index == states.size / 2
                 )
             }
         }
     }
 }
 
-// create GBBottomNavItem on bottom nav scope
 @Composable
 fun RowScope.GBBottomNavItem(
     isSelected: Boolean,
     content: @Composable () -> Unit,
-    navigate: () -> Unit
+    navigate: () -> Unit,
+    isMiddleScreen: Boolean
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val backgroundColor = animateColorAsState(
@@ -90,7 +95,7 @@ fun RowScope.GBBottomNavItem(
     )
 
     Box(
-        contentAlignment = Alignment.Center,
+        contentAlignment = Center,
         modifier = Modifier
             .weight(1f)
             .clickable(
@@ -100,7 +105,7 @@ fun RowScope.GBBottomNavItem(
             )
             .wrapContentWidth()
             .size(48.dp)
-            .clip(MaterialTheme.shapes.medium)
+            .clip(if (isMiddleScreen) RoundedCornerShape(50) else MaterialTheme.shapes.medium)
             .background(backgroundColor.value)
             .clickable(
                 interactionSource = interactionSource,

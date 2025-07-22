@@ -16,13 +16,11 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -32,7 +30,7 @@ fun HomeScreen(
     state: NavigationState
 ) {
     Box(
-        modifier = Modifier.fillMaxSize().background(Red),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Center
     ) {
         GBElevatedButton(

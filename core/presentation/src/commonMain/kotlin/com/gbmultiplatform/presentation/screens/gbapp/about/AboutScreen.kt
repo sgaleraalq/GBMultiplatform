@@ -16,20 +16,18 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.about
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.graphics.Color.Companion.White
 
 @Composable
 fun AboutScreen() {
     Box(
-        modifier = Modifier.fillMaxSize().background(Magenta),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = Center
     ) {
         Text(

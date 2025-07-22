@@ -30,6 +30,7 @@ fun Navigation(
     MultiplatformBackHandler { state.navigateBack() }
 
     val current = state.currentDestination.value
+
     if (current != null) {
         NavHost(
             navController = state.navController,

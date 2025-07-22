@@ -18,7 +18,11 @@ package com.gbmultiplatform.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -56,6 +60,7 @@ fun MainScreen(
     }
 
     Scaffold(
+        modifier = Modifier,
         bottomBar = {
             GBBottomNavigation(
                 show = showBottomNavigation,
@@ -65,7 +70,9 @@ fun MainScreen(
         }
     ){
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().padding(
+                bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+            ),
             contentScale = Crop,
             painter = painterResource(Res.drawable.img_background),
             contentDescription = null

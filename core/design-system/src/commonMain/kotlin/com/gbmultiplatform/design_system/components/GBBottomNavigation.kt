@@ -44,7 +44,7 @@ import com.gbmultiplatform.design_system.style.bottom_nav_bg
 import com.gbmultiplatform.design_system.style.bottom_nav_selected
 
 data class GBBottomNavigationTab(
-    var isSelected: Boolean,
+    val destination: String,
     val content: @Composable () -> Unit,
     val onNavigationPressed: () -> Unit
 )
@@ -52,9 +52,11 @@ data class GBBottomNavigationTab(
 @Composable
 fun GBBottomNavigation(
     show: Boolean,
+    currentDestination: String?,
     states: List<GBBottomNavigationTab>
 ) {
-    if (!show) return
+    if (!show || currentDestination == null) return
+
     Column(Modifier.shadow(10.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth()
@@ -66,7 +68,7 @@ fun GBBottomNavigation(
         ) {
             states.forEach { bottomNav ->
                 GBBottomNavItem(
-                    isSelected = bottomNav.isSelected,
+                    isSelected = bottomNav.destination == currentDestination,
                     content = bottomNav.content,
                     navigate = bottomNav.onNavigationPressed
                 )

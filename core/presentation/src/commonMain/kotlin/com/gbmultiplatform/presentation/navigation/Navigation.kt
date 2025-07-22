@@ -27,9 +27,6 @@ fun Navigation(
 ) {
     state as NavigatorHandler
 
-    println("Destination: ${state.getCurrentDestination()}")
-    println("Destination: ${state.currentDestination.value}")
-
     val current = state.currentDestination.value
     if (current != null) {
         NavHost(

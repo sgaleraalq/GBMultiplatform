@@ -19,7 +19,28 @@ package com.gbmulitplatform.design_system.preview
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
+import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
 import com.gbmultiplatform.design_system.style.GBTheme
+
+fun provideBottomNavigationTabs(): List<GBBottomNavigationTab> {
+    return listOf(
+        GBBottomNavigationTab(
+            destination = "Home",
+            content = { /* Home Icon */ },
+            onNavigationPressed = { /* Navigate to Home */ }
+        ),
+        GBBottomNavigationTab(
+            destination = "Matches",
+            content = { /* Matches Icon */ },
+            onNavigationPressed = { /* Navigate to Matches */ }
+        ),
+        GBBottomNavigationTab(
+            destination = "Stats",
+            content = { /* Stats Icon */ },
+            onNavigationPressed = { /* Navigate to Stats */ }
+        )
+    )
+}
 
 @Preview
 @Composable
@@ -27,7 +48,8 @@ fun GBBottomNavigationPreview() {
     GBTheme {
         GBBottomNavigation(
             show = true,
-            states = emptyList()
+            currentDestination = "Home",
+            states = provideBottomNavigationTabs()
         )
     }
 }

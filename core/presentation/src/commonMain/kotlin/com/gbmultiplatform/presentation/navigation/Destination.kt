@@ -27,8 +27,12 @@ interface Destination {
     @Composable
     fun Content(state: NavigationState)
 
+    val routeName: String
+
     @Serializable
     data object Welcome: Destination {
+        override val routeName = "welcome"
+
         @Composable
         override fun Content(state: NavigationState) {
             WelcomeScreen(state)
@@ -37,6 +41,8 @@ interface Destination {
 
     @Serializable
     object Home: Destination {
+        override val routeName = "home"
+
         @Composable
         override fun Content(state: NavigationState) {
             HomeScreen(state)
@@ -45,6 +51,8 @@ interface Destination {
 
     @Serializable
     object Matches: Destination {
+        override val routeName = "matches"
+
         @Composable
         override fun Content(state: NavigationState) {
             MatchesScreen()
@@ -53,6 +61,8 @@ interface Destination {
 
     @Serializable
     object Stats: Destination {
+        override val routeName = "stats"
+
         @Composable
         override fun Content(state: NavigationState) {
             StatsScreen()

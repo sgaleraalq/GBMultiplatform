@@ -45,7 +45,9 @@ class MainViewModel(
 
 
     fun updateBottomNavVisibility(screensWithBottomNav: List<GBBottomNavigationTab>) {
-        _showBottomNav.value = screensWithBottomNav.any { it.isSelected }
+        _showBottomNav.value = screensWithBottomNav.any {
+            it.destination == navState.currentDestination.value?.routeName
+        }
     }
 
     /**

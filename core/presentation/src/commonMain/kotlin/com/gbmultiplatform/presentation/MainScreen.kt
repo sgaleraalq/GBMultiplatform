@@ -46,21 +46,21 @@ fun MainScreen(
 
     val currentDestination by navController.currentDestination
     val showBottomNavigation by viewModel.showBottomNav.collectAsState()
-    val bottomTabs by navController.bottomNavTabs
 
     LaunchedEffect(true) {
         viewModel.initApp(navController)
     }
 
     LaunchedEffect(currentDestination) {
-        viewModel.updateBottomNavVisibility(bottomTabs)
+        viewModel.updateBottomNavVisibility(navController.bottomNavTabs)
     }
 
     Scaffold(
         bottomBar = {
             GBBottomNavigation(
                 show = showBottomNavigation,
-                states = bottomTabs
+                states = navController.bottomNavTabs,
+                currentDestination = currentDestination?.routeName
             )
         }
     ){

@@ -25,9 +25,12 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
+import com.gbmultiplatform.design_system.icons.GBAboutBottomTab
 import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
 import com.gbmultiplatform.design_system.icons.GBIcons
+import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
 import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
+import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
 import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
@@ -67,29 +70,38 @@ class NavigatorHandler(
     }
 
     override val bottomNavTabs = listOf(
+        // Home tab
         GBBottomNavigationTab(
             destination = Home.routeName,
             content = { Icon(GBIcons.GBHomeBottomTab, null) },
             onNavigationPressed = { navigateTo(Home) }
         ),
+
+        // Matches tab
         GBBottomNavigationTab(
             destination = Matches.routeName,
-            content = { Icon(GBIcons.GBHomeBottomTab, null) },
+            content = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
             onNavigationPressed = { navigateTo(Matches) }
         ),
+
+        // Stats tab
         GBBottomNavigationTab(
             destination = Stats.routeName,
             content = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
             onNavigationPressed = { navigateTo(Stats) }
         ),
+
+        // Team tab
         GBBottomNavigationTab(
             destination = Team.routeName,
-            content = { Icon(GBIcons.GBHomeBottomTab, null) },
+            content = { Icon(GBIcons.GBTeamBottomTab, null) },
             onNavigationPressed = { navigateTo(Team) }
         ),
+
+        // About tab
         GBBottomNavigationTab(
             destination = About.routeName,
-            content = { Icon(GBIcons.GBHomeBottomTab, null) },
+            content = { Icon(GBIcons.GBAboutBottomTab, null) },
             onNavigationPressed = { navigateTo(About) }
         )
     )

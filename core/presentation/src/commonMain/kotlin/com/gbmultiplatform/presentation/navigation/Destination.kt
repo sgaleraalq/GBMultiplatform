@@ -18,9 +18,11 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
+import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.team.TeamScreen
 import kotlinx.serialization.Serializable
 
 interface Destination {
@@ -75,7 +77,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            HomeScreen(state)
+            TeamScreen()
         }
     }
 
@@ -85,7 +87,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            HomeScreen(state)
+            AboutScreen()
         }
     }
 }

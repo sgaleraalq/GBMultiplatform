@@ -39,6 +39,14 @@ fun Navigation(
                 Welcome.Content(state)
             }
 
+            composable<Home> {
+                Home.Content(state)
+            }
+
+            composable<Team> {
+                Team.Content(state)
+            }
+
             composable<Stats> {
                 Stats.Content(state)
             }
@@ -47,8 +55,8 @@ fun Navigation(
                 Matches.Content(state)
             }
 
-            composable<Team> {
-                Team.Content(state)
+            composable<About> {
+                About.Content(state)
             }
         }
     }

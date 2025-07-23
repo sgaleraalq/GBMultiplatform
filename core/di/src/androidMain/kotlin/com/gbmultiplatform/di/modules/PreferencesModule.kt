@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.di.modules
 
 import com.gbmultiplatform.data.db.preferences.createDataStore
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 actual val preferencesModule = module {
-    single { createDataStore() }
+    single { createDataStore(androidContext()) }
 }

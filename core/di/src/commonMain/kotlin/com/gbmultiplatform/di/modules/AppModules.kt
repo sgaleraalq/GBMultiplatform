@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.di.modules
 
-import com.gbmultiplatform.presentation.MainViewModel
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
-import org.koin.core.module.dsl.viewModelOf
+import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
-val viewModelModule = module {
-    viewModelOf(::MainViewModel)
-    viewModelOf(::WelcomeViewModel)
+expect val preferencesModule: Module
+
+val appModule = module {
+    single { UserPreferencesImpl(get()) }
 }

@@ -16,7 +16,7 @@
 
 package com.gbmultiplatform.ios
 
-import com.gbmultiplatform.di.appModules
+import com.gbmultiplatform.di.modules.appModules
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.core.component.KoinComponent
 import org.koin.dsl.module

@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.presentation.screens.gbapp.stats
 
-import org.koin.core.module.Module
+import androidx.lifecycle.ViewModel
+import com.gbmultiplatform.model.player.IPlayerProvider
+import com.gbmultiplatform.model.player.Player
+import kotlinx.coroutines.flow.MutableStateFlow
 
-private val screenModules = listOf<Module>(
-    appModule,
-    authModules,
-    viewModelModule,
-    preferencesModule
-)
+class StatsViewModel(
+    private val playerProvider: IPlayerProvider
+): ViewModel() {
 
-val appModules: List<Module> = screenModules
+    private val _players: MutableStateFlow<List<Player>> = MutableStateFlow(emptyList())
+    val players = _players
+
+    init {
+        _players.value = playerProvider.providePlayerList()
+    }
+}

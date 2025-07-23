@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.di.modules
 
-import com.gbmultiplatform.data.network.auth.AuthService
+import com.gbmultiplatform.di.provider.PlayerProvider
+import com.gbmultiplatform.model.player.IPlayerProvider
+import com.gbmultiplatform.presentation.MainViewModel
+import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
+import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
-val authModules = module {
-    single { AuthService() }
+val viewModelModule = module {
+    viewModelOf(::MainViewModel)
+    viewModelOf(::WelcomeViewModel)
+    viewModelOf(::StatsViewModel)
+}
+
+val viewModelHelpersModule = module {
+    single<IPlayerProvider> { PlayerProvider() }
 }

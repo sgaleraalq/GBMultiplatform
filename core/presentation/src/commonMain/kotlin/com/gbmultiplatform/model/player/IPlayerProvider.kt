@@ -14,25 +14,8 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.model.player
 
-import android.app.Application
-import com.gbmultiplatform.di.modules.appModules
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.startKoin
-
-class GBMultiplatformApp : Application() {
-
-    companion object {
-        private val modules = appModules
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidContext(this@GBMultiplatformApp)
-            loadKoinModules(modules)
-        }
-    }
+interface IPlayerProvider {
+    fun providePlayerList(): List<Player>
 }

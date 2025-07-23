@@ -16,23 +16,32 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.stats
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun StatsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Center
+fun StatsScreen(
+    viewModel: StatsViewModel = koinViewModel<StatsViewModel>()
+) {
+
+    val players by viewModel.players.collectAsState()
+
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Text(
-            text = "Stats Screen",
-            color = White
-        )
+        items(players) { player ->
+            Text(
+                text = player.name,
+                color = White
+            )
+        }
     }
 }

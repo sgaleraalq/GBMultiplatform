@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.di.provider
 
-import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import org.koin.core.module.Module
-import org.koin.dsl.module
+import com.gbmultiplatform.model.player.IPlayerProvider
+import com.gbmultiplatform.model.player.Player
 
-expect val preferencesModule: Module
+class PlayerProvider: IPlayerProvider {
 
-val appModule = module {
-    single { UserPreferencesImpl(get()) }
+    private fun providePlayer(): Player {
+        val randomName = "Player 1"
+        val randomGoals = (0..10).random()
+        return Player(
+            id = "",
+            name = randomName,
+            goals = randomGoals
+        )
+    }
+
+    override fun providePlayerList() = List((10..20).random()) {
+        providePlayer()
+    }
 }

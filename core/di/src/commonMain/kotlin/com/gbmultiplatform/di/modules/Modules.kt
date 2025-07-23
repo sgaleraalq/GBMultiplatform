@@ -14,25 +14,16 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.di.modules
 
-import android.app.Application
-import com.gbmultiplatform.di.modules.appModules
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.startKoin
+import org.koin.core.module.Module
 
-class GBMultiplatformApp : Application() {
+private val screenModules = listOf<Module>(
+    appModule,
+    authModules,
+    viewModelModule,
+    viewModelHelpersModule,
+    preferencesModule
+)
 
-    companion object {
-        private val modules = appModules
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidContext(this@GBMultiplatformApp)
-            loadKoinModules(modules)
-        }
-    }
-}
+val appModules: List<Module> = screenModules

@@ -14,25 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform
+package com.gbmultiplatform.di.modules
 
-import android.app.Application
-import com.gbmultiplatform.di.modules.appModules
-import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.startKoin
+import com.gbmultiplatform.data.network.auth.AuthService
+import org.koin.dsl.module
 
-class GBMultiplatformApp : Application() {
-
-    companion object {
-        private val modules = appModules
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidContext(this@GBMultiplatformApp)
-            loadKoinModules(modules)
-        }
-    }
+val authModules = module {
+    single { AuthService() }
 }

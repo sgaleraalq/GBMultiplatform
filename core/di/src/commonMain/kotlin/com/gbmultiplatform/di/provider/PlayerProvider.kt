@@ -90,11 +90,14 @@ class PlayerProvider: IPlayerProvider {
 
     private fun providePlayer(): Player {
         val randomGoals = (0..10).random()
+        val randomAssists = (0..10).random()
+
         return Player(
             id = "",
             image = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),
-            goals = randomGoals
+            goals = randomGoals,
+            assists = randomAssists
         )
     }
 

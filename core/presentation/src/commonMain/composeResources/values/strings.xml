@@ -13,4 +13,14 @@
     <string name="join">Join</string>
     <string name="join_gaztelu_bira">Join Gaztelu Bira</string>
     <string name="insert_team_code_to_join">Insert team's code to join their group</string>
+
+<!--    stats-->
+    <string name="goals">Goals</string>
+    <string name="assists">Assists</string>
+    <string name="penalties_produced">Penalties Produced</string>
+    <string name="clean_sheets">Clean Sheets</string>
+    <string name="saves">Saves</string>
+    <string name="games_played">Games Played</string>
+    <string name="yellow_card">Yellow Card</string>
+    <string name="red_card">Red Card</string>
 </resources>

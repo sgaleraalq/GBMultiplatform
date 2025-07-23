@@ -16,14 +16,33 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.stats
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBPlayerCard
+import com.gbmultiplatform.model.player.Player
+import com.gbmultiplatform.model.player.Stats
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.ic_penalties
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -32,8 +51,45 @@ fun StatsScreen(
 ) {
     val players by viewModel.players.collectAsState()
 
-    LazyColumn(
+    Column(
         modifier = Modifier.fillMaxSize()
+    ) {
+        StatsImagesClassification(Modifier.weight(0.3f))
+        StatsClassification(Modifier.weight(0.7f),players)
+    }
+}
+
+@Composable
+fun StatsImagesClassification(
+    modifier: Modifier
+) {
+    val allIcons = Stats.entries
+    Box(
+        modifier = modifier.fillMaxWidth().padding(32.dp)
+    ) {
+        Row {
+            allIcons.forEach {
+                Spacer(Modifier.width(4.dp))
+                Icon(
+                    painter = painterResource(it.icon),
+                    modifier = Modifier.size(24.dp),
+                    contentDescription = null,
+                    tint = Unspecified
+                )
+                Spacer(Modifier.width(4.dp))
+            }
+        }
+    }
+}
+
+@Composable
+fun StatsClassification(
+    modifier: Modifier,
+    players: List<Player>
+){
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(bottom = 12.dp)
     ) {
         items(players) { player ->
             GBPlayerCard(

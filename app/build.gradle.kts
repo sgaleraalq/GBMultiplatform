@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.7.1")
+    implementation(libs.androidx.appcompat)
     implementation(projects.core.di)
     implementation(projects.core.presentation)
     implementation(projects.data)

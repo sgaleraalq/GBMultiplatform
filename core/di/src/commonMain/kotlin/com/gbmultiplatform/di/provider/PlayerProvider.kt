@@ -21,12 +21,79 @@ import com.gbmultiplatform.model.player.Player
 
 class PlayerProvider: IPlayerProvider {
 
+    companion object {
+        val RANDOM_IMAGES = listOf(
+            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/059/467/746/small_2x/cool-cartoon-character-with-headphones-and-goggles-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/059/466/443/small/cool-character-wearing-headphones-and-stylish-glasses-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/054/079/216/small_2x/a-cartoon-character-wearing-sunglasses-and-a-cap-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/053/950/452/small/a-male-gamer-with-headphones-on-his-head-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/055/606/226/small_2x/cartoon-boy-pointing-at-something-a-white-background-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/054/297/318/small_2x/a-cartoon-character-with-sunglasses-and-a-tie-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/055/476/176/small/cartoon-muslim-girl-in-hijab-illustration-free-vector.jpg",
+            "https://static.vecteezy.com/system/resources/thumbnails/054/077/526/small/a-robot-head-with-red-eyes-and-a-helmet-free-vector.jpg"
+
+        )
+        val RANDOM_NAMES = listOf(
+            "Mind Craft",
+            "Growth Chain",
+            "Habit Forge",
+            "Spirit Path",
+            "Will Power",
+            "Inner Arc",
+            "Rise Quest",
+            "Zen Engine",
+            "Focus Fury",
+            "Mood Dojo",
+            "Grind Shrine",
+            "Flow Hack",
+            "Dream Stack",
+            "Grit Grid",
+            "Brain Pump",
+            "Soul Gym",
+            "Calm Storm",
+            "Peak Freak",
+            "Aura Sync",
+            "Deep Flow",
+            "Karma Loop",
+            "Push Portal",
+            "Focus Cult",
+            "Hustle Temple",
+            "Vibe Pilot",
+            "Goal Ninja",
+            "Boost Den",
+            "Procrastikill",
+            "Flex Mind",
+            "Clarity Clash",
+            "Balance Beast",
+            "Zen Hustle",
+            "Gratitude Gang",
+            "Power Napper",
+            "Chakra Charger",
+            "Brain Spa",
+            "No Excuse Juice",
+            "Flowtopia",
+            "Habitron 9000",
+            "Inner Beast Mode",
+            "Dojo of Discipline",
+            "Ultra Calm",
+            "Rise & Grindr",
+            "Mindset Mafia",
+            "The Focus Zone",
+            "Energy Bender",
+            "Discipline Dungeon",
+            "Todo Tornado",
+            "Manifesto Club",
+            "Life Hacktivist"
+        )
+    }
+
     private fun providePlayer(): Player {
-        val randomName = "Player 1"
         val randomGoals = (0..10).random()
         return Player(
             id = "",
-            name = randomName,
+            image = RANDOM_IMAGES.random(),
+            name = RANDOM_NAMES.random(),
             goals = randomGoals
         )
     }

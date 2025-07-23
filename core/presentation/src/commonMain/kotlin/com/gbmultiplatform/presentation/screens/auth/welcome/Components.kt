@@ -17,35 +17,23 @@
 package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBDialogTextContent
-import com.gbmultiplatform.design_system.components.GBDialogTextField
-import com.gbmultiplatform.design_system.components.GBDialogTitle
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.components.GBTitle
-import com.gbmultiplatform.design_system.style.gb_text_field_background
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.app_name
 import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
-import gbmultiplatform.core.presentation.generated.resources.insert_team_code_to_join
-import gbmultiplatform.core.presentation.generated.resources.join
 import gbmultiplatform.core.presentation.generated.resources.join_gaztelu_bira
-import gbmultiplatform.core.presentation.generated.resources.join_team
 import gbmultiplatform.core.presentation.generated.resources.welcome_image
 import gbmultiplatform.core.presentation.generated.resources.welcome_to
 import org.jetbrains.compose.resources.painterResource
@@ -61,7 +49,7 @@ fun WelcomeScreenTitle() {
     GBText(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
         text = stringResource(Res.string.gaztelu_bira_welcome_text),
-        alignment = TextAlign.Center
+        alignment = TextAlign.Center,
     )
 }
 

@@ -19,12 +19,11 @@ package com.gbmultiplatform.presentation.screens.gbapp.stats
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
+import com.gbmultiplatform.design_system.components.GBPlayerCard
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -38,9 +37,11 @@ fun StatsScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         items(players) { player ->
-            Text(
-                text = player.name,
-                color = White
+            GBPlayerCard(
+                image = player.image,
+                name = player.name,
+                stat = player.goals.toString(),
+                onClick = {  }
             )
         }
     }

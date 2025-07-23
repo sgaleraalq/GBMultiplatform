@@ -16,42 +16,27 @@
 
 package com.gbmultiplatform.design_system.components
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
-import com.gbmultiplatform.design_system.style.GBTypography
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
+import coil3.compose.AsyncImage
+import gbmultiplatform.core.design_system.generated.resources.Res
+import gbmultiplatform.core.design_system.generated.resources.img_example
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun GBTitle(
+fun GBImage(
     modifier: Modifier = Modifier,
-    title: String,
-    textColor: Color = White
+    image: String,
+    saverImage: DrawableResource = Res.drawable.img_example
 ) {
-    Text(
+    AsyncImage(
         modifier = modifier,
-        text = title,
-        style = GBTypography().headlineLarge,
-        color = textColor,
-        textAlign = Center
-    )
-}
-
-@Composable
-fun GBText(
-    modifier: Modifier = Modifier,
-    text: String,
-    textColor: Color = White,
-    alignment: TextAlign,
-) {
-    Text(
-        modifier = modifier,
-        text = text,
-        style = GBTypography().bodyLarge,
-        color = textColor,
-        textAlign = alignment
+        model = image,
+        contentScale = Crop,
+        contentDescription = null,
+        error = painterResource(saverImage),
+        fallback = painterResource(saverImage)
     )
 }

@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Navigation
@@ -68,30 +69,42 @@ fun MainScreen(
                 currentDestination = currentDestination?.routeName
             )
         }
-    ){
+    ) { paddingValues ->
+        val modifier = if (showBottomNavigation) {
+            Modifier.padding(paddingValues)
+        } else {
+            Modifier
+        }
+
         Image(
             modifier = Modifier.fillMaxSize().padding(
                 bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
             ),
-            contentScale = Crop,
             painter = painterResource(Res.drawable.img_background),
+            contentScale = Crop,
             contentDescription = null
         )
 
-        when (currentDestination) {
-            is Destination -> {
-                Navigation(
-                    state = navController
-                )
-            }
-            null -> {
-                SplashScreen()
+        Box(
+            modifier = modifier.fillMaxSize()
+        ) {
+            when (currentDestination) {
+                is Destination -> {
+                    Navigation(
+                        state = navController,
+                    )
+                }
+
+                null -> {
+                    SplashScreen()
+                }
             }
         }
     }
 }
 
 
+// TODO
 @Composable
 fun SplashScreen() {
     Box(

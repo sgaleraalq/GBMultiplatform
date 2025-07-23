@@ -30,7 +30,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun StatsScreen(
     viewModel: StatsViewModel = koinViewModel<StatsViewModel>()
 ) {
-
     val players by viewModel.players.collectAsState()
 
     LazyColumn(

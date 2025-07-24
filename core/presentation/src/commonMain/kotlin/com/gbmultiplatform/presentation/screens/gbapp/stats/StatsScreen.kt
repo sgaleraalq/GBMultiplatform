@@ -16,7 +16,7 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.stats
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,14 +34,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBPlayerCard
 import com.gbmultiplatform.model.player.Player
 import com.gbmultiplatform.model.player.Stats
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.ic_penalties
+import com.gbmultiplatform.model.player.Stats.entries
+import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel.PlayerDisplayStats
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -54,24 +53,29 @@ fun StatsScreen(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        StatsImagesClassification(Modifier.weight(0.3f))
+        StatsImagesClassification(Modifier.weight(0.3f)) { selectedStat ->
+            viewModel.changeSelectedStat(selectedStat)
+        }
         StatsClassification(Modifier.weight(0.7f),players)
     }
 }
 
 @Composable
 fun StatsImagesClassification(
-    modifier: Modifier
+    modifier: Modifier,
+    onStatSelected: (Stats) -> Unit
 ) {
     Box(
         modifier = modifier.fillMaxWidth().padding(32.dp)
     ) {
         Row {
-            Stats.entries.forEach {
+            entries.forEach {
                 Spacer(Modifier.width(4.dp))
                 Icon(
+                    modifier = Modifier.size(24.dp).clickable {
+                        onStatSelected(it)
+                    },
                     painter = painterResource(it.icon),
-                    modifier = Modifier.size(24.dp),
                     contentDescription = null,
                     tint = Unspecified
                 )
@@ -84,7 +88,7 @@ fun StatsImagesClassification(
 @Composable
 fun StatsClassification(
     modifier: Modifier,
-    players: List<Player>
+    players: List<PlayerDisplayStats>
 ){
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -94,7 +98,7 @@ fun StatsClassification(
             GBPlayerCard(
                 image = player.image,
                 name = player.name,
-                stat = player.goals.toString(),
+                stat = player.stat,
                 onClick = {  }
             )
         }

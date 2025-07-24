@@ -17,10 +17,11 @@
 <!--    stats-->
     <string name="goals">Goals</string>
     <string name="assists">Assists</string>
-    <string name="penalties_produced">Penalties Produced</string>
-    <string name="clean_sheets">Clean Sheets</string>
+    <string name="penalties_provoked">Penalties provoked</string>
+    <string name="clean_sheets">Clean sheets</string>
     <string name="saves">Saves</string>
-    <string name="games_played">Games Played</string>
-    <string name="yellow_card">Yellow Card</string>
-    <string name="red_card">Red Card</string>
+    <string name="games_played">Games played</string>
+    <string name="yellow_card">Yellow card</string>
+    <string name="red_card">Red card</string>
+    <string name="percentage">Percentage</string>
 </resources>

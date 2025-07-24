@@ -29,7 +29,8 @@ import gbmultiplatform.core.presentation.generated.resources.ic_penalties
 import gbmultiplatform.core.presentation.generated.resources.ic_red_card
 import gbmultiplatform.core.presentation.generated.resources.ic_saves
 import gbmultiplatform.core.presentation.generated.resources.ic_yellow_card
-import gbmultiplatform.core.presentation.generated.resources.penalties_produced
+import gbmultiplatform.core.presentation.generated.resources.penalties_provoked
+import gbmultiplatform.core.presentation.generated.resources.percentage
 import gbmultiplatform.core.presentation.generated.resources.red_card
 import gbmultiplatform.core.presentation.generated.resources.saves
 import gbmultiplatform.core.presentation.generated.resources.yellow_card
@@ -48,8 +49,8 @@ enum class Stats(
         statName = Res.string.assists,
         icon = Res.drawable.ic_assists
     ),
-    PENALTIES_PRODUCED(
-        statName = Res.string.penalties_produced,
+    PENALTIES_PROVOKED(
+        statName = Res.string.penalties_provoked,
         icon = Res.drawable.ic_penalties
     ),
     CLEAN_SHEETS(
@@ -60,10 +61,6 @@ enum class Stats(
         statName = Res.string.saves,
         icon = Res.drawable.ic_saves
     ),
-    GAMES_PLAYED(
-        statName = Res.string.games_played,
-        icon = Res.drawable.ic_games_played
-    ),
     YELLOW_CARDS(
         statName = Res.string.yellow_card,
         icon = Res.drawable.ic_yellow_card
@@ -71,5 +68,13 @@ enum class Stats(
     RED_CARDS(
         statName = Res.string.red_card,
         icon = Res.drawable.ic_red_card
+    ),
+    GAMES_PLAYED(
+        statName = Res.string.games_played,
+        icon = Res.drawable.ic_games_played
+    ),
+    PERCENTAGE(
+        statName = Res.string.percentage,
+        icon = Res.drawable.ic_red_card // todo
     )
 }

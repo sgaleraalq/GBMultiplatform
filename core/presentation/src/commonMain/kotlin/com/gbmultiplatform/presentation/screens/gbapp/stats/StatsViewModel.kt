@@ -19,16 +19,61 @@ package com.gbmultiplatform.presentation.screens.gbapp.stats
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.model.player.IPlayerProvider
 import com.gbmultiplatform.model.player.Player
+import com.gbmultiplatform.model.player.Stats
+import com.gbmultiplatform.model.player.Stats.ASSISTS
+import com.gbmultiplatform.model.player.Stats.CLEAN_SHEETS
+import com.gbmultiplatform.model.player.Stats.GAMES_PLAYED
+import com.gbmultiplatform.model.player.Stats.GOALS
+import com.gbmultiplatform.model.player.Stats.PENALTIES_PROVOKED
+import com.gbmultiplatform.model.player.Stats.PERCENTAGE
+import com.gbmultiplatform.model.player.Stats.RED_CARDS
+import com.gbmultiplatform.model.player.Stats.SAVES
+import com.gbmultiplatform.model.player.Stats.YELLOW_CARDS
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class StatsViewModel(
     private val playerProvider: IPlayerProvider
 ): ViewModel() {
 
-    private val _players: MutableStateFlow<List<Player>> = MutableStateFlow(emptyList())
+    data class PlayerDisplayStats(
+        val name: String,
+        val image: String,
+        val stat: String
+    )
+
+    private val _playersData = MutableStateFlow<List<Player>>(emptyList())
+    private val _selectedStat = MutableStateFlow(PERCENTAGE)
+    private val _players: MutableStateFlow<List<PlayerDisplayStats>> = MutableStateFlow(emptyList())
     val players = _players
 
     init {
-        _players.value = playerProvider.providePlayerList()
+        _playersData.value = playerProvider.providePlayerList()
+        updateDisplayedStats()
+    }
+
+    fun changeSelectedStat(stat: Stats) {
+        _selectedStat.value = stat
+        updateDisplayedStats()
+    }
+
+    private fun updateDisplayedStats() {
+        _players.value = _playersData.value.map { player ->
+            val statValue = when (_selectedStat.value) {
+                GOALS -> player.goals
+                ASSISTS -> player.assists
+                PENALTIES_PROVOKED -> player.penaltiesProvoked
+                CLEAN_SHEETS -> player.cleanSheets
+                SAVES -> player.saves
+                RED_CARDS -> player.redCards
+                YELLOW_CARDS -> player.yellowCards
+                GAMES_PLAYED -> player.gamesPlayed
+                PERCENTAGE -> player.percentage
+            }
+            PlayerDisplayStats(
+                name = player.name,
+                image = player.image,
+                stat = statValue.toString()
+            )
+        }
     }
 }

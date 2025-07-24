@@ -91,13 +91,27 @@ class PlayerProvider: IPlayerProvider {
     private fun providePlayer(): Player {
         val randomGoals = (0..10).random()
         val randomAssists = (0..10).random()
+        val randomPenaltiesProvoked = (0..5).random()
+        val randomCleanSheets = (0..5).random()
+        val randomSaves = (0..10).random()
+        val randomYellowCards = (0..5).random()
+        val randomRedCards = (0..2).random()
+        val randomGamesPlayed = (5..30).random()
+        val randomPercentage = (0..100).random()
 
         return Player(
             id = "",
             image = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),
             goals = randomGoals,
-            assists = randomAssists
+            assists = randomAssists,
+            penaltiesProvoked = randomPenaltiesProvoked,
+            cleanSheets = randomCleanSheets,
+            saves = randomSaves,
+            yellowCards = randomYellowCards,
+            redCards = randomRedCards,
+            gamesPlayed = randomGamesPlayed,
+            percentage = randomPercentage.toDouble()
         )
     }
 

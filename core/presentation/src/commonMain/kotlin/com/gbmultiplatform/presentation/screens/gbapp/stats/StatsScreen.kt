@@ -37,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBPlayerCard
+import com.gbmultiplatform.helper.formatStat
 import com.gbmultiplatform.model.player.Player
 import com.gbmultiplatform.model.player.Stats
 import com.gbmultiplatform.model.player.Stats.entries
@@ -98,7 +99,7 @@ fun StatsClassification(
             GBPlayerCard(
                 image = player.image,
                 name = player.name,
-                stat = player.stat,
+                stat = player.stat.formatStat(),
                 onClick = {  }
             )
         }

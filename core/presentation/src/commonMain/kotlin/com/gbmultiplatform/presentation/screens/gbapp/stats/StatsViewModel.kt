@@ -33,12 +33,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class StatsViewModel(
     private val playerProvider: IPlayerProvider
-): ViewModel() {
+) : ViewModel() {
 
     data class PlayerDisplayStats(
         val name: String,
         val image: String,
-        val stat: String
+        val stat: Double
     )
 
     private val _playersData = MutableStateFlow<List<Player>>(emptyList())
@@ -59,21 +59,21 @@ class StatsViewModel(
     private fun updateDisplayedStats() {
         _players.value = _playersData.value.map { player ->
             val statValue = when (_selectedStat.value) {
-                GOALS -> player.goals
-                ASSISTS -> player.assists
-                PENALTIES_PROVOKED -> player.penaltiesProvoked
-                CLEAN_SHEETS -> player.cleanSheets
-                SAVES -> player.saves
-                RED_CARDS -> player.redCards
-                YELLOW_CARDS -> player.yellowCards
-                GAMES_PLAYED -> player.gamesPlayed
+                GOALS -> player.goals.toDouble()
+                ASSISTS -> player.assists.toDouble()
+                PENALTIES_PROVOKED -> player.penaltiesProvoked.toDouble()
+                CLEAN_SHEETS -> player.cleanSheets.toDouble()
+                SAVES -> player.saves.toDouble()
+                RED_CARDS -> player.redCards.toDouble()
+                YELLOW_CARDS -> player.yellowCards.toDouble()
+                GAMES_PLAYED -> player.gamesPlayed.toDouble()
                 PERCENTAGE -> player.percentage
             }
             PlayerDisplayStats(
                 name = player.name,
                 image = player.image,
-                stat = statValue.toString()
+                stat = statValue
             )
-        }
+        }.sortedByDescending { it.stat }
     }
 }

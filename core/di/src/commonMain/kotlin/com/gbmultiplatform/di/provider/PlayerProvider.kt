@@ -97,7 +97,7 @@ class PlayerProvider: IPlayerProvider {
         val randomYellowCards = (0..5).random()
         val randomRedCards = (0..2).random()
         val randomGamesPlayed = (5..30).random()
-        val randomPercentage = (0..100).random()
+        val randomPercentage = (0..100).random()/ 100.0
 
         return Player(
             id = "",
@@ -111,7 +111,7 @@ class PlayerProvider: IPlayerProvider {
             yellowCards = randomYellowCards,
             redCards = randomRedCards,
             gamesPlayed = randomGamesPlayed,
-            percentage = randomPercentage.toDouble()
+            percentage = randomPercentage
         )
     }
 

@@ -63,12 +63,11 @@ fun StatsScreen(
 fun StatsImagesClassification(
     modifier: Modifier
 ) {
-    val allIcons = Stats.entries
     Box(
         modifier = modifier.fillMaxWidth().padding(32.dp)
     ) {
         Row {
-            allIcons.forEach {
+            Stats.entries.forEach {
                 Spacer(Modifier.width(4.dp))
                 Icon(
                     painter = painterResource(it.icon),

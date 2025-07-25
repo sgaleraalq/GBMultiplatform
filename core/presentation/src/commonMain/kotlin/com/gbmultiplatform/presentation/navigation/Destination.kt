@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
+import com.gbmultiplatform.presentation.screens.gbapp.GBAppScreen
 import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
@@ -38,6 +39,16 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             WelcomeScreen(state)
+        }
+    }
+
+    @Serializable
+    data object GBApp: Destination {
+        override val routeName = "gb_app"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            GBAppScreen(state)
         }
     }
 

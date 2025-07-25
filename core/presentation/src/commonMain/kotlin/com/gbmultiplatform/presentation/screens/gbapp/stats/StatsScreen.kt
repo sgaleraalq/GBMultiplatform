@@ -38,7 +38,6 @@ import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBPlayerCard
 import com.gbmultiplatform.helper.formatStat
-import com.gbmultiplatform.model.player.Player
 import com.gbmultiplatform.model.player.Stats
 import com.gbmultiplatform.model.player.Stats.entries
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel.PlayerDisplayStats

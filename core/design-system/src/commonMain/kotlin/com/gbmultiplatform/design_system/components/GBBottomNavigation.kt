@@ -54,12 +54,9 @@ data class GBBottomNavigationTab(
 
 @Composable
 fun GBBottomNavigation(
-    show: Boolean,
     currentDestination: String?,
     states: List<GBBottomNavigationTab>
 ) {
-    if (!show || currentDestination == null) return
-
     Column(Modifier.shadow(10.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth()

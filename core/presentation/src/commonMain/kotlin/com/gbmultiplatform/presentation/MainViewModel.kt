@@ -19,6 +19,8 @@ package com.gbmultiplatform.presentation
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
+import com.gbmultiplatform.presentation.navigation.Destination
+import com.gbmultiplatform.presentation.navigation.Destination.GBApp
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -40,19 +42,9 @@ class MainViewModel(
         navState = state
     }
 
-    private val _showBottomNav = MutableStateFlow(false)
-    val showBottomNav = _showBottomNav
-
-
-    fun updateBottomNavVisibility(screensWithBottomNav: List<GBBottomNavigationTab>) {
-        _showBottomNav.value = screensWithBottomNav.any {
-            it.destination == navState.currentDestination.value?.routeName
-        }
-    }
-
     /**
      * Decides whether or not the user has to join the
-     * [Welcome] or go [Home] directly
+     * [Welcome] or go [Stats] directly
      */
     suspend fun initApp(
         navController: NavigationState

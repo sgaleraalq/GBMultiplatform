@@ -16,15 +16,28 @@
 
 package com.gbmultiplatform.presentation.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Team
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.img_background
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Navigation(
@@ -37,32 +50,52 @@ fun Navigation(
     val current = state.currentDestination.value
 
     if (current != null) {
-        NavHost(
-            navController = state.navController,
-            startDestination = current,
-        ) {
-            composable<Welcome> {
-                Welcome.Content(state)
+        Scaffold(
+            bottomBar = {
+                if (current.routeName != Welcome.routeName) {
+                    GBBottomNavigation(
+                        states = state.bottomNavTabs,
+                        currentDestination = current.routeName
+                    )
+                }
             }
+        ) { paddingValues ->
+            Image(
+                modifier = Modifier.fillMaxSize().padding(
+                    bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+                ),
+                painter = painterResource(Res.drawable.img_background),
+                contentScale = Crop,
+                contentDescription = null
+            )
+            NavHost(
+                modifier = Modifier.fillMaxSize(),
+                navController = state.navController,
+                startDestination = current
+            ) {
+                composable<Welcome> {
+                    Welcome.Content(state)
+                }
 
-            composable<Home> {
-                Home.Content(state)
-            }
+                composable<Home> {
+                    Home.Content(state)
+                }
 
-            composable<Team> {
-                Team.Content(state)
-            }
+                composable<Team> {
+                    Team.Content(state)
+                }
 
-            composable<Stats> {
-                Stats.Content(state)
-            }
+                composable<Stats> {
+                    Stats.Content(state)
+                }
 
-            composable<Matches> {
-                Matches.Content(state)
-            }
+                composable<Matches> {
+                    Matches.Content(state)
+                }
 
-            composable<About> {
-                About.Content(state)
+                composable<About> {
+                    About.Content(state)
+                }
             }
         }
     }

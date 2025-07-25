@@ -74,7 +74,7 @@ fun WelcomeScreenButtons(
     navigateToCreateNewTeamScreen: () -> Unit
 ) {
     GBElevatedButton(
-        modifier = Modifier.padding(start = 18.dp, end = 18.dp, bottom = 32.dp),
+        modifier = Modifier.padding(horizontal = 18.dp),
         text = stringResource(Res.string.join_gaztelu_bira),
         onClick = { navigateToCreateNewTeamScreen() }
     )

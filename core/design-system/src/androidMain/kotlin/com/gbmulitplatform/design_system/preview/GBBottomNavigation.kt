@@ -47,7 +47,6 @@ fun provideBottomNavigationTabs(): List<GBBottomNavigationTab> {
 fun GBBottomNavigationPreview() {
     GBTheme {
         GBBottomNavigation(
-            show = true,
             currentDestination = "Home",
             states = provideBottomNavigationTabs()
         )

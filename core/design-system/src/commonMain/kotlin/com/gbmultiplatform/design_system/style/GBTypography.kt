@@ -18,7 +18,9 @@ package com.gbmultiplatform.design_system.style
 
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.roboto_medium
@@ -26,14 +28,14 @@ import gbmultiplatform.core.design_system.generated.resources.test_font
 import org.jetbrains.compose.resources.Font
 
 @Composable
-fun GBTextFontFamily() = FontFamily(
+fun gBTextFontFamily() = FontFamily(
     Font(Res.font.roboto_medium, weight = Normal),
     Font(Res.font.test_font, weight = Normal)
 )
 
 @Composable
-fun GBTypography() = Typography().run {
-    val fontFamily = GBTextFontFamily()
+fun gBTypography() = Typography().run {
+    val fontFamily = gBTextFontFamily()
     copy(
         displayLarge = displayLarge.copy(fontFamily = fontFamily),
         displayMedium = displayMedium.copy(fontFamily = fontFamily),

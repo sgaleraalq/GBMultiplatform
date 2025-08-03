@@ -26,6 +26,7 @@ import gbmultiplatform.core.presentation.generated.resources.ic_clean_sheets
 import gbmultiplatform.core.presentation.generated.resources.ic_games_played
 import gbmultiplatform.core.presentation.generated.resources.ic_goals
 import gbmultiplatform.core.presentation.generated.resources.ic_penalties
+import gbmultiplatform.core.presentation.generated.resources.ic_percentage
 import gbmultiplatform.core.presentation.generated.resources.ic_red_card
 import gbmultiplatform.core.presentation.generated.resources.ic_saves
 import gbmultiplatform.core.presentation.generated.resources.ic_yellow_card
@@ -75,6 +76,6 @@ enum class Stats(
     ),
     PERCENTAGE(
         statName = Res.string.percentage,
-        icon = Res.drawable.ic_red_card // todo
+        icon = Res.drawable.ic_percentage
     )
 }

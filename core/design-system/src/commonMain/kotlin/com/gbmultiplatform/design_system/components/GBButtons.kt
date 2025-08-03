@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.style.GBTextFontFamily
+import com.gbmultiplatform.design_system.style.gBTextFontFamily
 
 @Composable
 fun GBElevatedButton(
@@ -51,7 +51,7 @@ fun GBElevatedButton(
         Text(
             text = text,
             style = TextStyle(
-                fontFamily = GBTextFontFamily()
+                fontFamily = gBTextFontFamily()
             )
         )
     }

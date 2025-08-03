@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -72,7 +73,7 @@ fun GBPlayerCard(
         ) {
             GBImage(
                 modifier = Modifier
-                    .size(36.dp)
+                    .size(24.dp)
                     .clip(RoundedCornerShape(50))
                     .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
                 image = image
@@ -81,12 +82,14 @@ fun GBPlayerCard(
                 modifier = Modifier.weight(1f),
                 text = name,
                 textColor = player_card_name_text_color,
-                alignment = Start
+                alignment = Start,
+                style = MaterialTheme.typography.bodyMedium
             )
             GBText(
                 text = stat,
                 textColor = player_card_stat_text_color,
-                alignment = Center
+                alignment = Center,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }

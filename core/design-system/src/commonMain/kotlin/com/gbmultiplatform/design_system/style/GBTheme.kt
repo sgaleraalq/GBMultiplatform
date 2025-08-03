@@ -50,7 +50,7 @@ fun GBTheme(
 ) {
     MaterialTheme(
         colorScheme = GBColorScheme,
-        typography = GBTypography(),
+        typography = gBTypography(),
         content = content
     )
 }

@@ -21,20 +21,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
-import com.gbmultiplatform.design_system.style.GBTypography
+import com.gbmultiplatform.design_system.style.gBTypography
 
 @Composable
 fun GBTitle(
     modifier: Modifier = Modifier,
     title: String,
+    style: TextStyle = gBTypography().headlineLarge,
     textColor: Color = White
 ) {
     Text(
         modifier = modifier,
         text = title,
-        style = GBTypography().headlineLarge,
+        style = style,
         color = textColor,
         textAlign = Center
     )
@@ -44,13 +46,14 @@ fun GBTitle(
 fun GBText(
     modifier: Modifier = Modifier,
     text: String,
-    textColor: Color = White,
     alignment: TextAlign,
+    textColor: Color = White,
+    style: TextStyle = gBTypography().bodyLarge,
 ) {
     Text(
         modifier = modifier,
         text = text,
-        style = GBTypography().bodyLarge,
+        style = style,
         color = textColor,
         textAlign = alignment
     )

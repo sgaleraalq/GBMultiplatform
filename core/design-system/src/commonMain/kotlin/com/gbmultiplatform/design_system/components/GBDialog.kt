@@ -29,7 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
-import com.gbmultiplatform.design_system.style.GBTypography
+import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gb_text_field_background
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -58,7 +58,7 @@ fun GBDialogTitle(
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = titleText,
-        style = GBTypography().titleMedium.copy(
+        style = gBTypography().titleMedium.copy(
             fontWeight = Bold
         )
     )
@@ -71,7 +71,7 @@ fun GBDialogTextContent(
     Text(
         modifier = Modifier.fillMaxWidth(),
         text = contentText,
-        style = GBTypography().bodyMedium
+        style = gBTypography().bodyMedium
     )
 }
 

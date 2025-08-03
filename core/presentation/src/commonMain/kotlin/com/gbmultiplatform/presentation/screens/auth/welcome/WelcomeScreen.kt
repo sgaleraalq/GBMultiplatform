@@ -17,12 +17,14 @@
 package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -38,6 +40,7 @@ fun WelcomeScreen(
     Column(
         modifier = Modifier
             .safeDrawingPadding()
+            .padding(bottom = 16.dp)
     ) {
         WelcomeScreenTitle()
         WelcomeScreenImage(Modifier.weight(1f))

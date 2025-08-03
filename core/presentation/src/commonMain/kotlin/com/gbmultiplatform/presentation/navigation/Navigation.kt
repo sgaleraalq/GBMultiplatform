@@ -18,10 +18,10 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
+import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -49,7 +50,15 @@ fun Navigation(state: NavigationState) {
         bottomBar = {
             AnimatedVisibility(
                 visible = showBottomBar,
-                enter = slideInVertically { it }
+                // add delay enter
+                enter = slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = tween(
+                        durationMillis = 500,
+                        delayMillis = 100
+                    )
+                ),
+                exit = slideOutVertically { it }
             ) {
                 GBBottomNavigation(
                     states = state.bottomNavTabs,
@@ -71,11 +80,7 @@ fun Navigation(state: NavigationState) {
             if (destination == null) return@Crossfade
 
             state.stateHolder.SaveableStateProvider(destination.routeName) {
-                Box(
-                    modifier = Modifier.fillMaxSize().padding(paddingValues)
-                ) {
-                    destination.Content(state)
-                }
+                destination.Content(state)
             }
         }
     }

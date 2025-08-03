@@ -44,6 +44,7 @@ class StatsViewModel(
 
     private val _playersData = MutableStateFlow<List<Player>>(emptyList())
     private val _selectedStat = MutableStateFlow(PERCENTAGE)
+    val selectedStat = _selectedStat
     private val _players: MutableStateFlow<List<PlayerDisplayStats>> = MutableStateFlow(emptyList())
     val players = _players
 

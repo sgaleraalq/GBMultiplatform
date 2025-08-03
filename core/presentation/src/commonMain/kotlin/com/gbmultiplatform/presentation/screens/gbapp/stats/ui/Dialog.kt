@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.stats.components
+package com.gbmultiplatform.presentation.screens.gbapp.stats.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

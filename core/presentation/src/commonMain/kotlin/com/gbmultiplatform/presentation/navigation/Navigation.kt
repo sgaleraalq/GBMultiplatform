@@ -24,10 +24,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navigation
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Home
@@ -47,15 +50,22 @@ fun Navigation(
 
     MultiplatformBackHandler { state.navigateBack() }
 
-    val current = state.currentDestination.value
+    val initDestination = state.currentDestination.value
 
-    if (current != null) {
+    val currentBackStackEntry by state.navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
+
+    val showBottomBar = state.showBottomBar(currentRoute)
+
+    println("Bottombaaar = $showBottomBar")
+
+    if (initDestination != null) {
         Scaffold(
             bottomBar = {
-                if (current.routeName != Welcome.routeName) {
+                if (showBottomBar) {
                     GBBottomNavigation(
                         states = state.bottomNavTabs,
-                        currentDestination = current.routeName
+                        currentDestination = currentRoute
                     )
                 }
             }
@@ -69,33 +79,42 @@ fun Navigation(
                 contentDescription = null
             )
             NavHost(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(paddingValues),
                 navController = state.navController,
-                startDestination = current
+                startDestination = initDestination
             ) {
                 composable<Welcome> {
                     Welcome.Content(state)
-                }
-
-                composable<Home> {
-                    Home.Content(state)
-                }
-
-                composable<Team> {
-                    Team.Content(state)
                 }
 
                 composable<Stats> {
                     Stats.Content(state)
                 }
 
-                composable<Matches> {
-                    Matches.Content(state)
-                }
-
-                composable<About> {
-                    About.Content(state)
-                }
+//                navigation(
+//                    startDestination = Stats.fullRoute,
+//                    route = GBApp.parentRoute
+//                ) {
+//                    composable<Home> {
+//                        Home.Content(state)
+//                    }
+//
+//                    composable<Team> {
+//                        Team.Content(state)
+//                    }
+//
+//                    composable<Stats> {
+//                        Stats.Content(state)
+//                    }
+//
+//                    composable<Matches> {
+//                        Matches.Content(state)
+//                    }
+//
+//                    composable<About> {
+//                        About.Content(state)
+//                    }
+//                }
             }
         }
     }

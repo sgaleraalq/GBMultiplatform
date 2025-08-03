@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshots.Snapshot.Companion.current
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,10 +38,15 @@ fun GBAppScreen(
     state: NavigationState
 ){
     state as NavigatorHandler
-    val currentDestination by state.currentDestination
+    val current = state.currentDestination.value
 
     Scaffold(
-
+        bottomBar = {
+            GBBottomNavigation(
+                states = state.bottomNavTabs,
+                currentDestination = current?.routeName
+            )
+        }
     ) { paddingValues ->
         NavHost(
             modifier = Modifier.padding(paddingValues),

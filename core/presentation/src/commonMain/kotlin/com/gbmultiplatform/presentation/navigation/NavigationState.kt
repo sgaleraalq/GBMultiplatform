@@ -72,39 +72,42 @@ class NavigatorHandler(
     override val bottomNavTabs = listOf(
         // Home tab
         GBBottomNavigationTab(
-            destination = Home.routeName,
+            destination = Home.fullRoute,
             content = { Icon(GBIcons.GBHomeBottomTab, null) },
             onNavigationPressed = { navigateTo(Home) }
         ),
 
         // Matches tab
         GBBottomNavigationTab(
-            destination = Matches.routeName,
+            destination = Matches.fullRoute,
             content = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
             onNavigationPressed = { navigateTo(Matches) }
         ),
 
         // Stats tab
         GBBottomNavigationTab(
-            destination = Stats.routeName,
+            destination = Stats.fullRoute,
             content = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
             onNavigationPressed = { navigateTo(Stats) }
         ),
 
         // Team tab
         GBBottomNavigationTab(
-            destination = Team.routeName,
+            destination = Team.fullRoute,
             content = { Icon(GBIcons.GBTeamBottomTab, null) },
             onNavigationPressed = { navigateTo(Team) }
         ),
 
         // About tab
         GBBottomNavigationTab(
-            destination = About.routeName,
+            destination = About.fullRoute,
             content = { Icon(GBIcons.GBAboutBottomTab, null) },
             onNavigationPressed = { navigateTo(About) }
         )
     )
 
     fun getCurrentDestination() = currentDestination.value
+    fun showBottomBar(route: String?): Boolean {
+        return route != null && bottomNavTabs.any { it.destination == route }
+    }
 }

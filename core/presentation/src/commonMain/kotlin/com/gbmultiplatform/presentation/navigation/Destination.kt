@@ -31,6 +31,8 @@ interface Destination {
     fun Content(state: NavigationState)
 
     val routeName: String
+    val fullRoute: String
+        get() = this::class.qualifiedName ?: error("No route for ${this::class}")
 
     @Serializable
     data object Welcome: Destination {
@@ -39,16 +41,6 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             WelcomeScreen(state)
-        }
-    }
-
-    @Serializable
-    data object GBApp: Destination {
-        override val routeName = "gb_app"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            GBAppScreen(state)
         }
     }
 

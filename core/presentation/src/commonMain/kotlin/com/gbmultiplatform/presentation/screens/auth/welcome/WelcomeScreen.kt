@@ -24,8 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.design_system.components.GBProgressDialog
-import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Destination.GBApp
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import org.koin.compose.viewmodel.koinViewModel
@@ -45,7 +43,8 @@ fun WelcomeScreen(
         WelcomeScreenImage(Modifier.weight(1f))
         WelcomeScreenButtons {
             state.navigateTo(Stats)
-        /* viewModel.onJoinGazteluBira() */ }
+            /* viewModel.onJoinGazteluBira() */
+        }
     }
 
     GBProgressDialog(

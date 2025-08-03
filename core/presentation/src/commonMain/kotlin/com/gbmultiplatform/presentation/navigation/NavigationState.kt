@@ -18,12 +18,12 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.saveable.SaveableStateHolder
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
 import com.gbmultiplatform.design_system.icons.GBAboutBottomTab
 import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
@@ -36,77 +36,74 @@ import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Team
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import org.jetbrains.compose.resources.painterResource
+
 
 interface NavigationState {
     val bottomNavTabs: List<GBBottomNavigationTab>
     val currentDestination: State<Destination?>
+    val stateHolder: SaveableStateHolder
+
     fun navigateTo(destination: Destination)
     fun navigateBack()
 }
 
 @Composable
 fun rememberNavigation(): NavigationState {
-    val navController = rememberNavController()
-    return remember { NavigatorHandler(navController) }
+    val stateHolder = rememberSaveableStateHolder()
+
+    return remember {
+        NavigatorHandler(stateHolder)
+    }
 }
 
 class NavigatorHandler(
-    val navController: NavHostController
+    override val stateHolder: SaveableStateHolder
 ) : NavigationState {
-    private val stack = mutableListOf<Destination>()
-    override val currentDestination: State<Destination?> = mutableStateOf(null)
+    private val _stack = mutableStateOf<List<Destination>>(listOf(Welcome))
+    override val currentDestination: State<Destination?> = derivedStateOf { _stack.value.lastOrNull() }
 
     override fun navigateTo(destination: Destination) {
-        stack.add(destination)
-        (currentDestination as MutableState).value = destination
+        _stack.value = _stack.value + destination
     }
 
     override fun navigateBack() {
-        if (stack.size > 1) {
-            stack.removeLast()
-            (currentDestination as MutableState).value = stack.last()
+        if (_stack.value.size > 1) {
+            val toRemove = _stack.value.last()
+            _stack.value = _stack.value.dropLast(1)
+            stateHolder.removeState(toRemove.routeName)
         }
     }
 
     override val bottomNavTabs = listOf(
-        // Home tab
         GBBottomNavigationTab(
-            destination = Home.fullRoute,
+            destination = Home.routeName,
             content = { Icon(GBIcons.GBHomeBottomTab, null) },
             onNavigationPressed = { navigateTo(Home) }
         ),
-
-        // Matches tab
         GBBottomNavigationTab(
-            destination = Matches.fullRoute,
+            destination = Matches.routeName,
             content = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
             onNavigationPressed = { navigateTo(Matches) }
         ),
-
-        // Stats tab
         GBBottomNavigationTab(
-            destination = Stats.fullRoute,
+            destination = Stats.routeName,
             content = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
             onNavigationPressed = { navigateTo(Stats) }
         ),
-
-        // Team tab
         GBBottomNavigationTab(
-            destination = Team.fullRoute,
+            destination = Team.routeName,
             content = { Icon(GBIcons.GBTeamBottomTab, null) },
             onNavigationPressed = { navigateTo(Team) }
         ),
-
-        // About tab
         GBBottomNavigationTab(
-            destination = About.fullRoute,
+            destination = About.routeName,
             content = { Icon(GBIcons.GBAboutBottomTab, null) },
             onNavigationPressed = { navigateTo(About) }
         )
     )
 
-    fun getCurrentDestination() = currentDestination.value
     fun showBottomBar(route: String?): Boolean {
         return route != null && bottomNavTabs.any { it.destination == route }
     }

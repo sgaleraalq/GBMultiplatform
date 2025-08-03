@@ -29,7 +29,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -40,34 +42,49 @@ import com.gbmultiplatform.design_system.components.GBPlayerCard
 import com.gbmultiplatform.helper.formatStat
 import com.gbmultiplatform.model.player.Stats
 import com.gbmultiplatform.model.player.Stats.entries
+import com.gbmultiplatform.presentation.navigation.Destination.Welcome
+import com.gbmultiplatform.presentation.navigation.NavigationState
+import com.gbmultiplatform.presentation.navigation.NavigatorHandler
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel.PlayerDisplayStats
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun StatsScreen(
-    viewModel: StatsViewModel = koinViewModel<StatsViewModel>()
+    viewModel: StatsViewModel = koinViewModel<StatsViewModel>(),
+    state: NavigationState
 ) {
+    state as NavigatorHandler
     val players by viewModel.players.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        StatsImagesClassification(Modifier.weight(0.3f)) { selectedStat ->
-            viewModel.changeSelectedStat(selectedStat)
-        }
-        StatsClassification(Modifier.weight(0.7f),players)
+        StatsImagesClassification(
+            modifier = Modifier.weight(0.3f),
+            onStatSelected = { selectedStat ->
+                viewModel.changeSelectedStat(selectedStat)
+            },
+            navigateWelcome = { state.navigateTo(Welcome) }
+        )
+        StatsClassification(Modifier.weight(0.7f), players)
     }
 }
 
 @Composable
 fun StatsImagesClassification(
     modifier: Modifier,
-    onStatSelected: (Stats) -> Unit
+    onStatSelected: (Stats) -> Unit,
+    navigateWelcome: () -> Unit
 ) {
     Box(
         modifier = modifier.fillMaxWidth().padding(32.dp)
     ) {
+//        Button(
+//            onClick = { navigateWelcome() }
+//        ) {
+//            Text("Navigate back")
+//        }
         Row {
             entries.forEach {
                 Spacer(Modifier.width(4.dp))
@@ -89,7 +106,7 @@ fun StatsImagesClassification(
 fun StatsClassification(
     modifier: Modifier,
     players: List<PlayerDisplayStats>
-){
+) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 12.dp)
@@ -99,7 +116,7 @@ fun StatsClassification(
                 image = player.image,
                 name = player.name,
                 stat = player.stat.formatStat(),
-                onClick = {  }
+                onClick = { }
             )
         }
     }

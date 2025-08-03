@@ -18,7 +18,6 @@ package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
-import com.gbmultiplatform.presentation.screens.gbapp.GBAppScreen
 import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
@@ -31,8 +30,6 @@ interface Destination {
     fun Content(state: NavigationState)
 
     val routeName: String
-    val fullRoute: String
-        get() = this::class.qualifiedName ?: error("No route for ${this::class}")
 
     @Serializable
     data object Welcome: Destination {
@@ -70,7 +67,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            StatsScreen()
+            StatsScreen(state = state)
         }
     }
 

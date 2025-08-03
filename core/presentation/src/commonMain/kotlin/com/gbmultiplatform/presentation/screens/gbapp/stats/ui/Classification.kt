@@ -35,7 +35,7 @@ fun StatsClassification(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = 12.dp)
+        contentPadding = PaddingValues(vertical = 12.dp)
     ) {
         items(players) { player ->
             GBPlayerCard(

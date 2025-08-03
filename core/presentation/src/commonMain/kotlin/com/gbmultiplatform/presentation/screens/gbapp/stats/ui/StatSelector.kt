@@ -17,26 +17,42 @@
 package com.gbmultiplatform.presentation.screens.gbapp.stats.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.style.change_selected_stat_background
+import com.gbmultiplatform.design_system.style.gb_dialog_background
+import com.gbmultiplatform.design_system.style.player_card_name_text_color
+import com.gbmultiplatform.design_system.style.player_card_stat_text_color
 import com.gbmultiplatform.model.player.Stats
+import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -45,29 +61,130 @@ fun StatSelector(
     selectedStat: Stats,
     onStatSelected: (Stats) -> Unit
 ) {
-    Box(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
-        contentAlignment = Center
+    var showChangeSelectedStat by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .padding(vertical = 8.dp, horizontal = 32.dp),
+        verticalAlignment = CenterVertically
     ) {
-        Row(
-            modifier = Modifier.background(
-                color = White,
-                shape = RoundedCornerShape(12.dp)
-            ).padding(4.dp),
-            verticalAlignment = CenterVertically
+        GBText(
+            modifier = Modifier.weight(1f),
+            text = stringResource(selectedStat.statName).uppercase(),
+            alignment = Start,
+            textColor = player_card_name_text_color,
+            style = MaterialTheme.typography.bodyMedium,
+        )
+        Box(
+            modifier = Modifier
+                .background(
+                    color = change_selected_stat_background,
+                    shape = RoundedCornerShape(4.dp)
+                )
+                .clickable {
+                    showChangeSelectedStat = true
+                }
+                .padding(4.dp),
+            contentAlignment = Center
         ) {
             Icon(
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(18.dp),
                 painter = painterResource(selectedStat.icon),
                 contentDescription = null,
                 tint = Unspecified
             )
-            Spacer(Modifier.width(12.dp))
-            GBText(
-                text = stringResource(selectedStat.statName),
-                alignment = TextAlign.Center,
-                textColor = Black
-            )
         }
+    }
+
+    HorizontalDivider(
+        Modifier.fillMaxWidth()
+            .height(1.dp)
+            .padding(horizontal = 24.dp)
+            .background(White)
+    )
+
+    if (showChangeSelectedStat) {
+        GBShowChangeSelectedStatDialog(
+            onDismiss = { showChangeSelectedStat = false },
+            onStatSelected = { onStatSelected(it) }
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun GBShowChangeSelectedStatDialog(
+    onDismiss: () -> Unit,
+    onStatSelected: (Stats) -> Unit
+) {
+    val scrollState = rememberScrollState()
+
+    BasicAlertDialog(
+        onDismissRequest = {
+            onDismiss()
+        }
+    ) {
+        Column(
+            modifier = Modifier.verticalScroll(scrollState)
+                .background(
+                    color = gb_dialog_background,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(12.dp)
+        ) {
+            Stats.entries.forEach {
+                SelectStatDialogComponent(
+                    statIcon = it.icon,
+                    statName = it.statName,
+                    onStatSelected = {
+                        onStatSelected(it)
+                        onDismiss()
+                    },
+                    isLastItem = it == Stats.GAMES_PLAYED
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectStatDialogComponent(
+    statIcon: DrawableResource,
+    statName: StringResource,
+    onStatSelected: () -> Unit,
+    isLastItem: Boolean = false
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onStatSelected()
+            }
+            .padding(12.dp),
+        verticalAlignment = CenterVertically
+    ) {
+        Icon(
+            modifier = Modifier.size(24.dp),
+            painter = painterResource(statIcon),
+            contentDescription = null,
+            tint = Unspecified
+        )
+        GBText(
+            modifier = Modifier
+                .padding(start = 12.dp),
+            text = stringResource(statName),
+            textColor = player_card_name_text_color,
+            style = MaterialTheme.typography.bodyMedium,
+            alignment = Start
+        )
+    }
+    if (!isLastItem) {
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(0.25.dp)
+                .padding(horizontal = 12.dp)
+                .background(player_card_stat_text_color)
+        )
     }
 }

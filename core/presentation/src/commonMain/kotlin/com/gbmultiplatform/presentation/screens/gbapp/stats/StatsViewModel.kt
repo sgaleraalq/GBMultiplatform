@@ -36,6 +36,7 @@ class StatsViewModel(
 ) : ViewModel() {
 
     data class PlayerDisplayStats(
+        val id: String,
         val name: String,
         val image: String,
         val stat: Double
@@ -46,6 +47,9 @@ class StatsViewModel(
     private val _players: MutableStateFlow<List<PlayerDisplayStats>> = MutableStateFlow(emptyList())
     val players = _players
 
+    private val _selectedPlayer = MutableStateFlow<Player?>(null)
+    val selectedPlayer = _selectedPlayer
+
     init {
         _playersData.value = playerProvider.providePlayerList()
         updateDisplayedStats()
@@ -54,6 +58,14 @@ class StatsViewModel(
     fun changeSelectedStat(stat: Stats) {
         _selectedStat.value = stat
         updateDisplayedStats()
+    }
+
+    fun unselectPlayer() {
+        _selectedPlayer.value = null
+    }
+
+    fun selectPlayer(playerId: String) {
+        _selectedPlayer.value = _playersData.value.find { it.id == playerId }
     }
 
     private fun updateDisplayedStats() {
@@ -70,6 +82,7 @@ class StatsViewModel(
                 PERCENTAGE -> player.percentage
             }
             PlayerDisplayStats(
+                id = player.id,
                 name = player.name,
                 image = player.image,
                 stat = statValue

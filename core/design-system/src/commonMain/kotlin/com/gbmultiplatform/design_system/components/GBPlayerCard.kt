@@ -18,6 +18,7 @@ package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,7 +61,8 @@ fun GBPlayerCard(
 
     Card(
         modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 4.dp),
+            .padding(horizontal = 24.dp, vertical = 4.dp)
+            .clickable{ onClick() },
         shape = RoundedCornerShape(32.dp)
     ) {
         Row(

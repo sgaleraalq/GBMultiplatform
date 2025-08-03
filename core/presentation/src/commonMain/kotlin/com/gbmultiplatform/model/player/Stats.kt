@@ -42,6 +42,10 @@ enum class Stats(
     val statName: StringResource,
     val icon: DrawableResource
 ) {
+    PERCENTAGE(
+        statName = Res.string.percentage,
+        icon = Res.drawable.ic_percentage
+    ),
     GOALS(
         statName = Res.string.goals,
         icon = Res.drawable.ic_goals
@@ -73,9 +77,5 @@ enum class Stats(
     GAMES_PLAYED(
         statName = Res.string.games_played,
         icon = Res.drawable.ic_games_played
-    ),
-    PERCENTAGE(
-        statName = Res.string.percentage,
-        icon = Res.drawable.ic_percentage
     )
 }

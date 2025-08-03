@@ -7,6 +7,9 @@ import androidx.compose.ui.graphics.Color
  */
 val gb_text_field_background = Color(0xFFF0E4FC)
 
+// dialog
+val gb_dialog_background = Color(0xFF151022)
+
 // bottom navigation
 val bottom_nav_bg = Color(0xFFFCFCFC)
 val bottom_nav_selected = Color(0xFFE1E4E6)

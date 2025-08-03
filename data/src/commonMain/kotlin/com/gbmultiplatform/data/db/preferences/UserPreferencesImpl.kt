@@ -40,6 +40,6 @@ class UserPreferencesImpl(
         dataStore.data.map { it[USER_EMAIL] }.firstOrNull()
 
     override suspend fun isSessionActive(): Boolean {
-        return false
+        return true // TODO
     }
 }

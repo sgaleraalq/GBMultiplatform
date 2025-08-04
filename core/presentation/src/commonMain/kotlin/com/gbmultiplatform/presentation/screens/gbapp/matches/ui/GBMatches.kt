@@ -17,20 +17,25 @@
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.MatchResult
@@ -44,7 +49,8 @@ fun MatchesList(
     appTeam: TeamModel
 ) {
     LazyColumn(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth().padding(12.dp),
+        verticalArrangement = spacedBy(12.dp)
     ) {
         items(
             items = matches,
@@ -58,14 +64,20 @@ fun MatchesList(
     }
 }
 
-
 @Composable
 fun GBMatch(
     matchResult: MatchResult,
     match: MatchModel
 ){
-    Card {
-        Column {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = Red
+        ),
+        shape = RoundedCornerShape(4.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp)
+        ) {
             MatchDate()
             MatchResult()
         }

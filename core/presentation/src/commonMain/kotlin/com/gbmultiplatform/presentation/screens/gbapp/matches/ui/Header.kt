@@ -14,56 +14,56 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches
+package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Bottom
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.Color.Companion.Yellow
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.model.team.MatchModel
-import com.gbmultiplatform.model.team.MatchResult
-import com.gbmultiplatform.model.team.MatchResult.VICTORY
 import com.gbmultiplatform.model.team.TeamModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.ui.MatchesList
-import com.gbmultiplatform.presentation.screens.gbapp.matches.ui.MatchesScreenHeader
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun MatchesScreen(
-    viewModel: MatchesViewModel = koinViewModel<MatchesViewModel>()
+fun MatchesScreenHeader(
+    appTeam: TeamModel
 ) {
-    Column {
-        MatchesScreenHeader(
-            appTeam = viewModel.provideRandomTeam()
+    Row(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 24.dp),
+        verticalAlignment = Bottom,
+        horizontalArrangement = spacedBy(24.dp)
+    ) {
+        /**
+         * Team logo
+         */
+        GBImage(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(RoundedCornerShape(50))
+                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
+            image = appTeam.logo
         )
-        MatchesList(
-            modifier = Modifier.weight(1f),
-            matches = viewModel.provideMatches(),
-            appTeam = viewModel.provideRandomTeam()
+
+        /**
+         * Team name
+         */
+        GBText(
+            modifier = Modifier.weight(1f).padding(bottom = 4.dp),
+            text = appTeam.name,
+            alignment = Start,
+            textColor = White,
+            style = MaterialTheme.typography.headlineSmall
         )
     }
 }

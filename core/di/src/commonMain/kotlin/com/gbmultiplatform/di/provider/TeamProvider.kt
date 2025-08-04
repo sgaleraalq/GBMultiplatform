@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.di.provider
 
+import com.gbmultiplatform.di.generateRandomUUID
 import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.TeamModel
@@ -35,6 +36,7 @@ class TeamProvider: ITeamProvider {
     override fun provideMatch(): MatchModel {
         return MatchModel(
 //            date = now(),
+            id = generateRandomUUID(),
             localTeam = provideTeam(),
             visitorTeam = provideTeam(),
             localGoals = 1,

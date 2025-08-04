@@ -16,11 +16,6 @@
 
 package com.gbmultiplatform.model.team
 
-data class MatchModel(
-//    val date: Timestamp, TODO
-    val id: String,
-    val localTeam: TeamModel,
-    val visitorTeam: TeamModel,
-    val localGoals: Int,
-    val visitorGoals: Int
-)
+enum class MatchResult {
+    VICTORY, DRAW, DEFEAT
+}

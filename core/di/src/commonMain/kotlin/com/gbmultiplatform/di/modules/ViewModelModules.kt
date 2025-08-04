@@ -17,9 +17,12 @@
 package com.gbmultiplatform.di.modules
 
 import com.gbmultiplatform.di.provider.PlayerProvider
+import com.gbmultiplatform.di.provider.TeamProvider
 import com.gbmultiplatform.model.player.IPlayerProvider
+import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
+import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -28,8 +31,10 @@ val viewModelModule = module {
     viewModelOf(::MainViewModel)
     viewModelOf(::WelcomeViewModel)
     viewModelOf(::StatsViewModel)
+    viewModelOf(::MatchesViewModel)
 }
 
 val viewModelHelpersModule = module {
     single<IPlayerProvider> { PlayerProvider() }
+    single<ITeamProvider> { TeamProvider() }
 }

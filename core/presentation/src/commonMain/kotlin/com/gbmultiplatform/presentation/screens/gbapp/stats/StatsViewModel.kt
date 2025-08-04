@@ -18,7 +18,7 @@ package com.gbmultiplatform.presentation.screens.gbapp.stats
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.model.player.IPlayerProvider
-import com.gbmultiplatform.model.player.Player
+import com.gbmultiplatform.model.player.PlayerModel
 import com.gbmultiplatform.model.player.Stats
 import com.gbmultiplatform.model.player.Stats.ASSISTS
 import com.gbmultiplatform.model.player.Stats.CLEAN_SHEETS
@@ -42,13 +42,13 @@ class StatsViewModel(
         val stat: Double
     )
 
-    private val _playersData = MutableStateFlow<List<Player>>(emptyList())
+    private val _playersData = MutableStateFlow<List<PlayerModel>>(emptyList())
     private val _selectedStat = MutableStateFlow(PERCENTAGE)
     val selectedStat = _selectedStat
     private val _players: MutableStateFlow<List<PlayerDisplayStats>> = MutableStateFlow(emptyList())
     val players = _players
 
-    private val _selectedPlayer = MutableStateFlow<Player?>(null)
+    private val _selectedPlayer = MutableStateFlow<PlayerModel?>(null)
     val selectedPlayer = _selectedPlayer
 
     init {

@@ -32,9 +32,9 @@ import gbmultiplatform.core.presentation.generated.resources.ic_saves
 import gbmultiplatform.core.presentation.generated.resources.ic_yellow_card
 import gbmultiplatform.core.presentation.generated.resources.penalties_provoked
 import gbmultiplatform.core.presentation.generated.resources.percentage
-import gbmultiplatform.core.presentation.generated.resources.red_card
+import gbmultiplatform.core.presentation.generated.resources.red_cards
 import gbmultiplatform.core.presentation.generated.resources.saves
-import gbmultiplatform.core.presentation.generated.resources.yellow_card
+import gbmultiplatform.core.presentation.generated.resources.yellow_cards
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
@@ -67,11 +67,11 @@ enum class Stats(
         icon = Res.drawable.ic_saves
     ),
     YELLOW_CARDS(
-        statName = Res.string.yellow_card,
+        statName = Res.string.yellow_cards,
         icon = Res.drawable.ic_yellow_card
     ),
     RED_CARDS(
-        statName = Res.string.red_card,
+        statName = Res.string.red_cards,
         icon = Res.drawable.ic_red_card
     ),
     GAMES_PLAYED(

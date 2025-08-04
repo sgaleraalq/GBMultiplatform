@@ -21,8 +21,8 @@
     <string name="clean_sheets">Clean sheets</string>
     <string name="saves">Saves</string>
     <string name="games_played">Games played</string>
-    <string name="yellow_card">Yellow card</string>
-    <string name="red_card">Red card</string>
+    <string name="yellow_cards">Yellow cards</string>
+    <string name="red_cards">Red cards</string>
     <string name="percentage">Percentage</string>
     <string name="displayed_stat">Displayed stat: </string>
 </resources>

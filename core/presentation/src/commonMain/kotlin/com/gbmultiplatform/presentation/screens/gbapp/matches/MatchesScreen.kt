@@ -16,23 +16,54 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.model.team.MatchModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun MatchesScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        Text(
-            text = "Matches Screen",
-            color = White
+fun MatchesScreen(
+    viewModel: MatchesViewModel = koinViewModel<MatchesViewModel>()
+) {
+    Column {
+        MatchesScreenHeader()
+        MatchesList(
+            modifier = Modifier.weight(1f).background(Yellow),
+            matches = emptyList()
         )
+    }
+}
+
+@Composable
+fun MatchesScreenHeader() {
+    Row(
+        modifier = Modifier.height(50.dp).fillMaxWidth().background(Red)
+    ) {
+
+    }
+}
+
+
+@Composable
+fun MatchesList(
+    modifier: Modifier,
+    matches: List<MatchModel>
+) {
+    LazyColumn(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        items(matches) {
+
+        }
     }
 }

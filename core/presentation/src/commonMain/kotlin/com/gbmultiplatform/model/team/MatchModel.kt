@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.player
+package com.gbmultiplatform.model.team
 
-interface IPlayerProvider {
-    fun providePlayerList(): List<PlayerModel>
-}
+data class MatchModel(
+//    val date: Timestamp, TODO
+    val localTeam: TeamModel,
+    val visitorTeam: TeamModel,
+    val localGoals: Int,
+    val visitorGoals: Int
+)

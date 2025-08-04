@@ -18,7 +18,6 @@ package com.gbmultiplatform.presentation.screens.gbapp.stats.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -38,7 +37,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
@@ -46,7 +44,6 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.design_system.style.change_selected_stat_background
 import com.gbmultiplatform.design_system.style.gb_dialog_background
 import com.gbmultiplatform.design_system.style.player_card_name_text_color
 import com.gbmultiplatform.design_system.style.player_card_stat_text_color
@@ -65,7 +62,10 @@ fun StatSelector(
 
     Row(
         modifier = Modifier
-            .padding(vertical = 8.dp, horizontal = 32.dp),
+            .clickable{
+                showChangeSelectedStat = true
+            }
+            .padding(vertical = 8.dp, horizontal = 48.dp),
         verticalAlignment = CenterVertically
     ) {
         GBText(
@@ -75,25 +75,13 @@ fun StatSelector(
             textColor = player_card_name_text_color,
             style = MaterialTheme.typography.bodyMedium,
         )
-        Box(
-            modifier = Modifier
-                .background(
-                    color = change_selected_stat_background,
-                    shape = RoundedCornerShape(4.dp)
-                )
-                .clickable {
-                    showChangeSelectedStat = true
-                }
-                .padding(4.dp),
-            contentAlignment = Center
-        ) {
-            Icon(
-                modifier = Modifier.size(18.dp),
-                painter = painterResource(selectedStat.icon),
-                contentDescription = null,
-                tint = Unspecified
-            )
-        }
+
+        Icon(
+            modifier = Modifier.size(18.dp),
+            painter = painterResource(selectedStat.icon),
+            contentDescription = null,
+            tint = Unspecified
+        )
     }
 
     HorizontalDivider(

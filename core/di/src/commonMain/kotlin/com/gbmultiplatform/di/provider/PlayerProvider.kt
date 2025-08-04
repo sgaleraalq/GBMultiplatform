@@ -18,7 +18,7 @@ package com.gbmultiplatform.di.provider
 
 import com.gbmultiplatform.di.generateRandomUUID
 import com.gbmultiplatform.model.player.IPlayerProvider
-import com.gbmultiplatform.model.player.Player
+import com.gbmultiplatform.model.player.PlayerModel
 
 class PlayerProvider: IPlayerProvider {
 
@@ -89,7 +89,7 @@ class PlayerProvider: IPlayerProvider {
         )
     }
 
-    private fun providePlayer(): Player {
+    private fun providePlayer(): PlayerModel {
         val randomId = generateRandomUUID()
         val randomGoals = (0..10).random()
         val randomAssists = (0..10).random()
@@ -101,7 +101,7 @@ class PlayerProvider: IPlayerProvider {
         val randomGamesPlayed = (5..30).random()
         val randomPercentage = (0..100).random()/ 100.0
 
-        return Player(
+        return PlayerModel(
             id = randomId,
             image = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),

@@ -16,6 +16,10 @@
 
 package com.gbmultiplatform.model.team
 
-enum class MatchResult {
-    VICTORY, DRAW, DEFEAT
+import androidx.compose.ui.graphics.Color
+
+enum class MatchResult(val color: Color) {
+    VICTORY(Color(0xFF00FF00)),
+    DRAW(Color(0xFFFFA500)),
+    DEFEAT(Color(0xFFFF0000))
 }

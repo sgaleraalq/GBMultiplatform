@@ -18,18 +18,13 @@ package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,21 +32,12 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.Color.Companion.Yellow
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
@@ -59,7 +45,6 @@ import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.MatchResult
-import com.gbmultiplatform.model.team.MatchResult.VICTORY
 import com.gbmultiplatform.model.team.TeamModel
 
 @Composable
@@ -77,8 +62,9 @@ fun MatchesList(
             items = matches,
             key = { match -> match.id }
         ) { match ->
+            val randomResult = MatchResult.entries.toTypedArray().random()
             GBMatch(
-                matchResult = VICTORY,//{ matchResult(match, appTeam) },
+                matchResult = randomResult,
                 match = match
             )
         }
@@ -93,7 +79,7 @@ fun GBMatch(
     Card(
         modifier = Modifier.border(
             width = 0.1.dp,
-            color = Yellow
+            color = matchResult.color
         ),
         colors = CardDefaults.cardColors(
             containerColor = Color(0x33F0F2F5)

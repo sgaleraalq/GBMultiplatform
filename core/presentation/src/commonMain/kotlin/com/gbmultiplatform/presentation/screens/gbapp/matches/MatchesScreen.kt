@@ -58,12 +58,12 @@ fun MatchesScreen(
 ) {
     Column {
         MatchesScreenHeader(
-            appTeam = viewModel.provideRandomTeam()
+            appTeam = viewModel.appTeam
         )
         MatchesList(
             modifier = Modifier.weight(1f),
             matches = viewModel.provideMatches(),
-            appTeam = viewModel.provideRandomTeam()
+            appTeam = viewModel.appTeam
         )
     }
 }

@@ -24,23 +24,56 @@ import com.gbmultiplatform.model.team.TeamModel
 class TeamProvider: ITeamProvider {
 
     companion object {
+        const val GAZTELU_IMG = "https://firebasestorage.googleapis.com/v0/b/gbmultiplatform.firebasestorage.app/o/img_gaztelu_bira.webp?alt=media&token=3708f1c5-f9d7-4353-8829-967b21df75ed"
+        const val GAZTELU_BIRA = "Gaztelu Bira"
+        const val GAZTELU_BIRA_ID = "gaztelu_bira"
+
         const val EXAMPLE_TEAM_1 = "https://static.vecteezy.com/system/resources/previews/011/049/345/non_2x/soccer-football-badge-logo-sport-team-identity-illustrations-isolated-on-white-background-vector.jpg"
         const val EXAMPLE_TEAM_2 = "https://static.vecteezy.com/system/resources/thumbnails/008/280/239/small/football-logo-badge-with-a-soccer-ball-illustration-sport-team-logo-template-vector.jpg"
+
+        const val TEAM_NAME_1 = "Example Team 1"
+        const val TEAM_NAME_2 = "Example Team 2"
     }
-    override fun provideTeam() = TeamModel(
-        id = "1",
-        name = "Example Team",
-        logo = EXAMPLE_TEAM_1
-    )
 
     override fun provideMatch(): MatchModel {
+        val randomLocalGoals = (0..5).random()
+        val randomVisitorGoals = (0..5).random()
+        val isLocal = (0..1).random() == 0
+
+        val localTeam = if (isLocal) {
+            provideAppTeam()
+        } else {
+            provideRandomTeam()
+        }
+
+        val visitorTeam = if (isLocal) {
+            provideRandomTeam()
+        } else {
+            provideAppTeam()
+        }
+
         return MatchModel(
 //            date = now(),
             id = generateRandomUUID(),
-            localTeam = provideTeam(),
-            visitorTeam = provideTeam(),
-            localGoals = 1,
-            visitorGoals = 2
+            localTeam = localTeam,
+            visitorTeam = visitorTeam,
+            localGoals = randomLocalGoals,
+            visitorGoals = randomVisitorGoals
         )
     }
+
+    override fun provideRandomTeam(): TeamModel {
+        val firstExample = (0..1).random() == 0
+
+        return TeamModel(
+            id = generateRandomUUID(),
+            name = if (firstExample) TEAM_NAME_1 else TEAM_NAME_2,
+            logo = if (firstExample) EXAMPLE_TEAM_1 else EXAMPLE_TEAM_2
+        )
+    }
+    override fun provideAppTeam() = TeamModel(
+        id = GAZTELU_BIRA_ID,
+        name = GAZTELU_BIRA,
+        logo = GAZTELU_IMG
+    )
 }

@@ -17,6 +17,7 @@
 package com.gbmultiplatform.model.team
 
 interface ITeamProvider {
-    fun provideTeam(): TeamModel
     fun provideMatch(): MatchModel
+    fun provideRandomTeam(): TeamModel
+    fun provideAppTeam(): TeamModel
 }

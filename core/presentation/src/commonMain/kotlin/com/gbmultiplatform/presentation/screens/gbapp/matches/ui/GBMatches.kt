@@ -17,25 +17,45 @@
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.MatchResult
@@ -46,7 +66,8 @@ import com.gbmultiplatform.model.team.TeamModel
 fun MatchesList(
     modifier: Modifier,
     matches: List<MatchModel>,
-    appTeam: TeamModel
+    appTeam: TeamModel,
+//    matchResult: (MatchModel, TeamModel) -> MatchResult
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth().padding(12.dp),
@@ -57,7 +78,7 @@ fun MatchesList(
             key = { match -> match.id }
         ) { match ->
             GBMatch(
-                matchResult = VICTORY,
+                matchResult = VICTORY,//{ matchResult(match, appTeam) },
                 match = match
             )
         }
@@ -70,16 +91,21 @@ fun GBMatch(
     match: MatchModel
 ){
     Card(
+        modifier = Modifier.border(
+            width = 0.1.dp,
+            color = Yellow
+        ),
         colors = CardDefaults.cardColors(
-            containerColor = Red
+            containerColor = Color(0x33F0F2F5)
         ),
         shape = RoundedCornerShape(4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(8.dp),
+            verticalArrangement = spacedBy(12.dp)
         ) {
             MatchDate()
-            MatchResult()
+            MatchResult(match)
         }
     }
 }
@@ -89,41 +115,64 @@ fun MatchDate() {
     GBText(
         modifier = Modifier.fillMaxWidth(),
         text = "01/01/2025",
-        alignment = Start
+        alignment = Start,
+        style = MaterialTheme.typography.bodyMedium
     )
 }
 
 @Composable
-fun MatchResult() {
-    Row {
+fun MatchResult(match: MatchModel) {
+    Row(
+        modifier = Modifier.padding(horizontal = 12.dp).background(Blue),
+        verticalAlignment = CenterVertically
+    ) {
         LeftTeam(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            localTeam = match.localTeam
         )
         GBText(
-            modifier = Modifier.fillMaxHeight(),
             text = ":",
             alignment = Center
         )
         RightTeam(
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            visitorTeam = match.visitorTeam
         )
     }
 }
 
 @Composable
 fun LeftTeam(
-    modifier: Modifier
+    modifier: Modifier,
+    localTeam: TeamModel,
 ) {
-    Box(
-        modifier = modifier.fillMaxHeight().background(Blue)
-    )
+    Row(
+        modifier = modifier
+    ) {
+        GBMatchResultTeam(localTeam.logo)
+    }
 }
 
 @Composable
 fun RightTeam(
-    modifier: Modifier
+    modifier: Modifier,
+    visitorTeam: TeamModel
 ) {
-    Box(
-        modifier = modifier.fillMaxHeight().background(Red)
+    Row(
+        modifier = modifier
+    ) {
+        Spacer(Modifier.weight(1f))
+        GBMatchResultTeam(visitorTeam.logo)
+    }
+}
+
+@Composable
+fun GBMatchResultTeam(image: String){
+    GBImage(
+        modifier = Modifier
+            .size(48.dp)
+            .clip(RoundedCornerShape(50))
+            .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
+        image = image
     )
 }

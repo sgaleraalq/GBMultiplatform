@@ -6,8 +6,10 @@ import com.gbmultiplatform.model.team.ITeamProvider
 class MatchesViewModel(
     private val teamProvider: ITeamProvider
 ) : ViewModel() {
-    fun provideRandomTeam() = teamProvider.provideTeam()
+    fun provideRandomTeam() = teamProvider.provideRandomTeam()
     fun provideMatches() = List(10) {
         teamProvider.provideMatch()
     }
+
+    val appTeam = teamProvider.provideAppTeam()
 }

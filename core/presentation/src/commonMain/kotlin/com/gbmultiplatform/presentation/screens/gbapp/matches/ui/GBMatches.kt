@@ -16,12 +16,10 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -32,13 +30,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
@@ -46,6 +45,9 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.MatchResult
 import com.gbmultiplatform.model.team.TeamModel
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.unknown_location
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MatchesList(
@@ -74,15 +76,12 @@ fun MatchesList(
 @Composable
 fun GBMatch(
     matchResult: MatchResult,
-    match: MatchModel
-){
+    match: MatchModel,
+    location: String? = null
+) {
     Card(
-        modifier = Modifier.border(
-            width = 0.1.dp,
-            color = matchResult.color
-        ),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0x33F0F2F5)
+            containerColor = matchResult.color
         ),
         shape = RoundedCornerShape(4.dp)
     ) {
@@ -90,17 +89,28 @@ fun GBMatch(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = spacedBy(12.dp)
         ) {
-            MatchDate()
+            MatchHeader()
             MatchResult(match)
+            MatchLocation(location)
         }
     }
 }
 
 @Composable
-fun MatchDate() {
+fun MatchHeader() {
+    Row(
+        modifier = Modifier.padding(horizontal = 12.dp),
+        verticalAlignment = CenterVertically
+    ) {
+        MatchDate(Modifier.weight(1f))
+        MatchType()
+    }
+}
+
+@Composable
+fun MatchType(matchType: String = "Journey 1") {
     GBText(
-        modifier = Modifier.fillMaxWidth(),
-        text = "01/01/2025",
+        text = matchType,
         alignment = Start,
         style = MaterialTheme.typography.bodyMedium
     )
@@ -109,56 +119,107 @@ fun MatchDate() {
 @Composable
 fun MatchResult(match: MatchModel) {
     Row(
-        modifier = Modifier.padding(horizontal = 12.dp).background(Blue),
+        modifier = Modifier.padding(horizontal = 12.dp),
         verticalAlignment = CenterVertically
     ) {
-        LeftTeam(
+        MatchTeam(
             modifier = Modifier.weight(1f),
-            localTeam = match.localTeam
+            team = match.localTeam,
+            goals = match.localGoals.toString()
         )
         GBText(
-            text = ":",
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = "-",
             alignment = Center
         )
-        RightTeam(
+        MatchTeam(
             modifier = Modifier.weight(1f),
-            visitorTeam = match.visitorTeam
+            team = match.visitorTeam,
+            goals = match.visitorGoals.toString(),
+            isLocal = false
         )
     }
 }
 
 @Composable
-fun LeftTeam(
+fun MatchTeam(
     modifier: Modifier,
-    localTeam: TeamModel,
+    team: TeamModel,
+    goals: String,
+    isLocal: Boolean = true
 ) {
     Row(
-        modifier = modifier
+        modifier = modifier,
+        verticalAlignment = CenterVertically
     ) {
-        GBMatchResultTeam(localTeam.logo)
+        if (!isLocal) {
+            GBText(
+                text = goals,
+                alignment = End,
+                style = MaterialTheme.typography.headlineLarge
+            )
+        }
+        GBMatchResultTeam(Modifier.weight(1f), team.logo, team.name)
+        if (isLocal) {
+            GBText(
+                text = goals,
+                alignment = Start,
+                style = MaterialTheme.typography.headlineLarge
+            )
+        }
     }
 }
 
 @Composable
-fun RightTeam(
-    modifier: Modifier,
-    visitorTeam: TeamModel
-) {
-    Row(
-        modifier = modifier
+fun GBMatchResultTeam(modifier: Modifier, image: String, teamName: String) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = spacedBy(8.dp)
     ) {
-        Spacer(Modifier.weight(1f))
-        GBMatchResultTeam(visitorTeam.logo)
+        GBImage(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(RoundedCornerShape(50))
+                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
+            image = image
+        )
+        GBTeamName(teamName)
     }
 }
 
 @Composable
-fun GBMatchResultTeam(image: String){
-    GBImage(
-        modifier = Modifier
-            .size(48.dp)
-            .clip(RoundedCornerShape(50))
-            .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-        image = image
+fun GBTeamName(teamName: String) {
+    GBText(
+        modifier = Modifier.fillMaxWidth(),
+        text = teamName,
+        alignment = Center,
+        style = MaterialTheme.typography.bodySmall
+    )
+}
+
+// TODO
+@Composable
+fun MatchDate(
+    modifier: Modifier = Modifier,
+    date: String = "01/01/2025"
+) {
+    GBText(
+        modifier = modifier,
+        text = date,
+        alignment = Start,
+        style = MaterialTheme.typography.bodySmall.copy(
+            fontStyle = Italic
+        )
+    )
+}
+
+@Composable
+fun MatchLocation(location: String?) {
+    GBText(
+        modifier = Modifier.fillMaxWidth(),
+        text = location ?: stringResource(Res.string.unknown_location),
+        alignment = Center,
+        style = MaterialTheme.typography.bodySmall
     )
 }

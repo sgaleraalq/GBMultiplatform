@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.team
+package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.Composable
 
-enum class MatchResult(val color: Color) {
-    VICTORY(Color(0x3315FF99)),
-    DRAW(Color(0x33FFD60A)),
-    DEFEAT(Color(0x33FF3B30) )
+@Composable
+fun MatchDetailScreen() {
+
 }

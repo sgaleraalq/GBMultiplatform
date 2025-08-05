@@ -25,4 +25,7 @@
     <string name="red_cards">Red cards</string>
     <string name="percentage">Percentage</string>
     <string name="displayed_stat">Displayed stat: </string>
+
+<!--    matches-->
+    <string name="unknown_location">Unknown location</string>
 </resources>

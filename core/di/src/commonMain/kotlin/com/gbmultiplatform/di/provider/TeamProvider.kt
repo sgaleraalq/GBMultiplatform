@@ -31,8 +31,8 @@ class TeamProvider: ITeamProvider {
         const val EXAMPLE_TEAM_1 = "https://static.vecteezy.com/system/resources/previews/011/049/345/non_2x/soccer-football-badge-logo-sport-team-identity-illustrations-isolated-on-white-background-vector.jpg"
         const val EXAMPLE_TEAM_2 = "https://static.vecteezy.com/system/resources/thumbnails/008/280/239/small/football-logo-badge-with-a-soccer-ball-illustration-sport-team-logo-template-vector.jpg"
 
-        const val TEAM_NAME_1 = "Example Team 1"
-        const val TEAM_NAME_2 = "Example Team 2"
+        const val TEAM_NAME_1 = "Example Team"
+        const val TEAM_NAME_2 = "Another Example"
     }
 
     override fun provideMatch(): MatchModel {

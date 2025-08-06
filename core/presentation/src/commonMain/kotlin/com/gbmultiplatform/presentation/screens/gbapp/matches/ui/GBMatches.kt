@@ -17,6 +17,7 @@
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -58,7 +59,8 @@ import org.jetbrains.compose.resources.stringResource
 fun MatchesList(
     modifier: Modifier,
     matches: List<MatchModel>,
-    matchResult: (MatchModel) -> MatchResult
+    matchResult: (MatchModel) -> MatchResult,
+    onMatchClicked: (String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth().padding(12.dp),
@@ -71,7 +73,8 @@ fun MatchesList(
             val result = matchResult(match)
             GBMatch(
                 matchResult = result,
-                match = match
+                match = match,
+                onMatchClicked = { id -> onMatchClicked(id) }
             )
         }
     }
@@ -81,10 +84,14 @@ fun MatchesList(
 fun GBMatch(
     matchResult: MatchResult,
     match: MatchModel,
+    onMatchClicked: (String) -> Unit,
     date: String = "01/01/2025", // todo
     location: String? = null
 ) {
     Card(
+        modifier = Modifier.clickable{
+            onMatchClicked(match.id)
+        },
         colors = CardDefaults.cardColors(
             containerColor = matchResult.color
         ),

@@ -21,6 +21,7 @@ import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.team.TeamScreen
 import kotlinx.serialization.Serializable
@@ -57,7 +58,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            MatchesScreen()
+            MatchesScreen(state)
         }
     }
 
@@ -88,6 +89,19 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             AboutScreen()
+        }
+    }
+
+    /**
+     * Details screens
+     */
+    @Serializable
+    object MatchDetail: Destination {
+        override val routeName = "match_detail"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            MatchDetailScreen(state)
         }
     }
 }

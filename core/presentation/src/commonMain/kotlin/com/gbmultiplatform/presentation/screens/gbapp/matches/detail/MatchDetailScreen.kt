@@ -16,9 +16,26 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import com.gbmultiplatform.design_system.components.GBBackButton
+import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.presentation.navigation.NavigationState
 
 @Composable
-fun MatchDetailScreen() {
-
+fun MatchDetailScreen(
+    state: NavigationState
+) {
+    Column(Modifier.fillMaxSize().safeContentPadding()) {
+        GBBackButton {
+            state.navigateBack()
+        }
+        GBText(
+            Modifier,"Match Detail Screen", Center
+        )
+    }
 }

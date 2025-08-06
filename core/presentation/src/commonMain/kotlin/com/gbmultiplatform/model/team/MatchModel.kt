@@ -17,7 +17,7 @@
 package com.gbmultiplatform.model.team
 
 data class MatchModel(
-//    val date: Timestamp, TODO
+    val date: Long,
     val id: String,
     val localTeam: TeamModel,
     val visitorTeam: TeamModel,

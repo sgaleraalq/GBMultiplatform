@@ -48,12 +48,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.helper.toDate
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.MatchResult
 import com.gbmultiplatform.model.team.TeamModel
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.unknown_location
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MatchesList(
@@ -85,8 +83,6 @@ fun GBMatch(
     matchResult: MatchResult,
     match: MatchModel,
     onMatchClicked: (String) -> Unit,
-    date: String = "01/01/2025", // todo
-    location: String? = null
 ) {
     Card(
         modifier = Modifier.clickable{
@@ -103,7 +99,7 @@ fun GBMatch(
             MatchHeader()
             Spacer(Modifier.height(12.dp))
             MatchResult(match)
-            MatchInformation(date, location)
+            MatchInformation(match.date.toDate())
         }
     }
 }
@@ -225,7 +221,7 @@ fun GBMatchResultTeam(
     logoHeight: Dp
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(8.dp)
     ) {
         GBImage(
@@ -250,14 +246,13 @@ fun GBTeamName(teamName: String) {
 
 // TODO
 @Composable
-fun MatchInformation(date: String, location: String?) {
+fun MatchInformation(date: String) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(4.dp)
     ) {
         MatchDate(date)
-//        MatchLocation(location)
     }
 }
 
@@ -271,15 +266,5 @@ fun MatchDate(
         style = MaterialTheme.typography.bodySmall.copy(
             fontStyle = Italic
         )
-    )
-}
-
-@Composable
-fun MatchLocation(location: String?) {
-    GBText(
-        modifier = Modifier.fillMaxWidth(),
-        text = location ?: stringResource(Res.string.unknown_location),
-        alignment = Center,
-        style = MaterialTheme.typography.bodySmall
     )
 }

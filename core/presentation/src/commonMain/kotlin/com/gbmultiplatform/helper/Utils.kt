@@ -24,3 +24,10 @@ fun Double.formatStat(): String {
         (kotlin.math.round(this * 100) / 100).toString()
     }
 }
+
+expect fun getActualTimeAsLong(): Long
+expect fun getDateFromLong(format: String, date: Long): String
+
+const val DATE_FORMAT = "dd/MM/yyyy"
+
+fun Long.toDate() = getDateFromLong(DATE_FORMAT, this)

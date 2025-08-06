@@ -17,9 +17,11 @@
 package com.gbmultiplatform.di.provider
 
 import com.gbmultiplatform.di.generateRandomUUID
+import com.gbmultiplatform.helper.getActualTimeAsLong
 import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.model.team.MatchModel
 import com.gbmultiplatform.model.team.TeamModel
+import kotlin.time.Clock.System.now
 
 class TeamProvider: ITeamProvider {
 
@@ -53,7 +55,7 @@ class TeamProvider: ITeamProvider {
         }
 
         return MatchModel(
-//            date = now(),
+            date = getActualTimeAsLong(),
             id = generateRandomUUID(),
             localTeam = localTeam,
             visitorTeam = visitorTeam,

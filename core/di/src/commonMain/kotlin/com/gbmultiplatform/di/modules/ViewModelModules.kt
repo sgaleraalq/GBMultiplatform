@@ -36,7 +36,7 @@ val viewModelModule = module {
 }
 
 val viewModelHelpersModule = module {
-    single<IPlayerProvider> { PlayerProvider() }
-    single<ITeamProvider> { TeamProvider() }
-    single { GetMatchResultUseCase() }
+    factory<IPlayerProvider> { PlayerProvider() }
+    factory<ITeamProvider> { TeamProvider() }
+    factory { GetMatchResultUseCase() }
 }

@@ -22,7 +22,7 @@ import com.gbmultiplatform.model.player.IPlayerProvider
 import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.GetResultUseCase
+import com.gbmultiplatform.presentation.screens.gbapp.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel
 import org.koin.core.module.dsl.viewModelOf
@@ -38,5 +38,5 @@ val viewModelModule = module {
 val viewModelHelpersModule = module {
     single<IPlayerProvider> { PlayerProvider() }
     single<ITeamProvider> { TeamProvider() }
-    single { GetResultUseCase() }
+    single { GetMatchResultUseCase() }
 }

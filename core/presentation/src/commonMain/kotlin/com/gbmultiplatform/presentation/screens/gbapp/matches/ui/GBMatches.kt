@@ -58,8 +58,7 @@ import org.jetbrains.compose.resources.stringResource
 fun MatchesList(
     modifier: Modifier,
     matches: List<MatchModel>,
-    appTeam: TeamModel,
-//    matchResult: (MatchModel, TeamModel) -> MatchResult
+    matchResult: (MatchModel) -> MatchResult
 ) {
     LazyColumn(
         modifier = modifier.fillMaxWidth().padding(12.dp),
@@ -69,9 +68,9 @@ fun MatchesList(
             items = matches,
             key = { match -> match.id }
         ) { match ->
-            val randomResult = MatchResult.entries.toTypedArray().random()
+            val result = matchResult(match)
             GBMatch(
-                matchResult = randomResult,
+                matchResult = result,
                 match = match
             )
         }

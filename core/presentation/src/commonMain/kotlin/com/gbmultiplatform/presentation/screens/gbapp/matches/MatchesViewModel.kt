@@ -2,9 +2,11 @@ package com.gbmultiplatform.presentation.screens.gbapp.matches
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.model.team.ITeamProvider
+import com.gbmultiplatform.model.team.MatchModel
 
 class MatchesViewModel(
-    private val teamProvider: ITeamProvider
+    private val teamProvider: ITeamProvider,
+    private val getResultUseCase: GetResultUseCase
 ) : ViewModel() {
     fun provideRandomTeam() = teamProvider.provideRandomTeam()
     fun provideMatches() = List(10) {
@@ -12,4 +14,7 @@ class MatchesViewModel(
     }
 
     val appTeam = teamProvider.provideAppTeam()
+
+    fun calculateResult(match: MatchModel) =
+        getResultUseCase(match, appTeam)
 }

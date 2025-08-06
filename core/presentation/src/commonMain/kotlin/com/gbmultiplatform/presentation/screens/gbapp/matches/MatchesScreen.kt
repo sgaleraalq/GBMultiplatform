@@ -34,7 +34,7 @@ fun MatchesScreen(
         MatchesList(
             modifier = Modifier.weight(1f),
             matches = viewModel.provideMatches(),
-            appTeam = viewModel.appTeam
+            matchResult = { match -> viewModel.calculateResult(match) }
         )
     }
 }

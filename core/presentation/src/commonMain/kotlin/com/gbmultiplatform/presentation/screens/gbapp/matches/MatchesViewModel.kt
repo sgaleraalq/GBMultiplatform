@@ -6,7 +6,7 @@ import com.gbmultiplatform.model.team.MatchModel
 
 class MatchesViewModel(
     private val teamProvider: ITeamProvider,
-    private val getResultUseCase: GetResultUseCase
+    private val getResultUseCase: GetMatchResultUseCase
 ) : ViewModel() {
     fun provideRandomTeam() = teamProvider.provideRandomTeam()
     fun provideMatches() = List(10) {

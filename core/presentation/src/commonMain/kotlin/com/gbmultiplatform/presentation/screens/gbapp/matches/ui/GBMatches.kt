@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -32,15 +33,22 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Bottom
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
+import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
@@ -49,9 +57,12 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.helper.toDate
-import com.gbmultiplatform.model.team.MatchModel
-import com.gbmultiplatform.model.team.MatchResult
+import com.gbmultiplatform.model.match.MatchModel
+import com.gbmultiplatform.model.match.MatchResult
+import com.gbmultiplatform.model.match.MatchType
 import com.gbmultiplatform.model.team.TeamModel
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MatchesList(
@@ -96,7 +107,7 @@ fun GBMatch(
         Column(
             modifier = Modifier.padding(8.dp),
         ) {
-            MatchHeader()
+            MatchHeader(match.matchName, match.matchType)
             Spacer(Modifier.height(12.dp))
             MatchResult(match)
             MatchInformation(match.date.toDate())
@@ -105,24 +116,46 @@ fun GBMatch(
 }
 
 @Composable
-fun MatchHeader() {
+fun MatchHeader(
+    matchName: String,
+    matchType: MatchType
+) {
     Row(
         modifier = Modifier.padding(horizontal = 12.dp),
         verticalAlignment = CenterVertically
     ) {
-        MatchType(Modifier.weight(1f))
-        /* TODO maybe match type logo or something */
+        MatchName(Modifier.weight(1f), matchName)
+        MatchType(matchType)
     }
 }
 
 @Composable
-fun MatchType(modifier: Modifier = Modifier, matchType: String = "Journey 1") {
+fun MatchName(modifier: Modifier = Modifier, name: String) {
     GBText(
         modifier = modifier,
-        text = matchType,
+        text = name,
         alignment = Start,
         style = MaterialTheme.typography.bodyMedium
     )
+}
+
+@Composable
+fun MatchType(matchType: MatchType) {
+    Row(
+        verticalAlignment = CenterVertically,
+        horizontalArrangement = spacedBy(8.dp)
+    ) {
+        GBText(
+            text = stringResource(matchType.type).lowercase().capitalize(Locale.current),
+            style = MaterialTheme.typography.bodySmall
+        )
+        Icon(
+            modifier = Modifier.size(12.dp),
+            painter = painterResource(matchType.icon),
+            contentDescription = null,
+            tint = Unspecified
+        )
+    }
 }
 
 @Composable

@@ -27,5 +27,6 @@
     <string name="displayed_stat">Displayed stat: </string>
 
 <!--    matches-->
-    <string name="unknown_location">Unknown location</string>
+    <string name="league">League</string>
+    <string name="cup">Cup</string>
 </resources>

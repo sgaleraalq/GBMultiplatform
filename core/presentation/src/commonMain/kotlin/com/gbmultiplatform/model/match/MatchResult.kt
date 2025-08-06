@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.team
+package com.gbmultiplatform.model.match
 
-data class MatchModel(
-    val date: Long,
-    val id: String,
-    val localTeam: TeamModel,
-    val visitorTeam: TeamModel,
-    val localGoals: Int,
-    val visitorGoals: Int
-)
+import androidx.compose.ui.graphics.Color
+
+enum class MatchResult(val color: Color) {
+    VICTORY(Color(0x3315FF99)),
+    DRAW(Color(0x33FFD60A)),
+    DEFEAT(Color(0x33FF3B30) )
+}

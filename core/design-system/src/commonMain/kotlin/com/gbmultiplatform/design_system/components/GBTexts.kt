@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import com.gbmultiplatform.design_system.style.gBTypography
 
 @Composable
@@ -46,7 +47,7 @@ fun GBTitle(
 fun GBText(
     modifier: Modifier = Modifier,
     text: String,
-    alignment: TextAlign,
+    alignment: TextAlign = Start,
     textColor: Color = White,
     style: TextStyle = gBTypography().bodyLarge,
 ) {

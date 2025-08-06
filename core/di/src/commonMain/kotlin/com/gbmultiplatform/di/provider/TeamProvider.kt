@@ -19,9 +19,10 @@ package com.gbmultiplatform.di.provider
 import com.gbmultiplatform.di.generateRandomUUID
 import com.gbmultiplatform.helper.getActualTimeAsLong
 import com.gbmultiplatform.model.team.ITeamProvider
-import com.gbmultiplatform.model.team.MatchModel
+import com.gbmultiplatform.model.match.MatchModel
+import com.gbmultiplatform.model.match.MatchType
 import com.gbmultiplatform.model.team.TeamModel
-import kotlin.time.Clock.System.now
+import com.gbmultiplatform.presentation.screens.gbapp.matches.ui.MatchType
 
 class TeamProvider: ITeamProvider {
 
@@ -37,7 +38,10 @@ class TeamProvider: ITeamProvider {
         const val TEAM_NAME_2 = "Another Example"
     }
 
+    private var lastJourney = 0
+
     override fun provideMatch(): MatchModel {
+        lastJourney++
         val randomLocalGoals = (0..5).random()
         val randomVisitorGoals = (0..5).random()
         val isLocal = (0..1).random() == 0
@@ -57,6 +61,8 @@ class TeamProvider: ITeamProvider {
         return MatchModel(
             date = getActualTimeAsLong(),
             id = generateRandomUUID(),
+            matchName = "Journey $lastJourney",
+            matchType = MatchType.entries.random(),
             localTeam = localTeam,
             visitorTeam = visitorTeam,
             localGoals = randomLocalGoals,

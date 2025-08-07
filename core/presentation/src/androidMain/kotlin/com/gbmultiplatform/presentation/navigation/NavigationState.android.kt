@@ -157,39 +157,4 @@ class AndroidNavigationState(
         )
         return json.decodeFromString<Destination>(serializedDestination)
     }
-
-
-    /**
-     * Bottom bar
-     */
-    override val bottomNavTabs = listOf(
-        GBBottomNavigationTab(
-            destination = Home.routeName,
-            content = { Icon(GBIcons.GBHomeBottomTab, null) },
-            onNavigationPressed = { navigateTo(Home) }
-        ),
-        GBBottomNavigationTab(
-            destination = Matches.routeName,
-            content = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
-            onNavigationPressed = { navigateTo(Matches) }
-        ),
-        GBBottomNavigationTab(
-            destination = Stats.routeName,
-            content = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
-            onNavigationPressed = { navigateTo(Stats) }
-        ),
-        GBBottomNavigationTab(
-            destination = Team.routeName,
-            content = { Icon(GBIcons.GBTeamBottomTab, null) },
-            onNavigationPressed = { navigateTo(Team) }
-        ),
-        GBBottomNavigationTab(
-            destination = About.routeName,
-            content = { Icon(GBIcons.GBAboutBottomTab, null) },
-            onNavigationPressed = { navigateTo(About) }
-        )
-    )
-    fun showBottomBar(route: String?): Boolean {
-        return route != null && bottomNavTabs.any { it.destination == route }
-    }
 }

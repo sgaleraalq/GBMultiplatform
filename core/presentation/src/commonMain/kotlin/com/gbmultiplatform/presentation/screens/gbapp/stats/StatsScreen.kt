@@ -36,7 +36,6 @@ fun StatsScreen(
     viewModel: StatsViewModel = koinViewModel<StatsViewModel>(),
     state: NavigationState
 ) {
-    state as MultiplatformNavigationState
     val players by viewModel.players.collectAsState()
     val selectedPlayer by viewModel.selectedPlayer.collectAsState()
     val selectedStat by viewModel.selectedStat.collectAsState()

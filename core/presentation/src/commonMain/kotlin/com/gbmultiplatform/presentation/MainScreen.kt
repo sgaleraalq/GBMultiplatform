@@ -16,46 +16,60 @@
 
 package com.gbmultiplatform.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Navigation
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
+import com.gbmultiplatform.design_system.components.GBBottomNavigation
+import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberNavigationState
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.img_background
+import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-    val navController = rememberNavigationState()
-    val currentDestination by navController.currentDestination
+    val navigationState = rememberNavigationState()
+    val currentDestinationName = navigationState.currentDestination.value?.routeName
+    val showBottomBar = navigationState.showBottomBar(currentDestinationName)
 
     LaunchedEffect(true) {
-        viewModel.initApp(navController)
+        viewModel.initApp(navigationState)
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        when (currentDestination) {
-            is Destination -> {
-                Navigation(
-                    state = navController,
+    Scaffold(
+        bottomBar = {
+            if (showBottomBar) {
+                GBBottomNavigation(
+                    states = navigationState.bottomNavTabs,
+                    currentDestination = currentDestinationName
                 )
             }
-
-            null -> {
-                SplashScreen()
-            }
         }
-
+    ) { paddingValues ->
+        Image(
+            modifier = Modifier.fillMaxSize().padding(
+                bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+            ),
+            painter = painterResource(Res.drawable.img_background),
+            contentScale = Crop,
+            contentDescription = null
+        )
+        MainNavigation(navigationState)
     }
 }
 

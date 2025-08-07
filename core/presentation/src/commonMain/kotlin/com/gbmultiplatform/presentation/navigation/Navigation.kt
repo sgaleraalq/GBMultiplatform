@@ -16,49 +16,42 @@
 
 package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale.Companion.Crop
-import com.gbmultiplatform.design_system.components.GBBottomNavigation
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.img_background
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.SaveableStateHolder
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
+import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
+import com.gbmultiplatform.presentation.navigation.Destination.Home
 
 @Composable
-fun Navigation(state: NavigationState) {
-    state as MultiplatformNavigationState
+fun rememberMultiplatformNavigationState(): NavigationState {
+    val stack = remember { mutableStateOf<List<Destination>>(listOf(Home)) }
+    val currentDestinationState = remember { derivedStateOf { stack.value.last() } }
 
-    MultiplatformBackHandler { state.navigateBack() }
+    val stateHolder = rememberSaveableStateHolder()
 
-    val currentDest = state.currentDestination.value
-//    val showBottomBar = state.showBottomBar(currentDest.routeName)
+    return remember {
+        object : MultiplatformNavigationState {
+            override val bottomNavTabs: List<GBBottomNavigationTab>
+                get() = emptyList()
 
-    Scaffold(
-        bottomBar = {
-            if (true /*showBottomBar TODO*/) {
-                GBBottomNavigation(
-                    states = state.bottomNavTabs,
-                    currentDestination = currentDest.routeName
-                )
+            override val currentDestination = currentDestinationState
+            override val stateHolder: SaveableStateHolder = stateHolder
+
+            override fun navigateBack() {
+                val currentStack = stack.value
+                if (currentStack.size <= 1) return
+
+                val lastItem = currentStack.last()
+                stack.value = currentStack.dropLast(1)
+                stateHolder.removeState(lastItem.toString())
+            }
+
+            override fun navigateTo(destination: Destination) {
+                stack.value = stack.value.plus(destination)
             }
         }
-    ) { paddingValues ->
-        Image(
-            modifier = Modifier.fillMaxSize().padding(
-                bottom = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
-            ),
-            painter = painterResource(Res.drawable.img_background),
-            contentScale = Crop,
-            contentDescription = null
-        )
-
-        MainNavigation(state)
     }
 }

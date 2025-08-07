@@ -27,14 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Navigation
-import com.gbmultiplatform.presentation.navigation.rememberNavigation
+import com.gbmultiplatform.presentation.navigation.rememberNavigationState
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
-    val navController = rememberNavigation()
+    val navController = rememberNavigationState()
     val currentDestination by navController.currentDestination
 
     LaunchedEffect(true) {

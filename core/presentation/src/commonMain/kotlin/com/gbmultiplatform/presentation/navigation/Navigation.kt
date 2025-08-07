@@ -16,9 +16,7 @@
 
 package com.gbmultiplatform.presentation.navigation
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,8 +26,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
-import androidx.navigation.NavHost
-import androidx.navigation.compose.NavHost
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
@@ -37,19 +33,19 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun Navigation(state: NavigationState) {
-    state as NavigatorHandler
+    state as MultiplatformNavigationState
 
     MultiplatformBackHandler { state.navigateBack() }
 
     val currentDest = state.currentDestination.value
-    val showBottomBar = state.showBottomBar(currentDest?.routeName)
+//    val showBottomBar = state.showBottomBar(currentDest.routeName)
 
     Scaffold(
         bottomBar = {
-            if (showBottomBar) {
+            if (true /*showBottomBar TODO*/) {
                 GBBottomNavigation(
                     states = state.bottomNavTabs,
-                    currentDestination = currentDest?.routeName
+                    currentDestination = currentDest.routeName
                 )
             }
         }
@@ -63,26 +59,6 @@ fun Navigation(state: NavigationState) {
             contentDescription = null
         )
 
-        NavHost(
-            navController = state.navHostController,
-            startDestination = state.getRoute(state.defaultDestination::class),
-            modifier = Modifier.fillMaxSize()
-        ){
-            state.applyDestinations(this)
-        }
-
-//        Crossfade(targetState = currentDest) { destination ->
-//            if (destination == null) return@Crossfade
-//
-//            state.stateHolder.SaveableStateProvider(destination.routeName) {
-//                if (showBottomBar) {
-//                    Box(modifier = Modifier.padding(paddingValues)) {
-//                        destination.Content(state)
-//                    }
-//                } else {
-//                    destination.Content(state)
-//                }
-//            }
-//        }
+        MainNavigation(state)
     }
 }

@@ -3,7 +3,6 @@ package com.gbmultiplatform.presentation.navigation
 import android.net.Uri
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -17,23 +16,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
-import com.gbmultiplatform.design_system.icons.GBAboutBottomTab
-import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
-import com.gbmultiplatform.design_system.icons.GBIcons
-import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
-import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
-import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
-import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Home
-import com.gbmultiplatform.presentation.navigation.Destination.Matches
-import com.gbmultiplatform.presentation.navigation.Destination.Stats
-import com.gbmultiplatform.presentation.navigation.Destination.Team
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
-import org.jetbrains.compose.resources.painterResource
 import kotlin.reflect.KClass
 
 @Composable
@@ -49,13 +36,13 @@ actual fun rememberNavigationState(): NavigationState {
 }
 
 @Composable
-actual fun MainNavigation(state: NavigationState) {
+actual fun MainNavigation(modifier: Modifier, state: NavigationState) {
     state as AndroidNavigationState
 
     NavHost(
         navController = state.navHostController,
         startDestination = state.getRoute(state.defaultDestination::class),
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         state.applyDestinations(this)
     }

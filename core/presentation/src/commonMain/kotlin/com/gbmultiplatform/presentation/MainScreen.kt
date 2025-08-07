@@ -69,7 +69,7 @@ fun MainScreen(
             contentScale = Crop,
             contentDescription = null
         )
-        MainNavigation(navigationState)
+        MainNavigation(Modifier.padding(paddingValues), navigationState)
     }
 }
 

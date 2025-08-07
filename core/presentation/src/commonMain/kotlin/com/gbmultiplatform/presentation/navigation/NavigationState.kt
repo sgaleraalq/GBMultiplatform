@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.key
 import androidx.compose.runtime.saveable.SaveableStateHolder
+import androidx.compose.ui.Modifier
 import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
 import com.gbmultiplatform.design_system.icons.GBAboutBottomTab
 import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
@@ -85,7 +86,7 @@ interface NavigationState {
 expect fun rememberNavigationState(): NavigationState
 
 @Composable
-expect fun MainNavigation(state: NavigationState)
+expect fun MainNavigation(modifier: Modifier, state: NavigationState)
 
 interface MultiplatformNavigationState : NavigationState {
     override val currentDestination: State<Destination>
@@ -94,6 +95,7 @@ interface MultiplatformNavigationState : NavigationState {
 
 @Composable
 fun MultiplatformMainNavigation(
+    modifier: Modifier,
     state: NavigationState
 ) {
     state as MultiplatformNavigationState
@@ -101,6 +103,7 @@ fun MultiplatformMainNavigation(
     MultiplatformBackHandler { state.navigateBack() }
 
     Crossfade(
+        modifier = modifier,
         targetState = state.currentDestination.value
     ) { destination ->
         state.stateHolder.SaveableStateProvider(destination.toString()) {

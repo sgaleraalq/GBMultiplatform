@@ -23,7 +23,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
-import com.gbmultiplatform.presentation.navigation.MultiplatformNavigationState
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.gbapp.stats.ui.GBSelectedPlayerDialog
 import com.gbmultiplatform.presentation.screens.gbapp.stats.ui.PlayerStatsImagesClassification

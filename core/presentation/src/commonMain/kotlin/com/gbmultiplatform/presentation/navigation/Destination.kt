@@ -29,7 +29,6 @@ import kotlinx.serialization.Serializable
 interface Destination {
     @Composable
     fun Content(state: NavigationState)
-
     val routeName: String
 
     @Serializable

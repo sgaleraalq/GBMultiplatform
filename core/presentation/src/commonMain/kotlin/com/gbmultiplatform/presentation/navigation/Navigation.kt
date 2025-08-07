@@ -28,6 +28,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
+import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
 import com.gbmultiplatform.design_system.components.GBBottomNavigation
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.img_background
@@ -61,18 +63,26 @@ fun Navigation(state: NavigationState) {
             contentDescription = null
         )
 
-        Crossfade(targetState = currentDest) { destination ->
-            if (destination == null) return@Crossfade
-
-            state.stateHolder.SaveableStateProvider(destination.routeName) {
-                if (showBottomBar) {
-                    Box(modifier = Modifier.padding(paddingValues)) {
-                        destination.Content(state)
-                    }
-                } else {
-                    destination.Content(state)
-                }
-            }
+        NavHost(
+            navController = state.navHostController,
+            startDestination = state.getRoute(state.defaultDestination::class),
+            modifier = Modifier.fillMaxSize()
+        ){
+            state.applyDestinations(this)
         }
+
+//        Crossfade(targetState = currentDest) { destination ->
+//            if (destination == null) return@Crossfade
+//
+//            state.stateHolder.SaveableStateProvider(destination.routeName) {
+//                if (showBottomBar) {
+//                    Box(modifier = Modifier.padding(paddingValues)) {
+//                        destination.Content(state)
+//                    }
+//                } else {
+//                    destination.Content(state)
+//                }
+//            }
+//        }
     }
 }

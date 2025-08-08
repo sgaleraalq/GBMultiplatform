@@ -45,7 +45,6 @@ fun MainScreen(
 ) {
     val navigationState = rememberNavigationState()
     val currentDestinationName = navigationState.currentDestination.value?.routeName
-    val showBottomBar = navigationState.showBottomBar(currentDestinationName)
 
     LaunchedEffect(true) {
         viewModel.initApp(navigationState)
@@ -53,12 +52,10 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            if (showBottomBar) {
-                GBBottomNavigation(
-                    states = navigationState.bottomNavTabs,
-                    currentDestination = currentDestinationName
-                )
-            }
+            GBBottomNavigation(
+                states = navigationState.bottomNavTabs,
+                currentDestination = currentDestinationName
+            )
         }
     ) { paddingValues ->
         Image(

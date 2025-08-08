@@ -77,9 +77,6 @@ interface NavigationState {
             onNavigationPressed = { navigateTo(About) }
         )
     )
-    fun showBottomBar(routeName: String?): Boolean {
-        return routeName != null && bottomNavTabs.any { it.destination == routeName }
-    }
 }
 
 @Composable

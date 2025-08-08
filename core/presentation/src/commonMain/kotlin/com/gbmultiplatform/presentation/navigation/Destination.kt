@@ -17,6 +17,7 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
@@ -30,6 +31,16 @@ interface Destination {
     @Composable
     fun Content(state: NavigationState)
     val routeName: String
+
+    @Serializable
+    data object Splash: Destination {
+        override val routeName = "splash"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            SplashScreen()
+        }
+    }
 
     @Serializable
     data object Welcome: Destination {

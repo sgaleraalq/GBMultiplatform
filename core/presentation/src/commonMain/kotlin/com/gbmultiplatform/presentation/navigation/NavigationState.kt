@@ -34,6 +34,7 @@ import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
+import com.gbmultiplatform.presentation.navigation.Destination.Splash
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Team
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
@@ -154,6 +155,7 @@ inline fun <reified T : Destination> KClass<T>.configuration(): DestinationConfi
 }
 
 val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
+    Splash.configuration(),
     Welcome.configuration(),
     Home.configuration(),
     Matches.configuration(),

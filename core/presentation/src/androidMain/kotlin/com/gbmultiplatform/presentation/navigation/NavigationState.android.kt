@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Splash
 import kotlinx.serialization.PolymorphicSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
@@ -26,9 +26,11 @@ import kotlin.reflect.KClass
 @Composable
 actual fun rememberNavigationState(): NavigationState {
     val navController = rememberNavController()
+    val initDestinationHandler = remember { InitDestinationHandler() }
 
     return remember {
         AndroidNavigationState(
+            initDestinationHandler,
             navController,
             defaultDestinations
         )
@@ -49,6 +51,7 @@ actual fun MainNavigation(modifier: Modifier, state: NavigationState) {
 }
 
 class AndroidNavigationState(
+    private val initDestinationHandler: InitDestinationHandler,
     val navHostController: NavHostController,
     val configurations: List<DestinationConfiguration<*>>
 ) : NavigationState {
@@ -68,7 +71,11 @@ class AndroidNavigationState(
     private val _currentDestination = mutableStateOf<Destination?>(null)
     override val currentDestination: State<Destination?> = _currentDestination
 
-    val defaultDestination = Home
+    var defaultDestination: Destination = Splash
+
+    suspend fun initialize() {
+        defaultDestination = initDestinationHandler.initApp()
+    }
 
     override fun navigateBack() {
         navHostController.navigateUp()

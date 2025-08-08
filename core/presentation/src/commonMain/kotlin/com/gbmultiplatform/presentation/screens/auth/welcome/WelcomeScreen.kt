@@ -17,8 +17,10 @@
 package com.gbmultiplatform.presentation.screens.auth.welcome
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,16 +39,18 @@ fun WelcomeScreen(
 ) {
     val isLoading by viewModel.isLoading.collectAsState()
 
-    Column(
-        modifier = Modifier
-            .safeDrawingPadding()
-            .padding(bottom = 16.dp)
-    ) {
-        WelcomeScreenTitle()
-        WelcomeScreenImage(Modifier.weight(1f))
-        WelcomeScreenButtons {
-            state.navigateTo(Stats)
-            /* viewModel.onJoinGazteluBira() */
+    Scaffold(Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .safeDrawingPadding()
+                .padding(bottom = 16.dp)
+        ) {
+            WelcomeScreenTitle()
+            WelcomeScreenImage(Modifier.weight(1f))
+            WelcomeScreenButtons {
+                state.navigateTo(Stats)
+                /* viewModel.onJoinGazteluBira() */
+            }
         }
     }
 

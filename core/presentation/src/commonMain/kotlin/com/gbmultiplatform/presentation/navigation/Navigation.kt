@@ -17,26 +17,34 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
-import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
-import com.gbmultiplatform.presentation.navigation.Destination.Home
+import com.gbmultiplatform.presentation.navigation.Destination.Splash
 
 @Composable
-fun rememberMultiplatformNavigationState(): NavigationState {
-    val stack = remember { mutableStateOf<List<Destination>>(listOf(Home)) }
+fun rememberMultiplatformNavigationState(
+    initialNavigationHandler: InitDestinationHandler
+): NavigationState {
+    var initDestination = remember<Destination> { Splash }
+
+    LaunchedEffect(true) {
+        initDestination = initialNavigationHandler.initApp()
+    }
+    val stack = remember {
+        mutableStateOf(
+            listOf(initDestination)
+        )
+    }
     val currentDestinationState = remember { derivedStateOf { stack.value.last() } }
 
     val stateHolder = rememberSaveableStateHolder()
 
     return remember {
         object : MultiplatformNavigationState {
-            override val bottomNavTabs: List<GBBottomNavigationTab>
-                get() = emptyList()
-
             override val currentDestination = currentDestinationState
             override val stateHolder: SaveableStateHolder = stateHolder
 

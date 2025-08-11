@@ -19,10 +19,31 @@ package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.TeamDetailModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class MatchDetailViewModel(
     private val teamProvider: ITeamProvider
 ) : ViewModel() {
+
+    enum class MatchDetailState {
+        LOADING, DETAILS, LINEUPS, STATS
+    }
+
+    private val _state = MutableStateFlow(LOADING)
+    val state = _state
+
+    init {
+        changeUiState(LINEUPS)
+    }
+
+    fun changeUiState(state: MatchDetailState) {
+        if (_state.value != state) {
+            _state.value = state
+        }
+    }
 
     val localTeam = TeamDetailModel(
         team = TeamModel(

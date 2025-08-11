@@ -29,4 +29,9 @@
 <!--    matches-->
     <string name="league">League</string>
     <string name="cup">Cup</string>
+
+<!--    match details-->
+    <string name="details">Details</string>
+    <string name="line_ups">Line-ups</string>
+    <string name="stats">Stats</string>
 </resources>

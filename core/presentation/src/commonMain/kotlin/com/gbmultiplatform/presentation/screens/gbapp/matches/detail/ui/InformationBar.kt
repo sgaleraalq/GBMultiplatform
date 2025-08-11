@@ -34,7 +34,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
-import com.gbmultiplatform.design_system.style.player_card_stat_text_color
+import com.gbmultiplatform.design_system.style.player_card_name_text_color
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
@@ -101,6 +101,11 @@ fun MatchDetailInformationPointer(state: MatchDetailState) {
     }
 
     Box(Modifier.fillMaxWidth()) {
-        Box(Modifier.width(50.dp).height(2.dp).background(player_card_stat_text_color))
+        Box(
+            Modifier
+                .width(50.dp)
+                .height(2.dp)
+                .background(player_card_name_text_color)
+        )
     }
 }

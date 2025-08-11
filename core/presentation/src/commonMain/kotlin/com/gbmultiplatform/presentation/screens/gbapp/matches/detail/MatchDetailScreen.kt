@@ -25,9 +25,13 @@ import androidx.compose.ui.Modifier
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.STATS
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailDetailsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailHeader
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailInformationBar
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailLineUpsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailStatsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -47,5 +51,23 @@ fun MatchDetailScreen(
             onLineUpsClicked = { viewModel.changeUiState(LINEUPS) },
             onStatsClicked = { viewModel.changeUiState(STATS) }
         )
+        when (detailState) {
+            LOADING -> { /* Loading */
+            }
+
+            DETAILS -> {
+                MatchDetailDetailsScreen()
+            }
+
+            LINEUPS -> {
+                MatchDetailLineUpsScreen(
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            STATS -> {
+                MatchDetailStatsScreen()
+            }
+        }
     }
 }

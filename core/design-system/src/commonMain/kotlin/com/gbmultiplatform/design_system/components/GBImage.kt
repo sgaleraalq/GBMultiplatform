@@ -16,8 +16,10 @@
 
 package com.gbmultiplatform.design_system.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import coil3.compose.AsyncImage
 import gbmultiplatform.core.design_system.generated.resources.Res
@@ -29,7 +31,7 @@ import org.jetbrains.compose.resources.painterResource
 fun GBImage(
     modifier: Modifier = Modifier,
     image: String,
-    saverImage: DrawableResource = Res.drawable.img_example
+    saverImage: DrawableResource = Res.drawable.img_example // TODO
 ) {
     AsyncImage(
         modifier = modifier,
@@ -38,5 +40,19 @@ fun GBImage(
         contentDescription = null,
         error = painterResource(saverImage),
         fallback = painterResource(saverImage)
+    )
+}
+
+@Composable
+fun GBLocalImage(
+    modifier: Modifier,
+    image: DrawableResource,
+    scale: ContentScale = Crop
+) {
+    Image(
+        modifier = modifier,
+        painter = painterResource(image),
+        contentScale = scale,
+        contentDescription = null,
     )
 }

@@ -57,6 +57,10 @@ fun GBBottomNavigation(
     currentDestination: String?,
     states: List<GBBottomNavigationTab>
 ) {
+    if (states.none { it.destination == currentDestination }) {
+        return
+    }
+
     Column(Modifier.shadow(10.dp)) {
         Row(
             modifier = Modifier.fillMaxWidth()

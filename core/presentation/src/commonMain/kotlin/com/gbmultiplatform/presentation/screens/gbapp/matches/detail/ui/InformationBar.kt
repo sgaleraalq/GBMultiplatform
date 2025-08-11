@@ -29,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
@@ -87,6 +88,11 @@ fun MatchDetailInformationBarItem(
     Box(modifier.clickable { onClick() }, contentAlignment = Center) {
         GBText(
             text = text,
+            textColor = if (isHighlighted) {
+                White
+            } else {
+                player_card_name_text_color
+            },
             style = gBTypography().bodyMedium.copy(
                 fontWeight = if (isHighlighted) Bold else Thin
             )
@@ -99,7 +105,6 @@ fun MatchDetailInformationPointer(state: MatchDetailState) {
     LaunchedEffect(state) {
 
     }
-
     Box(Modifier.fillMaxWidth()) {
         Box(
             Modifier

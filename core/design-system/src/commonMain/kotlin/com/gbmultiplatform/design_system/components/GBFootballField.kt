@@ -16,19 +16,61 @@
 
 package com.gbmultiplatform.design_system.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import com.gbmultiplatform.design_system.model.LineUpConfiguration
-import com.gbmultiplatform.design_system.model.MatchInformationModel
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.model.LineUpFormation
+import gbmultiplatform.core.design_system.generated.resources.Res
+import gbmultiplatform.core.design_system.generated.resources.img_football_field
 
 /**
  * This component will define the football field layout.
- * @param [match] the match information to be displayed on the field.
- * @param [lineUpConfiguration] the configuration of the line-up, if available.
+ * @param [formation] the match formation to be displayed on the field.
  */
 @Composable
 fun GBFootballField(
-    match: MatchInformationModel,
-    lineUpConfiguration: LineUpConfiguration
+    formation: LineUpFormation
 ) {
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        val fieldWidth = maxWidth
+        val fieldHeight = maxHeight
 
+        GBLocalImage(
+            modifier = Modifier.fillMaxSize(),
+            image = Res.drawable.img_football_field,
+            scale = FillWidth
+        )
+
+        formation.positions.forEach { position ->
+            GBPlayerPosition(
+                modifier = Modifier.absoluteOffset(
+                    x = (position.x * fieldWidth.value).dp - 12.dp,
+                    y = (position.y * fieldHeight.value).dp - 12.dp
+                )
+            )
+        }
+    }
+}
+
+@Composable
+fun GBPlayerPosition(
+    modifier: Modifier
+) {
+    Box(
+        modifier
+            .size(24.dp)
+            .background(color = White, shape = RoundedCornerShape(50))
+    )
 }

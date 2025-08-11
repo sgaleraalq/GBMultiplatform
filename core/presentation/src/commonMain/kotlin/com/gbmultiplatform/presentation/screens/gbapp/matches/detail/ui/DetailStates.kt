@@ -16,31 +16,11 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
-import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBLocalImage
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.img_football_field
 
 @Composable
 fun MatchDetailDetailsScreen() {
 
-}
-
-@Composable
-fun MatchDetailLineUpsScreen(modifier: Modifier) {
-    Box(modifier.padding(8.dp)) {
-        GBLocalImage(
-            modifier = Modifier.fillMaxWidth(),
-            image = Res.drawable.img_football_field,
-            scale = FillWidth
-        )
-    }
 }
 
 @Composable

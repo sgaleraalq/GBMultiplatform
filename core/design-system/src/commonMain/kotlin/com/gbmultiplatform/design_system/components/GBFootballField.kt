@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.unit.dp
@@ -39,10 +38,11 @@ import gbmultiplatform.core.design_system.generated.resources.img_football_field
  */
 @Composable
 fun GBFootballField(
+    modifier: Modifier,
     formation: LineUpFormation
 ) {
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         val fieldWidth = maxWidth
         val fieldHeight = maxHeight

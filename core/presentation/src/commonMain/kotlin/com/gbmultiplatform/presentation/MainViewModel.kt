@@ -18,6 +18,8 @@ package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
+import com.gbmultiplatform.presentation.navigation.Destination
+import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -47,7 +49,10 @@ class MainViewModel(
     ) {
         initializeNavigationState(navController)
         if (sessionActive()) {
-            navController.navigateTo(Stats)
+            /**
+             * INIT NAVIGATION
+             */
+            navController.navigateTo(MatchDetail)
         } else {
             navController.navigateTo(Welcome)
         }

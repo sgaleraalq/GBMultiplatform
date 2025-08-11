@@ -52,7 +52,8 @@ fun MatchDetailScreen(
             onStatsClicked = { viewModel.changeUiState(STATS) }
         )
         when (detailState) {
-            LOADING -> { /* Loading */
+            LOADING -> {
+                /* Loading */
             }
 
             DETAILS -> {

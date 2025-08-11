@@ -19,6 +19,11 @@ package com.gbmultiplatform.design_system.model
 import com.gbmultiplatform.design_system.model.LineUpType.FOUR_FOUR_TWO
 import com.gbmultiplatform.design_system.model.LineUpType.FOUR_THREE_THREE
 
+data class UIPlayer(
+    val name: String,
+    val image: String
+)
+
 data class PlayerPosition(
     val role: Role,
     val x: Float,

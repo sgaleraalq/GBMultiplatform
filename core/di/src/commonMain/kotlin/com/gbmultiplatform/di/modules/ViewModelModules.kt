@@ -24,6 +24,7 @@ import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesViewModel
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -33,6 +34,7 @@ val viewModelModule = module {
     viewModelOf(::WelcomeViewModel)
     viewModelOf(::StatsViewModel)
     viewModelOf(::MatchesViewModel)
+    viewModelOf(::MatchDetailViewModel)
 }
 
 val viewModelHelpersModule = module {

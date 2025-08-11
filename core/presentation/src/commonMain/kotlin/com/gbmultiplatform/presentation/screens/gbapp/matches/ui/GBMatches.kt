@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
@@ -39,9 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.Unspecified
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.intl.Locale
@@ -50,7 +47,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.End
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBImage
+import com.gbmultiplatform.design_system.components.GBTeam
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.helper.toDate
 import com.gbmultiplatform.model.match.MatchModel
@@ -253,13 +250,7 @@ fun GBMatchResultTeam(
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = spacedBy(8.dp)
     ) {
-        GBImage(
-            modifier = Modifier
-                .size(logoHeight)
-                .clip(RoundedCornerShape(50))
-                .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-            image = image
-        )
+        GBTeam(logoHeight, image)
         GBTeamName(teamName)
     }
 }

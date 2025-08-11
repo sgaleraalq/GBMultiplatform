@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.style.player_card_name_text_color
@@ -36,19 +37,21 @@ import org.jetbrains.compose.resources.painterResource
 @Composable
 fun GBBackButton(
     color: Color = player_card_name_text_color,
+    isVisible: Boolean = true,
     onClick: () -> Unit
 ) {
     var isRunning by remember { mutableStateOf(false) }
 
     Icon(
         modifier = Modifier
+            .alpha(if (isVisible) 1f else 0f)
             .clickable {
-                if (!isRunning) {
+                if (!isRunning && isVisible) {
                     onClick()
                     isRunning = true
                 }
             }
-            .padding(24.dp)
+            .padding(12.dp)
             .size(24.dp),
         painter = painterResource(Res.drawable.ic_arrow_back),
         contentDescription = null,

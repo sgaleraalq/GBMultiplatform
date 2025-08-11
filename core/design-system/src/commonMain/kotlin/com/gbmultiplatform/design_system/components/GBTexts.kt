@@ -45,8 +45,8 @@ fun GBTitle(
 
 @Composable
 fun GBText(
-    modifier: Modifier = Modifier,
     text: String,
+    modifier: Modifier = Modifier,
     alignment: TextAlign = Start,
     textColor: Color = White,
     style: TextStyle = gBTypography().bodyLarge,

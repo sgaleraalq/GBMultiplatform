@@ -17,25 +17,74 @@
 package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBBackButton
+import com.gbmultiplatform.design_system.components.GBTeam
 import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.presentation.navigation.NavigationState
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun MatchDetailScreen(
-    state: NavigationState
+    state: NavigationState,
+    viewModel: MatchDetailViewModel = koinViewModel<MatchDetailViewModel>()
 ) {
-    Column(Modifier.fillMaxSize().safeContentPadding()) {
-        GBBackButton {
-            state.navigateBack()
+    val localTeam = viewModel.localTeam
+    val visitorTeam = viewModel.visitorTeam
+    Column(Modifier.fillMaxSize()) {
+        MatchDetailHeader(localTeam, visitorTeam) { state.navigateBack() }
+    }
+}
+
+@Composable
+fun MatchDetailHeader(
+    localTeam: TeamDetailModel,
+    visitorTeam: TeamDetailModel,
+    onBackPressed: () -> Unit
+) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = CenterVertically) {
+        GBBackButton { onBackPressed() }
+        GBMatchDetailResult(Modifier.weight(1f), localTeam, visitorTeam)
+        GBBackButton(isVisible = false) { }
+    }
+}
+
+@Composable
+fun GBMatchDetailResult(modifier: Modifier, localTeam: TeamDetailModel, visitorTeam: TeamDetailModel) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = CenterVertically
+    ) {
+        GBTeamDetailResult(Modifier.weight(1f), localTeam)
+        GBText(":", Modifier.padding(horizontal = 8.dp))
+        GBTeamDetailResult(Modifier.weight(1f), visitorTeam)
+    }
+
+}
+
+@Composable
+fun GBTeamDetailResult(
+    modifier: Modifier,
+    teamModel: TeamDetailModel
+) {
+    Row(modifier, verticalAlignment = CenterVertically) {
+        if (!teamModel.isLocal) {
+            GBText(teamModel.score.toString(), style = gBTypography().headlineMedium)
         }
-        GBText(
-            Modifier,"Match Detail Screen", Center
-        )
+        Spacer(Modifier.weight(1f))
+        GBTeam(36.dp, teamModel.team.logo)
+        Spacer(Modifier.weight(1f))
+        if (teamModel.isLocal) {
+            GBText(teamModel.score.toString(), style = gBTypography().headlineMedium)
+        }
     }
 }

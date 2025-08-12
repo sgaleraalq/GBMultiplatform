@@ -16,20 +16,30 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.text.font.FontWeight.Companion.Thin
 import androidx.compose.ui.unit.dp
@@ -39,6 +49,7 @@ import com.gbmultiplatform.design_system.style.player_card_name_text_color
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.STATS
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.details
@@ -53,8 +64,8 @@ fun MatchDetailInformationBar(
     onLineUpsClicked: () -> Unit,
     onStatsClicked: () -> Unit
 ) {
-    Column {
-        Row(Modifier.fillMaxWidth().padding(12.dp)) {
+    Column(Modifier.padding(bottom = 8.dp).padding(horizontal = 12.dp)) {
+        Row(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
             MatchDetailInformationBarItem(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.details),
@@ -101,16 +112,39 @@ fun MatchDetailInformationBarItem(
 }
 
 @Composable
-fun MatchDetailInformationPointer(state: MatchDetailState) {
-    LaunchedEffect(state) {
+internal fun MatchDetailInformationPointer(state: MatchDetailState) {
+    val density = LocalDensity.current
+    var totalWidth by remember { mutableStateOf(0.dp) }
 
+    val targetIndex = when (state) {
+        DETAILS -> 0
+        LINEUPS -> 1
+        STATS -> 2
+        LOADING -> return
     }
-    Box(Modifier.fillMaxWidth()) {
+
+    val cellWidth = if (totalWidth > 0.dp) totalWidth / 3 else 0.dp
+    val pointerPadding = 32.dp
+    val offsetX by animateDpAsState(
+        targetValue = (cellWidth * targetIndex)+ pointerPadding/2,
+        animationSpec = tween(400, easing = FastOutSlowInEasing),
+        label = "pointerOffset"
+    )
+
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .onGloballyPositioned {
+                totalWidth = with(density) { it.size.width.toDp() }
+            }
+            .height(2.dp)
+    ) {
         Box(
             Modifier
-                .width(50.dp)
-                .height(2.dp)
-                .background(player_card_name_text_color)
+                .offset(x = offsetX)
+                .width(cellWidth - pointerPadding)
+                .fillMaxHeight()
+                .background(White)
         )
     }
 }

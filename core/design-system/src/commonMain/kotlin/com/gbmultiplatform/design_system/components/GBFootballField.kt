@@ -19,14 +19,24 @@ package com.gbmultiplatform.design_system.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import gbmultiplatform.core.design_system.generated.resources.Res
@@ -38,15 +48,21 @@ import gbmultiplatform.core.design_system.generated.resources.img_football_field
  */
 @Composable
 fun GBFootballField(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     formation: LineUpFormation
 ) {
-    BoxWithConstraints(
-        modifier = modifier.fillMaxSize()
-    ) {
-        val fieldWidth = maxWidth
-        val fieldHeight = maxHeight
+    val density = LocalDensity.current
+    var boxWidthPx by remember { mutableStateOf(0f) }
+    var boxHeightPx by remember { mutableStateOf(0f) }
 
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .onGloballyPositioned { layoutCoordinates ->
+                boxWidthPx = layoutCoordinates.size.width.toFloat()
+                boxHeightPx = layoutCoordinates.size.height.toFloat()
+            }
+    ) {
         GBLocalImage(
             modifier = Modifier.fillMaxSize(),
             image = Res.drawable.img_football_field,
@@ -54,23 +70,22 @@ fun GBFootballField(
         )
 
         formation.positions.forEach { position ->
-            GBPlayerPosition(
-                modifier = Modifier.absoluteOffset(
-                    x = (position.x * fieldWidth.value).dp - 12.dp,
-                    y = (position.y * fieldHeight.value).dp - 12.dp
-                )
-            )
+            if (boxWidthPx > 0 && boxHeightPx > 0) {
+                val xDp = with(density) { (boxWidthPx * position.x).toDp() - 12.dp }
+                val yDp = with(density) { (boxHeightPx * position.y).toDp() - 12.dp }
+
+                GBPlayerPosition(xDp, yDp)
+            }
         }
     }
 }
 
 @Composable
-fun GBPlayerPosition(
-    modifier: Modifier
-) {
+fun GBPlayerPosition(x: Dp, y: Dp) {
     Box(
-        modifier
+        Modifier
+            .offset(x, y)
             .size(24.dp)
-            .background(color = White, shape = RoundedCornerShape(50))
+            .background(White, RoundedCornerShape(50))
     )
 }

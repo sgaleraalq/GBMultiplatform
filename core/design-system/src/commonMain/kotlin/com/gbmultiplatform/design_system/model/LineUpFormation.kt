@@ -46,7 +46,7 @@ sealed class LineUpFormation(val name: LineUpType, val positions: List<PlayerPos
     object FourThreeThree : LineUpFormation(
         FOUR_THREE_THREE,
         listOf(
-            PlayerPosition(GOALKEEPER, 0.5f, 0.95f),
+            PlayerPosition(GOALKEEPER, 0.5f, 0.9f),
             PlayerPosition(DEFENDER, 0.15f, 0.75f),
             PlayerPosition(DEFENDER, 0.4f, 0.75f),
             PlayerPosition(DEFENDER, 0.6f, 0.75f),

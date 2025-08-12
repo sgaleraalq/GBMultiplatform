@@ -63,6 +63,7 @@ fun MatchDetailLineUpsScreen(modifier: Modifier) {
         UIPlayer("Manager 2", "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg")
     )
     LazyColumn(
+        modifier = modifier,
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         item {

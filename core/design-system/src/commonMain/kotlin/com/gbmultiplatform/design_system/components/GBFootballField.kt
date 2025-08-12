@@ -17,28 +17,36 @@
 package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale.Companion.FillWidth
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.model.LineUpFormation
+import com.gbmultiplatform.design_system.model.UIPlayer
+import com.gbmultiplatform.design_system.style.gBTypography
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.img_football_field
 
@@ -51,7 +59,6 @@ fun GBFootballField(
     modifier: Modifier = Modifier,
     formation: LineUpFormation
 ) {
-    val density = LocalDensity.current
     var boxWidthPx by remember { mutableStateOf(0f) }
     var boxHeightPx by remember { mutableStateOf(0f) }
 
@@ -71,21 +78,60 @@ fun GBFootballField(
 
         formation.positions.forEach { position ->
             if (boxWidthPx > 0 && boxHeightPx > 0) {
-                val xDp = with(density) { (boxWidthPx * position.x).toDp() - 12.dp }
-                val yDp = with(density) { (boxHeightPx * position.y).toDp() - 12.dp }
-
-                GBPlayerPosition(xDp, yDp)
+                val player = UIPlayer(name = "Player Name", image = "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg")
+                GBPlayerPosition(
+                    player = player,
+                    percentX = position.x,
+                    percentY = position.y,
+                    fieldWidthPx = boxWidthPx,
+                    fieldHeightPx = boxHeightPx
+                )
             }
         }
     }
 }
 
 @Composable
-fun GBPlayerPosition(x: Dp, y: Dp) {
+fun GBPlayerPosition(
+    player: UIPlayer,
+    percentX: Float,
+    percentY: Float,
+    fieldWidthPx: Float,
+    fieldHeightPx: Float
+) {
+    var columnWidth by remember { mutableStateOf(0) }
+    var columnHeight by remember { mutableStateOf(0) }
+
     Box(
-        Modifier
-            .offset(x, y)
-            .size(24.dp)
-            .background(White, RoundedCornerShape(50))
-    )
+        modifier = Modifier
+            .onGloballyPositioned {
+                columnWidth = it.size.width
+                columnHeight = it.size.height
+            }
+            .wrapContentSize()
+            .graphicsLayer {
+                val targetX = fieldWidthPx * percentX
+                val targetY = fieldHeightPx * percentY
+
+                translationX = targetX - columnWidth / 2f
+                translationY = targetY - columnHeight / 2f
+            }
+    ) {
+        Column(
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = spacedBy(4.dp)
+        ) {
+            GBImage(
+                modifier = Modifier
+                    .size(34.dp)
+                    .clip(RoundedCornerShape(50)),
+                image = player.image
+            )
+            GBText(
+                text = player.name, // TODO overlapping
+                textColor = White,
+                style = gBTypography().bodySmall
+            )
+        }
+    }
 }

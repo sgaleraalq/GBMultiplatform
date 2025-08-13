@@ -16,6 +16,10 @@
 
 package com.gbmultiplatform.design_system.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,6 +28,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +46,7 @@ import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.img_football_field
+import kotlinx.coroutines.delay
 
 /**
  * This component will define the football field layout.
@@ -76,7 +82,8 @@ fun GBFootballField(
                     percentX = position.x,
                     percentY = position.y,
                     fieldWidthPx = boxWidthPx,
-                    fieldHeightPx = boxHeightPx
+                    fieldHeightPx = boxHeightPx,
+                    showDelay = position.showOrder * 100L
                 )
             }
         }
@@ -89,10 +96,17 @@ fun GBPlayerPosition(
     percentX: Float,
     percentY: Float,
     fieldWidthPx: Float,
-    fieldHeightPx: Float
+    fieldHeightPx: Float,
+    showDelay: Long
 ) {
     var columnWidth by remember { mutableStateOf(0) }
     var columnHeight by remember { mutableStateOf(0) }
+    var visible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(showDelay)
+        visible = true
+    }
 
     Box(
         modifier = Modifier
@@ -109,21 +123,26 @@ fun GBPlayerPosition(
                 translationY = targetY - columnHeight / 2f
             }
     ) {
-        Column(
-            horizontalAlignment = CenterHorizontally,
-            verticalArrangement = spacedBy(4.dp)
+        AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn(tween(50)) + scaleIn(initialScale = 0.5f)
         ) {
-            GBImage(
-                modifier = Modifier
-                    .size(34.dp)
-                    .clip(RoundedCornerShape(50)),
-                image = player.image
-            )
-            GBText(
-                text = player.name, // TODO overlapping
-                textColor = White,
-                style = gBTypography().bodySmall
-            )
+            Column(
+                horizontalAlignment = CenterHorizontally,
+                verticalArrangement = spacedBy(4.dp)
+            ) {
+                GBImage(
+                    modifier = Modifier
+                        .size(34.dp)
+                        .clip(RoundedCornerShape(50)),
+                    image = player.image
+                )
+                GBText(
+                    text = player.name, // TODO overlapping
+                    textColor = White,
+                    style = gBTypography().bodySmall
+                )
+            }
         }
     }
 }

@@ -26,6 +26,7 @@ data class UIPlayer(
 )
 
 data class PlayerPosition(
+    val showOrder: Int,
     val role: Role,
     val x: Float,
     val y: Float
@@ -46,17 +47,17 @@ sealed class LineUpFormation(val name: LineUpType, val positions: List<PlayerPos
     object FourThreeThree : LineUpFormation(
         FOUR_THREE_THREE,
         listOf(
-            PlayerPosition(GOALKEEPER, 0.5f, 0.9f),
-            PlayerPosition(DEFENDER, 0.15f, 0.75f),
-            PlayerPosition(DEFENDER, 0.4f, 0.75f),
-            PlayerPosition(DEFENDER, 0.6f, 0.75f),
-            PlayerPosition(DEFENDER, 0.85f, 0.75f),
-            PlayerPosition(MIDFIELDER, 0.2f, 0.45f),
-            PlayerPosition(MIDFIELDER, 0.5f, 0.55f),
-            PlayerPosition(MIDFIELDER, 0.8f, 0.45f),
-            PlayerPosition(FORWARD, 0.2f, 0.2f),
-            PlayerPosition(FORWARD, 0.5f, 0.15f),
-            PlayerPosition(FORWARD, 0.8f, 0.2f),
+            PlayerPosition(1,GOALKEEPER, 0.5f, 0.9f),
+            PlayerPosition(2,DEFENDER, 0.15f, 0.75f),
+            PlayerPosition(3,DEFENDER, 0.4f, 0.75f),
+            PlayerPosition(4,DEFENDER, 0.6f, 0.75f),
+            PlayerPosition(5,DEFENDER, 0.85f, 0.75f),
+            PlayerPosition(8,MIDFIELDER, 0.2f, 0.45f),
+            PlayerPosition(6,MIDFIELDER, 0.5f, 0.55f),
+            PlayerPosition(7,MIDFIELDER, 0.8f, 0.45f),
+            PlayerPosition(9,FORWARD, 0.2f, 0.2f),
+            PlayerPosition(10,FORWARD, 0.5f, 0.15f),
+            PlayerPosition(11,FORWARD, 0.8f, 0.2f),
         )
     )
 
@@ -66,17 +67,17 @@ sealed class LineUpFormation(val name: LineUpType, val positions: List<PlayerPos
     object FourFourTwo : LineUpFormation(
         FOUR_FOUR_TWO,
         listOf(
-            PlayerPosition(GOALKEEPER, 0.5f, 0.9f),
-            PlayerPosition(DEFENDER, 0.15f, 0.75f),
-            PlayerPosition(DEFENDER, 0.4f, 0.75f),
-            PlayerPosition(DEFENDER, 0.6f, 0.75f),
-            PlayerPosition(DEFENDER, 0.85f, 0.75f),
-            PlayerPosition(MIDFIELDER, 0.15f, 0.4f),
-            PlayerPosition(MIDFIELDER, 0.35f, 0.5f),
-            PlayerPosition(MIDFIELDER, 0.65f, 0.5f),
-            PlayerPosition(MIDFIELDER, 0.85f, 0.4f),
-            PlayerPosition(FORWARD, 0.3f, 0.15f),
-            PlayerPosition(FORWARD, 0.7f, 0.15f),
+            PlayerPosition(1,GOALKEEPER, 0.5f, 0.9f),
+            PlayerPosition(2,DEFENDER, 0.15f, 0.75f),
+            PlayerPosition(3,DEFENDER, 0.4f, 0.75f),
+            PlayerPosition(4,DEFENDER, 0.6f, 0.75f),
+            PlayerPosition(5,DEFENDER, 0.85f, 0.75f),
+            PlayerPosition(8,MIDFIELDER, 0.15f, 0.4f),
+            PlayerPosition(6,MIDFIELDER, 0.35f, 0.5f),
+            PlayerPosition(7,MIDFIELDER, 0.65f, 0.5f),
+            PlayerPosition(9,MIDFIELDER, 0.85f, 0.4f),
+            PlayerPosition(10,FORWARD, 0.3f, 0.15f),
+            PlayerPosition(11,FORWARD, 0.7f, 0.15f),
         )
     )
 

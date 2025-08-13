@@ -41,9 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBFootballField
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.LineUpFormation.FourFourTwo
-import com.gbmultiplatform.design_system.model.LineUpFormation.FourThreeThree
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg

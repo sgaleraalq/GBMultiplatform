@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateDpAsState
@@ -46,11 +46,11 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.player_card_name_text_color
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.STATS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.DETAILS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LOADING
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.STATS
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.details
 import gbmultiplatform.core.presentation.generated.resources.line_ups

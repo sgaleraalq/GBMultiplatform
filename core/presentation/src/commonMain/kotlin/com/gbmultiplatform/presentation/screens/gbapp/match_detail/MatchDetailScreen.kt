@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,16 +24,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.STATS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailDetailsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailHeader
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailInformationBar
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailLineUpsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailStatsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailUIModelFactory
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.DETAILS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LOADING
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.STATS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailDetailsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailHeader
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailInformationBar
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailLineUpsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStatsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailUIModelFactory
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

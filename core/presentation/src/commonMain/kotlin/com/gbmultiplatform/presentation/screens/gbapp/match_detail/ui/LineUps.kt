@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -50,7 +50,7 @@ import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.design_system.style.white_in_gray_box
 import com.gbmultiplatform.model.team.TeamModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailUIModel
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailUIModel
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.bench
 import gbmultiplatform.core.presentation.generated.resources.managers

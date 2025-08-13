@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.model.team.TeamModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.TeamDetailModel
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LINEUPS
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LOADING
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.TeamDetailModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MatchDetailViewModel(

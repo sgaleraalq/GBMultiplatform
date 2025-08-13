@@ -1,4 +1,4 @@
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
 
 import com.gbmultiplatform.model.team.TeamModel
 

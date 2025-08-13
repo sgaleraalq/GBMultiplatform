@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail
 
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer

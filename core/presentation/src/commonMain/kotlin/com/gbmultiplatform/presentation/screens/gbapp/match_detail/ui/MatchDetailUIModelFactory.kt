@@ -1,8 +1,8 @@
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
 
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailUIModel
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailUIModel
 
 object MatchDetailUIModelFactory {
     val managers = listOf(

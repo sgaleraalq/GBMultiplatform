@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui
+package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

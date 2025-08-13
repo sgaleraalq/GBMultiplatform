@@ -22,16 +22,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.DETAILS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.STATS
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailDetailsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailHeader
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailInformationBar
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailLineUpsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailStatsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailDetailsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailHeader
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailInformationBar
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailLineUpsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailStatsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.MatchDetailUIModelFactory
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -62,7 +64,9 @@ fun MatchDetailScreen(
 
             LINEUPS -> {
                 MatchDetailLineUpsScreen(
-                    modifier = Modifier.weight(1f)
+                    team = GAZTELU_BIRA,
+                    modifier = Modifier.weight(1f),
+                    matchDetailModel = MatchDetailUIModelFactory.create()
                 )
             }
 

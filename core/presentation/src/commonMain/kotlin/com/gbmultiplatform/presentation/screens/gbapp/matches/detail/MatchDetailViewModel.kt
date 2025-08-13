@@ -21,7 +21,7 @@ import com.gbmultiplatform.model.team.ITeamProvider
 import com.gbmultiplatform.model.team.TeamModel
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LINEUPS
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailViewModel.MatchDetailState.LOADING
-import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.TeamDetailModel
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui.TeamDetailModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class MatchDetailViewModel(

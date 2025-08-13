@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui
+package com.gbmultiplatform.presentation.screens.gbapp.matches.detail.detail_ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,6 +32,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -41,13 +45,12 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBFootballField
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.design_system.model.LineUpFormation.FourFourTwo
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.design_system.style.white_in_gray_box
-import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
 import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.MatchDetailUIModel
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.bench
 import gbmultiplatform.core.presentation.generated.resources.managers
@@ -59,52 +62,13 @@ internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp
 
 @Composable
-fun MatchDetailLineUpsScreen(modifier: Modifier) {
-    val team = GAZTELU_BIRA
-    val benchPlayers = listOf(
-        UIPlayer(
-            "Player 1",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 2",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 3",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 4",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 5",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 6",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 7",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Player 8",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        )
-    )
-    val managers = listOf(
-        UIPlayer(
-            "Manager 1",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        ),
-        UIPlayer(
-            "Manager 2",
-            "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
-        )
-    )
+fun MatchDetailLineUpsScreen(
+    team: TeamModel,
+    modifier: Modifier,
+    matchDetailModel: MatchDetailUIModel,
+) {
+    var animationPlayed by rememberSaveable { mutableStateOf(false) }
+
     LazyColumn(
         modifier = modifier,
         contentPadding = PaddingValues(bottom = 16.dp)
@@ -112,13 +76,15 @@ fun MatchDetailLineUpsScreen(modifier: Modifier) {
         item {
             GBFootballField(
                 modifier = Modifier.padding(8.dp),
-                formation = FourFourTwo
+                formation = matchDetailModel.matchFormation,
+                showAnimation = !animationPlayed,
+                onAnimationFinished = { animationPlayed = true }
             )
             StartingElevenHeader(team)
             Spacer(Modifier.height(8.dp))
         }
-        managers(managers)
-        benchPlayers(benchPlayers)
+        managers(matchDetailModel.managers)
+        benchPlayers(matchDetailModel.benchPlayers)
     }
 }
 
@@ -169,7 +135,8 @@ fun LazyListScope.benchPlayers(benchPlayers: List<UIPlayer>) {
 @Composable
 fun BenchListSpacer(height: Int = 8) {
     Spacer(
-        Modifier.height(height.dp).fillMaxWidth().padding(horizontal = 12.dp).background(benchBgColor)
+        Modifier.height(height.dp).fillMaxWidth().padding(horizontal = 12.dp)
+            .background(benchBgColor)
     )
 }
 

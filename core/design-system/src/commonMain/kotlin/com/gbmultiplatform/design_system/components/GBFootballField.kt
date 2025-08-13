@@ -30,6 +30,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -55,10 +56,25 @@ import kotlinx.coroutines.delay
 @Composable
 fun GBFootballField(
     modifier: Modifier = Modifier,
-    formation: LineUpFormation
+    showAnimation: Boolean,
+    formation: LineUpFormation,
+    onAnimationFinished: () -> Unit
 ) {
     var boxWidthPx by remember { mutableStateOf(0f) }
     var boxHeightPx by remember { mutableStateOf(0f) }
+    val visiblePlayers = remember { mutableStateListOf<Int>() }
+
+    LaunchedEffect(showAnimation) {
+        if (showAnimation) {
+            formation.positions.forEachIndexed { index, _ ->
+                visiblePlayers.add(index)
+                delay(100L)
+            }
+            onAnimationFinished()
+        } else {
+            visiblePlayers.addAll(formation.positions.indices)
+        }
+    }
 
     Box(
         modifier = modifier
@@ -74,16 +90,19 @@ fun GBFootballField(
             scale = FillWidth
         )
 
-        formation.positions.forEach { position ->
+        formation.positions.forEachIndexed { index, position ->
             if (boxWidthPx > 0 && boxHeightPx > 0) {
-                val player = UIPlayer(name = "Player Name", image = "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg")
+                val player = UIPlayer(
+                    name = "Player $index",
+                    image = "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
+                )
                 GBPlayerPosition(
                     player = player,
                     percentX = position.x,
                     percentY = position.y,
                     fieldWidthPx = boxWidthPx,
                     fieldHeightPx = boxHeightPx,
-                    showDelay = position.showOrder * 100L
+                    visible = visiblePlayers.contains(index)
                 )
             }
         }
@@ -97,16 +116,10 @@ fun GBPlayerPosition(
     percentY: Float,
     fieldWidthPx: Float,
     fieldHeightPx: Float,
-    showDelay: Long
+    visible: Boolean
 ) {
     var columnWidth by remember { mutableStateOf(0) }
     var columnHeight by remember { mutableStateOf(0) }
-    var visible by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        delay(showDelay)
-        visible = true
-    }
 
     Box(
         modifier = Modifier
@@ -125,7 +138,7 @@ fun GBPlayerPosition(
     ) {
         AnimatedVisibility(
             visible = visible,
-            enter = fadeIn(tween(50)) + scaleIn(initialScale = 0.5f)
+            enter = fadeIn(tween(150)) + scaleIn(initialScale = 0.5f)
         ) {
             Column(
                 horizontalAlignment = CenterHorizontally,
@@ -138,7 +151,7 @@ fun GBPlayerPosition(
                     image = player.image
                 )
                 GBText(
-                    text = player.name, // TODO overlapping
+                    text = player.name,
                     textColor = White,
                     style = gBTypography().bodySmall
                 )

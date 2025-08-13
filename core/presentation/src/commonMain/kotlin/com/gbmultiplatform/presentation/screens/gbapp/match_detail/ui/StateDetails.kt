@@ -21,22 +21,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.Color.Companion.Yellow
 
 @Composable
 fun MatchDetailDetailsScreen() {
     Column(
         Modifier.fillMaxSize().background(Yellow)
-    ) {
-
-    }
-}
-
-@Composable
-fun MatchDetailStatsScreen() {
-    Column(
-        Modifier.fillMaxSize().background(Red)
     ) {
 
     }

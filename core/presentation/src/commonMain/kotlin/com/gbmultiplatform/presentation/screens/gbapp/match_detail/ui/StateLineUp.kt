@@ -62,7 +62,7 @@ internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp
 
 @Composable
-fun MatchDetailLineUpsScreen(
+fun MatchDetailLineUpScreen(
     team: TeamModel,
     modifier: Modifier,
     matchDetailModel: MatchDetailUIModel,

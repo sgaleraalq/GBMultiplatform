@@ -31,7 +31,7 @@ import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailVi
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailDetailsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailHeader
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailInformationBar
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailLineUpsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailLineUpScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStatsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailUIModelFactory
 import org.koin.compose.viewmodel.koinViewModel
@@ -63,7 +63,7 @@ fun MatchDetailScreen(
             }
 
             LINEUPS -> {
-                MatchDetailLineUpsScreen(
+                MatchDetailLineUpScreen(
                     team = GAZTELU_BIRA,
                     modifier = Modifier.weight(1f),
                     matchDetailModel = MatchDetailUIModelFactory.create()

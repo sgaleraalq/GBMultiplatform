@@ -34,6 +34,7 @@ import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetai
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailLineUpScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStatsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailUIModelFactory
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.StateLoading
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -55,7 +56,7 @@ fun MatchDetailScreen(
         )
         when (detailState) {
             LOADING -> {
-                /* Loading */
+                StateLoading()
             }
 
             DETAILS -> {

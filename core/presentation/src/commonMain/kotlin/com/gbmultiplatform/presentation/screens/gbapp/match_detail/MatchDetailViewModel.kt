@@ -32,15 +32,18 @@ class MatchDetailViewModel(
         LOADING, DETAILS, LINEUPS, STATS
     }
 
+    private var navDisabled = true
+
     private val _state = MutableStateFlow(LOADING)
     val state = _state
 
     init {
-        changeUiState(LINEUPS)
+//        changeUiState(LINEUPS)
+//        navDisabled = false
     }
 
     fun changeUiState(state: MatchDetailState) {
-        if (_state.value != state) {
+        if (_state.value != state && !navDisabled) {
             _state.value = state
         }
     }

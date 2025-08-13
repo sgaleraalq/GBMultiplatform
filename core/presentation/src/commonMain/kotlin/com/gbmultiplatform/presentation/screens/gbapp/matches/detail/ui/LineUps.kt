@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBFootballField
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.model.LineUpFormation
+import com.gbmultiplatform.design_system.model.LineUpFormation.FourFourTwo
 import com.gbmultiplatform.design_system.model.LineUpFormation.FourThreeThree
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
@@ -112,7 +114,7 @@ fun MatchDetailLineUpsScreen(modifier: Modifier) {
         item {
             GBFootballField(
                 modifier = Modifier.padding(8.dp),
-                formation = FourThreeThree
+                formation = FourFourTwo
             )
             StartingElevenHeader(team)
             Spacer(Modifier.height(8.dp))

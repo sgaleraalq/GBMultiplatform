@@ -34,7 +34,6 @@ import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDet
 import com.gbmultiplatform.presentation.screens.gbapp.matches.detail.ui.MatchDetailStatsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
-
 @Composable
 fun MatchDetailScreen(
     state: NavigationState,

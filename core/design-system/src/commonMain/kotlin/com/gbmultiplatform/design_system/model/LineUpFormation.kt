@@ -66,17 +66,17 @@ sealed class LineUpFormation(val name: LineUpType, val positions: List<PlayerPos
     object FourFourTwo : LineUpFormation(
         FOUR_FOUR_TWO,
         listOf(
-            PlayerPosition(GOALKEEPER, 0.5f, 0.95f),
-            PlayerPosition(DEFENDER, 0.2f, 0.75f),
+            PlayerPosition(GOALKEEPER, 0.5f, 0.9f),
+            PlayerPosition(DEFENDER, 0.15f, 0.75f),
             PlayerPosition(DEFENDER, 0.4f, 0.75f),
             PlayerPosition(DEFENDER, 0.6f, 0.75f),
-            PlayerPosition(DEFENDER, 0.8f, 0.75f),
-            PlayerPosition(MIDFIELDER, 0.2f, 0.5f),
-            PlayerPosition(MIDFIELDER, 0.4f, 0.5f),
-            PlayerPosition(MIDFIELDER, 0.6f, 0.5f),
-            PlayerPosition(MIDFIELDER, 0.8f, 0.5f),
-            PlayerPosition(FORWARD, 0.35f, 0.25f),
-            PlayerPosition(FORWARD, 0.65f, 0.25f),
+            PlayerPosition(DEFENDER, 0.85f, 0.75f),
+            PlayerPosition(MIDFIELDER, 0.15f, 0.4f),
+            PlayerPosition(MIDFIELDER, 0.35f, 0.5f),
+            PlayerPosition(MIDFIELDER, 0.65f, 0.5f),
+            PlayerPosition(MIDFIELDER, 0.85f, 0.4f),
+            PlayerPosition(FORWARD, 0.3f, 0.15f),
+            PlayerPosition(FORWARD, 0.7f, 0.15f),
         )
     )
 

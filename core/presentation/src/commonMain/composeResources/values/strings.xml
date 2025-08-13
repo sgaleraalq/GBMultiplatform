@@ -34,6 +34,7 @@
     <string name="details">Details</string>
     <string name="line_ups">Line-ups</string>
     <string name="stats">Stats</string>
+    <string name="starting_eleven">Starting 11</string>
     <string name="managers">Managers</string>
     <string name="bench">Bench</string>
 </resources>

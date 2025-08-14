@@ -17,17 +17,23 @@
 package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
+import com.gbmultiplatform.design_system.components.GBText
 
 @Composable
 fun MatchDetailStateStats() {
-    Column(
-        Modifier.fillMaxSize().background(Red)
+    Box(
+        Modifier.fillMaxSize(),
+        contentAlignment = Center
     ) {
-
+        GBText(
+            text = "Detail stats"
+        )
     }
 }

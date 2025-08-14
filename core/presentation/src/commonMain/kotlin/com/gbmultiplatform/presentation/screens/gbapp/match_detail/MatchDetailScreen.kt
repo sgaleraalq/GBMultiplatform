@@ -28,13 +28,13 @@ import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailVi
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LINEUPS
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LOADING
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.STATS
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailHeader
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailInformationBar
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateDetails
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateLineUp
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateStats
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailUIModelFactory
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.StateLoading
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.MatchDetailHeader
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.MatchDetailInformationBar
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details.MatchDetailStateDetails
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.MatchDetailStateLineUp
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats.MatchDetailStateStats
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.MatchDetailUIModelFactory
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.StateLoading
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -61,6 +61,7 @@ fun MatchDetailScreen(
 
             DETAILS -> {
                 MatchDetailStateDetails(
+                    modifier = Modifier.weight(1f),
                     title = "Title",
                     description = "Description"
                 )

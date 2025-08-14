@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
 
 @Composable
-fun MatchDetailStateDetails(
-    title: String,
-    description: String?
-) {
+fun MatchDetailStateStats() {
     Column(
-        Modifier.fillMaxSize()
+        Modifier.fillMaxSize().background(Red)
     ) {
 
     }

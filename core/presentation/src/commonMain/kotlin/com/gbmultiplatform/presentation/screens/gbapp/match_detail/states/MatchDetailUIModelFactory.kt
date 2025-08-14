@@ -1,4 +1,4 @@
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer

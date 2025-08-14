@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color.Companion.Red

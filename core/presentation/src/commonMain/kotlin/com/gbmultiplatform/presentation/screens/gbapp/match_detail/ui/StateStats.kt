@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Red
 
 @Composable
-fun MatchDetailStatsScreen() {
+fun MatchDetailStateStats() {
     Column(
         Modifier.fillMaxSize().background(Red)
     ) {

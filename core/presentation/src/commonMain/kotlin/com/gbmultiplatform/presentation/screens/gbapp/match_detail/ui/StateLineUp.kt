@@ -62,7 +62,7 @@ internal val benchBgColor = gray_box_in_black_bg
 internal val benchHorizontalPadding = 12.dp
 
 @Composable
-fun MatchDetailLineUpScreen(
+fun MatchDetailStateLineUp(
     team: TeamModel,
     modifier: Modifier,
     matchDetailModel: MatchDetailUIModel,
@@ -74,13 +74,13 @@ fun MatchDetailLineUpScreen(
         contentPadding = PaddingValues(bottom = 16.dp)
     ) {
         item {
+            StartingElevenHeader(team)
             GBFootballField(
                 modifier = Modifier.padding(8.dp),
                 formation = matchDetailModel.matchFormation,
                 showAnimation = !animationPlayed,
                 onAnimationFinished = { animationPlayed = true }
             )
-            StartingElevenHeader(team)
             Spacer(Modifier.height(8.dp))
         }
         managers(matchDetailModel.managers)
@@ -101,7 +101,11 @@ fun StartingElevenHeader(team: TeamModel) {
                 .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
             image = team.logo
         )
-        Spacer(Modifier.weight(1f))
+        GBText(
+            modifier = Modifier.padding(horizontal = 12.dp).weight(1f),
+            text = team.name,
+            style = gBTypography().bodySmall
+        )
         GBText(
             text = stringResource(Res.string.starting_eleven),
             style = gBTypography().bodySmall

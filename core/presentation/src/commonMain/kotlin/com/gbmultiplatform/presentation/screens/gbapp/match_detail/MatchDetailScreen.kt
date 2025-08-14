@@ -28,11 +28,11 @@ import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailVi
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LINEUPS
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.LOADING
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel.MatchDetailState.STATS
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailDetailsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailHeader
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailInformationBar
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailLineUpScreen
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStatsScreen
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateDetails
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateLineUp
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailStateStats
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.MatchDetailUIModelFactory
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui.StateLoading
 import org.koin.compose.viewmodel.koinViewModel
@@ -60,11 +60,14 @@ fun MatchDetailScreen(
             }
 
             DETAILS -> {
-                MatchDetailDetailsScreen()
+                MatchDetailStateDetails(
+                    title = "Title",
+                    description = "Description"
+                )
             }
 
             LINEUPS -> {
-                MatchDetailLineUpScreen(
+                MatchDetailStateLineUp(
                     team = GAZTELU_BIRA,
                     modifier = Modifier.weight(1f),
                     matchDetailModel = MatchDetailUIModelFactory.create()
@@ -72,7 +75,7 @@ fun MatchDetailScreen(
             }
 
             STATS -> {
-                MatchDetailStatsScreen()
+                MatchDetailStateStats()
             }
         }
     }

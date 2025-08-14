@@ -38,8 +38,8 @@ class MatchDetailViewModel(
     val state = _state
 
     init {
-//        changeUiState(LINEUPS)
-//        navDisabled = false
+        navDisabled = false
+        changeUiState(LINEUPS)
     }
 
     fun changeUiState(state: MatchDetailState) {

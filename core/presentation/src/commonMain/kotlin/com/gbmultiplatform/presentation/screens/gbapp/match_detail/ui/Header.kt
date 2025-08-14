@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.ui
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,7 +28,6 @@ import com.gbmultiplatform.design_system.components.GBBackButton
 import com.gbmultiplatform.design_system.components.GBTeam
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.TeamDetailModel
 
 
 @Composable

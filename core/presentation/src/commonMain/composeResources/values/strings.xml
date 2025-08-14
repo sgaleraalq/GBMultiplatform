@@ -37,4 +37,6 @@
     <string name="starting_eleven">Starting 11</string>
     <string name="managers">Managers</string>
     <string name="bench">Bench</string>
+    <string name="no_description_provided">No description provided</string>
+    <string name="no_location_available">No location available</string>
 </resources>

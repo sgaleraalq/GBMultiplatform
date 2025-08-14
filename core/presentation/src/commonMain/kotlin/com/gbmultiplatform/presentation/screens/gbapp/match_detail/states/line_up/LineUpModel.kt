@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up
 
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer
 
-data class MatchDetailUIModel(
+data class LineUpModel(
     val matchFormation: LineUpFormation,
     val managers: List<UIPlayer>,
     val benchPlayers: List<UIPlayer>

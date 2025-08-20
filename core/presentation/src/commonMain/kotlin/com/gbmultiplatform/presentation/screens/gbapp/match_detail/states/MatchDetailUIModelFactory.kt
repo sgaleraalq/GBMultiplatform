@@ -18,7 +18,6 @@ object MatchDetailUIModelFactory {
             "https://static.vecteezy.com/system/resources/thumbnails/054/555/113/small/a-cartoon-character-with-sunglasses-on-his-face-free-vector.jpg"
         )
     )
-
     val benchPlayers = listOf(
         UIPlayer(
             "Player 1",

@@ -26,6 +26,7 @@ import com.gbmultiplatform.presentation.screens.gbapp.matches.GetMatchResultUseC
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsViewModel
+import com.gbmultiplatform.presentation.screens.gbapp.team.TeamViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -35,6 +36,7 @@ val viewModelModule = module {
     viewModelOf(::StatsViewModel)
     viewModelOf(::MatchesViewModel)
     viewModelOf(::MatchDetailViewModel)
+    viewModelOf(::TeamViewModel)
 }
 
 val viewModelHelpersModule = module {

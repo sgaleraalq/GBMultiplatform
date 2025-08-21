@@ -49,7 +49,7 @@ fun MatchesScreenHeader(
          */
         GBImage(
             modifier = Modifier
-                .size(48.dp)
+                .size(36.dp)
                 .clip(RoundedCornerShape(50))
                 .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
             image = appTeam.logo
@@ -63,7 +63,7 @@ fun MatchesScreenHeader(
             text = appTeam.name,
             alignment = Start,
             textColor = White,
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }

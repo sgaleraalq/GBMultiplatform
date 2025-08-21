@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.matches.ui
+package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -31,13 +31,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBImage
-import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.domain.model.team.TeamModel
 
 @Composable
-fun MatchesScreenHeader(
-    appTeam: TeamModel
+fun GBAppTopBar(
+    teamLogo: String,
+    teamName: String,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp, horizontal = 24.dp),
@@ -52,7 +51,7 @@ fun MatchesScreenHeader(
                 .size(36.dp)
                 .clip(RoundedCornerShape(50))
                 .border(width = 1.dp, color = White, shape = RoundedCornerShape(50)),
-            image = appTeam.logo
+            image = teamLogo
         )
 
         /**
@@ -60,7 +59,7 @@ fun MatchesScreenHeader(
          */
         GBText(
             modifier = Modifier.weight(1f).padding(bottom = 4.dp),
-            text = appTeam.name,
+            text = teamName,
             alignment = Start,
             textColor = White,
             style = MaterialTheme.typography.titleLarge

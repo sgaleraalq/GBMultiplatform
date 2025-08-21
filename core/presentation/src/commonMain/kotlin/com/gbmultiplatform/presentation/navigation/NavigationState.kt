@@ -162,5 +162,6 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     Stats.configuration(),
     Team.configuration(),
     About.configuration(),
-    MatchDetail.configuration()
+    MatchDetail.configuration(),
+    Destination.PlayerInformation.configuration()
 )

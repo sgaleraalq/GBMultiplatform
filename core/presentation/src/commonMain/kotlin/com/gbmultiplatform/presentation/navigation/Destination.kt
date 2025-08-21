@@ -25,6 +25,7 @@ import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.gbapp.team.TeamScreen
+import com.gbmultiplatform.presentation.screens.gbapp.team_detail.PlayerInformationScreen
 import kotlinx.serialization.Serializable
 
 interface Destination {
@@ -88,7 +89,17 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            TeamScreen()
+            TeamScreen(state = state)
+        }
+    }
+
+    @Serializable
+    object PlayerInformation: Destination {
+        override val routeName = "player_information"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            PlayerInformationScreen()
         }
     }
 

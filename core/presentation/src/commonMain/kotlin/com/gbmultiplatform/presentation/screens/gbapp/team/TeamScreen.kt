@@ -35,16 +35,18 @@ import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.domain.model.player.PlayerStatsModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.ui.MatchesScreenHeader
+import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
+import com.gbmultiplatform.presentation.navigation.NavigationState
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TeamScreen(
-    viewModel: TeamViewModel = koinViewModel<TeamViewModel>()
+    viewModel: TeamViewModel = koinViewModel<TeamViewModel>(),
+    state: NavigationState
 ) {
     val players by viewModel.players.collectAsState()
 
@@ -56,23 +58,27 @@ fun TeamScreen(
         contentPadding = PaddingValues(12.dp)
     ) {
         item(span = { GridItemSpan(3) }) {
-            MatchesScreenHeader(
-                appTeam = viewModel.appTeam
+            GBAppTopBar(
+                teamLogo = viewModel.appTeam.logo,
+                teamName = viewModel.appTeam.name
             )
         }
         items(players) { player ->
-            PlayerCard(player)
+            PlayerCard(player) {
+                state.navigateTo(PlayerInformation)
+            }
         }
     }
 }
 
 @Composable
-fun PlayerCard(player: PlayerInformationModel) {
+fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
     Card(
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = Transparent
-        )
+        ),
+        onClick = { onPlayerClicked() }
     ) {
         Box {
             GBImage(Modifier.fillMaxSize(), player.image)

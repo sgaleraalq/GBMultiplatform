@@ -40,6 +40,7 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import org.koin.compose.viewmodel.koinViewModel
@@ -56,7 +57,9 @@ fun TeamScreen(
             teamLogo = viewModel.appTeam.logo,
             teamName = viewModel.appTeam.name,
             isAdmin = true
-        )
+        ) {
+            state.navigateTo(Destination.InsertPlayer)
+        }
         TeamPlayerList(players) {
             state.navigateTo(PlayerInformation)
         }

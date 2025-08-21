@@ -14,6 +14,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(projects.domain)
             api(libs.datastore)
             api(libs.datastore.preferences)
         }

@@ -14,22 +14,6 @@
     <string name="join_gaztelu_bira">Join Gaztelu Bira</string>
     <string name="insert_team_code_to_join">Insert team's code to join their group</string>
 
-<!--    stats-->
-    <string name="goals">Goals</string>
-    <string name="assists">Assists</string>
-    <string name="penalties_provoked">Penalties provoked</string>
-    <string name="clean_sheets">Clean sheets</string>
-    <string name="saves">Saves</string>
-    <string name="games_played">Games played</string>
-    <string name="yellow_cards">Yellow cards</string>
-    <string name="red_cards">Red cards</string>
-    <string name="percentage">Percentage</string>
-    <string name="displayed_stat">Displayed stat: </string>
-
-<!--    matches-->
-    <string name="league">League</string>
-    <string name="cup">Cup</string>
-
 <!--    match details-->
     <string name="details">Details</string>
     <string name="line_ups">Line-ups</string>
@@ -40,10 +24,4 @@
     <string name="no_description_provided">No description provided</string>
     <string name="no_location_available">No location available</string>
 
-
-<!--    positions-->
-    <string name="goalkeeper">Goalkeeper</string>
-    <string name="defender">Defender</string>
-    <string name="midfielder">Midfielder</string>
-    <string name="forward">Forward</string>
 </resources>

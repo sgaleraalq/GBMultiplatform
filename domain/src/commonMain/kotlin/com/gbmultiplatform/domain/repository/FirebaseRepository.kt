@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.team
+package com.gbmultiplatform.domain.repository
 
-import androidx.lifecycle.ViewModel
-import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.helper.GazteluBiraUtils
-import kotlinx.coroutines.flow.MutableStateFlow
 
-class TeamViewModel(
-    playerProvider: IPlayerProvider
-): ViewModel() {
-    val players = MutableStateFlow<List<PlayerInformationModel>>(emptyList())
-    val appTeam = GazteluBiraUtils.GAZTELU_BIRA
-
-
-    init {
-        players.value = playerProvider.providePlayerInformationList()
-    }
-
+interface FirebaseRepository {
+    suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean
 }

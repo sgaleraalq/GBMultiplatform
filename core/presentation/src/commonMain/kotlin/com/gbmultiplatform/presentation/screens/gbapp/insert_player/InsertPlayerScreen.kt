@@ -16,9 +16,38 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.insert_player
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBElevatedButton
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun InsertPlayerScreen() {
-
+fun InsertPlayerScreen(
+    viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
+) {
+    Box(
+        Modifier.fillMaxSize(),
+        contentAlignment = Center
+    ) {
+        GBElevatedButton(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            text = "Insert Player",
+            onClick = {
+                viewModel.insertNewPlayer(
+                    onSuccess = {
+                        println("Player inserted successfully")
+                    },
+                    onFailure = {
+                        println("Failed to insert player")
+                    }
+                )
+            }
+        )
+    }
 }

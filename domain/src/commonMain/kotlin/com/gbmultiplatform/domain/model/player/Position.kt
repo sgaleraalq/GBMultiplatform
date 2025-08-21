@@ -14,20 +14,28 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.domain.model.match
+package com.gbmultiplatform.domain.model.player
 
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.cup
-import gbmultiplatform.core.presentation.generated.resources.ic_cup
-import gbmultiplatform.core.presentation.generated.resources.ic_league
-import gbmultiplatform.core.presentation.generated.resources.league
-import org.jetbrains.compose.resources.DrawableResource
+import gbmultiplatform.domain.generated.resources.Res
+import gbmultiplatform.domain.generated.resources.defender
+import gbmultiplatform.domain.generated.resources.forward
+import gbmultiplatform.domain.generated.resources.goalkeeper
+import gbmultiplatform.domain.generated.resources.midfielder
 import org.jetbrains.compose.resources.StringResource
 
-enum class MatchType(
-    val type: StringResource,
-    val icon: DrawableResource
+enum class Position(
+    val positionName: StringResource
 ) {
-    LEAGUE(Res.string.league, Res.drawable.ic_league),
-    CUP(Res.string.cup, Res.drawable.ic_cup)
+    GOALKEEPER(
+        Res.string.goalkeeper
+    ),
+    DEFENDER(
+        Res.string.defender
+    ),
+    MIDFIELDER(
+        Res.string.midfielder
+    ),
+    FORWARD(
+        Res.string.forward
+    )
 }

@@ -16,12 +16,15 @@
 
 package com.gbmultiplatform.di.modules
 
+import com.gbmultiplatform.data.network.repository.FirebaseRepositoryImpl
 import com.gbmultiplatform.di.provider.PlayerProvider
 import com.gbmultiplatform.di.provider.TeamProvider
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.team.ITeamProvider
+import com.gbmultiplatform.domain.repository.FirebaseRepository
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
+import com.gbmultiplatform.presentation.screens.gbapp.insert_player.InsertPlayerViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel
@@ -37,10 +40,12 @@ val viewModelModule = module {
     viewModelOf(::MatchesViewModel)
     viewModelOf(::MatchDetailViewModel)
     viewModelOf(::TeamViewModel)
+    viewModelOf(::InsertPlayerViewModel)
 }
 
 val viewModelHelpersModule = module {
     factory<IPlayerProvider> { PlayerProvider() }
     factory<ITeamProvider> { TeamProvider() }
+    factory<FirebaseRepository> { FirebaseRepositoryImpl() }
     factory { GetMatchResultUseCase() }
 }

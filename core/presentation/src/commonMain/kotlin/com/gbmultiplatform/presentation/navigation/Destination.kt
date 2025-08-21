@@ -21,6 +21,7 @@ import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
+import com.gbmultiplatform.presentation.screens.gbapp.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsScreen
@@ -123,6 +124,19 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             PlayerInformationScreen()
+        }
+    }
+
+    /**
+     * Insert screens
+     */
+    @Serializable
+    object InsertPlayer: Destination {
+        override val routeName = "insert_player"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+             InsertPlayerScreen()
         }
     }
 }

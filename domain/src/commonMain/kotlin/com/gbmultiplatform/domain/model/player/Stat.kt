@@ -16,25 +16,25 @@
 
 package com.gbmultiplatform.domain.model.player
 
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.assists
-import gbmultiplatform.core.presentation.generated.resources.clean_sheets
-import gbmultiplatform.core.presentation.generated.resources.games_played
-import gbmultiplatform.core.presentation.generated.resources.goals
-import gbmultiplatform.core.presentation.generated.resources.ic_assists
-import gbmultiplatform.core.presentation.generated.resources.ic_clean_sheets
-import gbmultiplatform.core.presentation.generated.resources.ic_games_played
-import gbmultiplatform.core.presentation.generated.resources.ic_goals
-import gbmultiplatform.core.presentation.generated.resources.ic_penalties
-import gbmultiplatform.core.presentation.generated.resources.ic_percentage
-import gbmultiplatform.core.presentation.generated.resources.ic_red_card
-import gbmultiplatform.core.presentation.generated.resources.ic_saves
-import gbmultiplatform.core.presentation.generated.resources.ic_yellow_card
-import gbmultiplatform.core.presentation.generated.resources.penalties_provoked
-import gbmultiplatform.core.presentation.generated.resources.percentage
-import gbmultiplatform.core.presentation.generated.resources.red_cards
-import gbmultiplatform.core.presentation.generated.resources.saves
-import gbmultiplatform.core.presentation.generated.resources.yellow_cards
+import gbmultiplatform.domain.generated.resources.Res
+import gbmultiplatform.domain.generated.resources.assists
+import gbmultiplatform.domain.generated.resources.clean_sheets
+import gbmultiplatform.domain.generated.resources.games_played
+import gbmultiplatform.domain.generated.resources.goals
+import gbmultiplatform.domain.generated.resources.ic_assists
+import gbmultiplatform.domain.generated.resources.ic_clean_sheets
+import gbmultiplatform.domain.generated.resources.ic_games_played
+import gbmultiplatform.domain.generated.resources.ic_goals
+import gbmultiplatform.domain.generated.resources.ic_penalties
+import gbmultiplatform.domain.generated.resources.ic_percentage
+import gbmultiplatform.domain.generated.resources.ic_red_card
+import gbmultiplatform.domain.generated.resources.ic_saves
+import gbmultiplatform.domain.generated.resources.ic_yellow_card
+import gbmultiplatform.domain.generated.resources.penalties_provoked
+import gbmultiplatform.domain.generated.resources.percentage
+import gbmultiplatform.domain.generated.resources.red_cards
+import gbmultiplatform.domain.generated.resources.saves
+import gbmultiplatform.domain.generated.resources.yellow_cards
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 

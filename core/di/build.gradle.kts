@@ -12,6 +12,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.presentation)
             implementation(projects.data)
+            implementation(projects.domain)
         }
     }
 }

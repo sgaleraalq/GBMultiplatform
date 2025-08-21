@@ -15,6 +15,8 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.data)
+            implementation(projects.domain)
+
             implementation(projects.core.designSystem)
             implementation(compose.components.resources)
 

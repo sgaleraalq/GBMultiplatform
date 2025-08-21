@@ -94,16 +94,6 @@ interface Destination {
     }
 
     @Serializable
-    object PlayerInformation: Destination {
-        override val routeName = "player_information"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            PlayerInformationScreen()
-        }
-    }
-
-    @Serializable
     object About: Destination {
         override val routeName = "about"
 
@@ -123,6 +113,16 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             MatchDetailScreen(state)
+        }
+    }
+
+    @Serializable
+    object PlayerInformation: Destination {
+        override val routeName = "player_information"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            PlayerInformationScreen()
         }
     }
 }

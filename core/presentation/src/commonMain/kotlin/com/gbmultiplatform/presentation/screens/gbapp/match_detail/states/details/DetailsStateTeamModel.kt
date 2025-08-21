@@ -16,9 +16,9 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details
 
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.team.TeamModel
 
-data class DetailsTeamModel(
+data class DetailsStateTeamModel(
     val local: TeamModel,
     val visitor: TeamModel,
     val date: String,

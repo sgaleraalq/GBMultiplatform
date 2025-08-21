@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.match
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats
 
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.design_system.model.UIPlayer
 
-data class MatchModel(
-    val id: String,
-    val date: Long,
-    val matchName: String,
-    val matchType: MatchType,
-    val localTeam: TeamModel,
-    val visitorTeam: TeamModel,
-    val localGoals: Int,
-    val visitorGoals: Int
+data class StatsStateModel(
+    val goals: List<UIPlayer>,
+    val assists: List<UIPlayer>,
+    val penaltiesProvoked: List<UIPlayer>,
+    val cleanSheets: List<UIPlayer>,
+    val saves: List<UIPlayer>,
+    val yellowCards: List<UIPlayer>,
+    val redCards: List<UIPlayer>
 )

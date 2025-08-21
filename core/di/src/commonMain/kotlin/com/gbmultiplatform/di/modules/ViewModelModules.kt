@@ -18,8 +18,8 @@ package com.gbmultiplatform.di.modules
 
 import com.gbmultiplatform.di.provider.PlayerProvider
 import com.gbmultiplatform.di.provider.TeamProvider
-import com.gbmultiplatform.model.player.IPlayerProvider
-import com.gbmultiplatform.model.team.ITeamProvider
+import com.gbmultiplatform.domain.model.player.IPlayerProvider
+import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.matches.GetMatchResultUseCase

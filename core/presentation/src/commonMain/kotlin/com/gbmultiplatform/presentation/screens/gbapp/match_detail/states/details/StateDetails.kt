@@ -40,7 +40,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Justify
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.team.TeamModel
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.ic_date
 import gbmultiplatform.core.presentation.generated.resources.ic_location
@@ -53,7 +53,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun MatchDetailStateDetails(
     modifier: Modifier,
-    detailsInfo: DetailsTeamModel
+    detailsInfo: DetailsStateTeamModel
 ) {
     val scrollState = rememberScrollState()
     Column(

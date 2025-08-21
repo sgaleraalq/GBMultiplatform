@@ -3,9 +3,8 @@ package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details.DetailsTeamModel
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.LineUpModel
-import kotlin.random.Random
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details.DetailsStateTeamModel
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.LineUpStateModel
 
 object MatchDetailUIModelFactory {
     val managers = listOf(
@@ -53,8 +52,8 @@ object MatchDetailUIModelFactory {
         )
     )
 
-    fun create(): LineUpModel {
-        return LineUpModel(
+    fun create(): LineUpStateModel {
+        return LineUpStateModel(
             matchFormation = LineUpFormation.FourThreeThree,
             managers = managers,
             benchPlayers = benchPlayers
@@ -83,12 +82,12 @@ object MatchDetailUIModelFactory {
             " Fans can expect a thrilling game with plenty of action on the field." +
             " Fans can expect a thrilling game with plenty of action on the field."
 
-    fun createDetailsInfo(): DetailsTeamModel {
+    fun createDetailsInfo(): DetailsStateTeamModel {
         val descriptions = listOf(SHORT_DESCRIPTION, LONG_DESCRIPTION, null)
         val randomDescription = descriptions.random()
         val randomLocation = listOf("Pamplona, Spain", "Madrid, Spain", "Barcelona, Spain", null).random()
 
-        return DetailsTeamModel(
+        return DetailsStateTeamModel(
             local = GAZTELU_BIRA,
             visitor = GAZTELU_BIRA,
             date = "01/01/2025",

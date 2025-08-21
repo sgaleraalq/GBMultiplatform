@@ -1,6 +1,6 @@
 package com.gbmultiplatform.helper
 
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.team.TeamModel
 
 object GazteluBiraUtils {
     const val GAZTELU_BIRA_ID = "gaztelu_bira"

@@ -50,10 +50,10 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBTeam
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.helper.toDate
-import com.gbmultiplatform.model.match.MatchModel
-import com.gbmultiplatform.model.match.MatchResult
-import com.gbmultiplatform.model.match.MatchType
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.match.MatchModel
+import com.gbmultiplatform.domain.model.match.MatchResult
+import com.gbmultiplatform.domain.model.match.MatchType
+import com.gbmultiplatform.domain.model.team.TeamModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

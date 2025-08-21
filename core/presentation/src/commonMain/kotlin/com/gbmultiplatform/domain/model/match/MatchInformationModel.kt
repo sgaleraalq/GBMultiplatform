@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.team
+package com.gbmultiplatform.domain.model.match
 
-data class TeamModel(
+import com.gbmultiplatform.domain.model.team.TeamModel
+
+data class MatchInformationModel(
     val id: String,
-    val name: String,
-    val logo: String
+    val date: Long,
+    val location: String,
+    val localTeam: TeamModel,
+    val localGoals: Int,
+    val visitorTeam: TeamModel,
+    val visitorGoals: Int,
+    val matchType: MatchType
 )

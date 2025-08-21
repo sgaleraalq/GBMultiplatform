@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats
+package com.gbmultiplatform.domain.model.match
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
-import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.domain.model.team.TeamModel
 
-@Composable
-fun MatchDetailStateStats() {
-    Box(
-        Modifier.fillMaxSize(),
-        contentAlignment = Center
-    ) {
-        GBText(
-            text = "Detail stats"
-        )
-    }
-}
+data class MatchModel(
+    val id: String,
+    val date: Long,
+    val matchName: String,
+    val matchType: MatchType,
+    val localTeam: TeamModel,
+    val visitorTeam: TeamModel,
+    val localGoals: Int,
+    val visitorGoals: Int
+)

@@ -33,7 +33,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.team.TeamModel
 
 @Composable
 fun MatchesScreenHeader(

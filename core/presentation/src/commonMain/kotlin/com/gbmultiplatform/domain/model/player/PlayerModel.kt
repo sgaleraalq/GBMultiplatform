@@ -1,4 +1,4 @@
-package com.gbmultiplatform.model.player
+package com.gbmultiplatform.domain.model.player
 
 data class PlayerModel(
     val id: String,

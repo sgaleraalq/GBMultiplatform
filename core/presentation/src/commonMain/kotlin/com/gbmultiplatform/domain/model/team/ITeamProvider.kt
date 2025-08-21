@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.player
+package com.gbmultiplatform.domain.model.team
 
-interface IPlayerProvider {
-    fun providePlayerList(): List<PlayerModel>
+import com.gbmultiplatform.domain.model.match.MatchModel
+
+interface ITeamProvider {
+    fun provideMatch(): MatchModel
+    fun provideRandomTeam(): TeamModel
+    fun provideAppTeam(): TeamModel
 }

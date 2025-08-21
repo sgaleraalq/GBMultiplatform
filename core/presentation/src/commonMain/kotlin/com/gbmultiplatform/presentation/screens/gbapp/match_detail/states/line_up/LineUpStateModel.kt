@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.match
+package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up
 
-import androidx.compose.ui.graphics.Color
+import com.gbmultiplatform.design_system.model.LineUpFormation
+import com.gbmultiplatform.design_system.model.UIPlayer
 
-enum class MatchResult(val color: Color) {
-    VICTORY(Color(0x3315FF99)),
-    DRAW(Color(0x33FFD60A)),
-    DEFEAT(Color(0x33FF3B30) )
-}
+data class LineUpStateModel(
+    val matchFormation: LineUpFormation,
+    val managers: List<UIPlayer>,
+    val benchPlayers: List<UIPlayer>
+)

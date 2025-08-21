@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.model.team
+package com.gbmultiplatform.domain.model.team
 
-import com.gbmultiplatform.model.match.MatchModel
-
-interface ITeamProvider {
-    fun provideMatch(): MatchModel
-    fun provideRandomTeam(): TeamModel
-    fun provideAppTeam(): TeamModel
-}
+data class TeamModel(
+    val id: String,
+    val name: String,
+    val logo: String
+)

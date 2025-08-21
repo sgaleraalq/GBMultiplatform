@@ -18,11 +18,10 @@ package com.gbmultiplatform.di.provider
 
 import com.gbmultiplatform.di.generateRandomUUID
 import com.gbmultiplatform.helper.getActualTimeAsLong
-import com.gbmultiplatform.model.team.ITeamProvider
-import com.gbmultiplatform.model.match.MatchModel
-import com.gbmultiplatform.model.match.MatchType
-import com.gbmultiplatform.model.team.TeamModel
-import com.gbmultiplatform.presentation.screens.gbapp.matches.ui.MatchType
+import com.gbmultiplatform.domain.model.team.ITeamProvider
+import com.gbmultiplatform.domain.model.match.MatchModel
+import com.gbmultiplatform.domain.model.match.MatchType
+import com.gbmultiplatform.domain.model.team.TeamModel
 
 class TeamProvider: ITeamProvider {
 

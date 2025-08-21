@@ -47,8 +47,8 @@ import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gb_dialog_background
 import com.gbmultiplatform.design_system.style.player_card_stat_text_color
-import com.gbmultiplatform.model.player.PlayerModel
-import com.gbmultiplatform.model.player.Stats
+import com.gbmultiplatform.domain.model.player.PlayerModel
+import com.gbmultiplatform.domain.model.player.Stats
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource

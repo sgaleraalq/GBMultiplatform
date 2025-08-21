@@ -40,7 +40,7 @@ import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.team.TeamModel
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.starting_eleven
 import org.jetbrains.compose.resources.stringResource
@@ -52,7 +52,7 @@ internal val benchHorizontalPadding = 12.dp
 fun MatchDetailStateLineUp(
     team: TeamModel,
     modifier: Modifier,
-    matchDetailModel: LineUpModel,
+    matchDetailModel: LineUpStateModel,
 ) {
     var animationPlayed by rememberSaveable { mutableStateOf(false) }
 

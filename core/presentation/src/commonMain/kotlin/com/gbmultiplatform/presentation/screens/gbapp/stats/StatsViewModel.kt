@@ -17,18 +17,18 @@
 package com.gbmultiplatform.presentation.screens.gbapp.stats
 
 import androidx.lifecycle.ViewModel
-import com.gbmultiplatform.model.player.IPlayerProvider
-import com.gbmultiplatform.model.player.PlayerModel
-import com.gbmultiplatform.model.player.Stats
-import com.gbmultiplatform.model.player.Stats.ASSISTS
-import com.gbmultiplatform.model.player.Stats.CLEAN_SHEETS
-import com.gbmultiplatform.model.player.Stats.GAMES_PLAYED
-import com.gbmultiplatform.model.player.Stats.GOALS
-import com.gbmultiplatform.model.player.Stats.PENALTIES_PROVOKED
-import com.gbmultiplatform.model.player.Stats.PERCENTAGE
-import com.gbmultiplatform.model.player.Stats.RED_CARDS
-import com.gbmultiplatform.model.player.Stats.SAVES
-import com.gbmultiplatform.model.player.Stats.YELLOW_CARDS
+import com.gbmultiplatform.domain.model.player.IPlayerProvider
+import com.gbmultiplatform.domain.model.player.PlayerModel
+import com.gbmultiplatform.domain.model.player.Stats
+import com.gbmultiplatform.domain.model.player.Stats.ASSISTS
+import com.gbmultiplatform.domain.model.player.Stats.CLEAN_SHEETS
+import com.gbmultiplatform.domain.model.player.Stats.GAMES_PLAYED
+import com.gbmultiplatform.domain.model.player.Stats.GOALS
+import com.gbmultiplatform.domain.model.player.Stats.PENALTIES_PROVOKED
+import com.gbmultiplatform.domain.model.player.Stats.PERCENTAGE
+import com.gbmultiplatform.domain.model.player.Stats.RED_CARDS
+import com.gbmultiplatform.domain.model.player.Stats.SAVES
+import com.gbmultiplatform.domain.model.player.Stats.YELLOW_CARDS
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class StatsViewModel(

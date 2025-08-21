@@ -16,12 +16,12 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.matches
 
-import com.gbmultiplatform.model.match.MatchModel
-import com.gbmultiplatform.model.match.MatchResult
-import com.gbmultiplatform.model.match.MatchResult.DEFEAT
-import com.gbmultiplatform.model.match.MatchResult.DRAW
-import com.gbmultiplatform.model.match.MatchResult.VICTORY
-import com.gbmultiplatform.model.team.TeamModel
+import com.gbmultiplatform.domain.model.match.MatchModel
+import com.gbmultiplatform.domain.model.match.MatchResult
+import com.gbmultiplatform.domain.model.match.MatchResult.DEFEAT
+import com.gbmultiplatform.domain.model.match.MatchResult.DRAW
+import com.gbmultiplatform.domain.model.match.MatchResult.VICTORY
+import com.gbmultiplatform.domain.model.team.TeamModel
 
 class GetMatchResultUseCase {
     operator fun invoke(

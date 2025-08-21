@@ -48,7 +48,7 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gb_dialog_background
 import com.gbmultiplatform.design_system.style.player_card_stat_text_color
 import com.gbmultiplatform.domain.model.player.PlayerModel
-import com.gbmultiplatform.domain.model.player.Stats
+import com.gbmultiplatform.domain.model.player.Stat
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
@@ -84,15 +84,15 @@ fun GBSelectedPlayerDialog(
                 modifier = Modifier.verticalScroll(scrollState)
             ) {
                 listOf(
-                    Stats.PERCENTAGE to "${player.percentage} %",
-                    Stats.GOALS to player.goals.toString(),
-                    Stats.ASSISTS to player.assists.toString(),
-                    Stats.PENALTIES_PROVOKED to player.penaltiesProvoked.toString(),
-                    Stats.CLEAN_SHEETS to player.cleanSheets.toString(),
-                    Stats.SAVES to player.saves.toString(),
-                    Stats.YELLOW_CARDS to player.yellowCards.toString(),
-                    Stats.RED_CARDS to player.redCards.toString(),
-                    Stats.GAMES_PLAYED to player.gamesPlayed.toString()
+                    Stat.PERCENTAGE to "${player.percentage} %",
+                    Stat.GOALS to player.goals.toString(),
+                    Stat.ASSISTS to player.assists.toString(),
+                    Stat.PENALTIES_PROVOKED to player.penaltiesProvoked.toString(),
+                    Stat.CLEAN_SHEETS to player.cleanSheets.toString(),
+                    Stat.SAVES to player.saves.toString(),
+                    Stat.YELLOW_CARDS to player.yellowCards.toString(),
+                    Stat.RED_CARDS to player.redCards.toString(),
+                    Stat.GAMES_PLAYED to player.gamesPlayed.toString()
                 ).forEach { (stat, value) ->
                     GBPlayerDialogStat(
                         statName = stat.statName,

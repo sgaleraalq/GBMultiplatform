@@ -19,16 +19,16 @@ package com.gbmultiplatform.presentation.screens.gbapp.stats
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerModel
-import com.gbmultiplatform.domain.model.player.Stats
-import com.gbmultiplatform.domain.model.player.Stats.ASSISTS
-import com.gbmultiplatform.domain.model.player.Stats.CLEAN_SHEETS
-import com.gbmultiplatform.domain.model.player.Stats.GAMES_PLAYED
-import com.gbmultiplatform.domain.model.player.Stats.GOALS
-import com.gbmultiplatform.domain.model.player.Stats.PENALTIES_PROVOKED
-import com.gbmultiplatform.domain.model.player.Stats.PERCENTAGE
-import com.gbmultiplatform.domain.model.player.Stats.RED_CARDS
-import com.gbmultiplatform.domain.model.player.Stats.SAVES
-import com.gbmultiplatform.domain.model.player.Stats.YELLOW_CARDS
+import com.gbmultiplatform.domain.model.player.Stat
+import com.gbmultiplatform.domain.model.player.Stat.ASSISTS
+import com.gbmultiplatform.domain.model.player.Stat.CLEAN_SHEETS
+import com.gbmultiplatform.domain.model.player.Stat.GAMES_PLAYED
+import com.gbmultiplatform.domain.model.player.Stat.GOALS
+import com.gbmultiplatform.domain.model.player.Stat.PENALTIES_PROVOKED
+import com.gbmultiplatform.domain.model.player.Stat.PERCENTAGE
+import com.gbmultiplatform.domain.model.player.Stat.RED_CARDS
+import com.gbmultiplatform.domain.model.player.Stat.SAVES
+import com.gbmultiplatform.domain.model.player.Stat.YELLOW_CARDS
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class StatsViewModel(
@@ -56,7 +56,7 @@ class StatsViewModel(
         updateDisplayedStats()
     }
 
-    fun changeSelectedStat(stat: Stats) {
+    fun changeSelectedStat(stat: Stat) {
         _selectedStat.value = stat
         updateDisplayedStats()
     }

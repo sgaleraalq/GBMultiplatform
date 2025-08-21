@@ -38,7 +38,7 @@ import gbmultiplatform.core.presentation.generated.resources.yellow_cards
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 
-enum class Stats(
+enum class Stat(
     val statName: StringResource,
     val icon: DrawableResource
 ) {

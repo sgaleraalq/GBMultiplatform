@@ -40,12 +40,12 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.white_in_gray_box
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.RowPlayer
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.bench
 import gbmultiplatform.core.presentation.generated.resources.managers
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-
 
 fun LazyListScope.managers(managers: List<UIPlayer>) {
     item {
@@ -54,7 +54,7 @@ fun LazyListScope.managers(managers: List<UIPlayer>) {
         BenchListSpacer()
     }
     items(managers) { manager ->
-        BenchPlayer(manager)
+        RowPlayer(manager)
     }
 }
 
@@ -66,7 +66,7 @@ fun LazyListScope.benchPlayers(benchPlayers: List<UIPlayer>) {
         BenchListSpacer()
     }
     items(benchPlayers) { player ->
-        BenchPlayer(player)
+        RowPlayer(player)
     }
 }
 
@@ -117,26 +117,4 @@ fun HeaderText(text: StringResource, isManager: Boolean = true) {
             color = White
         )
     )
-}
-
-@Composable
-fun BenchPlayer(player: UIPlayer) {
-    Row(
-        modifier = Modifier.fillMaxWidth()
-            .padding(horizontal = benchHorizontalPadding)
-            .background(benchBgColor)
-            .padding(8.dp),
-        verticalAlignment = CenterVertically,
-        horizontalArrangement = spacedBy(12.dp)
-    ) {
-        GBImage(
-            modifier = Modifier.size(34.dp).clip(RoundedCornerShape(50)),
-            image = player.image,
-        )
-        GBText(
-            text = player.name,
-            textColor = white_in_gray_box,
-            style = gBTypography().bodyMedium
-        )
-    }
 }

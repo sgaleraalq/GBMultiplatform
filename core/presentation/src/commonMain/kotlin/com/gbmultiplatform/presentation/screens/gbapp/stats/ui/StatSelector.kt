@@ -47,7 +47,7 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gb_dialog_background
 import com.gbmultiplatform.design_system.style.player_card_name_text_color
 import com.gbmultiplatform.design_system.style.player_card_stat_text_color
-import com.gbmultiplatform.domain.model.player.Stats
+import com.gbmultiplatform.domain.model.player.Stat
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
@@ -55,8 +55,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StatSelector(
-    selectedStat: Stats,
-    onStatSelected: (Stats) -> Unit
+    selectedStat: Stat,
+    onStatSelected: (Stat) -> Unit
 ) {
     var showChangeSelectedStat by remember { mutableStateOf(false) }
 
@@ -103,7 +103,7 @@ fun StatSelector(
 @Composable
 fun GBShowChangeSelectedStatDialog(
     onDismiss: () -> Unit,
-    onStatSelected: (Stats) -> Unit
+    onStatSelected: (Stat) -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -120,7 +120,7 @@ fun GBShowChangeSelectedStatDialog(
                 )
                 .padding(12.dp)
         ) {
-            Stats.entries.forEach {
+            Stat.entries.forEach {
                 SelectStatDialogComponent(
                     statIcon = it.icon,
                     statName = it.statName,
@@ -128,7 +128,7 @@ fun GBShowChangeSelectedStatDialog(
                         onStatSelected(it)
                         onDismiss()
                     },
-                    isLastItem = it == Stats.GAMES_PLAYED
+                    isLastItem = it == Stat.GAMES_PLAYED
                 )
             }
         }

@@ -3,8 +3,10 @@ package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details.DetailsStateTeamModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.LineUpStateModel
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats.StatsStateModel
 
 object MatchDetailUIModelFactory {
     val managers = listOf(
@@ -93,6 +95,18 @@ object MatchDetailUIModelFactory {
             date = "01/01/2025",
             description = randomDescription,
             location = randomLocation
+        )
+    }
+
+    fun createMatchStats(): StatsStateModel {
+        return StatsStateModel(
+            goals = benchPlayers,
+            assists = benchPlayers,
+            penaltiesProvoked = benchPlayers,
+            cleanSheets = benchPlayers,
+            saves = benchPlayers,
+            yellowCards = benchPlayers,
+            redCards = benchPlayers
         )
     }
 }

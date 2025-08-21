@@ -47,7 +47,7 @@ import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gb_dialog_background
 import com.gbmultiplatform.design_system.style.player_card_stat_text_color
-import com.gbmultiplatform.domain.model.player.PlayerModel
+import com.gbmultiplatform.domain.model.player.PlayerStatsModel
 import com.gbmultiplatform.domain.model.player.Stat
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
@@ -57,7 +57,7 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GBSelectedPlayerDialog(
-    player: PlayerModel?,
+    player: PlayerStatsModel?,
     onDismiss: () -> Unit
 ) {
     if (player == null) return

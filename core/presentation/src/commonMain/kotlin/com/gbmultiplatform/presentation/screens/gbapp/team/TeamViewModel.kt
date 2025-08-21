@@ -18,19 +18,20 @@ package com.gbmultiplatform.presentation.screens.gbapp.team
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
-import com.gbmultiplatform.domain.model.player.PlayerModel
+import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.model.player.PlayerStatsModel
 import com.gbmultiplatform.helper.GazteluBiraUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class TeamViewModel(
     playerProvider: IPlayerProvider
 ): ViewModel() {
-    val players = MutableStateFlow<List<PlayerModel>>(emptyList())
+    val players = MutableStateFlow<List<PlayerInformationModel>>(emptyList())
     val appTeam = GazteluBiraUtils.GAZTELU_BIRA
 
 
     init {
-        players.value = playerProvider.providePlayerList()
+        players.value = playerProvider.providePlayerInformationList()
     }
 
 }

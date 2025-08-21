@@ -39,4 +39,11 @@
     <string name="bench">Bench</string>
     <string name="no_description_provided">No description provided</string>
     <string name="no_location_available">No location available</string>
+
+
+<!--    positions-->
+    <string name="goalkeeper">Goalkeeper</string>
+    <string name="defender">Defender</string>
+    <string name="midfielder">Midfielder</string>
+    <string name="forward">Forward</string>
 </resources>

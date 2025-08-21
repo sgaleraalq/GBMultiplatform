@@ -16,7 +16,26 @@
 
 package com.gbmultiplatform.domain.model.player
 
-interface IPlayerProvider {
-    fun providePlayerList(): List<PlayerStatsModel>
-    fun providePlayerInformationList(): List<PlayerInformationModel>
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.defender
+import gbmultiplatform.core.presentation.generated.resources.forward
+import gbmultiplatform.core.presentation.generated.resources.goalkeeper
+import gbmultiplatform.core.presentation.generated.resources.midfielder
+import org.jetbrains.compose.resources.StringResource
+
+enum class Position(
+    val positionName: StringResource
+) {
+    GOALKEEPER(
+        Res.string.goalkeeper
+    ),
+    DEFENDER(
+        Res.string.defender
+    ),
+    MIDFIELDER(
+        Res.string.midfielder
+    ),
+    FORWARD(
+        Res.string.forward
+    )
 }

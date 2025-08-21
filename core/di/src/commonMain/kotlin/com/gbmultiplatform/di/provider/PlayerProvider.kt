@@ -18,9 +18,14 @@ package com.gbmultiplatform.di.provider
 
 import com.gbmultiplatform.di.generateRandomUUID
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
-import com.gbmultiplatform.domain.model.player.PlayerModel
+import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.model.player.PlayerStatsModel
+import com.gbmultiplatform.domain.model.player.Position.DEFENDER
+import com.gbmultiplatform.domain.model.player.Position.FORWARD
+import com.gbmultiplatform.domain.model.player.Position.GOALKEEPER
+import com.gbmultiplatform.domain.model.player.Position.MIDFIELDER
 
-class PlayerProvider: IPlayerProvider {
+class PlayerProvider : IPlayerProvider {
 
     companion object {
         val RANDOM_IMAGES = listOf(
@@ -89,7 +94,7 @@ class PlayerProvider: IPlayerProvider {
         )
     }
 
-    private fun providePlayer(): PlayerModel {
+    private fun providePlayer(): PlayerStatsModel {
         val randomId = generateRandomUUID()
         val randomGoals = (0..10).random()
         val randomAssists = (0..10).random()
@@ -99,9 +104,9 @@ class PlayerProvider: IPlayerProvider {
         val randomYellowCards = (0..5).random()
         val randomRedCards = (0..2).random()
         val randomGamesPlayed = (5..30).random()
-        val randomPercentage = (0..100).random()/ 100.0
+        val randomPercentage = (0..100).random() / 100.0
 
-        return PlayerModel(
+        return PlayerStatsModel(
             id = randomId,
             image = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),
@@ -117,7 +122,23 @@ class PlayerProvider: IPlayerProvider {
         )
     }
 
+    private fun providePlayerInformation(): PlayerInformationModel {
+        val position = listOf(GOALKEEPER, DEFENDER, MIDFIELDER, FORWARD).random()
+
+        return PlayerInformationModel(
+            id = generateRandomUUID(),
+            name = RANDOM_NAMES.random(),
+            image = RANDOM_IMAGES.random(),
+            dorsal = (1..99).random(),
+            position = position
+        )
+    }
+
     override fun providePlayerList() = List((10..20).random()) {
         providePlayer()
+    }
+
+    override fun providePlayerInformationList() = List((10..20).random()) {
+        providePlayerInformation()
     }
 }

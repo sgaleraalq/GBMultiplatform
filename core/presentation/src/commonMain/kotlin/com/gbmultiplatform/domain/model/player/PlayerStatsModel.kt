@@ -1,6 +1,6 @@
 package com.gbmultiplatform.domain.model.player
 
-data class PlayerModel(
+data class PlayerStatsModel(
     val id: String,
     val name: String,
     val image: String,

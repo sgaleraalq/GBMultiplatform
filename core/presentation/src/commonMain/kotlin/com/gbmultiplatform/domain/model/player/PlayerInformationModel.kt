@@ -16,7 +16,10 @@
 
 package com.gbmultiplatform.domain.model.player
 
-interface IPlayerProvider {
-    fun providePlayerList(): List<PlayerStatsModel>
-    fun providePlayerInformationList(): List<PlayerInformationModel>
-}
+data class PlayerInformationModel(
+    val id: String,
+    val name: String,
+    val image: String, // TODO maybe face image and body image
+    val dorsal: Int,
+    val position: Position
+)

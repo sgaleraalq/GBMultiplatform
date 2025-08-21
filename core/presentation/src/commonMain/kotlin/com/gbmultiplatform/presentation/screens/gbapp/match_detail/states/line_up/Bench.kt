@@ -17,29 +17,22 @@
 package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement.spacedBy
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
-import com.gbmultiplatform.design_system.style.white_in_gray_box
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.RowPlayer
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.bench
@@ -54,7 +47,7 @@ fun LazyListScope.managers(managers: List<UIPlayer>) {
         BenchListSpacer()
     }
     items(managers) { manager ->
-        RowPlayer(manager)
+        RowPlayer(Modifier.background(benchBgColor),manager)
     }
 }
 
@@ -66,7 +59,7 @@ fun LazyListScope.benchPlayers(benchPlayers: List<UIPlayer>) {
         BenchListSpacer()
     }
     items(benchPlayers) { player ->
-        RowPlayer(player)
+        RowPlayer(Modifier.background(benchBgColor),player)
     }
 }
 

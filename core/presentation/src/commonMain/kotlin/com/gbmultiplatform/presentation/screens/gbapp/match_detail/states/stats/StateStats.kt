@@ -16,30 +16,37 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBIcon
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.white_in_gray_box
 import com.gbmultiplatform.domain.model.player.Stat
-import com.gbmultiplatform.domain.model.player.Stat.*
+import com.gbmultiplatform.domain.model.player.Stat.ASSISTS
+import com.gbmultiplatform.domain.model.player.Stat.CLEAN_SHEETS
+import com.gbmultiplatform.domain.model.player.Stat.GOALS
+import com.gbmultiplatform.domain.model.player.Stat.PENALTIES_PROVOKED
+import com.gbmultiplatform.domain.model.player.Stat.RED_CARDS
+import com.gbmultiplatform.domain.model.player.Stat.SAVES
+import com.gbmultiplatform.domain.model.player.Stat.YELLOW_CARDS
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.RowPlayer
-import org.jetbrains.compose.resources.painterResource
+import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.benchBgColor
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -67,27 +74,29 @@ fun LazyListScope.statColumn(
     item {
         StatHeader(stat)
     }
-    items(players) {
-        RowPlayer(it)
+    items(
+        items = players,
+    ) {
+        RowPlayer(player = it)
+    }
+    item {
+        Spacer(Modifier.height(12.dp))
     }
 }
 
 @Composable
 fun StatHeader(stat: Stat) {
     Row(
-        modifier = Modifier.fillMaxWidth().padding(12.dp),
+        modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp).background(benchBgColor).padding( 12.dp),
         verticalAlignment = CenterVertically,
         horizontalArrangement = spacedBy(16.dp)
     ) {
-        Icon(
-            modifier = Modifier.size(24.dp),
-            painter = painterResource( stat.icon),
-            contentDescription = null,
-            tint = Unspecified
+        GBIcon(
+            icon = stat.icon,
         )
         GBText(
             text = stringResource(stat.statName),
-            style = gBTypography().titleMedium.copy(fontWeight = Bold),
+            style = gBTypography().bodyLarge.copy(fontWeight = Bold),
             textColor = white_in_gray_box
         )
     }

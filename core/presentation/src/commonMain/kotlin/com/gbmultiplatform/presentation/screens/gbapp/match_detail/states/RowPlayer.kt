@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,15 +32,16 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.model.UIPlayer
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.white_in_gray_box
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.benchBgColor
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.benchHorizontalPadding
 
 @Composable
-fun RowPlayer(player: UIPlayer) {
+fun RowPlayer(
+    modifier: Modifier = Modifier,
+    player: UIPlayer
+) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
             .padding(horizontal = benchHorizontalPadding)
-            .background(benchBgColor)
             .padding(8.dp),
         verticalAlignment = CenterVertically,
         horizontalArrangement = spacedBy(12.dp)

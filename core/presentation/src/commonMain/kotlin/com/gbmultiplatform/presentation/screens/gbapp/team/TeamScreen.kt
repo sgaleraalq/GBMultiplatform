@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation.screens.gbapp.team
 
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -50,6 +51,23 @@ fun TeamScreen(
 ) {
     val players by viewModel.players.collectAsState()
 
+    Column {
+        GBAppTopBar(
+            teamLogo = viewModel.appTeam.logo,
+            teamName = viewModel.appTeam.name,
+            isAdmin = true
+        )
+        TeamPlayerList(players) {
+            state.navigateTo(PlayerInformation)
+        }
+    }
+}
+
+@Composable
+fun TeamPlayerList(
+    players: List<PlayerInformationModel>,
+    onPlayerClicked: (String) -> Unit
+) {
     LazyVerticalGrid(
         modifier = Modifier.fillMaxSize(),
         columns = GridCells.Fixed(3),
@@ -58,14 +76,11 @@ fun TeamScreen(
         contentPadding = PaddingValues(12.dp)
     ) {
         item(span = { GridItemSpan(3) }) {
-            GBAppTopBar(
-                teamLogo = viewModel.appTeam.logo,
-                teamName = viewModel.appTeam.name
-            )
+
         }
         items(players) { player ->
             PlayerCard(player) {
-                state.navigateTo(PlayerInformation)
+                onPlayerClicked(player.id)
             }
         }
     }

@@ -28,11 +28,12 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBIcon(
+    modifier: Modifier = Modifier,
     icon: DrawableResource,
     size: Dp = 24.dp,
 ) {
     Icon(
-        modifier = Modifier.size(size),
+        modifier = modifier.size(size),
         painter = painterResource( icon),
         contentDescription = null,
         tint = Unspecified

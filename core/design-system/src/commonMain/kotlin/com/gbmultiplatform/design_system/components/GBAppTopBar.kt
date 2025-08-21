@@ -17,6 +17,7 @@
 package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,11 +32,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
+import gbmultiplatform.core.design_system.generated.resources.Res
+import gbmultiplatform.core.design_system.generated.resources.ic_button_add
+import gbmultiplatform.core.design_system.generated.resources.ic_matches
 
 @Composable
 fun GBAppTopBar(
     teamLogo: String,
     teamName: String,
+    isAdmin: Boolean = false,
     onClick: () -> Unit = {}
 ) {
     Row(
@@ -64,5 +69,16 @@ fun GBAppTopBar(
             textColor = White,
             style = MaterialTheme.typography.titleLarge
         )
+
+        /**
+         * Inserting button for either matches or players
+         */
+        if (isAdmin) {
+            GBIcon(
+                modifier = Modifier.clickable { onClick() },
+                icon = Res.drawable.ic_button_add,
+                size = 34.dp
+            )
+        }
     }
 }

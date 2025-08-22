@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 
 @Composable
 actual fun rememberNavigationState(): NavigationState =
-    rememberMultiplatformNavigationState()
+    rememberMultiplatformNavigationState(
+        InitDestinationHandler()
+    )
 
 @Composable
 actual fun MainNavigation(modifier: Modifier, state: NavigationState) =

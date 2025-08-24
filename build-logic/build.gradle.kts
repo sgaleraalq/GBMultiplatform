@@ -16,34 +16,22 @@ dependencies {
     compileOnly(libs.kotlin.gradlePlugin)
 }
 
+/**
+ * Kotlin Multiplatform
+ */
 gradlePlugin {
     plugins {
-        /**
-         * Android
-         */
-        register("androidApplication") {
-            id = "com.gbmultiplatform.android.app"
-            implementationClass = "com.gbmultiplatform.convention.android.AndroidAppConventionPlugin"
-        }
-        register("androidFirebase") {
-            id = "com.gbmultiplatform.android.firebase"
-            implementationClass = "com.gbmultiplatform.convention.android.AndroidFirebaseConventionPlugin"
-        }
-
-        /**
-         * Kotlin Multiplatform
-         */
         register("kotlinMultiplatform") {
             id = "com.gbmultiplatform"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KotlinMultiplatformConventionPlugin"
+            implementationClass = "com.gbmultiplatform.convention.KotlinMultiplatformConventionPlugin"
         }
         register("kmpAppMultiplatform") {
             id = "com.gbmultiplatform.app"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KmpAppConventionPlugin"
+            implementationClass = "com.gbmultiplatform.convention.KmpAppConventionPlugin"
         }
         register("kmpLibraryMultiplatform") {
             id = "com.gbmultiplatform.library"
-            implementationClass = "com.gbmultiplatform.convention.kmp.KmpLibraryConventionPlugin"
+            implementationClass = "com.gbmultiplatform.convention.KmpLibraryConventionPlugin"
         }
 
         /**
@@ -51,12 +39,32 @@ gradlePlugin {
          */
         register("koinConvention") {
             id = "com.gbmultiplatform.koin"
-            implementationClass = "com.gbmultiplatform.convention.kmp.dependencies.KoinConventionPlugin"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.kmp.KoinConventionPlugin"
         }
+    }
+}
 
-        register("firebaseConvention") {
-            id = "com.gbmultiplatform.firebase"
-            implementationClass = "com.gbmultiplatform.convention.kmp.dependencies.FirebaseConventionPlugin"
+/**
+ * Android
+ */
+gradlePlugin {
+    plugins {
+        register("androidApplication") {
+            id = "com.gbmultiplatform.android.app"
+            implementationClass = "com.gbmultiplatform.convention.AndroidAppConventionPlugin"
         }
+        register("androidFirebase") {
+            id = "com.gbmultiplatform.android.firebase"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.android.AndroidFirebaseConventionPlugin"
+        }
+    }
+}
+
+/**
+ * iOS
+ */
+gradlePlugin {
+    plugins {
+
     }
 }

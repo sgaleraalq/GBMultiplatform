@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp.utils
+package com.gbmultiplatform.convention.utils
 
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import kotlin.text.set
 
 internal fun KotlinMultiplatformExtension.configureCommonDependencies(
     libs: VersionCatalog

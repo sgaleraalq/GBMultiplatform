@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp
+package com.gbmultiplatform.convention
 
 import com.android.build.gradle.LibraryExtension
 import com.gbmultiplatform.configureKotlinAndroid
@@ -25,7 +25,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
-class KotlinMultiplatformConventionPlugin : Plugin<Project> {
+class KmpConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

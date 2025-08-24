@@ -16,28 +16,9 @@
 
 package com.gbmultiplatform.data.network.firebase
 
-import com.gbmultiplatform.data.network.response.TestResponse
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.firestore
-
 class FirebaseImpl: IFirebase {
 
-    private val firestore by lazy {
-        val instance = Firebase.firestore
-//        instance.settings = firestoreSettings()
-        instance
-    }
-
     override suspend fun readData(): String? {
-        val snapshot = firestore
-            .collection("test")
-            .document("test")
-            .get()
-
-        val response = snapshot.data<TestResponse>()
-
-        println("Received document: $response")
-
-        return response.test
+        return ""
     }
 }

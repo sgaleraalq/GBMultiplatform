@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.android
+package com.gbmultiplatform.convention.dependencies.android
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.kmp.utils
+package com.gbmultiplatform.convention.utils
 
 object Plugins {
     const val KOTLIN_MULTIPLATFORM = "kotlinMultiplatform"

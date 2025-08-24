@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinAndroid) apply false
 
-//    kotlin("plugin.serialization") version libs.versions.kotlin
-    id("org.jetbrains.kotlin.plugin.serialization") version libs.versions.kotlin apply false
+    kotlin("plugin.serialization") version "1.9.20"
     id("com.google.gms.google-services") version "4.4.3" apply false
 }

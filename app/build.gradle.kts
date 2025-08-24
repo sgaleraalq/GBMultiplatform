@@ -1,6 +1,5 @@
 plugins {
     id("com.gbmultiplatform.android.app")
-    id("com.gbmultiplatform.android.firebase")
 }
 
 android {

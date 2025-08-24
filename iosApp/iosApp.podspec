@@ -11,7 +11,7 @@ Pod::Spec.new do |spec|
     spec.ios.deployment_target    = '18.2'
                 
                 
-    if !Dir.exist?('build/cocoapods/framework/composeApp.framework') || Dir.empty?('build/cocoapods/framework/composeApp.framework')
+    if !Dir.exist?('build/cocoapods/framework/composeApp.framework') || Dir.empty?('build/cocoapods/framework/ComposeApp.framework')
         raise "
 
         Kotlin framework 'composeApp' doesn't exist yet, so a proper Xcode project can't be generated.

@@ -10,21 +10,23 @@
 		351EA0992E5B9C300043C591 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 351EA0982E5B9C300043C591 /* GoogleService-Info.plist */; };
 		35C5EB1B2E22696E00262198 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 35C5EB1A2E22696E00262198 /* FirebaseFirestore */; };
 		35C5EB1D2E22696E00262198 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 35C5EB1C2E22696E00262198 /* FirebaseStorage */; };
-		BA65E0E5C0F9008391670BDD /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09CAEE32E23D41FD8ABFC60 /* Pods_iosApp.framework */; };
+		D3A1F05021B9551AD91E7E98 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCA27C9B4693D9307EFF4F4A /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		01228CBAD7E59EC37024242A /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		351EA0982E5B9C300043C591 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		35F542EF2E589A210057A8DE /* iosApp */ = {isa = PBXFileReference; lastKnownFileType = folder; path = iosApp; sourceTree = "<group>"; };
-		B09CAEE32E23D41FD8ABFC60 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3662E76B56F8D51343796BC3 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		B9DA97B12DC1472C00A4DA20 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BEE67837528BD02AF401E479 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CCA27C9B4693D9307EFF4F4A /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC68D0987F6C6EDEB04952AF /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B9DA98002DC14AA900A4DA20 /* Configuration */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+			);
 			path = Configuration;
 			sourceTree = "<group>";
 		};
@@ -37,21 +39,13 @@
 			files = (
 				35C5EB1B2E22696E00262198 /* FirebaseFirestore in Frameworks */,
 				35C5EB1D2E22696E00262198 /* FirebaseStorage in Frameworks */,
-				BA65E0E5C0F9008391670BDD /* Pods_iosApp.framework in Frameworks */,
+				D3A1F05021B9551AD91E7E98 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4FF05840A5B294E9E2D7C66E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B09CAEE32E23D41FD8ABFC60 /* Pods_iosApp.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		B9DA97A82DC1472C00A4DA20 = {
 			isa = PBXGroup;
 			children = (
@@ -59,8 +53,8 @@
 				35F542EF2E589A210057A8DE /* iosApp */,
 				B9DA97B22DC1472C00A4DA20 /* Products */,
 				E5E1D3D38233B503EE40FB12 /* Pods */,
-				4FF05840A5B294E9E2D7C66E /* Frameworks */,
 				351EA0982E5B9C300043C591 /* GoogleService-Info.plist */,
+				BA42DD4B31A19D0B77E40DF2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -72,11 +66,19 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		BA42DD4B31A19D0B77E40DF2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCA27C9B4693D9307EFF4F4A /* Pods_iosApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5E1D3D38233B503EE40FB12 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BEE67837528BD02AF401E479 /* Pods-iosApp.debug.xcconfig */,
-				01228CBAD7E59EC37024242A /* Pods-iosApp.release.xcconfig */,
+				EC68D0987F6C6EDEB04952AF /* Pods-iosApp.debug.xcconfig */,
+				3662E76B56F8D51343796BC3 /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -88,12 +90,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9DA97BF2DC1472D00A4DA20 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
-				98DA3617AE4004E5A388DDF7 /* [CP] Check Pods Manifest.lock */,
+				E386F3E822D2173C6902E9EE /* [CP] Check Pods Manifest.lock */,
 				B9DA97F42DC1497100A4DA20 /* Compile Kotlin Framework */,
 				B9DA97AD2DC1472C00A4DA20 /* Sources */,
 				B9DA97AE2DC1472C00A4DA20 /* Frameworks */,
 				B9DA97AF2DC1472C00A4DA20 /* Resources */,
-				B38899AFE9DEEF8B069661E4 /* [CP] Copy Pods Resources */,
+				4D49D9A03E0FE09C6D067295 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,29 +159,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		98DA3617AE4004E5A388DDF7 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-iosApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B38899AFE9DEEF8B069661E4 /* [CP] Copy Pods Resources */ = {
+		4D49D9A03E0FE09C6D067295 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -187,13 +167,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -218,6 +194,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n\n./gradlew :iosApp:embedAndSignAppleFrameworkForXcode\n";
+		};
+		E386F3E822D2173C6902E9EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iosApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -355,7 +353,7 @@
 		};
 		B9DA97C02DC1472D00A4DA20 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BEE67837528BD02AF401E479 /* Pods-iosApp.debug.xcconfig */;
+			baseConfigurationReference = EC68D0987F6C6EDEB04952AF /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -378,6 +376,13 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"composeApp\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gbmultiplatform;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,7 +394,7 @@
 		};
 		B9DA97C12DC1472D00A4DA20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01228CBAD7E59EC37024242A /* Pods-iosApp.release.xcconfig */;
+			baseConfigurationReference = 3662E76B56F8D51343796BC3 /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -412,6 +417,13 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"composeApp\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gbmultiplatform;
 				PRODUCT_NAME = "$(TARGET_NAME)";

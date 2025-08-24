@@ -2,15 +2,15 @@ PODS:
   - iosApp (1.0.0)
 
 DEPENDENCIES:
-  - iosApp (from `../iosApp`)
+  - iosApp (from `./`)
 
 EXTERNAL SOURCES:
   iosApp:
-    :path: "../iosApp"
+    :path: "./"
 
 SPEC CHECKSUMS:
   iosApp: d3704198abfeb6ed80ccfa571ee0e5c9357cf531
 
-PODFILE CHECKSUM: 6f0845495087d56926d233c3cd34ce54e2fa4d85
+PODFILE CHECKSUM: 0957928ccaa3b58775ca6ab0d3d8085f32af0e8a
 
 COCOAPODS: 1.16.2

@@ -22,6 +22,7 @@ object Plugins {
     const val COMPOSE_MULTIPLATFORM = "composeMultiplatform"
     const val COMPOSE_COMPILER = "composeCompiler"
     const val ANDROID_LIBRARY = "androidLibrary"
+    const val GOOGLE_SERVICES = "google.services"
 }
 
 object KmpConfiguration {
@@ -52,5 +53,5 @@ object AndroidConfiguration {
 }
 
 object IosConfiguration {
-
+    const val COCOAPODS = "kotlin.cocoapods"
 }

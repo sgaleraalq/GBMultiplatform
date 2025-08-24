@@ -16,11 +16,11 @@
 
 package com.gbmultiplatform.convention.dependencies
 
-import com.gbmultiplatform.convention.utils.AndroidConfiguration
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_AUTH
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_FIRESTORE
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_STORAGE
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.FIREBASE_BOM
+import com.gbmultiplatform.convention.utils.IosConfiguration.COCOAPODS
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
@@ -28,25 +28,26 @@ import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
 
 class FirebaseConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         with(pluginManager) {
-//            apply("org.jetbrains.kotlin.native.cocoapods")
+            apply(libs.findPlugin(COCOAPODS).get().get().pluginId)
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
             configureFirebaseAndroid(libs)
-            configureFirebaseIos()
+            configureFirebaseIos(extensions.getByType())
         }
     }
 }
 
 internal fun KotlinMultiplatformExtension.configureFirebaseAndroid(
     libs: VersionCatalog
-){
+) {
     val firebaseBom = libs.findLibrary(FIREBASE_BOM).get()
     sourceSets.androidMain.dependencies {
         implementation(project.dependencies.platform(firebaseBom))
@@ -56,6 +57,27 @@ internal fun KotlinMultiplatformExtension.configureFirebaseAndroid(
     }
 }
 
-internal fun KotlinMultiplatformExtension.configureFirebaseIos() {
-
+internal fun KotlinMultiplatformExtension.configureFirebaseIos(
+    cocoapods: CocoapodsExtension
+) {
+    cocoapods.version = "1.0.0"
+    cocoapods.summary = "GBMultiplatform"
+    cocoapods.homepage = "https://www.sergiogalera.dev/"
+    cocoapods.ios.deploymentTarget = "18.2" //REVISAR
+    cocoapods.framework {
+        baseName = "composeApp"
+        isStatic = true
+    }
+    cocoapods.pod("FirebaseCore") {
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
+    cocoapods.pod("FirebaseAuth") {
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
+    cocoapods.pod("FirebaseFirestore") {
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
+    cocoapods.pod("FirebaseStorage") {
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
 }

@@ -21,10 +21,6 @@ dependencies {
  */
 gradlePlugin {
     plugins {
-        register("kotlinMultiplatform") {
-            id = "com.gbmultiplatform"
-            implementationClass = "com.gbmultiplatform.convention.KotlinMultiplatformConventionPlugin"
-        }
         register("kmpAppMultiplatform") {
             id = "com.gbmultiplatform.app"
             implementationClass = "com.gbmultiplatform.convention.KmpAppConventionPlugin"

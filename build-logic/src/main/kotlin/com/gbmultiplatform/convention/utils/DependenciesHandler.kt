@@ -16,9 +16,17 @@
 
 package com.gbmultiplatform.convention.utils
 
+import com.gbmultiplatform.ProjectConfiguration.COCOA_DEPLOYMENT_TARGET
+import com.gbmultiplatform.ProjectConfiguration.COCOA_HOMEPAGE
+import com.gbmultiplatform.ProjectConfiguration.COCOA_SUMMARY
+import com.gbmultiplatform.ProjectConfiguration.COCOA_VERSION
+import com.gbmultiplatform.ProjectConfiguration.IOS_BASENAME
+import com.gbmultiplatform.ProjectConfiguration.IOS_STATIC
+import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
 
 internal fun KotlinMultiplatformExtension.configureCommonDependencies(
     libs: VersionCatalog
@@ -52,7 +60,20 @@ internal fun KotlinMultiplatformExtension.configureAndroidKmp(
     }
 }
 
-internal fun KotlinMultiplatformExtension.configureiOSKmp() {
+fun KotlinMultiplatformExtension.configureiOSAppKmp(
+    cocoapods: CocoapodsExtension
+) {
+    cocoapods.version = COCOA_VERSION
+    cocoapods.summary = COCOA_SUMMARY
+    cocoapods.homepage = COCOA_HOMEPAGE
+    cocoapods.ios.deploymentTarget = COCOA_DEPLOYMENT_TARGET
+    cocoapods.framework {
+        baseName = IOS_BASENAME
+        isStatic = IOS_STATIC
+    }
+}
+
+internal fun KotlinMultiplatformExtension.configureiOSSimulators() {
     iosX64()
     iosArm64()
     iosSimulatorArm64()

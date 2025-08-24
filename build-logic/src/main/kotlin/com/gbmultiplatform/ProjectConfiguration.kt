@@ -17,6 +17,7 @@
 package com.gbmultiplatform
 
 object ProjectConfiguration {
+
     const val NAMESPACE = "com.gbmultiplatform"
     const val APPLICATION_ID = "com.gbmultiplatform"
     const val VERSION_CODE = 20250619
@@ -24,4 +25,14 @@ object ProjectConfiguration {
     const val COMPILE_SDK = 35
     const val MIN_SDK = 24
     const val TARGET_SDK = 35
+
+    /**
+     * Cocoapods
+     */
+    const val IOS_BASENAME = "ComposeApp"
+    const val IOS_STATIC = true
+    const val COCOA_VERSION = VERSION_NAME
+    const val COCOA_SUMMARY = "GB Multiplatform"
+    const val COCOA_HOMEPAGE = "https://www.sergiogalera.dev/"
+    const val COCOA_DEPLOYMENT_TARGET = "18.2"
 }

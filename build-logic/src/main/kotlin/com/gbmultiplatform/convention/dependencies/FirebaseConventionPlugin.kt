@@ -16,11 +16,11 @@
 
 package com.gbmultiplatform.convention.dependencies
 
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_AUTH
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_FIRESTORE
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.ANDROID_FIREBASE_STORAGE
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.FIREBASE_BOM
-import com.gbmultiplatform.convention.utils.IosConfiguration.COCOAPODS
+import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.ANDROID_FIREBASE_AUTH
+import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.ANDROID_FIREBASE_FIRESTORE
+import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.ANDROID_FIREBASE_STORAGE
+import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.FIREBASE_BOM
+import com.gbmultiplatform.convention.utils.configureiOSAppKmp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
@@ -31,6 +31,15 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
 
 class FirebaseConventionPlugin : Plugin<Project> {
+    companion object {
+        const val FIREBASE_BOM = "android.firebase.bom"
+        const val ANDROID_FIREBASE_AUTH = "android.firebase.auth"
+        const val ANDROID_FIREBASE_STORAGE = "android.firebase.storage"
+        const val ANDROID_FIREBASE_FIRESTORE = "android.firebase.firestore"
+
+        const val COCOAPODS = "kotlin.cocoapods"
+    }
+
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -40,6 +49,7 @@ class FirebaseConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinMultiplatformExtension> {
             configureFirebaseAndroid(libs)
+            configureiOSAppKmp(extensions.getByType())
             configureFirebaseIos(extensions.getByType())
         }
     }
@@ -50,7 +60,7 @@ internal fun KotlinMultiplatformExtension.configureFirebaseAndroid(
 ) {
     val firebaseBom = libs.findLibrary(FIREBASE_BOM).get()
     sourceSets.androidMain.dependencies {
-        implementation(project.dependencies.platform(firebaseBom))
+        api(project.dependencies.platform(firebaseBom))
         implementation(libs.findLibrary(ANDROID_FIREBASE_AUTH).get())
         implementation(libs.findLibrary(ANDROID_FIREBASE_STORAGE).get())
         implementation(libs.findLibrary(ANDROID_FIREBASE_FIRESTORE).get())
@@ -60,14 +70,6 @@ internal fun KotlinMultiplatformExtension.configureFirebaseAndroid(
 internal fun KotlinMultiplatformExtension.configureFirebaseIos(
     cocoapods: CocoapodsExtension
 ) {
-    cocoapods.version = "1.0.0"
-    cocoapods.summary = "GBMultiplatform"
-    cocoapods.homepage = "https://www.sergiogalera.dev/"
-    cocoapods.ios.deploymentTarget = "18.2" //REVISAR
-    cocoapods.framework {
-        baseName = "composeApp"
-        isStatic = true
-    }
     cocoapods.pod("FirebaseCore") {
         extraOpts += listOf("-compiler-option", "-fmodules")
     }

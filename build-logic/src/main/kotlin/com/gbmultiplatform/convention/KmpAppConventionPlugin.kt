@@ -22,7 +22,8 @@ import com.gbmultiplatform.convention.utils.KmpConfiguration
 import com.gbmultiplatform.convention.utils.Plugins
 import com.gbmultiplatform.convention.utils.configureAndroidKmp
 import com.gbmultiplatform.convention.utils.configureCommonDependencies
-import com.gbmultiplatform.convention.utils.configureiOSKmp
+import com.gbmultiplatform.convention.utils.configureiOSAppKmp
+import com.gbmultiplatform.convention.utils.configureiOSSimulators
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -36,10 +37,12 @@ class KmpAppConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-        plugins.apply(libs.findPlugin(Plugins.KOTLIN_MULTIPLATFORM).get().get().pluginId)
-        plugins.apply(libs.findPlugin(Plugins.ANDROID_APPLICATION).get().get().pluginId)
-        plugins.apply(libs.findPlugin(Plugins.COMPOSE_MULTIPLATFORM).get().get().pluginId)
-        plugins.apply(libs.findPlugin(Plugins.COMPOSE_COMPILER).get().get().pluginId)
+        with(pluginManager) {
+            apply(libs.findPlugin(Plugins.KOTLIN_MULTIPLATFORM).get().get().pluginId)
+            apply(libs.findPlugin(Plugins.ANDROID_APPLICATION).get().get().pluginId)
+            apply(libs.findPlugin(Plugins.COMPOSE_MULTIPLATFORM).get().get().pluginId)
+            apply(libs.findPlugin(Plugins.COMPOSE_COMPILER).get().get().pluginId)
+        }
 
         extensions.configure<BaseAppModuleExtension> {
             configureKotlinAndroid(this)
@@ -48,7 +51,8 @@ class KmpAppConventionPlugin : Plugin<Project> {
         extensions.configure<KotlinMultiplatformExtension> {
             configureCommonDependencies(libs)
             configureAndroidKmp(libs)
-            configureiOSKmp()
+            configureiOSSimulators()
+            configureiOSAppKmp(extensions.getByType())
         }
 
         dependencies {

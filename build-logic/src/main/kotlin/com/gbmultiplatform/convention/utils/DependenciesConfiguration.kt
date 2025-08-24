@@ -21,8 +21,6 @@ object Plugins {
     const val ANDROID_APPLICATION = "androidApplication"
     const val COMPOSE_MULTIPLATFORM = "composeMultiplatform"
     const val COMPOSE_COMPILER = "composeCompiler"
-    const val ANDROID_LIBRARY = "androidLibrary"
-    const val GOOGLE_SERVICES = "google.services"
 }
 
 object KmpConfiguration {
@@ -37,21 +35,10 @@ object KmpConfiguration {
 
     const val KOTLIN_TEST = "kotlin.test"
     const val COMPOSE_UI_TOOLING = "compose.ui.tooling"
-
-    //const val COMPOSE_COMPONENTS_RESOURCES = "org.jetbrains.compose.components:components-resources"
 }
 
 
 object AndroidConfiguration {
     const val ACTIVITY_COMPOSE = "androidx.activity.compose"
     const val COMPOSE_PREVIEW = "compose.preview"
-
-    const val FIREBASE_BOM = "android.firebase.bom"
-    const val ANDROID_FIREBASE_AUTH = "android.firebase.auth"
-    const val ANDROID_FIREBASE_STORAGE = "android.firebase.storage"
-    const val ANDROID_FIREBASE_FIRESTORE = "android.firebase.firestore"
-}
-
-object IosConfiguration {
-    const val COCOAPODS = "kotlin.cocoapods"
 }

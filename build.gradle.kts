@@ -10,6 +10,6 @@ plugins {
 
     kotlin("plugin.serialization") version "1.9.20"
 
-    alias(libs.plugins.google.services)
+    alias(libs.plugins.google.services) apply false
     alias(libs.plugins.kotlin.cocoapods) apply false
 }

@@ -21,7 +21,7 @@ import com.gbmultiplatform.configureKotlinAndroid
 import com.gbmultiplatform.convention.utils.KmpConfiguration
 import com.gbmultiplatform.convention.utils.configureAndroidKmp
 import com.gbmultiplatform.convention.utils.configureCommonDependencies
-import com.gbmultiplatform.convention.utils.configureiOSKmp
+import com.gbmultiplatform.convention.utils.configureiOSSimulators
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -49,7 +49,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         extensions.configure<KotlinMultiplatformExtension> {
             configureCommonDependencies(libs)
             configureAndroidKmp(libs)
-            configureiOSKmp()
+            configureiOSSimulators()
         }
 
         dependencies {

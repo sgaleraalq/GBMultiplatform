@@ -44,4 +44,13 @@ object KmpConfiguration {
 object AndroidConfiguration {
     const val ACTIVITY_COMPOSE = "androidx.activity.compose"
     const val COMPOSE_PREVIEW = "compose.preview"
+
+    const val FIREBASE_BOM = "android.firebase.bom"
+    const val ANDROID_FIREBASE_AUTH = "android.firebase.auth"
+    const val ANDROID_FIREBASE_STORAGE = "android.firebase.storage"
+    const val ANDROID_FIREBASE_FIRESTORE = "android.firebase.firestore"
+}
+
+object IosConfiguration {
+
 }

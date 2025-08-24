@@ -39,7 +39,11 @@ gradlePlugin {
          */
         register("koinConvention") {
             id = "com.gbmultiplatform.koin"
-            implementationClass = "com.gbmultiplatform.convention.dependencies.kmp.KoinConventionPlugin"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.KoinConventionPlugin"
+        }
+        register("firebaseConvention") {
+            id = "com.gbmultiplatform.firebase"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin"
         }
     }
 }
@@ -52,10 +56,6 @@ gradlePlugin {
         register("androidApplication") {
             id = "com.gbmultiplatform.android.app"
             implementationClass = "com.gbmultiplatform.convention.AndroidAppConventionPlugin"
-        }
-        register("androidFirebase") {
-            id = "com.gbmultiplatform.android.firebase"
-            implementationClass = "com.gbmultiplatform.convention.dependencies.android.AndroidFirebaseConventionPlugin"
         }
     }
 }

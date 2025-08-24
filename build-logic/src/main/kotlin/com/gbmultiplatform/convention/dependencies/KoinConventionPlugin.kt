@@ -1,4 +1,4 @@
-package com.gbmultiplatform.convention.dependencies.kmp
+package com.gbmultiplatform.convention.dependencies
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

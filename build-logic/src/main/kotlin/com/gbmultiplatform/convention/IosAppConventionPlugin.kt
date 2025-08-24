@@ -16,47 +16,38 @@
 
 package com.gbmultiplatform.convention
 
-import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import com.gbmultiplatform.configureKotlinAndroid
-import com.gbmultiplatform.convention.utils.KmpConfiguration
+import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.COCOAPODS
 import com.gbmultiplatform.convention.utils.Plugins
-import com.gbmultiplatform.convention.utils.configureAndroidKmp
-import com.gbmultiplatform.convention.utils.configureCommonDependencies
 import com.gbmultiplatform.convention.utils.configureiOSAppKmp
 import com.gbmultiplatform.convention.utils.configureiOSSimulators
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1
 
-class KmpAppConventionPlugin : Plugin<Project> {
+class IosAppConventionPlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
         with(pluginManager) {
             apply(libs.findPlugin(Plugins.KOTLIN_MULTIPLATFORM).get().get().pluginId)
-            apply(libs.findPlugin(Plugins.ANDROID_APPLICATION).get().get().pluginId)
             apply(libs.findPlugin(Plugins.COMPOSE_MULTIPLATFORM).get().get().pluginId)
             apply(libs.findPlugin(Plugins.COMPOSE_COMPILER).get().get().pluginId)
-        }
-
-        extensions.configure<BaseAppModuleExtension> {
-            configureKotlinAndroid(this)
+            apply(libs.findPlugin(COCOAPODS).get().get().pluginId)
         }
 
         extensions.configure<KotlinMultiplatformExtension> {
-            configureCommonDependencies(libs)
-            configureAndroidKmp(libs)
-            configureiOSSimulators()
+            jvmToolchain(17)
+            compilerOptions {
+                languageVersion.set(KOTLIN_2_1)
+                apiVersion.set(KOTLIN_2_1)
+            }
             configureiOSAppKmp(extensions.getByType())
-        }
-
-        dependencies {
-            add("debugImplementation", libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING).get())
+            configureiOSSimulators()
         }
     }
 }

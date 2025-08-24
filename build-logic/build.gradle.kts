@@ -21,10 +21,6 @@ dependencies {
  */
 gradlePlugin {
     plugins {
-        register("kmpAppMultiplatform") {
-            id = "com.gbmultiplatform.app"
-            implementationClass = "com.gbmultiplatform.convention.KmpAppConventionPlugin"
-        }
         register("kmpLibraryMultiplatform") {
             id = "com.gbmultiplatform.library"
             implementationClass = "com.gbmultiplatform.convention.KmpLibraryConventionPlugin"
@@ -61,6 +57,9 @@ gradlePlugin {
  */
 gradlePlugin {
     plugins {
-
+        register("iosAppMultiplatform") {
+            id = "com.gbmultiplatform.ios.app"
+            implementationClass = "com.gbmultiplatform.convention.IosAppConventionPlugin"
+        }
     }
 }

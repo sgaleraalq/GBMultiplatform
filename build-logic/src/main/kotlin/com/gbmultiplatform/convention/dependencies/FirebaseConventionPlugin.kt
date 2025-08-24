@@ -20,7 +20,6 @@ import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Comp
 import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.ANDROID_FIREBASE_FIRESTORE
 import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.ANDROID_FIREBASE_STORAGE
 import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.FIREBASE_BOM
-import com.gbmultiplatform.convention.utils.configureiOSAppKmp
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalog
@@ -49,7 +48,6 @@ class FirebaseConventionPlugin : Plugin<Project> {
 
         extensions.configure<KotlinMultiplatformExtension> {
             configureFirebaseAndroid(libs)
-            configureiOSAppKmp(extensions.getByType())
             configureFirebaseIos(extensions.getByType())
         }
     }

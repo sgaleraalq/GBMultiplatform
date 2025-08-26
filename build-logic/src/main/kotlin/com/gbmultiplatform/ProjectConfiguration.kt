@@ -29,7 +29,7 @@ object ProjectConfiguration {
     /**
      * Cocoapods
      */
-    const val IOS_BASENAME = "composeApp"
+    const val IOS_BASENAME = "ComposeApp"
     const val IOS_STATIC = true
     const val COCOA_VERSION = VERSION_NAME
     const val COCOA_SUMMARY = "GB Multiplatform"

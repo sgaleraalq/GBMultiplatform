@@ -17,6 +17,7 @@
 package com.gbmultiplatform.convention
 
 import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.COCOAPODS
+import com.gbmultiplatform.convention.dependencies.configureFirebaseIos
 import com.gbmultiplatform.convention.utils.Plugins
 import com.gbmultiplatform.convention.utils.configureiOSAppKmp
 import com.gbmultiplatform.convention.utils.configureiOSSimulators
@@ -24,6 +25,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_1

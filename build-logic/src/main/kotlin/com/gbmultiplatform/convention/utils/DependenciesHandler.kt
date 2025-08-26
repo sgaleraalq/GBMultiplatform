@@ -74,7 +74,16 @@ fun KotlinMultiplatformExtension.configureiOSAppKmp(
 }
 
 internal fun KotlinMultiplatformExtension.configureiOSSimulators() {
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    val simulators = listOf(
+//        iosX64(),
+//        iosArm64(),
+        iosSimulatorArm64()
+    )
+
+    simulators.forEach {
+        it.binaries.framework {
+            baseName = IOS_BASENAME
+            isStatic = IOS_STATIC
+        }
+    }
 }

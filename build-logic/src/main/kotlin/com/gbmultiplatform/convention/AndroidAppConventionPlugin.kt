@@ -2,14 +2,11 @@ package com.gbmultiplatform.convention
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.gbmultiplatform.configureKotlinAndroid
-import com.gbmultiplatform.convention.utils.configureiOSAppKmp
-import com.gbmultiplatform.convention.utils.configureiOSSimulators
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class AndroidAppConventionPlugin: Plugin<Project> {
     override fun apply(target: Project) {

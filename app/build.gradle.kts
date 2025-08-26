@@ -20,6 +20,10 @@ android {
     }
 }
 
+sourceSets {
+    tasks.register("testClasses")
+}
+
 dependencies {
     implementation(libs.androidx.appcompat)
     implementation(projects.core.di)

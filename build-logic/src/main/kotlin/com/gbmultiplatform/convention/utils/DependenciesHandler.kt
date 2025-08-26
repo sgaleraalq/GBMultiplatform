@@ -22,7 +22,16 @@ import com.gbmultiplatform.ProjectConfiguration.COCOA_SUMMARY
 import com.gbmultiplatform.ProjectConfiguration.COCOA_VERSION
 import com.gbmultiplatform.ProjectConfiguration.IOS_BASENAME
 import com.gbmultiplatform.ProjectConfiguration.IOS_STATIC
-import org.gradle.api.Project
+import com.gbmultiplatform.convention.utils.AndroidConfiguration.ACTIVITY_COMPOSE
+import com.gbmultiplatform.convention.utils.AndroidConfiguration.COMPOSE_PREVIEW
+import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_FOUNDATION
+import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_MATERIAL3
+import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_RUNTIME
+import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_UI
+import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_UI_TOOLING_PREVIEW
+import com.gbmultiplatform.convention.utils.KmpConfiguration.KOTLIN_TEST
+import com.gbmultiplatform.convention.utils.KmpConfiguration.LIFECYCLE_RUNTIME_COMPOSE
+import com.gbmultiplatform.convention.utils.KmpConfiguration.LIFECYCLE_VIEWMODEL
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -32,17 +41,17 @@ internal fun KotlinMultiplatformExtension.configureCommonDependencies(
     libs: VersionCatalog
 ) {
     sourceSets.commonMain.dependencies {
-        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_RUNTIME).get())
-        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_FOUNDATION).get())
-        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_MATERIAL3).get())
-        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_UI).get())
-        implementation(libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING_PREVIEW).get())
-        implementation(libs.findLibrary(KmpConfiguration.LIFECYCLE_VIEWMODEL).get())
-        implementation(libs.findLibrary(KmpConfiguration.LIFECYCLE_RUNTIME_COMPOSE).get())
+        implementation(libs.findLibrary(COMPOSE_RUNTIME).get())
+        implementation(libs.findLibrary(COMPOSE_FOUNDATION).get())
+        implementation(libs.findLibrary(COMPOSE_MATERIAL3).get())
+        implementation(libs.findLibrary(COMPOSE_UI).get())
+        implementation(libs.findLibrary(COMPOSE_UI_TOOLING_PREVIEW).get())
+        implementation(libs.findLibrary(LIFECYCLE_VIEWMODEL).get())
+        implementation(libs.findLibrary(LIFECYCLE_RUNTIME_COMPOSE).get())
     }
 
     sourceSets.commonTest.dependencies {
-        implementation(libs.findLibrary(KmpConfiguration.KOTLIN_TEST).get())
+        implementation(libs.findLibrary(KOTLIN_TEST).get())
     }
 }
 
@@ -55,35 +64,28 @@ internal fun KotlinMultiplatformExtension.configureAndroidKmp(
         }
     }
     sourceSets.androidMain.dependencies {
-        implementation(libs.findLibrary(AndroidConfiguration.ACTIVITY_COMPOSE).get())
-        implementation(libs.findLibrary(AndroidConfiguration.COMPOSE_PREVIEW).get())
+        implementation(libs.findLibrary(ACTIVITY_COMPOSE).get())
+        implementation(libs.findLibrary(COMPOSE_PREVIEW).get())
     }
 }
 
-fun KotlinMultiplatformExtension.configureiOSAppKmp(
+internal fun KotlinMultiplatformExtension.configureCocoapods(
     cocoapods: CocoapodsExtension
 ) {
-    cocoapods.version = COCOA_VERSION
-    cocoapods.summary = COCOA_SUMMARY
-    cocoapods.homepage = COCOA_HOMEPAGE
-    cocoapods.ios.deploymentTarget = COCOA_DEPLOYMENT_TARGET
-    cocoapods.framework {
-        baseName = IOS_BASENAME
-        isStatic = IOS_STATIC
-    }
-}
-
-internal fun KotlinMultiplatformExtension.configureiOSSimulators() {
-    val simulators = listOf(
-//        iosX64(),
-//        iosArm64(),
-        iosSimulatorArm64()
-    )
-
-    simulators.forEach {
-        it.binaries.framework {
+    with(cocoapods) {
+        version = COCOA_VERSION
+        summary = COCOA_SUMMARY
+        homepage = COCOA_HOMEPAGE
+        ios.deploymentTarget = COCOA_DEPLOYMENT_TARGET
+        framework {
             baseName = IOS_BASENAME
             isStatic = IOS_STATIC
         }
     }
+}
+
+internal fun KotlinMultiplatformExtension.configureiOSSimulators() {
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 }

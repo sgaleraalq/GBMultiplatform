@@ -18,6 +18,7 @@ package com.gbmultiplatform
 
 import android.app.Application
 import com.gbmultiplatform.di.modules.appModules
+import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
@@ -30,6 +31,7 @@ class GBMultiplatformApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         startKoin {
             androidContext(this@GBMultiplatformApp)
             loadKoinModules(modules)

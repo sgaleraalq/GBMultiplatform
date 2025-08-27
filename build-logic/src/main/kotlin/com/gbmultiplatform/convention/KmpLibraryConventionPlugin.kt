@@ -18,10 +18,10 @@ package com.gbmultiplatform.convention
 
 import com.android.build.gradle.LibraryExtension
 import com.gbmultiplatform.configureKotlinAndroid
-import com.gbmultiplatform.convention.utils.KmpConfiguration
 import com.gbmultiplatform.convention.utils.configureAndroidKmp
 import com.gbmultiplatform.convention.utils.configureCommonDependencies
 import com.gbmultiplatform.convention.utils.configureiOSSimulators
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_UI_TOOLING
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
@@ -53,7 +53,7 @@ class KmpLibraryConventionPlugin : Plugin<Project> {
         }
 
         dependencies {
-            add("debugImplementation", libs.findLibrary(KmpConfiguration.COMPOSE_UI_TOOLING).get())
+            add("debugImplementation", libs.findLibrary(COMPOSE_UI_TOOLING).get())
         }
     }
 }

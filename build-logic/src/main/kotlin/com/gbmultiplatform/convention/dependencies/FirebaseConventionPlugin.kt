@@ -42,13 +42,9 @@ class FirebaseConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) = with(target) {
         val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-        with(pluginManager) {
-            apply(libs.findPlugin(COCOAPODS).get().get().pluginId)
-        }
-
         extensions.configure<KotlinMultiplatformExtension> {
             configureFirebaseAndroid(libs)
-            configureFirebaseIos(extensions.getByType())
+//            configureFirebaseIos(extensions.getByType())
         }
     }
 }

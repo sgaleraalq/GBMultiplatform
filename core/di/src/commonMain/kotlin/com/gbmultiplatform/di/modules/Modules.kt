@@ -18,12 +18,13 @@ package com.gbmultiplatform.di.modules
 
 import org.koin.core.module.Module
 
-private val screenModules = listOf<Module>(
+private val screenModules = listOf(
     appModule,
     authModules,
     viewModelModule,
     viewModelHelpersModule,
-    preferencesModule
+    preferencesModule,
+    sharedModules
 )
 
 val appModules: List<Module> = screenModules

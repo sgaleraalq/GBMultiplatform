@@ -16,16 +16,16 @@
 
 package com.gbmultiplatform.convention.utils
 
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.ACTIVITY_COMPOSE
-import com.gbmultiplatform.convention.utils.AndroidConfiguration.COMPOSE_PREVIEW
-import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_FOUNDATION
-import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_MATERIAL3
-import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_RUNTIME
-import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_UI
-import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_UI_TOOLING_PREVIEW
-import com.gbmultiplatform.convention.utils.KmpConfiguration.KOTLIN_TEST
-import com.gbmultiplatform.convention.utils.KmpConfiguration.LIFECYCLE_RUNTIME_COMPOSE
-import com.gbmultiplatform.convention.utils.KmpConfiguration.LIFECYCLE_VIEWMODEL
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.ACTIVITY_COMPOSE
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_FOUNDATION
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_MATERIAL3
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_PREVIEW
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_RUNTIME
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_UI
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.COMPOSE_UI_TOOLING_PREVIEW
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.KOTLIN_TEST
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.LIFECYCLE_RUNTIME_COMPOSE
+import com.gbmultiplatform.convention.version_catalog.VCCoreDependencies.LIFECYCLE_VIEWMODEL
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension

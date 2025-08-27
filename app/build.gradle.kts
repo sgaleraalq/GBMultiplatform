@@ -25,6 +25,9 @@ sourceSets {
 }
 
 dependencies {
+    implementation(platform(libs.android.firebase.bom))
+    implementation(libs.android.firebase.analytics)
+
     implementation(libs.androidx.appcompat)
     implementation(projects.core.di)
     implementation(projects.core.presentation)

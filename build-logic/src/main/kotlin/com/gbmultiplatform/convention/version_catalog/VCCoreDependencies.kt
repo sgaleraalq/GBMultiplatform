@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.convention.utils
+package com.gbmultiplatform.convention.version_catalog
 
-object Plugins {
-    const val KOTLIN_MULTIPLATFORM = "kotlinMultiplatform"
-    const val ANDROID_APPLICATION = "androidApplication"
-    const val COMPOSE_MULTIPLATFORM = "composeMultiplatform"
-    const val COMPOSE_COMPILER = "composeCompiler"
-}
-
-object KmpConfiguration {
+object VCCoreDependencies {
     const val COMPOSE_RUNTIME = "compose.runtime"
     const val COMPOSE_FOUNDATION = "compose.foundation"
     const val COMPOSE_MATERIAL3 = "compose.material3"
@@ -32,13 +25,19 @@ object KmpConfiguration {
     const val LIFECYCLE_VIEWMODEL = "androidx.lifecycle.viewmodel"
     const val LIFECYCLE_RUNTIME_COMPOSE = "androidx.lifecycle.runtimeCompose"
 
-
+    /**
+     * Testing
+     */
     const val KOTLIN_TEST = "kotlin.test"
     const val COMPOSE_UI_TOOLING = "compose.ui.tooling"
-}
 
-
-object AndroidConfiguration {
+    /**
+     * Android
+     */
     const val ACTIVITY_COMPOSE = "androidx.activity.compose"
     const val COMPOSE_PREVIEW = "compose.preview"
+
+    /**
+     * Ios
+     */
 }

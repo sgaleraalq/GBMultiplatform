@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.data.network.firebase
+package com.gbmultiplatform.di.modules
 
-class FirebaseImpl: IFirebase {
+import org.koin.core.module.Module
 
-    override suspend fun readData(): String? {
-        return ""
-    }
-}
+expect val sharedModules: Module

@@ -52,14 +52,3 @@ gradlePlugin {
     }
 }
 
-/**
- * iOS
- */
-gradlePlugin {
-    plugins {
-        register("iosAppMultiplatform") {
-            id = "com.gbmultiplatform.ios.app"
-            implementationClass = "com.gbmultiplatform.convention.IosAppConventionPlugin"
-        }
-    }
-}

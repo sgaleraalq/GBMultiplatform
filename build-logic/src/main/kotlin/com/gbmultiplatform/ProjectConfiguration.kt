@@ -17,6 +17,7 @@
 package com.gbmultiplatform
 
 import org.gradle.api.JavaVersion
+import org.gradle.api.JavaVersion.VERSION_17
 
 object ProjectConfiguration {
 
@@ -27,15 +28,5 @@ object ProjectConfiguration {
     const val COMPILE_SDK = 35
     const val MIN_SDK = 24
     const val TARGET_SDK = 35
-    val KOTLIN_JVM_TARGET = JavaVersion.VERSION_17.toString()
-
-    /**
-     * Cocoapods
-     */
-    const val IOS_BASENAME = "ComposeApp"
-    const val IOS_STATIC = true
-    const val COCOA_VERSION = VERSION_NAME
-    const val COCOA_SUMMARY = "GB Multiplatform"
-    const val COCOA_HOMEPAGE = "https://www.sergiogalera.dev/"
-    const val IOS_DEPLOYMENT_TARGET = "18.2"
+    val KOTLIN_JVM_TARGET = VERSION_17.toString()
 }

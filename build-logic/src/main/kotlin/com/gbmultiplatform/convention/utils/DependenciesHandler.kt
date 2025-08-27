@@ -16,12 +16,6 @@
 
 package com.gbmultiplatform.convention.utils
 
-import com.gbmultiplatform.ProjectConfiguration.COCOA_DEPLOYMENT_TARGET
-import com.gbmultiplatform.ProjectConfiguration.COCOA_HOMEPAGE
-import com.gbmultiplatform.ProjectConfiguration.COCOA_SUMMARY
-import com.gbmultiplatform.ProjectConfiguration.COCOA_VERSION
-import com.gbmultiplatform.ProjectConfiguration.IOS_BASENAME
-import com.gbmultiplatform.ProjectConfiguration.IOS_STATIC
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.ACTIVITY_COMPOSE
 import com.gbmultiplatform.convention.utils.AndroidConfiguration.COMPOSE_PREVIEW
 import com.gbmultiplatform.convention.utils.KmpConfiguration.COMPOSE_FOUNDATION
@@ -35,8 +29,6 @@ import com.gbmultiplatform.convention.utils.KmpConfiguration.LIFECYCLE_VIEWMODEL
 import org.gradle.api.artifacts.VersionCatalog
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.cocoapods.CocoapodsExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFrameworkConfig
 
 internal fun KotlinMultiplatformExtension.configureCommonDependencies(
     libs: VersionCatalog
@@ -67,21 +59,6 @@ internal fun KotlinMultiplatformExtension.configureAndroidKmp(
     sourceSets.androidMain.dependencies {
         implementation(libs.findLibrary(ACTIVITY_COMPOSE).get())
         implementation(libs.findLibrary(COMPOSE_PREVIEW).get())
-    }
-}
-
-internal fun KotlinMultiplatformExtension.configureCocoapods(
-    cocoapods: CocoapodsExtension
-) {
-    with(cocoapods) {
-        version = COCOA_VERSION
-        summary = COCOA_SUMMARY
-        homepage = COCOA_HOMEPAGE
-        ios.deploymentTarget = COCOA_DEPLOYMENT_TARGET
-        framework {
-            baseName = IOS_BASENAME
-            isStatic = IOS_STATIC
-        }
     }
 }
 

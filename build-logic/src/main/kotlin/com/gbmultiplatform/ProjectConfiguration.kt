@@ -16,6 +16,8 @@
 
 package com.gbmultiplatform
 
+import org.gradle.api.JavaVersion
+
 object ProjectConfiguration {
 
     const val NAMESPACE = "com.gbmultiplatform"
@@ -25,6 +27,7 @@ object ProjectConfiguration {
     const val COMPILE_SDK = 35
     const val MIN_SDK = 24
     const val TARGET_SDK = 35
+    val KOTLIN_JVM_TARGET = JavaVersion.VERSION_17.toString()
 
     /**
      * Cocoapods
@@ -34,5 +37,5 @@ object ProjectConfiguration {
     const val COCOA_VERSION = VERSION_NAME
     const val COCOA_SUMMARY = "GB Multiplatform"
     const val COCOA_HOMEPAGE = "https://www.sergiogalera.dev/"
-    const val COCOA_DEPLOYMENT_TARGET = "18.2"
+    const val IOS_DEPLOYMENT_TARGET = "18.2"
 }

@@ -18,7 +18,6 @@ package com.gbmultiplatform.convention
 
 import com.gbmultiplatform.convention.dependencies.FirebaseConventionPlugin.Companion.COCOAPODS
 import com.gbmultiplatform.convention.utils.Plugins
-import com.gbmultiplatform.convention.utils.configureCocoapods
 import com.gbmultiplatform.convention.utils.configureiOSSimulators
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -46,7 +45,6 @@ class IosAppConventionPlugin : Plugin<Project> {
                 languageVersion.set(KOTLIN_2_1)
                 apiVersion.set(KOTLIN_2_1)
             }
-            configureCocoapods(extensions.getByType())
             configureiOSSimulators()
         }
     }

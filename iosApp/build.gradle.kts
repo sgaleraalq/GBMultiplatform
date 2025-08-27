@@ -50,7 +50,6 @@ kotlin {
     }
 }
 
-
 dependencies {
     commonMainImplementation(compose.components.resources)
     commonMainImplementation(projects.core.di)

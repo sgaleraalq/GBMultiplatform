@@ -15,7 +15,6 @@
 		35D8DCB42E5E69E100A2DE68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8DCAD2E5E69E100A2DE68 /* ContentView.swift */; };
 		35D8DCB52E5E69E100A2DE68 /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8DCAF2E5E69E100A2DE68 /* iOSApp.swift */; };
 		35E310C22E5E23FE008BAB30 /* iosApp.app in Sources */ = {isa = PBXBuildFile; fileRef = B9DA97B12DC1472C00A4DA20 /* iosApp.app */; };
-		B778A079EAAAF69DDBDE3B38 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2EEBF503F2F432FEFFB39F2 /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +45,6 @@
 			files = (
 				35C5EB1B2E22696E00262198 /* FirebaseFirestore in Frameworks */,
 				35C5EB1D2E22696E00262198 /* FirebaseStorage in Frameworks */,
-				B778A079EAAAF69DDBDE3B38 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

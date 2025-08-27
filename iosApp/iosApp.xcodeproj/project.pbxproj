@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		110445DC436B31872A5BC304 /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6042CA19CA435FF345523F5 /* Pods_iosApp.framework */; };
-		351EA0992E5B9C300043C591 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 351EA0982E5B9C300043C591 /* GoogleService-Info.plist */; };
 		35C5EB1B2E22696E00262198 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 35C5EB1A2E22696E00262198 /* FirebaseFirestore */; };
 		35C5EB1D2E22696E00262198 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 35C5EB1C2E22696E00262198 /* FirebaseStorage */; };
 		35D8DCB12E5E69E100A2DE68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35D8DCAC2E5E69E100A2DE68 /* Assets.xcassets */; };
 		35D8DCB22E5E69E100A2DE68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35D8DCAA2E5E69E100A2DE68 /* Preview Assets.xcassets */; };
-		35D8DCB32E5E69E100A2DE68 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35D8DCAE2E5E69E100A2DE68 /* Info.plist */; };
 		35D8DCB42E5E69E100A2DE68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8DCAD2E5E69E100A2DE68 /* ContentView.swift */; };
 		35D8DCB52E5E69E100A2DE68 /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35D8DCAF2E5E69E100A2DE68 /* iOSApp.swift */; };
 		35E310C22E5E23FE008BAB30 /* iosApp.app in Sources */ = {isa = PBXBuildFile; fileRef = B9DA97B12DC1472C00A4DA20 /* iosApp.app */; };
@@ -26,10 +23,10 @@
 		35D8DCAD2E5E69E100A2DE68 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		35D8DCAE2E5E69E100A2DE68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35D8DCAF2E5E69E100A2DE68 /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		4E64B139DDE7081FB16CBB1B /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
-		56156CD97AB83CFF19DBFC06 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		3DDE869375DE1E055F7E48EB /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
+		B2EEBF503F2F432FEFFB39F2 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9DA97B12DC1472C00A4DA20 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C6042CA19CA435FF345523F5 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCC05F4615EE6AEEA1096681 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -47,7 +44,6 @@
 			files = (
 				35C5EB1B2E22696E00262198 /* FirebaseFirestore in Frameworks */,
 				35C5EB1D2E22696E00262198 /* FirebaseStorage in Frameworks */,
-				110445DC436B31872A5BC304 /* Pods_iosApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +78,7 @@
 				B9DA97B22DC1472C00A4DA20 /* Products */,
 				E5E1D3D38233B503EE40FB12 /* Pods */,
 				351EA0982E5B9C300043C591 /* GoogleService-Info.plist */,
-				E1850D4E28850D50C5F26F19 /* Frameworks */,
+				E985F5E084C623CEEC228BF7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,21 +90,21 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E1850D4E28850D50C5F26F19 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C6042CA19CA435FF345523F5 /* Pods_iosApp.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		E5E1D3D38233B503EE40FB12 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4E64B139DDE7081FB16CBB1B /* Pods-iosApp.debug.xcconfig */,
-				56156CD97AB83CFF19DBFC06 /* Pods-iosApp.release.xcconfig */,
+				FCC05F4615EE6AEEA1096681 /* Pods-iosApp.debug.xcconfig */,
+				3DDE869375DE1E055F7E48EB /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E985F5E084C623CEEC228BF7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B2EEBF503F2F432FEFFB39F2 /* Pods_iosApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,12 +114,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B9DA97BF2DC1472D00A4DA20 /* Build configuration list for PBXNativeTarget "iosApp" */;
 			buildPhases = (
-				DB882B000C66C8EFB6E7E1B7 /* [CP] Check Pods Manifest.lock */,
+				9754F679EEE458CE85FBAF1C /* [CP] Check Pods Manifest.lock */,
 				B9DA97F42DC1497100A4DA20 /* Compile Kotlin Framework */,
 				B9DA97AD2DC1472C00A4DA20 /* Sources */,
 				B9DA97AE2DC1472C00A4DA20 /* Frameworks */,
 				B9DA97AF2DC1472C00A4DA20 /* Resources */,
-				DD9E47671F6254EF32F349D0 /* [CP] Copy Pods Resources */,
+				A2DDAC2CBFE38ED41606BDDE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -182,34 +178,13 @@
 			files = (
 				35D8DCB12E5E69E100A2DE68 /* Assets.xcassets in Resources */,
 				35D8DCB22E5E69E100A2DE68 /* Preview Assets.xcassets in Resources */,
-				35D8DCB32E5E69E100A2DE68 /* Info.plist in Resources */,
-				351EA0992E5B9C300043C591 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		B9DA97F42DC1497100A4DA20 /* Compile Kotlin Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Compile Kotlin Framework";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n\n./gradlew :iosApp:embedAndSignAppleFrameworkForXcode\n";
-		};
-		DB882B000C66C8EFB6E7E1B7 /* [CP] Check Pods Manifest.lock */ = {
+		9754F679EEE458CE85FBAF1C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -231,7 +206,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DD9E47671F6254EF32F349D0 /* [CP] Copy Pods Resources */ = {
+		A2DDAC2CBFE38ED41606BDDE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -251,6 +226,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B9DA97F42DC1497100A4DA20 /* Compile Kotlin Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Kotlin Framework";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"YES\" = \"$OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED\" ]; then\n  echo \"Skipping Gradle build task invocation due to OVERRIDE_KOTLIN_BUILD_IDE_SUPPORTED environment variable set to \\\"YES\\\"\"\n  exit 0\nfi\ncd \"$SRCROOT/..\"\n\n./gradlew :iosApp:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -391,7 +385,7 @@
 		};
 		B9DA97C02DC1472D00A4DA20 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E64B139DDE7081FB16CBB1B /* Pods-iosApp.debug.xcconfig */;
+			baseConfigurationReference = FCC05F4615EE6AEEA1096681 /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -402,7 +396,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = GBIosApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -412,6 +406,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -429,7 +424,7 @@
 		};
 		B9DA97C12DC1472D00A4DA20 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56156CD97AB83CFF19DBFC06 /* Pods-iosApp.release.xcconfig */;
+			baseConfigurationReference = 3DDE869375DE1E055F7E48EB /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -440,7 +435,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_FILE = GBIosApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -450,6 +445,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

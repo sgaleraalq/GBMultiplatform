@@ -19,6 +19,9 @@ captures
 app/google-services.json
 iosApp/iosApp/GoogleService-Info.plist
 data/data.podspec
-iosApp/Pods
-iosApp/GoogleService-Info.plist
 
+# IOS APP MODULE
+iosApp/Pods
+iosApp/iosApp.xcworkspace
+iosApp/iosApp.xcodeproj/xcuserdata
+iosApp/GBIosApp/GoogleService-Info.plist

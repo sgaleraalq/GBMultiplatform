@@ -1,16 +1,16 @@
 PODS:
-  - iosApp (1.0.0)
+  - ComposeApp (1.0.0)
 
 DEPENDENCIES:
-  - iosApp (from `.`)
+  - ComposeApp (from `.`)
 
 EXTERNAL SOURCES:
-  iosApp:
+  ComposeApp:
     :path: "."
 
 SPEC CHECKSUMS:
-  iosApp: dfe039b7d59ff05e1879411fcd6ecf084f72a06e
+  ComposeApp: 530213e9d8cbd5a755f15e971c7b32f0d4e309fa
 
-PODFILE CHECKSUM: 1425a030bb6f4ee362f3534fe7f398c5aa866896
+PODFILE CHECKSUM: baa905bbff068fa3f4efa9b64cc5ea4f1d31320c
 
 COCOAPODS: 1.16.2

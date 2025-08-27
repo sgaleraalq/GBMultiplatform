@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'iosApp'
+    spec.name                     = 'ComposeApp'
     spec.version                  = '1.0.0'
     spec.homepage                 = 'https://www.sergiogalera.dev/'
     spec.source                   = { :http=> ''}
-    spec.authors                  = ''
+    spec.authors                  = 'sgale.developer@gmail.com'
     spec.license                  = ''
-    spec.summary                  = 'GB Multiplatform'
+    spec.summary                  = 'GBMultiplatform iOS entry point'
     spec.vendored_frameworks      = 'build/cocoapods/framework/ComposeApp.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target    = '18.2'
@@ -33,7 +33,7 @@ Pod::Spec.new do |spec|
                 
     spec.script_phases = [
         {
-            :name => 'Build iosApp',
+            :name => 'Build ComposeApp',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT

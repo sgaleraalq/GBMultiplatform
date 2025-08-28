@@ -18,17 +18,23 @@ package com.gbmultiplatform.presentation.screens.gbapp.insert_player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gbmultiplatform.data.network.firebase.IPlayersInformationFirebase
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.Position.FORWARD
+import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class InsertPlayerViewModel(
-    private val firebaseRepository: IPlayersInformationFirebase
+    private val insertNewPlayerUseCase: InsertNewPlayer
 ): ViewModel() {
+
+    private val _player = MutableStateFlow<PlayerInformationModel?>(null)
+
+    private val _playerName = MutableStateFlow("")
+    val playerName = _playerName
 
     fun insertNewPlayer(
         onSuccess: () -> Unit,
@@ -45,7 +51,7 @@ class InsertPlayerViewModel(
 
         viewModelScope.launch {
             withContext(Dispatchers.IO){
-                val newPlayerInserted = firebaseRepository.insertNewPlayer(newPlayer)
+                val newPlayerInserted = insertNewPlayerUseCase(newPlayer)
                 if (newPlayerInserted) {
                     onSuccess()
                 } else {

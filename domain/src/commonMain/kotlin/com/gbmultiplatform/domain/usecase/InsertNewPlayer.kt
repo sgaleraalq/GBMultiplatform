@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.domain.repository
+package com.gbmultiplatform.domain.usecase
 
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
 
-class PlayerInformationRepositoryImpl() {
+class InsertNewPlayer(private val repository: IPlayersInformationRepository) {
+    suspend operator fun invoke(player: PlayerInformationModel): Boolean {
+        return repository.insertNewPlayer(player)
+    }
 }

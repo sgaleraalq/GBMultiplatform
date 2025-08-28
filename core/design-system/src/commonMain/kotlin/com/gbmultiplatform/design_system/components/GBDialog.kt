@@ -19,6 +19,8 @@ package com.gbmultiplatform.design_system.components
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -28,9 +30,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.input.ImeAction.Companion.Next
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gb_text_field_background
+import com.gbmultiplatform.design_system.style.gb_text_field_label_color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,12 +82,14 @@ fun GBDialogTextContent(
 }
 
 @Composable
-fun GBDialogTextField(
+fun GBTextField(
     modifier: Modifier = Modifier,
     text: String,
     onTextChanged: (String) -> Unit,
+    label: String = "",
     enabled: Boolean = true
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     TextField(
         modifier = modifier,
         value = text,
@@ -91,6 +99,18 @@ fun GBDialogTextField(
             unfocusedContainerColor = White,
             focusedContainerColor = gb_text_field_background,
             unfocusedIndicatorColor = Black
+        ),
+        label = {
+            GBText(text = label, textColor = gb_text_field_label_color.copy(alpha = 0.5f),
+                style = gBTypography().bodyMedium.copy(fontStyle = Italic))
+        },
+        singleLine = true,
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions.Default.copy(imeAction = Next),
+        keyboardActions = KeyboardActions(
+            onNext = {
+                keyboardController?.hide()
+            }
         )
     )
 }

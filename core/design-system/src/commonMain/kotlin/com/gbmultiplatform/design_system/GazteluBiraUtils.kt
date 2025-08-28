@@ -1,4 +1,4 @@
-package com.gbmultiplatform.helper
+package com.gbmultiplatform.design_system
 
 import com.gbmultiplatform.domain.model.team.TeamModel
 

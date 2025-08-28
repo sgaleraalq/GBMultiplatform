@@ -15,9 +15,9 @@ kotlin {
             api(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
+            implementation(projects.domain)
             implementation(compose.components.resources)
             api(compose.materialIconsExtended)
-
 
             /**
              * Images from network

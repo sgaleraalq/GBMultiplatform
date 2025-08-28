@@ -24,4 +24,7 @@
     <string name="no_description_provided">No description provided</string>
     <string name="no_location_available">No location available</string>
 
+<!--    insert new player-->
+    <string name="insert_new_player">Insert new player</string>
+    <string name="player_name">Player name</string>
 </resources>

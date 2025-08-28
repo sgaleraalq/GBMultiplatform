@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
  * Components colors
  */
 val gb_text_field_background = Color(0xFFF0E4FC)
+val gb_text_field_label_color = Color(0xFF6B577F)
 
 // dialog
 val gb_dialog_background = Color(0xFF151022)

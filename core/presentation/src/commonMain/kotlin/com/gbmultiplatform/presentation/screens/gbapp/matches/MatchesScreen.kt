@@ -31,10 +31,7 @@ fun MatchesScreen(
     viewModel: MatchesViewModel = koinViewModel<MatchesViewModel>(),
 ) {
     Column {
-        GBAppTopBar(
-            teamLogo = viewModel.appTeam.logo,
-            teamName = viewModel.appTeam.name
-        )
+        GBAppTopBar()
         MatchesList(
             modifier = Modifier.weight(1f),
             matches = viewModel.provideMatches(),

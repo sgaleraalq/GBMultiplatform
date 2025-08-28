@@ -128,7 +128,8 @@ class PlayerProvider : IPlayerProvider {
         return PlayerInformationModel(
             id = generateRandomUUID(),
             name = RANDOM_NAMES.random(),
-            image = RANDOM_IMAGES.random(),
+            faceImage = RANDOM_IMAGES.random(),
+            bodyImage = RANDOM_IMAGES.random(),
             dorsal = (1..99).random(),
             position = position
         )

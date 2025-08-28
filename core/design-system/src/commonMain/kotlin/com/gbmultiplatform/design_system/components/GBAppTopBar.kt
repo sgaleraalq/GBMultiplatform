@@ -32,14 +32,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.GazteluBiraUtils.GAZTELU_BIRA
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.ic_button_add
-import gbmultiplatform.core.design_system.generated.resources.ic_matches
 
 @Composable
 fun GBAppTopBar(
-    teamLogo: String,
-    teamName: String,
+    topBarText: String = GAZTELU_BIRA.name,
+    teamLogo: String = GAZTELU_BIRA.logo,
     isAdmin: Boolean = false,
     onClick: () -> Unit = {}
 ) {
@@ -64,7 +64,7 @@ fun GBAppTopBar(
          */
         GBText(
             modifier = Modifier.weight(1f).padding(bottom = 4.dp),
-            text = teamName,
+            text = topBarText,
             alignment = Start,
             textColor = White,
             style = MaterialTheme.typography.titleLarge

@@ -2,7 +2,7 @@ package com.gbmultiplatform.presentation.screens.gbapp.match_detail.states
 
 import com.gbmultiplatform.design_system.model.LineUpFormation
 import com.gbmultiplatform.design_system.model.UIPlayer
-import com.gbmultiplatform.helper.GazteluBiraUtils.GAZTELU_BIRA
+import com.gbmultiplatform.design_system.GazteluBiraUtils.GAZTELU_BIRA
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.details.DetailsStateTeamModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.line_up.LineUpStateModel
 import com.gbmultiplatform.presentation.screens.gbapp.match_detail.states.stats.StatsStateModel

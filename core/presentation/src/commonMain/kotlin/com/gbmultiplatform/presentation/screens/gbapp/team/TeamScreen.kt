@@ -53,11 +53,7 @@ fun TeamScreen(
     val players by viewModel.players.collectAsState()
 
     Column {
-        GBAppTopBar(
-            teamLogo = viewModel.appTeam.logo,
-            teamName = viewModel.appTeam.name,
-            isAdmin = true
-        ) {
+        GBAppTopBar(isAdmin = true) {
             state.navigateTo(Destination.InsertPlayer)
         }
         TeamPlayerList(players) {
@@ -99,7 +95,7 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
         onClick = { onPlayerClicked() }
     ) {
         Box {
-            GBImage(Modifier.fillMaxSize(), player.image)
+            GBImage(Modifier.fillMaxSize(), player.faceImage)
             GBText(
                 modifier = Modifier.align(TopStart).padding(4.dp),
                 text = player.dorsal.toString()

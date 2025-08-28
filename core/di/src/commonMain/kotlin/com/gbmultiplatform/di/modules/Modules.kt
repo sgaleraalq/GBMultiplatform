@@ -23,6 +23,7 @@ private val screenModules = listOf(
     authModules,
     viewModelModule,
     viewModelHelpersModule,
+    useCasesModule,
     preferencesModule,
     sharedModules
 )

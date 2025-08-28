@@ -19,7 +19,7 @@ package com.gbmultiplatform.presentation.screens.gbapp.team
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.helper.GazteluBiraUtils
+import com.gbmultiplatform.design_system.GazteluBiraUtils
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class TeamViewModel(

@@ -16,25 +16,46 @@
 
 package com.gbmultiplatform.presentation.screens.gbapp.insert_player
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.components.GBTextField
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.insert_new_player
+import gbmultiplatform.core.presentation.generated.resources.player_name
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun InsertPlayerScreen(
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
-    Box(
-        Modifier.fillMaxSize(),
-        contentAlignment = Center
+    val playerName by viewModel.playerName.collectAsState()
+
+    Column(
+        Modifier.fillMaxSize().padding(8.dp),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = spacedBy(8.dp)
     ) {
+        GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
+        GBTextField(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+            text = playerName,
+            onTextChanged = { viewModel.playerName.value = it },
+            label = stringResource(Res.string.player_name)
+        )
+        Spacer(Modifier.weight(1f))
         GBElevatedButton(
             modifier = Modifier.fillMaxWidth().padding(12.dp),
             text = "Insert Player",

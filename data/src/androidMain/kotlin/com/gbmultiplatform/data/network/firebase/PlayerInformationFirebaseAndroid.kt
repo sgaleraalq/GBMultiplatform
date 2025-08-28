@@ -2,11 +2,10 @@ package com.gbmultiplatform.data.network.firebase
 
 import com.gbmultiplatform.data.mappers.PlayerInformationMapper.asResponse
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
-class PlayerInformationFirebaseAndroid() :
-    IPlayersInformationFirebase
-{
+class PlayerInformationFirebaseAndroid() : IPlayersInformationRepository {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     companion object {
@@ -25,11 +24,12 @@ class PlayerInformationFirebaseAndroid() :
             .collection(SEASON)
             .document(PLAYERS)
             .collection(INFORMATION)
-            .document(player.id)
+            .document(playerResponse.id)
             .set(playerResponse)
             .isSuccessful
     }
 
-    private suspend fun insertNewPlayerInformation() {}
-    private suspend fun insertNewPlayerStats(){}
+    override suspend fun insertPlayerStats(playerId: String): Boolean {
+        return true
+    }
 }

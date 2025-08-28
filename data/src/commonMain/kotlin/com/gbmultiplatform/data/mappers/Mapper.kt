@@ -25,6 +25,6 @@ package com.gbmultiplatform.data.mappers
 interface Mapper <Response, Domain, Entity> {
     fun asResponse(domain: Domain): Response
     fun asEntity(domain: Domain): Entity?
-    fun asDomain(entity: Entity): Domain?
-    fun asDomain(response: Response): Domain?
+    fun entityToDomain(entity: Entity): Domain?
+    fun responseToDomain(response: Response): Domain?
 }

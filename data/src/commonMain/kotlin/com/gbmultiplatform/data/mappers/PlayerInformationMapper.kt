@@ -21,11 +21,11 @@ object PlayerInformationMapper :
         return null
     }
 
-    override fun asDomain(entity: PlayerInformationEntity): PlayerInformationModel? {
+    override fun entityToDomain(entity: PlayerInformationEntity): PlayerInformationModel? {
         return null
     }
 
-    override fun asDomain(response: PlayerInformationResponse): PlayerInformationModel? {
+    override fun responseToDomain(response: PlayerInformationResponse): PlayerInformationModel? {
         return null
     }
 }

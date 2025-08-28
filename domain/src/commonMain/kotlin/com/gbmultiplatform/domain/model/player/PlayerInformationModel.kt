@@ -19,7 +19,8 @@ package com.gbmultiplatform.domain.model.player
 data class PlayerInformationModel(
     val id: String,
     val name: String,
-    val image: String, // TODO maybe face image and body image
+    val bodyImage: String,
+    val faceImage: String,
     val dorsal: Int,
     val position: Position
 )

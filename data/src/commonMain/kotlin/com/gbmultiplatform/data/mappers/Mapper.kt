@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.repository
+package com.gbmultiplatform.data.mappers
 
-import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-
-class PlayerInformationRepositoryImpl() {
+/**
+ * Maps every object to each layer of the application
+ * @param Response Data layer representation
+ * @param Domain Domain layer representation
+ * @param Entity Cache layer representation
+ */
+interface Mapper <Response, Domain, Entity> {
+    fun asResponse(domain: Domain): Response
+    fun asEntity(domain: Domain): Entity?
+    fun asDomain(entity: Entity): Domain?
+    fun asDomain(response: Response): Domain?
 }

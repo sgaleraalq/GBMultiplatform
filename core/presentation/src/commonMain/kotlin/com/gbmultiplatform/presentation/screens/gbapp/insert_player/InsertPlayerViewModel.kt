@@ -37,7 +37,8 @@ class InsertPlayerViewModel(
         val newPlayer = PlayerInformationModel(
             id = "",
             name = "New Player",
-            image = "https://example.com/image.png",
+            bodyImage = "https://example.com/body_image.png",
+            faceImage = "https://example.com/image.png",
             dorsal = 1,
             position = FORWARD
         )

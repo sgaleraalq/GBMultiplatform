@@ -22,5 +22,8 @@ import kotlinx.serialization.Serializable
 data class PlayerInformationResponse(
     val id: String,
     val name: String,
-    val dorsal: Int
+    val dorsal: Int,
+    val position: String,
+    val faceImage: String,
+    val bodyImage: String
 )

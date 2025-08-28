@@ -16,10 +16,9 @@
 
 package com.gbmultiplatform.data.network.firebase
 
-import com.gbmultiplatform.data.network.response.PlayerInformationResponse
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 
 interface IPlayersInformationFirebase {
     suspend fun fetchAllPlayers(): List<PlayerInformationModel>
-    suspend fun insertNewPlayer(player: PlayerInformationResponse): Boolean
+    suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean
 }

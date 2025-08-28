@@ -1,12 +1,12 @@
-package com.gbmultiplatform.data.network.firebase.player_information
+package com.gbmultiplatform.data.network.firebase
 
-import com.gbmultiplatform.data.network.response.PlayerInformationResponse
-import com.gbmultiplatform.data.network.firebase.IPlayersInformationFirebase
+import com.gbmultiplatform.data.mappers.PlayerInformationMapper.asResponse
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.google.firebase.firestore.FirebaseFirestore
 
-class PlayerInformationFirebaseAndroid() : IPlayersInformationFirebase {
-
+class PlayerInformationFirebaseAndroid() :
+    IPlayersInformationFirebase
+{
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 
     companion object {
@@ -19,13 +19,17 @@ class PlayerInformationFirebaseAndroid() : IPlayersInformationFirebase {
         return emptyList() // TODO
     }
 
-    override suspend fun insertNewPlayer(player: PlayerInformationResponse): Boolean {
+    override suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean {
+        val playerResponse = asResponse(player)
         return firestore
             .collection(SEASON)
             .document(PLAYERS)
             .collection(INFORMATION)
             .document(player.id)
-            .set(player)
+            .set(playerResponse)
             .isSuccessful
     }
+
+    private suspend fun insertNewPlayerInformation() {}
+    private suspend fun insertNewPlayerStats(){}
 }

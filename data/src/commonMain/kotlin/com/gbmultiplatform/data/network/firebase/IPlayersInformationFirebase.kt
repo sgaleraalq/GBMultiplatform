@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.data.network.response
+package com.gbmultiplatform.data.network.firebase
 
-import kotlinx.serialization.Serializable
+import com.gbmultiplatform.data.network.response.PlayerInformationResponse
+import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 
-@Serializable
-data class TestResponse(
-    val test: String
-)
+interface IPlayersInformationFirebase {
+    suspend fun fetchAllPlayers(): List<PlayerInformationModel>
+    suspend fun insertNewPlayer(player: PlayerInformationResponse): Boolean
+}

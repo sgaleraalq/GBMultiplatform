@@ -18,17 +18,16 @@ package com.gbmultiplatform.presentation.screens.gbapp.insert_player
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.gbmultiplatform.data.network.firebase.IFirebase
+import com.gbmultiplatform.data.network.firebase.IPlayersInformationFirebase
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.Position.FORWARD
-import com.gbmultiplatform.domain.repository.FirebaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class InsertPlayerViewModel(
-    private val firebaseRepository: IFirebase
+    private val firebaseRepository: IPlayersInformationFirebase
 ): ViewModel() {
 
     fun insertNewPlayer(

@@ -1,10 +1,10 @@
 package com.gbmultiplatform.di.modules
 
-import com.gbmultiplatform.data.network.firebase.FirebaseRepositoryAndroid
-import com.gbmultiplatform.data.network.firebase.IFirebase
+import com.gbmultiplatform.data.network.firebase.player_information.PlayerInformationFirebaseAndroid
+import com.gbmultiplatform.data.network.firebase.IPlayersInformationFirebase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 actual val sharedModules: Module = module {
-    single<IFirebase> { FirebaseRepositoryAndroid() }
+    single<IPlayersInformationFirebase> { PlayerInformationFirebaseAndroid() }
 }

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.data.network.response
+package com.gbmultiplatform.data.db.entities
 
-data class PlayerResponse(
-    val id: String,
-    val name: String,
-    val position: String,
-    val image: String
+// TODO
+data class PlayerInformationEntity(
+    val id: String
 )

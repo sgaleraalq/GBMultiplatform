@@ -14,28 +14,9 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.data.network.firebase
+package com.gbmultiplatform.repository
 
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.google.firebase.firestore.FirebaseFirestore
 
-class FirebaseRepositoryAndroid() : IFirebase {
-
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-
-    companion object {
-        const val SEASON = "2025"
-        const val PLAYERS = "players"
-        const val INFORMATION = "information"
-    }
-
-    override suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean {
-        return firestore
-            .collection(SEASON)
-            .document(PLAYERS)
-            .collection(INFORMATION)
-            .document(player.id)
-            .set(player)
-            .isSuccessful
-    }
+class PlayerInformationRepositoryImpl() {
 }

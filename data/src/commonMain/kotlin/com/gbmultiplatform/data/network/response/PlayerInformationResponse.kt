@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.domain.repository
+package com.gbmultiplatform.data.network.response
 
-import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import kotlinx.serialization.Serializable
 
-interface FirebaseRepository {
-    suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean
-}
+@Serializable
+data class PlayerInformationResponse(
+    val id: String,
+    val name: String,
+    val dorsal: Int
+)

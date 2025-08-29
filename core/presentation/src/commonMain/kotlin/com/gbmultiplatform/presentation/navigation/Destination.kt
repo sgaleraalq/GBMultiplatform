@@ -19,14 +19,14 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
-import com.gbmultiplatform.presentation.screens.gbapp.about.AboutScreen
-import com.gbmultiplatform.presentation.screens.gbapp.home.HomeScreen
-import com.gbmultiplatform.presentation.screens.gbapp.insert_player.InsertPlayerScreen
-import com.gbmultiplatform.presentation.screens.gbapp.matches.MatchesScreen
-import com.gbmultiplatform.presentation.screens.gbapp.match_detail.MatchDetailScreen
-import com.gbmultiplatform.presentation.screens.gbapp.stats.StatsScreen
-import com.gbmultiplatform.presentation.screens.gbapp.team.TeamScreen
-import com.gbmultiplatform.presentation.screens.gbapp.team_detail.PlayerInformationScreen
+import com.gbmultiplatform.presentation.screens.about.AboutScreen
+import com.gbmultiplatform.presentation.screens.home.HomeScreen
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
+import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
+import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
+import com.gbmultiplatform.presentation.screens.stats.StatsScreen
+import com.gbmultiplatform.presentation.screens.team.TeamScreen
+import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
 import kotlinx.serialization.Serializable
 
 interface Destination {

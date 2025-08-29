@@ -1,0 +1,81 @@
+/*
+ * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.gbmultiplatform.presentation.screens.insert_player
+
+import androidx.compose.foundation.layout.Arrangement.spacedBy
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBAppTopBar
+import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.components.GBImageBoxRequester
+import com.gbmultiplatform.design_system.components.GBTextField
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.insert_new_player
+import gbmultiplatform.core.presentation.generated.resources.insert_player
+import gbmultiplatform.core.presentation.generated.resources.player_name
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+
+@Composable
+fun InsertPlayerScreen(
+    viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
+) {
+    val playerName by viewModel.playerName.collectAsState()
+
+    Column(
+        Modifier.fillMaxSize().padding(16.dp),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = spacedBy(8.dp)
+    ) {
+        GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
+        GBTextField(
+            modifier = Modifier.fillMaxWidth(),
+            text = playerName,
+            onTextChanged = { viewModel.playerName.value = it },
+            label = stringResource(Res.string.player_name)
+        )
+        GBImageBoxRequester(
+            modifier = Modifier.fillMaxWidth().height(250.dp),
+            onClick = { viewModel.showCamera() }
+        )
+        Spacer(Modifier.weight(1f))
+        GBElevatedButton(
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            text = stringResource(Res.string.insert_player),
+            onClick = {
+                viewModel.insertNewPlayer(
+                    onSuccess = {
+                        println("Player inserted successfully")
+                    },
+                    onFailure = {
+                        println("Failed to insert player")
+                    }
+                )
+            }
+        )
+    }
+}

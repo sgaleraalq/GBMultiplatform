@@ -17,34 +17,35 @@
 package com.gbmultiplatform.domain.utils
 
 import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
-
-@Composable
-actual fun createPermissionManager(callback: PermissionCallback): IPermissionHandler {
-    val context = LocalContext.current
-    return remember { PermissionsManager(context) }
-}
 
 class PermissionsManager(
     private val context: Context,
+    private val callback: PermissionCallback
 ) : IPermissionHandler {
     override fun askPermission(permissionType: PermissionType) {
-        println("Asking for permissions: $permissionType")
-    }
-
-    override fun isPermissionGranted(permissionType: PermissionType): Boolean {
-        val permissions = when (permissionType) {
+        val permissions = when(permissionType) {
             PermissionType.CAMERA -> listOf(CAMERA)
+            PermissionType.MEDIA_FILES -> listOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
         }
 
-        return permissions.all { p ->
-            ContextCompat.checkSelfPermission(context, p) == PERMISSION_GRANTED
+        val notGrantedPermissions = permissions.filter {
+            !isPermissionGranted(it)
+        }
+
+        notGrantedPermissions.forEach { permission ->
+            // ask for permissions
+
         }
     }
+
+    override fun isPermissionGranted(permission: String) =
+        checkSelfPermission(context, permission) == PERMISSION_GRANTED
+
+
 }

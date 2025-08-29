@@ -16,12 +16,8 @@
 
 package com.gbmultiplatform.domain.utils
 
-import androidx.compose.runtime.Composable
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
-
-@Composable
-expect fun createPermissionManager(callback: PermissionCallback): IPermissionHandler
 
 interface PermissionCallback {
     fun onPermissionStatus(permissionType: PermissionType, status: PermissionStatus)
@@ -33,9 +29,10 @@ interface IPermissionHandler {
     }
 
     enum class PermissionType {
-        CAMERA
+        CAMERA, MEDIA_FILES
     }
 
     fun askPermission(permissionType: PermissionType)
-    fun isPermissionGranted(permissionType: PermissionType): Boolean
+    fun isPermissionGranted(permission: String): Boolean
+//    fun isPermissionDeniedForever(permission: String): Boolean
 }

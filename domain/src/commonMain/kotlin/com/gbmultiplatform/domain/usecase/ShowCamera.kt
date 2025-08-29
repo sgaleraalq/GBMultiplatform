@@ -23,10 +23,7 @@ class ShowCamera(
     private val permissionHandler: IPermissionHandler
 ) {
     operator fun invoke() {
-        val isPermissionGranted = permissionHandler.isPermissionGranted(CAMERA)
+        val isPermissionGranted = permissionHandler.askPermission(CAMERA)
         println("Camera permission granted: $isPermissionGranted")
-        if (!isPermissionGranted) {
-            permissionHandler.askPermission(CAMERA)
-        }
     }
 }

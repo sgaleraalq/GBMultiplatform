@@ -16,21 +16,14 @@
 
 package com.gbmultiplatform.domain.utils
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
-
-@Composable
-actual fun createPermissionManager(callback: PermissionCallback): IPermissionHandler {
-    return remember { PermissionsManager(callback) }
-}
 
 class PermissionsManager(callback: PermissionCallback): IPermissionHandler {
     override fun askPermission(permissionType: PermissionType) {
 
     }
 
-    override fun isPermissionGranted(permissionType: PermissionType): Boolean {
+    override fun isPermissionGranted(permission: String): Boolean {
         return true
     }
 }

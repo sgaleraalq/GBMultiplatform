@@ -21,14 +21,16 @@ import com.gbmultiplatform.di.provider.TeamProvider
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
+import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel
+import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.matches.MatchesViewModel
-import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.stats.StatsViewModel
 import com.gbmultiplatform.presentation.screens.team.TeamViewModel
+import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -49,5 +51,6 @@ val viewModelHelpersModule = module {
 }
 
 val useCasesModule = module {
-    factory{ InsertNewPlayer(get()) }
+    factoryOf(::ShowCamera)
+    factoryOf(::InsertNewPlayer)
 }

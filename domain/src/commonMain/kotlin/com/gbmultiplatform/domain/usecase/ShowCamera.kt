@@ -17,13 +17,25 @@
 package com.gbmultiplatform.domain.usecase
 
 import com.gbmultiplatform.domain.utils.IPermissionHandler
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.DENIED
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.GRANTED
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType.CAMERA
 
 class ShowCamera(
     private val permissionHandler: IPermissionHandler
 ) {
-    operator fun invoke() {
-        val isPermissionGranted = permissionHandler.askPermission(CAMERA)
-        println("Camera permission granted: $isPermissionGranted")
+    operator fun invoke(
+        onPermissionsDenied: () -> Unit
+    ) {
+        val permissionStatus = permissionHandler.askPermission(CAMERA)
+
+        when (permissionStatus) {
+            GRANTED -> {
+
+            }
+            DENIED -> {
+                onPermissionsDenied()
+            }
+        }
     }
 }

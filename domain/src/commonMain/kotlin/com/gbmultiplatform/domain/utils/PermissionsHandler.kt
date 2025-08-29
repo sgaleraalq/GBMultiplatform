@@ -25,14 +25,14 @@ interface PermissionCallback {
 
 interface IPermissionHandler {
     enum class PermissionStatus {
-        GRANTED, DENIED, PERMANENTLY_DENIED
+        GRANTED, DENIED
     }
 
     enum class PermissionType {
         CAMERA, MEDIA_FILES
     }
 
-    fun askPermission(permissionType: PermissionType)
+    fun askPermission(permissionType: PermissionType): PermissionStatus
     fun isPermissionGranted(permission: String): Boolean
 //    fun isPermissionDeniedForever(permission: String): Boolean
 }

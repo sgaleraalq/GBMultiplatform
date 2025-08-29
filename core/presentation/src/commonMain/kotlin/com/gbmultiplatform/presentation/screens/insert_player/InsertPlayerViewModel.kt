@@ -22,6 +22,7 @@ import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.Position.FORWARD
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
+import com.gbmultiplatform.domain.utils.IToastManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class InsertPlayerViewModel(
+    private val toastManager: IToastManager,
     private val showCameraUseCase: ShowCamera,
     private val insertNewPlayerUseCase: InsertNewPlayer
 ): ViewModel() {
@@ -40,7 +42,9 @@ class InsertPlayerViewModel(
 
     fun showCamera() {
         viewModelScope.launch {
-            showCameraUseCase()
+            showCameraUseCase(
+                onPermissionsDenied = { showToast("Permissions denied") }
+            )
         }
     }
 
@@ -67,5 +71,9 @@ class InsertPlayerViewModel(
                 }
             }
         }
+    }
+
+    private fun showToast(msg: String) {
+        toastManager.showToast(msg)
     }
 }

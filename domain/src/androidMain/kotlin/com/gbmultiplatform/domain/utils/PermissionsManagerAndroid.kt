@@ -22,13 +22,15 @@ import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import androidx.core.content.ContextCompat.checkSelfPermission
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.*
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
 
-class PermissionsManager(
+class PermissionsManagerAndroid(
     private val context: Context,
-    private val callback: PermissionCallback
+//    private val callback: PermissionCallback
 ) : IPermissionHandler {
-    override fun askPermission(permissionType: PermissionType) {
+    override fun askPermission(permissionType: PermissionType): PermissionStatus {
         val permissions = when(permissionType) {
             PermissionType.CAMERA -> listOf(CAMERA)
             PermissionType.MEDIA_FILES -> listOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
@@ -38,9 +40,15 @@ class PermissionsManager(
             !isPermissionGranted(it)
         }
 
-        notGrantedPermissions.forEach { permission ->
-            // ask for permissions
-
+//        notGrantedPermissions.forEach { permission ->
+//            // ask for permissions
+//
+//        }
+        // TODO
+        return if (notGrantedPermissions.isEmpty()) {
+            GRANTED
+        } else {
+            DENIED
         }
     }
 

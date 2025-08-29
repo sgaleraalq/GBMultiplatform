@@ -16,11 +16,12 @@
 
 package com.gbmultiplatform.domain.utils
 
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
 
 class PermissionsManager(callback: PermissionCallback): IPermissionHandler {
-    override fun askPermission(permissionType: PermissionType) {
-
+    override fun askPermission(permissionType: PermissionType): PermissionStatus {
+        return PermissionStatus.GRANTED
     }
 
     override fun isPermissionGranted(permission: String): Boolean {

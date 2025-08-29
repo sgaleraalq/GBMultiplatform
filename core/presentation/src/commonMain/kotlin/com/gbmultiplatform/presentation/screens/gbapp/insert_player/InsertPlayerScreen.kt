@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBTextField
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
@@ -54,6 +56,10 @@ fun InsertPlayerScreen(
             text = playerName,
             onTextChanged = { viewModel.playerName.value = it },
             label = stringResource(Res.string.player_name)
+        )
+        GBImageBoxRequester(
+            modifier = Modifier.fillMaxWidth().height(250.dp),
+            onClick = { println("Camera clicked") }
         )
         Spacer(Modifier.weight(1f))
         GBElevatedButton(

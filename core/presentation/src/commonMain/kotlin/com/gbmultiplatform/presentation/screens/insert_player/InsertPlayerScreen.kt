@@ -37,6 +37,7 @@ import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.player_name
+import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -45,6 +46,7 @@ fun InsertPlayerScreen(
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
     val playerName by viewModel.playerName.collectAsState()
+    val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),
@@ -60,7 +62,9 @@ fun InsertPlayerScreen(
         )
         GBImageBoxRequester(
             modifier = Modifier.fillMaxWidth().height(250.dp),
-            onClick = { viewModel.showCamera() }
+            onClick = { viewModel.showCamera(
+                permissionDeniedMsg = permissionDeniedCamera
+            ) }
         )
         Spacer(Modifier.weight(1f))
         GBElevatedButton(

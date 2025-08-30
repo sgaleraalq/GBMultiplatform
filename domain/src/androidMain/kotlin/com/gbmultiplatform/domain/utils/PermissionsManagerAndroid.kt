@@ -16,44 +16,31 @@
 
 package com.gbmultiplatform.domain.utils
 
-import android.Manifest.permission.CAMERA
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-import android.content.Context
-import android.content.pm.PackageManager.PERMISSION_GRANTED
-import androidx.core.content.ContextCompat.checkSelfPermission
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.*
+import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.GRANTED
 import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
+import kotlinx.coroutines.CancellableContinuation
 
-class PermissionsManagerAndroid(
-    private val context: Context,
-//    private val callback: PermissionCallback
-) : IPermissionHandler {
-    override fun askPermission(permissionType: PermissionType): PermissionStatus {
-        val permissions = when(permissionType) {
-            PermissionType.CAMERA -> listOf(CAMERA)
-            PermissionType.MEDIA_FILES -> listOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE)
-        }
+class PermissionsManagerAndroid() : IPermissionHandler {
 
-        val notGrantedPermissions = permissions.filter {
-            !isPermissionGranted(it)
-        }
+    private var continuation: CancellableContinuation<PermissionStatus>? = null
 
-//        notGrantedPermissions.forEach { permission ->
-//            // ask for permissions
-//
+    override suspend fun askPermission(
+        permissionType: PermissionType
+    ): PermissionStatus = GRANTED
+//        suspendCancellableCoroutine { cont ->
+//            val permission = when (permissionType) {
+//                PermissionType.CAMERA -> CAMERA
+//                PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
+//            }
+//            if (isPermissionGranted(permission)) {
+//                cont.resume(GRANTED)
+//                continuation = null
+//            } else {
+//                launcher.launch(permission)
+//            }
 //        }
-        // TODO
-        return if (notGrantedPermissions.isEmpty()) {
-            GRANTED
-        } else {
-            DENIED
-        }
-    }
 
-    override fun isPermissionGranted(permission: String) =
-        checkSelfPermission(context, permission) == PERMISSION_GRANTED
-
-
+    override fun isPermissionGranted(permission: String) = true
+//        checkSelfPermission(activity, permission) == PERMISSION_GRANTED
 }

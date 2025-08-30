@@ -40,10 +40,12 @@ class InsertPlayerViewModel(
     private val _playerName = MutableStateFlow("")
     val playerName = _playerName
 
-    fun showCamera() {
+    fun showCamera(
+        permissionDeniedMsg: String
+    ) {
         viewModelScope.launch {
             showCameraUseCase(
-                onPermissionsDenied = { showToast("Permissions denied") }
+                onPermissionsDenied = { showToast(permissionDeniedMsg) }
             )
         }
     }

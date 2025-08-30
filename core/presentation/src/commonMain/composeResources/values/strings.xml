@@ -28,4 +28,5 @@
     <string name="insert_new_player">Insert new player</string>
     <string name="insert_player">Insert player</string>
     <string name="player_name">Player name</string>
+    <string name="permission_denied_camera">Permissions needed to open camera</string>
 </resources>

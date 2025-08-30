@@ -24,18 +24,22 @@ import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType.CAMERA
 class ShowCamera(
     private val permissionHandler: IPermissionHandler
 ) {
-    operator fun invoke(
+    suspend operator fun invoke(
         onPermissionsDenied: () -> Unit
     ) {
         val permissionStatus = permissionHandler.askPermission(CAMERA)
 
         when (permissionStatus) {
             GRANTED -> {
-
+                openCamera()
             }
             DENIED -> {
                 onPermissionsDenied()
             }
         }
+    }
+
+    private fun openCamera() {
+
     }
 }

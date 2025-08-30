@@ -32,7 +32,7 @@ interface IPermissionHandler {
         CAMERA, MEDIA_FILES
     }
 
-    fun askPermission(permissionType: PermissionType): PermissionStatus
+    suspend fun askPermission(permissionType: PermissionType): PermissionStatus
     fun isPermissionGranted(permission: String): Boolean
 //    fun isPermissionDeniedForever(permission: String): Boolean
 }

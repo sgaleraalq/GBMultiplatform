@@ -16,8 +16,4 @@
 
 package com.gbmultiplatform.presentation
 
-class GBAndroidActivity : GBMultiplatformActivity() {
-//    init {
-//        FirebaseApp.initializeApp(this)
-//    }
-}
+class GBAndroidActivity : GBMultiplatformActivity()

@@ -26,6 +26,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -33,6 +35,8 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBTextField
+import com.gbmultiplatform.domain.utils.PermissionBridge
+import com.gbmultiplatform.domain.utils.PermissionType
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
@@ -40,6 +44,7 @@ import gbmultiplatform.core.presentation.generated.resources.player_name
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.compose.getKoin
 
 @Composable
 fun InsertPlayerScreen(
@@ -47,6 +52,11 @@ fun InsertPlayerScreen(
 ) {
     val playerName by viewModel.playerName.collectAsState()
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
+
+    val koin = getKoin()
+    val isCameraPermissionGranted by remember {
+        mutableStateOf(koin.get<PermissionBridge>().isPermissionGranted(PermissionType.CAMERA))
+    }
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),

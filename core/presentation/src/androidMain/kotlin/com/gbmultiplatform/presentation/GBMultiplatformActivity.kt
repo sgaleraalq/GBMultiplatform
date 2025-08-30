@@ -16,20 +16,84 @@
 
 package com.gbmultiplatform.presentation
 
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.checkSelfPermission
 import com.gbmultiplatform.App
+import com.gbmultiplatform.domain.utils.PermissionBridge
+import com.gbmultiplatform.domain.utils.PermissionResultCallback
+import com.gbmultiplatform.domain.utils.PermissionType
+import com.gbmultiplatform.domain.utils.PermissionsBridgeListener
+import org.koin.core.context.GlobalContext
 
-open class GBMultiplatformActivity : AppCompatActivity() {
+open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListener {
+
+    private var callback: PermissionResultCallback? = null
+    private val requestPermissionLauncher: ActivityResultLauncher<String> =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                callback?.onPermissionsGranted()
+            } else {
+                val permanentlyDenied =
+                    !shouldShowRequestPermissionRationale(CAMERA)
+                callback?.onPermissionsDenied(permanentlyDenied)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
+        GlobalContext.get().get<PermissionBridge>().setListener(this)
+
         setContent {
             App()
         }
+    }
+
+    override fun requestPermission(
+        permission: PermissionType,
+        callback: PermissionResultCallback
+    ) {
+        val permissions = when(permission) {
+            PermissionType.CAMERA -> CAMERA
+            PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
+        }
+
+        when {
+            isPermissionsGranted(permissions) -> {
+                callback.onPermissionsGranted()
+            }
+
+            shouldShowRequestPermissionRationale(permissions) -> {
+                callback.onPermissionsDenied(false)
+            }
+
+            else -> {
+                this.callback = callback
+                requestPermissionLauncher.launch(permissions)
+            }
+        }
+    }
+
+    override fun isPermissionsGranted(permission: PermissionType): Boolean {
+        return when (permission) {
+            PermissionType.CAMERA -> isPermissionsGranted(CAMERA)
+            PermissionType.MEDIA_FILES -> isPermissionsGranted(READ_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun isPermissionsGranted(permission: String): Boolean {
+        return checkSelfPermission(
+            this,
+            permission
+        ) == PERMISSION_GRANTED
     }
 }

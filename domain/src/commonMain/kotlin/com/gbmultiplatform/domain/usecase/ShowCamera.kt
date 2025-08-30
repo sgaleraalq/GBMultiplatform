@@ -17,9 +17,9 @@
 package com.gbmultiplatform.domain.usecase
 
 import com.gbmultiplatform.domain.utils.IPermissionHandler
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.DENIED
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.GRANTED
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType.CAMERA
+import com.gbmultiplatform.domain.utils.PermissionStatus.DENIED
+import com.gbmultiplatform.domain.utils.PermissionStatus.GRANTED
+import com.gbmultiplatform.domain.utils.PermissionType.CAMERA
 
 class ShowCamera(
     private val permissionHandler: IPermissionHandler

@@ -16,22 +16,36 @@
 
 package com.gbmultiplatform.domain.utils
 
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
+enum class PermissionStatus { GRANTED, DENIED }
+enum class PermissionType { CAMERA, MEDIA_FILES }
 
-interface PermissionCallback {
-    fun onPermissionStatus(permissionType: PermissionType, status: PermissionStatus)
+expect interface PermissionsBridgeListener {
+    fun requestPermission(permission: PermissionType, callback: PermissionResultCallback)
+    fun isPermissionsGranted(permission: PermissionType): Boolean
+}
+
+interface PermissionResultCallback {
+    fun onPermissionsGranted()
+    fun onPermissionsDenied(isPermanentDenied: Boolean)
+}
+
+class PermissionBridge {
+    private var listener: PermissionsBridgeListener? = null
+
+    fun setListener(listener: PermissionsBridgeListener) {
+        this.listener = listener
+    }
+
+    fun requestPermission(permission: PermissionType, callback: PermissionResultCallback) {
+        listener?.requestPermission(permission, callback) ?: error("Callback handler not set")
+    }
+
+    fun isPermissionGranted(permission: PermissionType): Boolean {
+        return listener?.isPermissionsGranted(permission) ?: false
+    }
 }
 
 interface IPermissionHandler {
-    enum class PermissionStatus {
-        GRANTED, DENIED
-    }
-
-    enum class PermissionType {
-        CAMERA, MEDIA_FILES
-    }
-
     suspend fun askPermission(permissionType: PermissionType): PermissionStatus
     fun isPermissionGranted(permission: String): Boolean
 //    fun isPermissionDeniedForever(permission: String): Boolean

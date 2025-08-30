@@ -16,31 +16,51 @@
 
 package com.gbmultiplatform.domain.utils
 
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionStatus.GRANTED
-import com.gbmultiplatform.domain.utils.IPermissionHandler.PermissionType
+import android.Manifest.permission.CAMERA
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.content.Context
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat.checkSelfPermission
 import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
-class PermissionsManagerAndroid() : IPermissionHandler {
+class PermissionsManagerAndroid(
+    private val context: Context,
+    private val activity: ComponentActivity
+) :
+    IPermissionHandler {
 
     private var continuation: CancellableContinuation<PermissionStatus>? = null
+    private var launcher: ActivityResultLauncher<String> =
+        activity.registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            continuation?.resume(if (isGranted) PermissionStatus.GRANTED else PermissionStatus.DENIED)
+            continuation = null
+        }
 
     override suspend fun askPermission(
         permissionType: PermissionType
-    ): PermissionStatus = GRANTED
-//        suspendCancellableCoroutine { cont ->
-//            val permission = when (permissionType) {
-//                PermissionType.CAMERA -> CAMERA
-//                PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
-//            }
-//            if (isPermissionGranted(permission)) {
-//                cont.resume(GRANTED)
-//                continuation = null
-//            } else {
-//                launcher.launch(permission)
-//            }
-//        }
+    ): PermissionStatus =
+        suspendCancellableCoroutine { cont ->
+            val permission = when (permissionType) {
+                PermissionType.CAMERA -> CAMERA
+                PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
+            }
 
-    override fun isPermissionGranted(permission: String) = true
-//        checkSelfPermission(activity, permission) == PERMISSION_GRANTED
+            val isGranted = isPermissionGranted(permission)
+            if (isGranted) {
+                cont.resume(PermissionStatus.GRANTED)
+                continuation = null
+            } else {
+                launcher.launch(permission)
+            }
+        }
+
+    override fun isPermissionGranted(permission: String) =
+        checkSelfPermission(context, permission) == PERMISSION_GRANTED
 }

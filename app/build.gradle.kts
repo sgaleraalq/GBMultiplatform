@@ -32,4 +32,5 @@ dependencies {
     implementation(projects.core.di)
     implementation(projects.core.presentation)
     implementation(projects.data)
+    implementation(projects.domain)
 }

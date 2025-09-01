@@ -36,6 +36,7 @@ import com.gbmultiplatform.design_system.components.GBTextField
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
+import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.player_name
 import org.jetbrains.compose.resources.stringResource
@@ -47,6 +48,7 @@ fun InsertPlayerScreen(
 ) {
     val playerName by viewModel.playerName.collectAsState()
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
+    val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
     Column(
         Modifier.fillMaxSize().padding(16.dp),
@@ -79,7 +81,8 @@ fun InsertPlayerScreen(
                     },
                     onFailure = {
                         println("Failed to insert player")
-                    }
+                    },
+                    notValidPlayerMsg = notValidPlayerMsg
                 )
             }
         )

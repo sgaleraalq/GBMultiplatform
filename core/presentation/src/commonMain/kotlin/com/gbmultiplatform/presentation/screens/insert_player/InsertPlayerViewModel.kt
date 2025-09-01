@@ -19,7 +19,6 @@ package com.gbmultiplatform.presentation.screens.insert_player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.domain.model.player.Position.FORWARD
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
@@ -33,9 +32,18 @@ class InsertPlayerViewModel(
     private val toastManager: IToastManager,
     private val showCameraUseCase: ShowCamera,
     private val insertNewPlayerUseCase: InsertNewPlayer
-): ViewModel() {
+) : ViewModel() {
 
-    private val _player = MutableStateFlow<PlayerInformationModel?>(null)
+    private val _player = MutableStateFlow<PlayerInformationModel>(
+        PlayerInformationModel(
+            id = "",
+            name = "",
+            bodyImage = "",
+            faceImage = "",
+            dorsal = 0,
+            position = null
+        )
+    )
 
     private val _playerName = MutableStateFlow("")
     val playerName = _playerName
@@ -52,26 +60,28 @@ class InsertPlayerViewModel(
 
     fun insertNewPlayer(
         onSuccess: () -> Unit,
-        onFailure: () -> Unit
+        onFailure: () -> Unit,
+        notValidPlayerMsg: String
     ) {
-        val newPlayer = PlayerInformationModel(
-            id = "",
-            name = "New Player",
-            bodyImage = "https://example.com/body_image.png",
-            faceImage = "https://example.com/image.png",
-            dorsal = 1,
-            position = FORWARD
-        )
-
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                val newPlayerInserted = insertNewPlayerUseCase(newPlayer)
-                if (newPlayerInserted) {
-                    onSuccess()
-                } else {
-                    onFailure()
+        if (validPlayer()) {
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    val newPlayerInserted = insertNewPlayerUseCase(_player.value)
+                    if (newPlayerInserted) {
+                        onSuccess()
+                    } else {
+                        onFailure()
+                    }
                 }
             }
+        } else {
+            showToast(notValidPlayerMsg)
+        }
+    }
+
+    private fun validPlayer(): Boolean {
+        return _player.value.let {
+            it.name.isNotEmpty() && it.dorsal > 0 && it.position != null && it.faceImage.isNotEmpty() && it.bodyImage.isNotEmpty()
         }
     }
 

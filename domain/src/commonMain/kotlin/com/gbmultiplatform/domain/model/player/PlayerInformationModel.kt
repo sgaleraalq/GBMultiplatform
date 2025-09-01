@@ -22,5 +22,5 @@ data class PlayerInformationModel(
     val bodyImage: String,
     val faceImage: String,
     val dorsal: Int,
-    val position: Position
+    val position: Position?
 )

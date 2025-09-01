@@ -36,22 +36,29 @@ import org.koin.core.context.GlobalContext
 open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListener {
 
     private var callback: PermissionResultCallback? = null
-    private val requestPermissionLauncher: ActivityResultLauncher<String> =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                callback?.onPermissionsGranted()
-            } else {
-                val permanentlyDenied =
-                    !shouldShowRequestPermissionRationale(CAMERA)
-                callback?.onPermissionsDenied(permanentlyDenied)
-            }
-        }
+    private var pendingPermission: String? = null
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         GlobalContext.get().get<PermissionBridge>().setListener(this)
+
+        requestPermissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                val permission = pendingPermission
+                if (permission != null) {
+                    if (isGranted) {
+                        callback?.onPermissionsGranted()
+                    } else {
+                        val permanentlyDenied = !shouldShowRequestPermissionRationale(permission)
+                        callback?.onPermissionsDenied(permanentlyDenied)
+                    }
+                }
+                pendingPermission = null
+                callback = null
+            }
 
         setContent {
             App()
@@ -62,23 +69,22 @@ open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListe
         permission: PermissionType,
         callback: PermissionResultCallback
     ) {
-        val permissions = when(permission) {
+        val androidPermission = when(permission) {
             PermissionType.CAMERA -> CAMERA
             PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
         }
 
         when {
-            isPermissionsGranted(permissions) -> {
+            isPermissionsGranted(androidPermission) -> {
                 callback.onPermissionsGranted()
             }
-
-            shouldShowRequestPermissionRationale(permissions) -> {
+            shouldShowRequestPermissionRationale(androidPermission) -> {
                 callback.onPermissionsDenied(false)
             }
-
             else -> {
                 this.callback = callback
-                requestPermissionLauncher.launch(permissions)
+                this.pendingPermission = androidPermission
+                requestPermissionLauncher.launch(androidPermission)
             }
         }
     }

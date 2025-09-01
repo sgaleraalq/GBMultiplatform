@@ -16,30 +16,43 @@
 
 package com.gbmultiplatform.domain.usecase
 
-import com.gbmultiplatform.domain.utils.IPermissionHandler
-import com.gbmultiplatform.domain.utils.PermissionStatus.DENIED
-import com.gbmultiplatform.domain.utils.PermissionStatus.GRANTED
+import com.gbmultiplatform.domain.utils.PermissionBridge
+import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType.CAMERA
 
 class ShowCamera(
-    private val permissionHandler: IPermissionHandler
+    private val permissionBridge: PermissionBridge
 ) {
-    suspend operator fun invoke(
+    operator fun invoke(
         onPermissionsDenied: () -> Unit
     ) {
-        val permissionStatus = permissionHandler.askPermission(CAMERA)
+        requestCameraPermission(
+            initCamera = { openCamera() },
+            onPermissionsDenied = { onPermissionsDenied() }
+        )
+    }
 
-        when (permissionStatus) {
-            GRANTED -> {
-                openCamera()
-            }
-            DENIED -> {
-                onPermissionsDenied()
-            }
-        }
+    private fun requestCameraPermission(
+        initCamera: () -> Unit,
+        onPermissionsDenied: () -> Unit
+    ) {
+        permissionBridge
+            .requestPermission(
+                permission = CAMERA,
+                callback = object : PermissionResultCallback {
+                    override fun onPermissionsGranted() {
+                        permissionBridge.isPermissionGranted(CAMERA)
+                        initCamera()
+                    }
+
+                    override fun onPermissionsDenied(isPermanentDenied: Boolean) {
+                        onPermissionsDenied()
+                    }
+                }
+            )
     }
 
     private fun openCamera() {
-
+        println("Opening camera...")
     }
 }

@@ -22,6 +22,7 @@ import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
+import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel
@@ -48,6 +49,7 @@ val viewModelHelpersModule = module {
     factory<IPlayerProvider> { PlayerProvider() }
     factory<ITeamProvider> { TeamProvider() }
     factory { GetMatchResultUseCase() }
+    single { PermissionBridge() }
 }
 
 val useCasesModule = module {

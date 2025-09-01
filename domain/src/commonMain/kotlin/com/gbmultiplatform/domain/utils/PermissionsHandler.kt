@@ -48,5 +48,4 @@ class PermissionBridge {
 interface IPermissionHandler {
     suspend fun askPermission(permissionType: PermissionType): PermissionStatus
     fun isPermissionGranted(permission: String): Boolean
-//    fun isPermissionDeniedForever(permission: String): Boolean
 }

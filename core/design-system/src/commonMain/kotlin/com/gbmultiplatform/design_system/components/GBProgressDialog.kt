@@ -29,16 +29,19 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun GBProgressDialog(
     show: Boolean,
-    color: Color
+    color: Color,
+    modifier: Modifier = Modifier.fillMaxSize(),
+    thickness: Float = 4f
 ) {
     if (show) {
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier,
             contentAlignment = Center
         ) {
             CircularProgressIndicator(
                 modifier = Modifier.size(32.dp),
-                color = color
+                color = color,
+                strokeWidth = thickness.dp
             )
         }
     }

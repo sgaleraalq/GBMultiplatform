@@ -13,14 +13,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil3.decode.BlackholeDecoder
-import com.gbmultiplatform.design_system.style.bottom_nav_bg
+import com.gbmultiplatform.design_system.components.ImageState.ERROR
+import com.gbmultiplatform.design_system.components.ImageState.LOADING
+import com.gbmultiplatform.design_system.components.ImageState.NONE
+import com.gbmultiplatform.design_system.components.ImageState.SUCCESS
 import com.gbmultiplatform.design_system.style.gBTypography
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.ic_camera
 import org.jetbrains.compose.resources.painterResource
+
+enum class ImageState { NONE, LOADING, SUCCESS, ERROR }
 
 @Composable
 fun GBImageBoxRequester(
@@ -30,6 +35,7 @@ fun GBImageBoxRequester(
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {}
 ) {
+    val state = LOADING
     Row(
         modifier = modifier
             .clickable { onClick() }
@@ -42,17 +48,24 @@ fun GBImageBoxRequester(
     ) {
         GBText(text, style = gBTypography().bodyMedium)
         Spacer(Modifier.weight(1f))
-        if (image.isNotBlank()) {
-            GBImage(
-                modifier = Modifier.size(iconSize),
-                image = image,
-            )
-        } else {
-            Image(
-                modifier = Modifier.size(iconSize),
-                painter = painterResource(Res.drawable.ic_camera),
-                contentDescription = null // TODO
-            )
+        when (state) {
+            NONE -> {
+                GBImage(
+                    modifier = Modifier.size(iconSize),
+                    image = image,
+                )
+            }
+            LOADING -> {
+                GBProgressDialog(true, White, Modifier.size(iconSize).padding(4.dp), 3f)
+            }
+            SUCCESS -> {
+                Image(
+                    modifier = Modifier.size(iconSize),
+                    painter = painterResource(Res.drawable.ic_camera),
+                    contentDescription = null // TODO
+                )
+            }
+            ERROR -> {}
         }
     }
 }

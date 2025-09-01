@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -21,6 +20,7 @@ import com.gbmultiplatform.design_system.components.ImageState.LOADING
 import com.gbmultiplatform.design_system.components.ImageState.NONE
 import com.gbmultiplatform.design_system.components.ImageState.SUCCESS
 import com.gbmultiplatform.design_system.style.gBTypography
+import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.ic_camera
 import org.jetbrains.compose.resources.painterResource
@@ -35,12 +35,13 @@ fun GBImageBoxRequester(
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {}
 ) {
-    val state = LOADING
+    val state = LOADING // todo change
+
     Row(
         modifier = modifier
             .clickable { onClick() }
             .background(
-                color = Black, // todo change,
+                color = gray_box_in_black_bg,
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(12.dp),

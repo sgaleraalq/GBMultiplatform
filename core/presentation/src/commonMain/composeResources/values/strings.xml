@@ -26,6 +26,10 @@
 
 <!--    insert new player-->
     <string name="insert_new_player">Insert new player</string>
+    <string name="information">Information</string>
+    <string name="images">Images</string>
+    <string name="dorsal">Dorsal</string>
+    <string name="position">Position</string>
     <string name="insert_player">Insert player</string>
     <string name="player_name">Player name</string>
     <string name="face_image">Upload a face image</string>

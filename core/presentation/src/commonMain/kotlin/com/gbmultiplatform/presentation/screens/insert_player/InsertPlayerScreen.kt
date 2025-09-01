@@ -31,16 +31,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
-import com.gbmultiplatform.design_system.components.GBImageBoxRequester
-import com.gbmultiplatform.design_system.components.GBTextField
+import com.gbmultiplatform.presentation.screens.insert_player.ui.InsertPlayerImages
+import com.gbmultiplatform.presentation.screens.insert_player.ui.MainInformation
 import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.body_image
-import gbmultiplatform.core.presentation.generated.resources.face_image
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
-import gbmultiplatform.core.presentation.generated.resources.player_name
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -58,47 +55,38 @@ fun InsertPlayerScreen(
         verticalArrangement = spacedBy(8.dp)
     ) {
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
-        GBTextField(
-            modifier = Modifier.fillMaxWidth(),
-            text = player.name,
-            onTextChanged = { viewModel.changePlayerName(it) },
-            label = stringResource(Res.string.player_name)
+        MainInformation(
+            playerName = player.name,
+            onPlayerNameChanged = { name -> viewModel.changePlayerName(name) }
         )
-        GBImageBoxRequester(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(Res.string.face_image),
-            image = player.faceImage,
-            onClick = {
-                viewModel.initCamera(
-                    permissionDeniedMsg = permissionDeniedCamera
-                )
-            }
-        )
-        GBImageBoxRequester(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(Res.string.body_image),
-            image = player.bodyImage,
-            onClick = {
+        Spacer(Modifier.height(16.dp))
+        InsertPlayerImages(
+            faceImg = player.faceImage,
+            bodyImg = player.bodyImage,
+            initCamera = {
                 viewModel.initCamera(
                     permissionDeniedMsg = permissionDeniedCamera
                 )
             }
         )
         Spacer(Modifier.weight(1f))
-        GBElevatedButton(
-            modifier = Modifier.fillMaxWidth().padding(12.dp),
-            text = stringResource(Res.string.insert_player),
-            onClick = {
-                viewModel.insertNewPlayer(
-                    onSuccess = {
-                        println("Player inserted successfully")
-                    },
-                    onFailure = {
-                        println("Failed to insert player")
-                    },
-                    notValidPlayerMsg = notValidPlayerMsg
-                )
-            }
-        )
+        InsertPlayerButton {
+            viewModel.insertNewPlayer(
+                onSuccess = { println("Player inserted successfully") },
+                onFailure = { println("Failed to insert player") },
+                notValidPlayerMsg = notValidPlayerMsg
+            )
+        }
     }
+}
+
+@Composable
+fun InsertPlayerButton(
+    onInsert: () -> Unit
+) {
+    GBElevatedButton(
+        modifier = Modifier.fillMaxWidth().padding(12.dp),
+        text = stringResource(Res.string.insert_player),
+        onClick = { onInsert() }
+    )
 }

@@ -16,7 +16,7 @@
 
 package com.gbmultiplatform.di.provider
 
-import com.gbmultiplatform.di.generateRandomUUID
+import com.gbmultiplatform.domain.utils.generateRandomUUID
 import com.gbmultiplatform.helper.getActualTimeAsLong
 import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.domain.model.match.MatchModel

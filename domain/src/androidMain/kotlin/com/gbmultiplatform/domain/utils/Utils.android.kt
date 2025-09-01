@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.di
+package com.gbmultiplatform.domain.utils
 
-expect fun generateRandomUUID(): String
+import java.util.UUID
+
+actual fun generateRandomUUID() =
+    UUID.randomUUID().toString()

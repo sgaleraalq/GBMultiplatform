@@ -34,9 +34,8 @@ class InsertPlayerViewModel(
     private val insertNewPlayerUseCase: InsertNewPlayer
 ) : ViewModel() {
 
-    private val _player = MutableStateFlow<PlayerInformationModel>(
+    private val _player = MutableStateFlow(
         PlayerInformationModel(
-            id = "",
             name = "",
             bodyImage = "",
             faceImage = "",
@@ -44,9 +43,11 @@ class InsertPlayerViewModel(
             position = null
         )
     )
+    val player = _player
 
-    private val _playerName = MutableStateFlow("")
-    val playerName = _playerName
+    fun changePlayerName(name: String) {
+        _player.value = _player.value.copy(name = name)
+    }
 
     fun initCamera(
         permissionDeniedMsg: String

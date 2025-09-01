@@ -16,8 +16,10 @@
 
 package com.gbmultiplatform.domain.model.player
 
+import com.gbmultiplatform.domain.utils.generateRandomUUID
+
 data class PlayerInformationModel(
-    val id: String,
+    val id: String = generateRandomUUID(),
     val name: String,
     val bodyImage: String,
     val faceImage: String,

@@ -16,7 +16,7 @@
 
 package com.gbmultiplatform.di.provider
 
-import com.gbmultiplatform.di.generateRandomUUID
+import com.gbmultiplatform.domain.utils.generateRandomUUID
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.PlayerStatsModel

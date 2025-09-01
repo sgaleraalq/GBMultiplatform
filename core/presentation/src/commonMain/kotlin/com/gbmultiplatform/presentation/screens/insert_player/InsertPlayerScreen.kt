@@ -34,6 +34,8 @@ import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBTextField
 import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.body_image
+import gbmultiplatform.core.presentation.generated.resources.face_image
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
@@ -46,7 +48,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun InsertPlayerScreen(
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
-    val playerName by viewModel.playerName.collectAsState()
+    val player by viewModel.player.collectAsState()
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
@@ -58,12 +60,24 @@ fun InsertPlayerScreen(
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
         GBTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = playerName,
-            onTextChanged = { viewModel.playerName.value = it },
+            text = player.name,
+            onTextChanged = { viewModel.changePlayerName(it) },
             label = stringResource(Res.string.player_name)
         )
         GBImageBoxRequester(
-            modifier = Modifier.fillMaxWidth().height(250.dp),
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(Res.string.face_image),
+            image = player.faceImage,
+            onClick = {
+                viewModel.initCamera(
+                    permissionDeniedMsg = permissionDeniedCamera
+                )
+            }
+        )
+        GBImageBoxRequester(
+            modifier = Modifier.fillMaxWidth(),
+            text = stringResource(Res.string.body_image),
+            image = player.bodyImage,
             onClick = {
                 viewModel.initCamera(
                     permissionDeniedMsg = permissionDeniedCamera

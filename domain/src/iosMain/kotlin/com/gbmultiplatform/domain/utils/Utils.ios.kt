@@ -1,4 +1,4 @@
-package com.gbmultiplatform.di
+package com.gbmultiplatform.domain.utils
 
 import platform.Foundation.NSUUID
 

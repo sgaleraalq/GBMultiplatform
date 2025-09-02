@@ -21,11 +21,15 @@ import gbmultiplatform.domain.generated.resources.defender
 import gbmultiplatform.domain.generated.resources.forward
 import gbmultiplatform.domain.generated.resources.goalkeeper
 import gbmultiplatform.domain.generated.resources.midfielder
+import gbmultiplatform.domain.generated.resources.undefined
 import org.jetbrains.compose.resources.StringResource
 
 enum class Position(
     val positionName: StringResource
 ) {
+    UNDEFINED(
+        Res.string.undefined
+    ),
     GOALKEEPER(
         Res.string.goalkeeper
     ),

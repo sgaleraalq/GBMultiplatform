@@ -4,6 +4,7 @@
     <string name="cup">Cup</string>
 
 <!--    positions-->
+    <string name="undefined">Undefined</string>
     <string name="goalkeeper">Goalkeeper</string>
     <string name="defender">Defender</string>
     <string name="midfielder">Midfielder</string>

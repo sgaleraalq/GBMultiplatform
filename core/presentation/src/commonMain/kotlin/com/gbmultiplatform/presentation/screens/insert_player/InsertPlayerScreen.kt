@@ -107,8 +107,8 @@ fun InsertPlayerScreen(
         DORSAL -> {
             DorsalDialog(
                 show = true,
-                dorsals = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-                onDorsalClicked = {},
+                dorsals = dorsals,
+                onDorsalClicked = { viewModel.updateDorsal(it) },
                 dismiss = { viewModel.changeState(DEFAULT) }
             )
         }
@@ -116,8 +116,7 @@ fun InsertPlayerScreen(
         POSITION -> {
             PositionDialog(
                 show = true,
-                dorsals = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-                onDorsalClicked = {},
+                onPositionClicked = { viewModel.updatePosition(it) },
                 dismiss = { viewModel.changeState(DEFAULT) }
             )
         }

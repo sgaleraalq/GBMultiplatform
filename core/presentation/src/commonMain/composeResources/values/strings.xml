@@ -30,6 +30,8 @@
     <string name="images">Images</string>
     <string name="dorsal">Dorsal</string>
     <string name="position">Position</string>
+    <string name="select_dorsal">Select a dorsal</string>
+    <string name="select_position">Select a position</string>
     <string name="insert_player">Insert player</string>
     <string name="player_name">Player name</string>
     <string name="face_image">Upload a face image</string>

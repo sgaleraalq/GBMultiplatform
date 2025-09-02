@@ -19,6 +19,7 @@ package com.gbmultiplatform.presentation.screens.insert_player
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
@@ -71,6 +72,14 @@ class InsertPlayerViewModel(
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)
+    }
+
+    fun updateDorsal(dorsal: Int) {
+        _player.value = _player.value.copy(dorsal = dorsal)
+    }
+
+    fun updatePosition(position: Position) {
+        _player.value = _player.value.copy(position = position)
     }
 
     fun initCamera(

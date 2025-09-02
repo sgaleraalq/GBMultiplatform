@@ -82,11 +82,16 @@ fun DorsalAndPosition(
     ) {
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = if (dorsal == 0) stringResource(Res.string.dorsal) else dorsal.toString()
+            informationText =
+                if (dorsal == 0) {
+                    stringResource(Res.string.dorsal)
+                } else {
+                    "${stringResource(Res.string.dorsal)}: $dorsal"
+                }
         ) { onDorsalClicked() }
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = position?.name ?: stringResource(Res.string.position)
+            informationText = stringResource(position?.positionName ?: Res.string.position)
         ) { onPositionClicked() }
     }
 }

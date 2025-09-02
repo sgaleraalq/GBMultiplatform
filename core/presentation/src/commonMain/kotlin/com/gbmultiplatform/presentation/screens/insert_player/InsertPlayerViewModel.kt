@@ -22,6 +22,7 @@ import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +35,8 @@ class InsertPlayerViewModel(
     private val insertNewPlayerUseCase: InsertNewPlayer
 ) : ViewModel() {
 
+    enum class InsertPlayerState { DEFAULT, DORSAL, POSITION }
+
     private val _player = MutableStateFlow(
         PlayerInformationModel(
             name = "",
@@ -44,6 +47,12 @@ class InsertPlayerViewModel(
         )
     )
     val player = _player
+
+    val state = MutableStateFlow(DEFAULT)
+
+    fun changeState(newState: InsertPlayerState) {
+        state.value = newState
+    }
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)

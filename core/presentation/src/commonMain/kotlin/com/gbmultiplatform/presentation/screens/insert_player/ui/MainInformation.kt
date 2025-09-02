@@ -35,6 +35,7 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.components.GBTextField
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
+import com.gbmultiplatform.domain.model.player.Position
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.dorsal
 import gbmultiplatform.core.presentation.generated.resources.information
@@ -45,7 +46,11 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun MainInformation(
     playerName: String,
-    onPlayerNameChanged: (String) -> Unit
+    dorsal: Int,
+    position: Position?,
+    onPlayerNameChanged: (String) -> Unit,
+    onDorsalClicked: () -> Unit,
+    onPositionClicked: () -> Unit
 ) {
     GBText(
         modifier = Modifier.fillMaxWidth(),
@@ -60,11 +65,16 @@ fun MainInformation(
         label = stringResource(Res.string.player_name)
     )
     Spacer(Modifier.height(8.dp))
-    DorsalAndPosition()
+    DorsalAndPosition(dorsal, position, onDorsalClicked, onPositionClicked)
 }
 
 @Composable
-fun DorsalAndPosition() {
+fun DorsalAndPosition(
+    dorsal: Int,
+    position: Position?,
+    onDorsalClicked: () -> Unit,
+    onPositionClicked: () -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth().height(100.dp),
         verticalAlignment = CenterVertically,
@@ -72,25 +82,27 @@ fun DorsalAndPosition() {
     ) {
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = stringResource(Res.string.dorsal)
-        )
+            informationText = if (dorsal == 0) stringResource(Res.string.dorsal) else dorsal.toString()
+        ) { onDorsalClicked() }
         InformationComponent(
             modifier = Modifier.weight(1f),
-            informationText = stringResource(Res.string.position)
-        )
+            informationText = position?.name ?: stringResource(Res.string.position)
+        ) { onPositionClicked() }
     }
 }
 
 @Composable
 fun InformationComponent(
     modifier: Modifier,
-    informationText: String
+    informationText: String,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
             containerColor = gray_box_in_black_bg
-        )
+        ),
+        onClick = { onClick() }
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),

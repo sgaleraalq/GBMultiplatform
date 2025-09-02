@@ -26,13 +26,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.*
+import com.gbmultiplatform.presentation.screens.insert_player.ui.DorsalDialog
 import com.gbmultiplatform.presentation.screens.insert_player.ui.InsertPlayerImages
 import com.gbmultiplatform.presentation.screens.insert_player.ui.MainInformation
+import com.gbmultiplatform.presentation.screens.insert_player.ui.PositionDialog
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
@@ -46,6 +53,7 @@ fun InsertPlayerScreen(
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
     val player by viewModel.player.collectAsState()
+    val state by viewModel.state.collectAsState()
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
@@ -57,7 +65,11 @@ fun InsertPlayerScreen(
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
         MainInformation(
             playerName = player.name,
-            onPlayerNameChanged = { name -> viewModel.changePlayerName(name) }
+            dorsal = player.dorsal,
+            position = player.position,
+            onPlayerNameChanged = { name -> viewModel.changePlayerName(name) },
+            onDorsalClicked = { viewModel.changeState(DORSAL) },
+            onPositionClicked = { viewModel.changeState(POSITION) }
         )
         Spacer(Modifier.height(16.dp))
         InsertPlayerImages(
@@ -76,6 +88,26 @@ fun InsertPlayerScreen(
                 onFailure = { println("Failed to insert player") },
                 notValidPlayerMsg = notValidPlayerMsg
             )
+        }
+
+        when (state) {
+            DEFAULT -> {}
+            DORSAL -> {
+                DorsalDialog(
+                    show = true,
+                    dorsals = listOf(1,2,3,4,5,6,7,8,9,10),
+                    onDorsalClicked = {},
+                    dismiss = { viewModel.changeState(DEFAULT) }
+                )
+            }
+            POSITION -> {
+                PositionDialog(
+                    show = true,
+                    dorsals = listOf(1,2,3,4,5,6,7,8,9,10),
+                    onDorsalClicked = {},
+                    dismiss = { viewModel.changeState(DEFAULT) }
+                )
+            }
         }
     }
 }

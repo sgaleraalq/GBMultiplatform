@@ -35,7 +35,7 @@ fun GBImageBoxRequester(
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {}
 ) {
-    val state = LOADING // todo change
+    val state = NONE // todo change
 
     Row(
         modifier = modifier
@@ -51,19 +51,19 @@ fun GBImageBoxRequester(
         Spacer(Modifier.weight(1f))
         when (state) {
             NONE -> {
-                GBImage(
+                Image(
                     modifier = Modifier.size(iconSize),
-                    image = image,
+                    painter = painterResource(Res.drawable.ic_camera),
+                    contentDescription = null // TODO
                 )
             }
             LOADING -> {
                 GBProgressDialog(true, White, Modifier.size(iconSize).padding(4.dp), 3f)
             }
             SUCCESS -> {
-                Image(
+                GBImage(
                     modifier = Modifier.size(iconSize),
-                    painter = painterResource(Res.drawable.ic_camera),
-                    contentDescription = null // TODO
+                    image = image,
                 )
             }
             ERROR -> {}

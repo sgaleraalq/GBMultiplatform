@@ -23,8 +23,10 @@ import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -35,7 +37,11 @@ class InsertPlayerViewModel(
     private val insertNewPlayerUseCase: InsertNewPlayer
 ) : ViewModel() {
 
-    enum class InsertPlayerState { DEFAULT, DORSAL, POSITION }
+    enum class InsertPlayerState { LOADING, DEFAULT, DORSAL, POSITION }
+    val state = MutableStateFlow(LOADING)
+    fun changeState(newState: InsertPlayerState) {
+        state.value = newState
+    }
 
     private val _player = MutableStateFlow(
         PlayerInformationModel(
@@ -48,11 +54,20 @@ class InsertPlayerViewModel(
     )
     val player = _player
 
-    val state = MutableStateFlow(DEFAULT)
+    private val _availableDorsals = MutableStateFlow<List<Int>>(emptyList())
+    val dorsals = _availableDorsals
 
-    fun changeState(newState: InsertPlayerState) {
-        state.value = newState
+    init {
+        // TODO
+        viewModelScope.launch {
+            _availableDorsals.value = withContext(Dispatchers.IO) {
+                (1..99).toList()
+            }
+            delay(1000L)
+            state.value = DEFAULT
+        }
     }
+
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)

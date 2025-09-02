@@ -27,12 +27,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
+import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
@@ -47,6 +51,7 @@ import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
+import gbmultiplatform.core.presentation.generated.resources.select_media_from
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -58,42 +63,63 @@ fun InsertPlayerScreen(
     val state by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
 
+    var showMediaOrCamera by remember { mutableStateOf(false) }
+    var showInsertPlayer by remember { mutableStateOf(true) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
     Column(
-        Modifier.fillMaxSize().padding(16.dp),
-        horizontalAlignment = CenterHorizontally,
-        verticalArrangement = spacedBy(8.dp)
+        modifier = Modifier.fillMaxSize()
     ) {
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
 
         if (state != LOADING) {
-            MainInformation(
-                playerName = player.name,
-                dorsal = player.dorsal,
-                position = player.position,
-                onPlayerNameChanged = { name -> viewModel.changePlayerName(name) },
-                onDorsalClicked = { viewModel.changeState(DORSAL) },
-                onPositionClicked = { viewModel.changeState(POSITION) }
-            )
-            Spacer(Modifier.height(16.dp))
-            InsertPlayerImages(
-                faceImg = player.faceImage,
-                bodyImg = player.bodyImage,
-                initCamera = {
-                    viewModel.initCamera(
-                        permissionDeniedMsg = permissionDeniedCamera
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = CenterHorizontally,
+                verticalArrangement = spacedBy(8.dp)
+            ) {
+                MainInformation(
+                    playerName = player.name,
+                    dorsal = player.dorsal,
+                    position = player.position,
+                    onPlayerNameChanged = { name -> viewModel.changePlayerName(name) },
+                    onDorsalClicked = { viewModel.changeState(DORSAL) },
+                    onPositionClicked = { viewModel.changeState(POSITION) }
+                )
+                Spacer(Modifier.height(16.dp))
+                InsertPlayerImages(
+                    faceImg = player.faceImage,
+                    bodyImg = player.bodyImage,
+                    showMediaOrCamera = {
+                        showMediaOrCamera = !showMediaOrCamera
+                        showInsertPlayer = !showInsertPlayer
+                    }
+                )
+            }
+            Spacer(Modifier.weight(1f))
+            if (showMediaOrCamera) {
+                GBMediaOrCamera(
+                    title = stringResource(Res.string.select_media_from),
+                    onMediaClicked = {
+//                        viewModel.initMediaPicker()
+                    },
+                    onCameraClicked = {
+                        viewModel.initCamera(
+                            permissionDeniedMsg = permissionDeniedCamera
+                        )
+                    }
+                )
+            }
+
+            if (showInsertPlayer) {
+                InsertPlayerButton {
+                    viewModel.insertNewPlayer(
+                        onSuccess = { println("Player inserted successfully") },
+                        onFailure = { println("Failed to insert player") },
+                        notValidPlayerMsg = notValidPlayerMsg
                     )
                 }
-            )
-            Spacer(Modifier.weight(1f))
-            InsertPlayerButton {
-                viewModel.insertNewPlayer(
-                    onSuccess = { println("Player inserted successfully") },
-                    onFailure = { println("Failed to insert player") },
-                    notValidPlayerMsg = notValidPlayerMsg
-                )
             }
         }
     }

@@ -31,6 +31,7 @@
     <string name="dorsal">Dorsal</string>
     <string name="position">Position</string>
     <string name="select_dorsal">Select a dorsal</string>
+    <string name="select_media_from">Select how to take the picture</string>
     <string name="select_position">Select a position</string>
     <string name="insert_player">Insert player</string>
     <string name="player_name">Player name</string>

@@ -18,8 +18,11 @@ package com.gbmultiplatform.presentation
 
 import android.Manifest.permission.CAMERA
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -27,13 +30,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.gbmultiplatform.App
+import com.gbmultiplatform.domain.utils.CameraBridge
+import com.gbmultiplatform.domain.utils.ICameraManager
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType
 import com.gbmultiplatform.domain.utils.PermissionsBridgeListener
 import org.koin.core.context.GlobalContext
 
-open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListener {
+open class GBMultiplatformActivity :
+    AppCompatActivity(),
+    PermissionsBridgeListener,
+    ICameraManager
+{
 
     private var callback: PermissionResultCallback? = null
     private var pendingPermission: String? = null
@@ -44,6 +53,7 @@ open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListe
         super.onCreate(savedInstanceState)
 
         GlobalContext.get().get<PermissionBridge>().setListener(this)
+        GlobalContext.get().get<CameraBridge>().setListener(this)
 
         requestPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -69,7 +79,7 @@ open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListe
         permission: PermissionType,
         callback: PermissionResultCallback
     ) {
-        val androidPermission = when(permission) {
+        val androidPermission = when (permission) {
             PermissionType.CAMERA -> CAMERA
             PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
         }
@@ -78,9 +88,11 @@ open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListe
             isPermissionsGranted(androidPermission) -> {
                 callback.onPermissionsGranted()
             }
+
             shouldShowRequestPermissionRationale(androidPermission) -> {
                 callback.onPermissionsDenied(false)
             }
+
             else -> {
                 this.callback = callback
                 this.pendingPermission = androidPermission
@@ -101,5 +113,12 @@ open class GBMultiplatformActivity : AppCompatActivity(), PermissionsBridgeListe
             this,
             permission
         ) == PERMISSION_GRANTED
+    }
+
+    override fun openCamera() {
+        val intent = Intent(ACTION_IMAGE_CAPTURE)
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
     }
 }

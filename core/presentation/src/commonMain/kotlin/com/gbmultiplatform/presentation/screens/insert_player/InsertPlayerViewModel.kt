@@ -23,6 +23,7 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
+import com.gbmultiplatform.domain.utils.SharedImage
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import kotlinx.coroutines.Dispatchers
@@ -69,7 +70,6 @@ class InsertPlayerViewModel(
         }
     }
 
-
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)
     }
@@ -82,11 +82,22 @@ class InsertPlayerViewModel(
         _player.value = _player.value.copy(position = position)
     }
 
+    fun updatePicture(sharedImage: SharedImage?) {
+        viewModelScope.launch {
+            val bitmap = withContext(Dispatchers.IO) {
+                sharedImage?.toImageBitmap()
+            }
+            _player.value = _player.value.copy(faceImage = bitmap.toString())
+        }
+    }
+
     fun initCamera(
+        launchCamera: () -> Unit,
         permissionDeniedMsg: String
     ) {
         viewModelScope.launch {
             showCameraUseCase(
+                onLaunchCamera = { launchCamera() },
                 onPermissionsDenied = { showToast(permissionDeniedMsg) }
             )
         }

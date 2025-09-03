@@ -16,21 +16,19 @@
 
 package com.gbmultiplatform.domain.usecase
 
-import com.gbmultiplatform.domain.utils.CameraBridge
-import com.gbmultiplatform.domain.utils.ICameraManager
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType.CAMERA
 
 class ShowCamera(
-    private val permissionBridge: PermissionBridge,
-    private val cameraManager: CameraBridge
+    private val permissionBridge: PermissionBridge
 ) {
     operator fun invoke(
+        onLaunchCamera: () -> Unit,
         onPermissionsDenied: () -> Unit
     ) {
         requestCameraPermission(
-            initCamera = { openCamera() },
+            initCamera = { onLaunchCamera() },
             onPermissionsDenied = { onPermissionsDenied() }
         )
     }
@@ -53,9 +51,5 @@ class ShowCamera(
                     }
                 }
             )
-    }
-
-    private fun openCamera() {
-        cameraManager.openCamera()
     }
 }

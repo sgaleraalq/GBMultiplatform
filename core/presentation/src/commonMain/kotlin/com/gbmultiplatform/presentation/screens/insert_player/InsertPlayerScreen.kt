@@ -38,6 +38,7 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
+import com.gbmultiplatform.domain.utils.rememberCameraManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
@@ -66,6 +67,10 @@ fun InsertPlayerScreen(
     var showMediaOrCamera by remember { mutableStateOf(false) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
+
+    val cameraManager = rememberCameraManager {
+        viewModel.updatePicture(it)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -113,6 +118,7 @@ fun InsertPlayerScreen(
             },
             onCameraClicked = {
                 viewModel.initCamera(
+                    launchCamera = { cameraManager.launch() },
                     permissionDeniedMsg = permissionDeniedCamera
                 )
             }

@@ -1,0 +1,77 @@
+/*
+ * Designed and developed by 2025 sgaleraalq (Sergio Galera)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.gbmultiplatform.domain.utils
+
+import android.content.ContentResolver
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.net.Uri.EMPTY
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import java.io.InputStream
+
+// CameraManager.android.kt
+@Composable
+actual fun rememberCameraManager(onResult: (SharedImage?) -> Unit): CameraManager {
+    val context = LocalContext.current
+    val contentResolver: ContentResolver = context.contentResolver
+    var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture(),
+        onResult = { success ->
+            if (success) {
+                onResult.invoke(SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver)))
+            }
+        }
+    )
+    return remember {
+        CameraManager(
+            onLaunch = {
+                tempPhotoUri = ComposeFileProvider.getImageUri(context)
+                cameraLauncher.launch(tempPhotoUri)
+            }
+        )
+    }
+}
+
+actual class CameraManager actual constructor(
+    private val onLaunch: () -> Unit
+) {
+    actual fun launch() {
+        onLaunch()
+    }
+}
+
+
+fun getBitmapFromUri(uri: Uri, contentResolver: ContentResolver): android.graphics.Bitmap? {
+    var inputStream: InputStream?
+    try {
+        inputStream = contentResolver.openInputStream(uri)
+        val s = BitmapFactory.decodeStream(inputStream)
+        inputStream?.close()
+        return s
+    } catch (e: Exception) {
+        e.printStackTrace()
+        return null
+    }
+}

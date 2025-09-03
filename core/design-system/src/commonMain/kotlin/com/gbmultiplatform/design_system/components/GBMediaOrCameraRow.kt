@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.Center
@@ -41,41 +42,51 @@ import gbmultiplatform.core.design_system.generated.resources.ic_media
 @Composable
 fun GBMediaOrCamera(
     title: String,
+    dismiss: () -> Unit,
     onMediaClicked: () -> Unit,
     onCameraClicked: () -> Unit
 ) {
-    Column {
-        GBText(
-            modifier = Modifier.fillMaxWidth(),
-            text = title,
-            style = gBTypography().bodySmall,
-            alignment = TextAlign.Center
-        )
-        Spacer(Modifier.height(8.dp))
-        Row(
+    GBDialog(true, dismiss = dismiss) {
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(gray_box_in_black_bg),
-            verticalAlignment = CenterVertically
+                .background(
+                    color = gray_box_in_black_bg,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .padding(16.dp)
         ) {
-            Box(
+            GBText(
+                modifier = Modifier.fillMaxWidth(),
+                text = title,
+                style = gBTypography().bodySmall,
+                alignment = TextAlign.Center
+            )
+            Spacer(Modifier.height(8.dp))
+            Row(
                 modifier = Modifier
-                    .weight(1f)
-                    .clickable { onMediaClicked() }
-                    .padding(12.dp),
-                contentAlignment = Center
+                    .fillMaxWidth()
+                    .background(gray_box_in_black_bg),
+                verticalAlignment = CenterVertically
             ) {
-                GBIcon(icon = Res.drawable.ic_media)
-            }
-            VerticalDivider(Modifier.height(24.dp))
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .clickable { onCameraClicked() }
-                    .padding(12.dp),
-                contentAlignment = Center
-            ) {
-                GBIcon(icon = Res.drawable.ic_camera)
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onMediaClicked() }
+                        .padding(12.dp),
+                    contentAlignment = Center
+                ) {
+                    GBIcon(icon = Res.drawable.ic_media)
+                }
+                VerticalDivider(Modifier.height(24.dp))
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { onCameraClicked() }
+                        .padding(12.dp),
+                    contentAlignment = Center
+                ) {
+                    GBIcon(icon = Res.drawable.ic_camera)
+                }
             }
         }
     }

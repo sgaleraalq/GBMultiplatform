@@ -64,7 +64,6 @@ fun InsertPlayerScreen(
     val dorsals by viewModel.dorsals.collectAsState()
 
     var showMediaOrCamera by remember { mutableStateOf(false) }
-    var showInsertPlayer by remember { mutableStateOf(true) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
@@ -91,37 +90,33 @@ fun InsertPlayerScreen(
                 InsertPlayerImages(
                     faceImg = player.faceImage,
                     bodyImg = player.bodyImage,
-                    showMediaOrCamera = {
-                        showMediaOrCamera = !showMediaOrCamera
-                        showInsertPlayer = !showInsertPlayer
-                    }
+                    showMediaOrCamera = { showMediaOrCamera = true }
                 )
             }
             Spacer(Modifier.weight(1f))
-            if (showMediaOrCamera) {
-                GBMediaOrCamera(
-                    title = stringResource(Res.string.select_media_from),
-                    onMediaClicked = {
-//                        viewModel.initMediaPicker()
-                    },
-                    onCameraClicked = {
-                        viewModel.initCamera(
-                            permissionDeniedMsg = permissionDeniedCamera
-                        )
-                    }
+            InsertPlayerButton {
+                viewModel.insertNewPlayer(
+                    onSuccess = { println("Player inserted successfully") },
+                    onFailure = { println("Failed to insert player") },
+                    notValidPlayerMsg = notValidPlayerMsg
                 )
             }
-
-            if (showInsertPlayer) {
-                InsertPlayerButton {
-                    viewModel.insertNewPlayer(
-                        onSuccess = { println("Player inserted successfully") },
-                        onFailure = { println("Failed to insert player") },
-                        notValidPlayerMsg = notValidPlayerMsg
-                    )
-                }
-            }
         }
+    }
+
+    if (showMediaOrCamera) {
+        GBMediaOrCamera(
+            title = stringResource(Res.string.select_media_from),
+            dismiss = { showMediaOrCamera = false },
+            onMediaClicked = {
+//                        viewModel.initMediaPicker()
+            },
+            onCameraClicked = {
+                viewModel.initCamera(
+                    permissionDeniedMsg = permissionDeniedCamera
+                )
+            }
+        )
     }
 
     when (state) {

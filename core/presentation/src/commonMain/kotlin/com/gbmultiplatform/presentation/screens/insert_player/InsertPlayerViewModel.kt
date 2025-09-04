@@ -23,8 +23,9 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
+import com.gbmultiplatform.domain.utils.ImagePath
 import com.gbmultiplatform.domain.utils.SharedImage
-import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.*
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import kotlinx.coroutines.Dispatchers
@@ -70,7 +71,6 @@ class InsertPlayerViewModel(
             _availableDorsals.value = withContext(Dispatchers.IO) {
                 (1..99).toList()
             }
-            delay(1000L)
             state.value = DEFAULT
         }
     }
@@ -87,24 +87,23 @@ class InsertPlayerViewModel(
         _player.value = _player.value.copy(position = position)
     }
 
-    fun updatePicture(sharedImage: SharedImage?) {
+    fun updatePicture(path: ImagePath?) {
         viewModelScope.launch {
-            if (sharedImage == null) return@launch
             when (_imageSelected.value) {
-                CameraState.FACE -> updateFaceImage(sharedImage)
-                CameraState.BODY -> updateBodyImage(sharedImage)
+                FACE -> updateFaceImage(path)
+                BODY -> updateBodyImage(path)
                 else -> return@launch
             }
         }
     }
 
-    private fun updateFaceImage(sharedImage: SharedImage) {
-        _player.value = _player.value.copy(faceImage = sharedImage)
+    private fun updateFaceImage(path: ImagePath?) {
+        _player.value = _player.value.copy(faceImage = path)
         updateImageSelected(NONE)
     }
 
-    private fun updateBodyImage(sharedImage: SharedImage) {
-        _player.value = _player.value.copy(bodyImage = sharedImage)
+    private fun updateBodyImage(path: ImagePath?) {
+        _player.value = _player.value.copy(bodyImage = path)
         updateImageSelected(NONE)
     }
 

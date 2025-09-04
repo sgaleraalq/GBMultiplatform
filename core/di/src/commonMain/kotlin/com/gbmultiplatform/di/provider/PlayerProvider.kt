@@ -24,6 +24,7 @@ import com.gbmultiplatform.domain.model.player.Position.DEFENDER
 import com.gbmultiplatform.domain.model.player.Position.FORWARD
 import com.gbmultiplatform.domain.model.player.Position.GOALKEEPER
 import com.gbmultiplatform.domain.model.player.Position.MIDFIELDER
+import com.gbmultiplatform.domain.utils.ImagePath
 
 class PlayerProvider : IPlayerProvider {
 
@@ -127,9 +128,8 @@ class PlayerProvider : IPlayerProvider {
 
         return PlayerInformationModel(
             id = generateRandomUUID(),
-            // todo
-//            faceImage = RANDOM_IMAGES.random(),
-//            bodyImage = RANDOM_IMAGES.random(),
+            faceImage = ImagePath(RANDOM_IMAGES.random()),
+            bodyImage = ImagePath(RANDOM_IMAGES.random()),
             name = RANDOM_NAMES.random(),
             dorsal = (1..99).random(),
             position = position

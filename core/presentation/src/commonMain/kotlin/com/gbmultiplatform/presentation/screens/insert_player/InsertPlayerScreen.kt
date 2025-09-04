@@ -73,6 +73,7 @@ fun InsertPlayerScreen(
 
     val cameraManager = rememberCameraManager { image ->
         viewModel.updatePicture(image)
+        showMediaOrCamera = false
     }
 
     Column(
@@ -96,8 +97,8 @@ fun InsertPlayerScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 InsertPlayerImages(
-                    faceImg = player?.faceImage,
-                    bodyImg = player?.bodyImage,
+                    faceImg = player.faceImage,
+                    bodyImg = player.bodyImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
                     onBodyClicked = { viewModel.updateImageSelected(BODY) },
                     showMediaOrCamera = { showMediaOrCamera = true }

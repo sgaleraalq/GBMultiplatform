@@ -35,19 +35,17 @@ import java.io.InputStream
 // CameraManager.android.kt
 @Composable
 actual fun rememberCameraManager(
-    onResult: (SharedImage?) -> Unit
+    onResult: (ImagePath) -> Unit
 ): CameraManager {
     var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
 
     val context = LocalContext.current
-    val contentResolver = context.contentResolver
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = TakePicture(),
         onResult = { success ->
             if (success) {
-                val sharedImage = SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver))
-                sharedImage.path = tempPhotoUri.toString()
-                onResult.invoke(sharedImage)
+                val path = ImagePath(tempPhotoUri.toString())
+                onResult.invoke(path)
             }
         }
     )
@@ -67,19 +65,5 @@ actual class CameraManager actual constructor(
 ) {
     actual fun launch() {
         onLaunch()
-    }
-}
-
-
-fun getBitmapFromUri(uri: Uri, contentResolver: ContentResolver): Bitmap? {
-    var inputStream: InputStream?
-    try {
-        inputStream = contentResolver.openInputStream(uri)
-        val s = BitmapFactory.decodeStream(inputStream)
-        inputStream?.close()
-        return s
-    } catch (e: Exception) {
-        e.printStackTrace()
-        return null
     }
 }

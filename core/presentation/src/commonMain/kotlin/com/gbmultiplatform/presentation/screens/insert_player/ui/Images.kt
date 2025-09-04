@@ -33,6 +33,8 @@ import org.jetbrains.compose.resources.stringResource
 fun InsertPlayerImages(
     faceImg: String,
     bodyImg: String,
+    onFaceClicked: () -> Unit,
+    onBodyClicked: () -> Unit,
     showMediaOrCamera: () -> Unit
 ) {
     GBText(
@@ -45,12 +47,18 @@ fun InsertPlayerImages(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.face_image),
         image = faceImg,
-        onClick = { showMediaOrCamera() }
+        onClick = {
+            onFaceClicked()
+            showMediaOrCamera()
+        }
     )
     GBImageBoxRequester(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.body_image),
         image = bodyImg,
-        onClick = { showMediaOrCamera() }
+        onClick = {
+            onBodyClicked()
+            showMediaOrCamera()
+        }
     )
 }

@@ -24,7 +24,6 @@ import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
 class GBMultiplatformApp : Application() {
-
     companion object {
         private val modules = appModules
     }

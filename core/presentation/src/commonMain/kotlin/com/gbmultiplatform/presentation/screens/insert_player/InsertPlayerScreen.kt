@@ -39,6 +39,9 @@ import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.domain.utils.rememberCameraManager
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
@@ -68,8 +71,8 @@ fun InsertPlayerScreen(
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
-    val cameraManager = rememberCameraManager {
-        viewModel.updatePicture(it)
+    val cameraManager = rememberCameraManager { image ->
+        viewModel.updatePicture(image)
     }
 
     Column(
@@ -95,6 +98,8 @@ fun InsertPlayerScreen(
                 InsertPlayerImages(
                     faceImg = player.faceImage,
                     bodyImg = player.bodyImage,
+                    onFaceClicked = { viewModel.updateImageSelected(FACE) },
+                    onBodyClicked = { viewModel.updateImageSelected(BODY) },
                     showMediaOrCamera = { showMediaOrCamera = true }
                 )
             }
@@ -112,7 +117,10 @@ fun InsertPlayerScreen(
     if (showMediaOrCamera) {
         GBMediaOrCamera(
             title = stringResource(Res.string.select_media_from),
-            dismiss = { showMediaOrCamera = false },
+            dismiss = {
+                viewModel.updateImageSelected(NONE)
+                showMediaOrCamera = false
+            },
             onMediaClicked = {
 //                        viewModel.initMediaPicker()
             },

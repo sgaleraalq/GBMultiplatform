@@ -34,7 +34,9 @@ import java.io.InputStream
 
 // CameraManager.android.kt
 @Composable
-actual fun rememberCameraManager(onResult: (SharedImage?) -> Unit): CameraManager {
+actual fun rememberCameraManager(
+    onResult: (SharedImage?) -> Unit
+): CameraManager {
     var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
 
     val context = LocalContext.current

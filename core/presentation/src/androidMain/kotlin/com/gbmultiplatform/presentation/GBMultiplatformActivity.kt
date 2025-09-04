@@ -23,11 +23,10 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import com.gbmultiplatform.App
-import com.gbmultiplatform.domain.utils.CameraBridge
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType
@@ -47,10 +46,9 @@ open class GBMultiplatformActivity :
         super.onCreate(savedInstanceState)
 
         GlobalContext.get().get<PermissionBridge>().setListener(this)
-//        GlobalContext.get().get<CameraBridge>().setListener(this)
 
         requestPermissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            registerForActivityResult(RequestPermission()) { isGranted ->
                 val permission = pendingPermission
                 if (permission != null) {
                     if (isGranted) {

@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 actual class SharedImage(
     private val bitmap: Bitmap?
 ) {
+    actual var path = ""
     actual fun toByteArray(): ByteArray? {
         return if (bitmap != null) {
             val byteArrayOutputStream = java.io.ByteArrayOutputStream()
@@ -30,4 +31,5 @@ actual class SharedImage(
             null
         }
     }
+
 }

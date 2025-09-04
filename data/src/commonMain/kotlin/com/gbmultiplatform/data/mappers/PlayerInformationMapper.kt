@@ -13,8 +13,8 @@ object PlayerInformationMapper :
             name = domain.name,
             dorsal = domain.dorsal,
             position = domain.position?.name ?: "",
-            faceImage = domain.faceImage,
-            bodyImage = domain.bodyImage
+            faceImage = domain.faceImage?.path ?: "", // TODO,
+            bodyImage = domain.bodyImage?.path ?: ""
         )
 
     override fun asEntity(domain: PlayerInformationModel): PlayerInformationEntity? {

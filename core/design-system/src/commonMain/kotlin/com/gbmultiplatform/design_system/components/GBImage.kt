@@ -44,6 +44,22 @@ fun GBImage(
 }
 
 @Composable
+fun GBImage(
+    modifier: Modifier = Modifier,
+    image: ByteArray?,
+    saverImage: DrawableResource = Res.drawable.img_example // TODO
+) {
+    AsyncImage(
+        modifier = modifier,
+        model = image,
+        contentScale = Crop,
+        contentDescription = null,
+        error = painterResource(saverImage),
+        fallback = painterResource(saverImage)
+    )
+}
+
+@Composable
 fun GBLocalImage(
     modifier: Modifier,
     image: DrawableResource,

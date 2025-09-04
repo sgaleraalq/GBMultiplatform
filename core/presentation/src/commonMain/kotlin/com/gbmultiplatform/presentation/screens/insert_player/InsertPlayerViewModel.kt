@@ -50,8 +50,6 @@ class InsertPlayerViewModel(
     private val _player = MutableStateFlow(
         PlayerInformationModel(
             name = "",
-            bodyImage = "",
-            faceImage = "",
             dorsal = 0,
             position = null
         )
@@ -101,12 +99,12 @@ class InsertPlayerViewModel(
     }
 
     private fun updateFaceImage(sharedImage: SharedImage) {
-        _player.value = _player.value.copy(faceImage = sharedImage.path)
+        _player.value = _player.value.copy(faceImage = sharedImage)
         updateImageSelected(NONE)
     }
 
     private fun updateBodyImage(sharedImage: SharedImage) {
-        _player.value = _player.value.copy(bodyImage = sharedImage.path)
+        _player.value = _player.value.copy(bodyImage = sharedImage)
         updateImageSelected(NONE)
     }
 
@@ -145,7 +143,11 @@ class InsertPlayerViewModel(
 
     private fun validPlayer(): Boolean {
         return _player.value.let {
-            it.name.isNotEmpty() && it.dorsal > 0 && it.position != null && it.faceImage.isNotEmpty() && it.bodyImage.isNotEmpty()
+            it.name.isNotEmpty() &&
+            it.dorsal > 0 &&
+            it.position != null &&
+            it.faceImage != null &&
+            it.bodyImage != null
         }
     }
 

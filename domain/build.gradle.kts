@@ -8,9 +8,6 @@ android {
 
 kotlin {
     sourceSets {
-        androidMain.dependencies {
-            implementation(projects.app)
-        }
         commonMain.dependencies {
             implementation(compose.components.resources)
         }

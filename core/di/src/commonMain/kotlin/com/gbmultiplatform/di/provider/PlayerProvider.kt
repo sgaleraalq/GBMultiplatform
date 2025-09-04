@@ -127,9 +127,10 @@ class PlayerProvider : IPlayerProvider {
 
         return PlayerInformationModel(
             id = generateRandomUUID(),
+            // todo
+//            faceImage = RANDOM_IMAGES.random(),
+//            bodyImage = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),
-            faceImage = RANDOM_IMAGES.random(),
-            bodyImage = RANDOM_IMAGES.random(),
             dorsal = (1..99).random(),
             position = position
         )

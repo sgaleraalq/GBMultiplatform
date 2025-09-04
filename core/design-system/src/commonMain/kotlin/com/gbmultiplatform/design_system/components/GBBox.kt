@@ -21,6 +21,7 @@ import com.gbmultiplatform.design_system.components.ImageState.NONE
 import com.gbmultiplatform.design_system.components.ImageState.SUCCESS
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
+import com.gbmultiplatform.domain.utils.SharedImage
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.ic_camera
 import org.jetbrains.compose.resources.painterResource
@@ -31,7 +32,7 @@ enum class ImageState { NONE, LOADING, SUCCESS, ERROR }
 fun GBImageBoxRequester(
     modifier: Modifier = Modifier.fillMaxSize(),
     text: String,
-    image: String,
+    image: SharedImage?,
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {}
 ) {
@@ -63,7 +64,7 @@ fun GBImageBoxRequester(
             SUCCESS -> {
                 GBImage(
                     modifier = Modifier.size(iconSize),
-                    image = image,
+                    image = image?.toByteArray(),
                 )
             }
             ERROR -> {}

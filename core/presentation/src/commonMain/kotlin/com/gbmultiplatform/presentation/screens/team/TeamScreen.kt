@@ -95,7 +95,10 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
         onClick = { onPlayerClicked() }
     ) {
         Box {
-            GBImage(Modifier.fillMaxSize(), player.faceImage)
+            GBImage(
+                modifier = Modifier.fillMaxSize(),
+                image = "player.faceImage" // TODO
+            )
             GBText(
                 modifier = Modifier.align(TopStart).padding(4.dp),
                 text = player.dorsal.toString()

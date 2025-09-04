@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
+import com.gbmultiplatform.domain.utils.SharedImage
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.body_image
 import gbmultiplatform.core.presentation.generated.resources.face_image
@@ -31,8 +32,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun InsertPlayerImages(
-    faceImg: String,
-    bodyImg: String,
+    faceImg: SharedImage?,
+    bodyImg: SharedImage?,
     onFaceClicked: () -> Unit,
     onBodyClicked: () -> Unit,
     showMediaOrCamera: () -> Unit

@@ -16,13 +16,14 @@
 
 package com.gbmultiplatform.domain.model.player
 
+import com.gbmultiplatform.domain.utils.SharedImage
 import com.gbmultiplatform.domain.utils.generateRandomUUID
 
 data class PlayerInformationModel(
     val id: String = generateRandomUUID(),
+    val faceImage: SharedImage? = null,
+    val bodyImage: SharedImage? = null,
     val name: String,
-    val bodyImage: String,
-    val faceImage: String,
     val dorsal: Int,
     val position: Position?
 )

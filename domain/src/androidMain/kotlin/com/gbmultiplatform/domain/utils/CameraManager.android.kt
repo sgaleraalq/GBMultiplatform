@@ -45,7 +45,9 @@ actual fun rememberCameraManager(
         contract = TakePicture(),
         onResult = { success ->
             if (success) {
-                onResult.invoke(SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver)))
+                val sharedImage = SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver))
+                sharedImage.path = tempPhotoUri.toString()
+                onResult.invoke(sharedImage)
             }
         }
     )

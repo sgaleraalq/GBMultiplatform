@@ -28,18 +28,3 @@ expect class CameraManager(
     fun launch()
 }
 
-interface ICameraManager {
-    fun openCamera()
-}
-
-class CameraBridge {
-    private var listener: ICameraManager? = null
-
-    fun setListener(listener: ICameraManager) {
-        this.listener = listener
-    }
-
-    fun openCamera() {
-        listener?.openCamera() ?: error("Camera handler not set")
-    }
-}

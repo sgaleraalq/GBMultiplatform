@@ -17,37 +17,41 @@
 package com.gbmultiplatform.domain.utils
 
 import android.content.ContentResolver
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.TakePicture
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
 import java.io.InputStream
 
 // CameraManager.android.kt
 @Composable
 actual fun rememberCameraManager(onResult: (SharedImage?) -> Unit): CameraManager {
-    val context = LocalContext.current
-    val contentResolver: ContentResolver = context.contentResolver
     var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
+
+    val context = LocalContext.current
+    val contentResolver = context.contentResolver
     val cameraLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicture(),
+        contract = TakePicture(),
         onResult = { success ->
             if (success) {
                 onResult.invoke(SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver)))
             }
         }
     )
+
     return remember {
         CameraManager(
             onLaunch = {
-                tempPhotoUri = ComposeFileProvider.getImageUri(context)
+                tempPhotoUri = getImageUri(context)
                 cameraLauncher.launch(tempPhotoUri)
             }
         )
@@ -63,7 +67,7 @@ actual class CameraManager actual constructor(
 }
 
 
-fun getBitmapFromUri(uri: Uri, contentResolver: ContentResolver): android.graphics.Bitmap? {
+fun getBitmapFromUri(uri: Uri, contentResolver: ContentResolver): Bitmap? {
     var inputStream: InputStream?
     try {
         inputStream = contentResolver.openInputStream(uri)

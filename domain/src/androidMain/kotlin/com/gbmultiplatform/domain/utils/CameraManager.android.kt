@@ -16,9 +16,6 @@
 
 package com.gbmultiplatform.domain.utils
 
-import android.content.ContentResolver
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -30,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
-import java.io.InputStream
 
 // CameraManager.android.kt
 @Composable
@@ -66,4 +62,9 @@ actual class CameraManager actual constructor(
     actual fun launch() {
         onLaunch()
     }
+}
+
+actual fun resolveImageFromPath(path: String): ByteArray {
+
+    return ByteArray(0)
 }

@@ -28,3 +28,4 @@ expect class CameraManager(
     fun launch()
 }
 
+expect fun resolveImageFromPath(path: String): ByteArray

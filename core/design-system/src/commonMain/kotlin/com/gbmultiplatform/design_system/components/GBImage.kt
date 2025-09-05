@@ -47,21 +47,17 @@ fun GBImage(
 @Composable
 fun GBImage(
     modifier: Modifier = Modifier,
-    image: ImagePath?,
+    image: ByteArray,
     saverImage: DrawableResource = Res.drawable.img_example // TODO
 ) {
-    GBText(
-        text = image?.path ?: "No image"
+    AsyncImage(
+        modifier = modifier,
+        model = image,
+        contentScale = Crop,
+        contentDescription = null,
+        error = painterResource(saverImage),
+        fallback = painterResource(saverImage)
     )
-//    if (image == null) { return }
-//    AsyncImage(
-//        modifier = modifier,
-//        model = image,
-//        contentScale = Crop,
-//        contentDescription = null,
-//        error = painterResource(saverImage),
-//        fallback = painterResource(saverImage)
-//    )
 }
 
 @Composable

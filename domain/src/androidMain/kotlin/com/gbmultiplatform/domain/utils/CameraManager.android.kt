@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.domain.utils
 
-import android.net.Uri
 import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
@@ -64,7 +63,7 @@ actual class CameraManager actual constructor(
     }
 }
 
-actual fun resolveImageFromPath(path: String): ByteArray {
+actual fun resolveImageFromPath(path: String?): ByteArray? {
 
     return ByteArray(0)
 }

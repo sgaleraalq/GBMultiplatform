@@ -24,9 +24,12 @@ import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import coil3.compose.AsyncImage
 import com.gbmultiplatform.domain.utils.ImagePath
 import gbmultiplatform.core.design_system.generated.resources.Res
+import gbmultiplatform.core.design_system.generated.resources.description_insert_player_image
+import gbmultiplatform.core.design_system.generated.resources.ic_error
 import gbmultiplatform.core.design_system.generated.resources.img_example
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBImage(
@@ -48,13 +51,13 @@ fun GBImage(
 fun GBImage(
     modifier: Modifier = Modifier,
     image: ByteArray,
-    saverImage: DrawableResource = Res.drawable.img_example // TODO
+    saverImage: DrawableResource = Res.drawable.ic_error
 ) {
     AsyncImage(
         modifier = modifier,
         model = image,
         contentScale = Crop,
-        contentDescription = null,
+        contentDescription = stringResource(Res.string.description_insert_player_image),
         error = painterResource(saverImage),
         fallback = painterResource(saverImage)
     )

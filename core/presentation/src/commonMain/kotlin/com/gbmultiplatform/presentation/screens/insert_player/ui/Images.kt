@@ -54,13 +54,13 @@ fun InsertPlayerImages(
             showMediaOrCamera()
         }
     )
-    GBImageBoxRequester(
-        modifier = Modifier.fillMaxWidth(),
-        text = stringResource(Res.string.body_image),
-        image = bodyImg,
-        onClick = {
-            onBodyClicked()
-            showMediaOrCamera()
-        }
-    )
+//    GBImageBoxRequester(
+//        modifier = Modifier.fillMaxWidth(),
+//        text = stringResource(Res.string.body_image),
+//        image = bodyImg,
+//        onClick = {
+//            onBodyClicked()
+//            showMediaOrCamera()
+//        }
+//    )
 }

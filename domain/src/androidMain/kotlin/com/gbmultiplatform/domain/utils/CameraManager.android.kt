@@ -16,7 +16,9 @@
 
 package com.gbmultiplatform.domain.utils
 
+import android.content.Context
 import android.net.Uri.EMPTY
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
 import androidx.compose.runtime.Composable
@@ -26,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
+import java.io.File
 
 // CameraManager.android.kt
 @Composable
@@ -64,6 +67,12 @@ actual class CameraManager actual constructor(
 }
 
 actual fun resolveImageFromPath(path: String?): ByteArray? {
-
-    return ByteArray(0)
+    return try {
+        Log.i("CameraManager", "Resolving image from path: $path")
+        File(path ?: "").takeIf { it.exists() }?.readBytes()
+    } catch (e: Exception) {
+        Log.e("CameraManager", "Error reading image from path: $path", e)
+        null
+    }
 }
+

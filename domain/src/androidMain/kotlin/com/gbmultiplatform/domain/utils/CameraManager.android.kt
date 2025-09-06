@@ -27,8 +27,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.net.toUri
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
-import java.io.File
 
 // CameraManager.android.kt
 @Composable
@@ -66,10 +66,14 @@ actual class CameraManager actual constructor(
     }
 }
 
+lateinit var appContext: Context
+fun initResolver(context: Context) { appContext = context.applicationContext }
 actual fun resolveImageFromPath(path: String?): ByteArray? {
+    if (path == null) return null
     return try {
-        Log.i("CameraManager", "Resolving image from path: $path")
-        File(path ?: "").takeIf { it.exists() }?.readBytes()
+        val uri = path.toUri()
+        val inputStream = appContext.contentResolver.openInputStream(uri)
+        inputStream?.use { it.readBytes() }
     } catch (e: Exception) {
         Log.e("CameraManager", "Error reading image from path: $path", e)
         null

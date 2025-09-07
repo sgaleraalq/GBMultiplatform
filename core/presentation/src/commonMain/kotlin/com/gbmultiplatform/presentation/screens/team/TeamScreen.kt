@@ -16,29 +16,38 @@
 
 package com.gbmultiplatform.presentation.screens.team
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.style.gBTypography
+import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
@@ -99,10 +108,29 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
                 modifier = Modifier.fillMaxSize(),
                 image = player.faceImage?.path
             )
-            GBText(
-                modifier = Modifier.align(TopStart).padding(4.dp),
-                text = player.dorsal.toString()
-            )
+            Box(
+                modifier = Modifier
+                    .padding(4.dp)
+                    .align(TopStart)
+                    .size(24.dp)
+                    .background(
+                        color = White,
+                        shape = RoundedCornerShape(50)
+                    )
+                    .border(
+                        width = 1.dp,
+                        color = Black,
+                        shape = CircleShape
+                    )
+                    .padding(4.dp),
+                contentAlignment = Center
+            ) {
+                GBText(
+                    text = player.dorsal.toString(),
+                    textColor = gray_box_in_black_bg,
+                    style = gBTypography().bodySmall
+                )
+            }
         }
     }
 }

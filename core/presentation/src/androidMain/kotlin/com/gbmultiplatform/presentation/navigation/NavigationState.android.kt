@@ -26,11 +26,9 @@ import kotlin.reflect.KClass
 @Composable
 actual fun rememberNavigationState(): NavigationState {
     val navController = rememberNavController()
-    val initDestinationHandler = remember { InitDestinationHandler() }
 
     return remember {
         AndroidNavigationState(
-            initDestinationHandler,
             navController,
             defaultDestinations
         )
@@ -51,7 +49,6 @@ actual fun MainNavigation(modifier: Modifier, state: NavigationState) {
 }
 
 class AndroidNavigationState(
-    private val initDestinationHandler: InitDestinationHandler,
     val navHostController: NavHostController,
     val configurations: List<DestinationConfiguration<*>>
 ) : NavigationState {
@@ -72,10 +69,6 @@ class AndroidNavigationState(
     override val currentDestination: State<Destination?> = _currentDestination
 
     var defaultDestination: Destination = Splash
-
-    suspend fun initialize() {
-        defaultDestination = initDestinationHandler.initApp()
-    }
 
     override fun navigateBack() {
         navHostController.navigateUp()

@@ -73,7 +73,7 @@ fun GBImageBoxRequester(
                     .clickable { if (imageByteArray != null) showZoomDialog = true else onClick() }
                     .padding(12.dp)
                     .size(iconSize),
-                image = imageByteArray!!
+                image = imageByteArray
             )
         }
     }

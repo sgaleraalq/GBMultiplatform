@@ -31,7 +31,6 @@ import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType
 import com.gbmultiplatform.domain.utils.PermissionsBridgeListener
-import com.gbmultiplatform.domain.utils.initResolver
 import org.koin.core.context.GlobalContext
 
 open class GBMultiplatformActivity :
@@ -47,7 +46,6 @@ open class GBMultiplatformActivity :
         super.onCreate(savedInstanceState)
 
         GlobalContext.get().get<PermissionBridge>().setListener(this)
-        initResolver(this)
 
         requestPermissionLauncher =
             registerForActivityResult(RequestPermission()) { isGranted ->

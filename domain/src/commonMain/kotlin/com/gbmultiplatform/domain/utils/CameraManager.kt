@@ -28,4 +28,5 @@ expect class CameraManager(
     fun launch()
 }
 
+@Composable
 expect fun resolveImageFromPath(path: String?): ByteArray?

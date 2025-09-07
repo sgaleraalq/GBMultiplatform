@@ -1,3 +1,4 @@
 <resources>
     <string name="description_insert_player_image">Insert player image</string>
+    <string name="description_camera_icon">Camera icon</string>
 </resources>

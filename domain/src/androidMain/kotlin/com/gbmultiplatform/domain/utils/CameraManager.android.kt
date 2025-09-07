@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.domain.utils
 
-import android.content.Context
 import android.net.Uri.EMPTY
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -66,17 +65,14 @@ actual class CameraManager actual constructor(
     }
 }
 
-lateinit var appContext: Context
-fun initResolver(context: Context) { appContext = context.applicationContext }
+@Composable
 actual fun resolveImageFromPath(path: String?): ByteArray? {
     if (path == null) return null
+    val context = LocalContext.current
     return try {
-        val uri = path.toUri()
-        val inputStream = appContext.contentResolver.openInputStream(uri)
-        inputStream?.use { it.readBytes() }
+        context.contentResolver.openInputStream(path.toUri())?.use { it.readBytes() }
     } catch (e: Exception) {
         Log.e("CameraManager", "Error reading image from path: $path", e)
         null
     }
 }
-

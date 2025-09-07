@@ -24,7 +24,6 @@ import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.domain.utils.ImagePath
-import com.gbmultiplatform.domain.utils.SharedImage
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.body_image
 import gbmultiplatform.core.presentation.generated.resources.face_image
@@ -54,13 +53,13 @@ fun InsertPlayerImages(
             showMediaOrCamera()
         }
     )
-//    GBImageBoxRequester(
-//        modifier = Modifier.fillMaxWidth(),
-//        text = stringResource(Res.string.body_image),
-//        image = bodyImg,
-//        onClick = {
-//            onBodyClicked()
-//            showMediaOrCamera()
-//        }
-//    )
+    GBImageBoxRequester(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(Res.string.body_image),
+        image = bodyImg,
+        onClick = {
+            onBodyClicked()
+            showMediaOrCamera()
+        }
+    )
 }

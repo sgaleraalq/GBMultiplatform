@@ -19,7 +19,7 @@ package com.gbmultiplatform.domain.utils
 import androidx.compose.runtime.Composable
 
 @Composable
-expect fun rememberGalleryManager(onResult: (SharedImage?) -> Unit): GalleryManager
+expect fun rememberGalleryManager(onResult: (CommonImage?) -> Unit): GalleryManager
 
 expect class GalleryManager(
     onLaunch: () -> Unit

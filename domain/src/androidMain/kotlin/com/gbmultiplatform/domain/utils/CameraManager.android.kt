@@ -25,13 +25,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import com.gbmultiplatform.domain.utils.BitmapUtils.getBitmapFromUri
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
 
 // CameraManager.android.kt
 @Composable
 actual fun rememberCameraManager(
-    onResult: (SharedImage?) -> Unit
+    onResult: (CommonImage?) -> Unit
 ): CameraManager {
     var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
 
@@ -42,8 +41,11 @@ actual fun rememberCameraManager(
         contract = TakePicture(),
         onResult = { success ->
             if (success) {
-                val sharedImage = SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver))
-                onResult.invoke(sharedImage)
+                val commonImage = CommonImage(
+                    uri = tempPhotoUri.toString(),
+                    mimeType = contentResolver.getType(tempPhotoUri),
+                )
+                onResult.invoke(commonImage)
             } else {
                 onResult.invoke(null)
             }

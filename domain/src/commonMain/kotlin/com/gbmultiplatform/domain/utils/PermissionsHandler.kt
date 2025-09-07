@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.domain.utils
 
-enum class PermissionStatus { GRANTED, DENIED }
 enum class PermissionType { CAMERA, GALLERY }
 
 expect interface PermissionsBridgeListener {

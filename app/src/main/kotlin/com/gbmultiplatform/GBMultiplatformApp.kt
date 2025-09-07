@@ -20,6 +20,7 @@ import android.app.Application
 import com.gbmultiplatform.di.modules.appModules
 import com.google.firebase.FirebaseApp
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.startKoin
 
@@ -32,7 +33,8 @@ class GBMultiplatformApp : Application() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
         startKoin {
-            androidContext(this@GBMultiplatformApp)
+            androidLogger()
+            androidContext(applicationContext)
             loadKoinModules(modules)
         }
     }

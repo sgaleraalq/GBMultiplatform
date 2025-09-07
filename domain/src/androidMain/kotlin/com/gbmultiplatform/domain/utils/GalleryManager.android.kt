@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.domain.utils
 
-import com.gbmultiplatform.domain.utils.BitmapUtils.getBitmapFromUri
 import android.content.ContentResolver
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -29,7 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 // CameraManager.android.kt
 @Composable
 actual fun rememberGalleryManager(
-    onResult: (SharedImage?) -> Unit
+    onResult: (CommonImage?) -> Unit
 ): GalleryManager {
     val context = LocalContext.current
     val contentResolver: ContentResolver = context.contentResolver
@@ -37,7 +36,13 @@ actual fun rememberGalleryManager(
     val galleryLauncher =
         rememberLauncherForActivityResult(PickVisualMedia()) { uri ->
             uri?.let {
-                onResult(SharedImage(getBitmapFromUri(it, contentResolver)))
+                val uri = it.toString()
+                onResult(
+                    CommonImage(
+                        uri = uri,
+                        mimeType = contentResolver.getType(it),
+                    )
+                )
             }
         }
 

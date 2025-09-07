@@ -59,7 +59,8 @@ import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
-import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
@@ -84,16 +85,16 @@ fun InsertPlayerScreen(
     val cameraManager = rememberCameraManager {
         coroutineScope.launch {
             showMediaOrCamera = false
-            val bitmap = withContext(Default) { it?.toByteArray() }
-            viewModel.updatePicture(bitmap)
+            val commonImage = withContext(Dispatchers.IO) { it }
+            viewModel.updatePicture(commonImage)
         }
     }
 
     val galleryManager = rememberGalleryManager {
         coroutineScope.launch {
             showMediaOrCamera = false
-            val bitmap = withContext(Default) { it?.toByteArray() }
-            viewModel.updatePicture(bitmap)
+            val commonImage = withContext(Dispatchers.IO) { it }
+            viewModel.updatePicture(commonImage)
         }
     }
 

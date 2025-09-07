@@ -23,6 +23,7 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
+import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
@@ -60,9 +61,9 @@ class InsertPlayerViewModel(
     )
     val player = _player
 
-    private val _faceImage = MutableStateFlow<ByteArray?>(null)
+    private val _faceImage = MutableStateFlow<CommonImage?>(null)
     val faceImage = _faceImage
-    private val _bodyImage = MutableStateFlow<ByteArray?>(null)
+    private val _bodyImage = MutableStateFlow<CommonImage?>(null)
     val bodyImage = _bodyImage
 
     private val _availableDorsals = MutableStateFlow<List<Int>>(emptyList())
@@ -95,7 +96,7 @@ class InsertPlayerViewModel(
         _player.value = _player.value.copy(position = position)
     }
 
-    fun updatePicture(image: ByteArray?) {
+    fun updatePicture(image: CommonImage?) {
         viewModelScope.launch {
             when (_imageSelected.value) {
                 FACE -> updateFaceImage(image)
@@ -105,12 +106,12 @@ class InsertPlayerViewModel(
         }
     }
 
-    private fun updateFaceImage(image: ByteArray?) {
+    private fun updateFaceImage(image: CommonImage?) {
         _faceImage.value = image
         updateImageSelected(NONE)
     }
 
-    private fun updateBodyImage(image: ByteArray?) {
+    private fun updateBodyImage(image: CommonImage?) {
         _bodyImage.value = image
         updateImageSelected(NONE)
     }

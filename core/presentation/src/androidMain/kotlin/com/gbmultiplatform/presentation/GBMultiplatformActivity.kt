@@ -22,6 +22,8 @@ import android.Manifest.permission.READ_MEDIA_IMAGES
 import android.Manifest.permission.READ_MEDIA_VIDEO
 import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
 import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
@@ -33,16 +35,25 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestMultiple
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.core.net.toUri
 import com.gbmultiplatform.App
+import com.gbmultiplatform.domain.utils.ImageLoader
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.PermissionResultCallback
 import com.gbmultiplatform.domain.utils.PermissionType
 import com.gbmultiplatform.domain.utils.PermissionType.GALLERY
 import com.gbmultiplatform.domain.utils.PermissionsBridgeListener
+import com.gbmultiplatform.domain.utils.SharedImagesBridge
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.koin.core.context.GlobalContext
+import java.io.ByteArrayOutputStream
 
 open class GBMultiplatformActivity :
-    AppCompatActivity(), PermissionsBridgeListener {
+    AppCompatActivity(),
+    PermissionsBridgeListener,
+    ImageLoader
+{
     private var callback: PermissionResultCallback? = null
     private var pendingPermission: String? = null
     private val requestPermissionLauncher: ActivityResultLauncher<String> =
@@ -78,6 +89,7 @@ open class GBMultiplatformActivity :
         super.onCreate(savedInstanceState)
 
         GlobalContext.get().get<PermissionBridge>().setListener(this)
+        GlobalContext.get().get<SharedImagesBridge>().setListener(this)
         setContent {
             App()
         }
@@ -150,7 +162,7 @@ open class GBMultiplatformActivity :
         checkSelfPermission(this, permission) == PERMISSION_GRANTED
 
     private fun areMultiplePermissionsGranted(permission: PermissionType): Boolean {
-        val permissions: Array<String> = when(permission) {
+        val permissions: Array<String> = when (permission) {
             GALLERY -> getMediaPermissions()
             else -> arrayOf() /* should not get here */
         }
@@ -161,7 +173,7 @@ open class GBMultiplatformActivity :
         permissions.all { isPermissionsGranted(it) }
 
     private fun shouldShowRationaleForMultiplePermissions(permission: PermissionType): Boolean {
-        return when(permission) {
+        return when (permission) {
             GALLERY -> shouldShowRationaleForMediaPermissions()
             else -> false /* should not get here */
         }
@@ -173,7 +185,11 @@ open class GBMultiplatformActivity :
      */
     private fun getMediaPermissions(): Array<String> =
         when {
-            SDK_INT >= UPSIDE_DOWN_CAKE -> arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VISUAL_USER_SELECTED)
+            SDK_INT >= UPSIDE_DOWN_CAKE -> arrayOf(
+                READ_MEDIA_IMAGES,
+                READ_MEDIA_VISUAL_USER_SELECTED
+            )
+
             SDK_INT >= TIRAMISU -> arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO)
             else -> arrayOf(READ_EXTERNAL_STORAGE)
         }
@@ -191,6 +207,43 @@ open class GBMultiplatformActivity :
 
     private fun requestMediaPermissions() {
         requestMultiplePermissions.launch(getMediaPermissions())
+    }
+
+    /**
+     * Image loader
+     */
+    override suspend fun loadImage(
+        uri: String,
+        maxWidth: Int,
+        maxHeight: Int,
+        quality: Int
+    ): ByteArray? = withContext(Dispatchers.IO) {
+        val androidUri = uri.toUri()
+
+        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        contentResolver.openInputStream(androidUri)?.use {
+            BitmapFactory.decodeStream(it, null, bounds)
+        }
+        val srcW = bounds.outWidth; val srcH = bounds.outHeight
+        if (srcW <= 0 || srcH <= 0) return@withContext null
+
+        var sample = 1
+        while (srcW / (sample * 2) >= maxWidth && srcH / (sample * 2) >= maxHeight) {
+            sample *= 2
+        }
+
+        val opts = BitmapFactory.Options().apply {
+            inSampleSize = sample
+            inPreferredConfig = Bitmap.Config.RGB_565
+        }
+        val bmp = contentResolver.openInputStream(androidUri)?.use {
+            BitmapFactory.decodeStream(it, null, opts)
+        } ?: return@withContext null
+
+        ByteArrayOutputStream().use { out ->
+            bmp.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
+            out.toByteArray()
+        }
     }
 }
 

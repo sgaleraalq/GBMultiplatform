@@ -29,6 +29,7 @@ import com.gbmultiplatform.domain.utils.resolveImageFromPath
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.description_camera_icon
 import gbmultiplatform.core.design_system.generated.resources.ic_camera
+import gbmultiplatform.core.design_system.generated.resources.ic_close
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -98,19 +99,18 @@ fun ZoomableImage(
             modifier = Modifier.background(Black),
             contentAlignment = Center
         ) {
+            GBImage(
+                image = image,
+                contentScale = Fit
+            )
             GBIcon(
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(16.dp)
                     .size(32.dp)
                     .clickable { dismiss() },
-                icon = Res.drawable.ic_camera,
+                icon = Res.drawable.ic_close,
                 size = 32.dp
-            )
-            GBImage(
-                modifier = Modifier.fillMaxSize(),
-                image = image,
-                contentScale = Fit
             )
         }
     }

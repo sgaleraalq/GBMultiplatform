@@ -40,6 +40,7 @@ import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.domain.utils.rememberCameraManager
+import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
@@ -56,6 +57,7 @@ import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
+import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
 import kotlinx.coroutines.Dispatchers.Default
 import kotlinx.coroutines.launch
@@ -76,13 +78,22 @@ fun InsertPlayerScreen(
     val coroutineScope = rememberCoroutineScope()
     var showMediaOrCamera by remember { mutableStateOf(false) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
+    val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
     val cameraManager = rememberCameraManager {
         coroutineScope.launch {
+            showMediaOrCamera = false
             val bitmap = withContext(Default) { it?.toImageBitmap() }
             viewModel.updatePicture(bitmap)
+        }
+    }
+
+    val galleryManager = rememberGalleryManager {
+        coroutineScope.launch {
             showMediaOrCamera = false
+            val bitmap = withContext(Default) { it?.toImageBitmap() }
+            viewModel.updatePicture(bitmap)
         }
     }
 
@@ -134,7 +145,10 @@ fun InsertPlayerScreen(
                 showMediaOrCamera = false
             },
             onMediaClicked = {
-//                        viewModel.initMediaPicker()
+                viewModel.initGallery(
+                    launchGallery = { galleryManager.launch() },
+                    permissionDeniedMsg = permissionDeniedGallery
+                )
             },
             onCameraClicked = {
                 viewModel.initCamera(

@@ -73,11 +73,11 @@ open class GBMultiplatformActivity :
     ) {
         val androidPermission = when (permission) {
             PermissionType.CAMERA -> CAMERA
-            PermissionType.MEDIA_FILES -> READ_EXTERNAL_STORAGE
+            PermissionType.GALLERY -> READ_EXTERNAL_STORAGE
         }
 
         when {
-            isPermissionsGranted(androidPermission) -> {
+            isPermissionsGranted(permission) -> {
                 callback.onPermissionsGranted()
             }
 
@@ -96,7 +96,7 @@ open class GBMultiplatformActivity :
     override fun isPermissionsGranted(permission: PermissionType): Boolean {
         return when (permission) {
             PermissionType.CAMERA -> isPermissionsGranted(CAMERA)
-            PermissionType.MEDIA_FILES -> isPermissionsGranted(READ_EXTERNAL_STORAGE)
+            PermissionType.GALLERY -> true
         }
     }
 

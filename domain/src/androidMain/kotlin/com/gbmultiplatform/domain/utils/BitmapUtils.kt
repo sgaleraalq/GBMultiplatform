@@ -3,6 +3,7 @@ package com.gbmultiplatform.domain.utils
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.graphics.Bitmap
+import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory.decodeStream
 import android.graphics.Matrix
 import android.net.Uri
@@ -34,7 +35,7 @@ object BitmapUtils {
                 }
                 if (rotationDegrees != 0f) {
                     val matrix = Matrix().apply { postRotate(rotationDegrees) }
-                    Bitmap.createBitmap(bitmap!!, 0, 0, bitmap.width, bitmap.height, matrix, true)
+                    createBitmap(bitmap!!, 0, 0, bitmap.width, bitmap.height, matrix, true)
                 } else {
                     bitmap
                 }

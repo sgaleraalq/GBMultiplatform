@@ -50,12 +50,12 @@ fun GBImage(
 @Composable
 fun GBImage(
     modifier: Modifier = Modifier,
-    image: ImageBitmap,
+    image: ByteArray,
     contentScale: ContentScale = Crop
 ) {
-    Image(
+    AsyncImage(
         modifier = modifier,
-        bitmap = image,
+        model = image,
         contentScale = contentScale,
         contentDescription = stringResource(Res.string.description_insert_player_image)
     )

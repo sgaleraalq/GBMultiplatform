@@ -38,7 +38,7 @@ import org.jetbrains.compose.resources.stringResource
 fun GBImageBoxRequester(
     modifier: Modifier = Modifier.fillMaxSize(),
     text: String,
-    image: ImageBitmap?,
+    image: ByteArray?,
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {},
 ) {
@@ -88,7 +88,7 @@ fun GBImageBoxRequester(
 
 @Composable
 fun ZoomableImage(
-    image: ImageBitmap,
+    image: ByteArray,
     dismiss: () -> Unit
 ) {
     Dialog(

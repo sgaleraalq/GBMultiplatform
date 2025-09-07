@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.presentation.screens.insert_player
 
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
@@ -61,9 +60,9 @@ class InsertPlayerViewModel(
     )
     val player = _player
 
-    private val _faceImage = MutableStateFlow<ImageBitmap?>(null)
+    private val _faceImage = MutableStateFlow<ByteArray?>(null)
     val faceImage = _faceImage
-    private val _bodyImage = MutableStateFlow<ImageBitmap?>(null)
+    private val _bodyImage = MutableStateFlow<ByteArray?>(null)
     val bodyImage = _bodyImage
 
     private val _availableDorsals = MutableStateFlow<List<Int>>(emptyList())
@@ -96,7 +95,7 @@ class InsertPlayerViewModel(
         _player.value = _player.value.copy(position = position)
     }
 
-    fun updatePicture(image: ImageBitmap?) {
+    fun updatePicture(image: ByteArray?) {
         viewModelScope.launch {
             when (_imageSelected.value) {
                 FACE -> updateFaceImage(image)
@@ -106,12 +105,12 @@ class InsertPlayerViewModel(
         }
     }
 
-    private fun updateFaceImage(image: ImageBitmap?) {
+    private fun updateFaceImage(image: ByteArray?) {
         _faceImage.value = image
         updateImageSelected(NONE)
     }
 
-    private fun updateBodyImage(image: ImageBitmap?) {
+    private fun updateBodyImage(image: ByteArray?) {
         _bodyImage.value = image
         updateImageSelected(NONE)
     }
@@ -147,7 +146,11 @@ class InsertPlayerViewModel(
         if (validPlayer()) {
             viewModelScope.launch {
                 withContext(Dispatchers.IO) {
-                    val newPlayerInserted = insertNewPlayerUseCase(_player.value)
+                    val newPlayerInserted = insertNewPlayerUseCase(
+                        player = _player.value,
+                        faceImg = _faceImage.value,
+                        bodyImg = _bodyImage.value
+                    )
                     if (newPlayerInserted) {
                         onSuccess()
                     } else {

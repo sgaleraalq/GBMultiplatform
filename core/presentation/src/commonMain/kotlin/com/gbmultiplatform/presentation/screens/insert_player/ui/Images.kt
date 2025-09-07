@@ -32,8 +32,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun InsertPlayerImages(
-    faceImg: ImageBitmap?,
-    bodyImg: ImageBitmap?,
+    faceImg: ByteArray?,
+    bodyImg: ByteArray?,
     onFaceClicked: () -> Unit,
     onBodyClicked: () -> Unit,
     showMediaOrCamera: () -> Unit

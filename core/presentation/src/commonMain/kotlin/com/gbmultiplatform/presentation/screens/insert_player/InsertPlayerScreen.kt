@@ -84,7 +84,7 @@ fun InsertPlayerScreen(
     val cameraManager = rememberCameraManager {
         coroutineScope.launch {
             showMediaOrCamera = false
-            val bitmap = withContext(Default) { it?.toImageBitmap() }
+            val bitmap = withContext(Default) { it?.toByteArray() }
             viewModel.updatePicture(bitmap)
         }
     }
@@ -92,7 +92,7 @@ fun InsertPlayerScreen(
     val galleryManager = rememberGalleryManager {
         coroutineScope.launch {
             showMediaOrCamera = false
-            val bitmap = withContext(Default) { it?.toImageBitmap() }
+            val bitmap = withContext(Default) { it?.toByteArray() }
             viewModel.updatePicture(bitmap)
         }
     }

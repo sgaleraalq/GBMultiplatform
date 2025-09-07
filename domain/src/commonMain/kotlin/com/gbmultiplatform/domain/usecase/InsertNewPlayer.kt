@@ -20,7 +20,16 @@ import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
 
 class InsertNewPlayer(private val repository: IPlayersInformationRepository) {
-    suspend operator fun invoke(player: PlayerInformationModel): Boolean {
+    suspend operator fun invoke(
+        player: PlayerInformationModel,
+        faceImg: ByteArray?,
+        bodyImg: ByteArray?
+    ): Boolean {
+        if (faceImg == null || bodyImg == null) return false
+        val facePath = repository.insertPlayerImage(player.id, faceImg, true)
+        val bodyPath = repository.insertPlayerImage(player.id, bodyImg, false)
+
+        if (facePath.isBlank() || bodyPath.isBlank()) return false
         return repository.insertNewPlayer(player)
     }
 }

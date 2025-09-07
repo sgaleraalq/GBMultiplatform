@@ -44,6 +44,8 @@ actual fun rememberCameraManager(
             if (success) {
                 val sharedImage = SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver))
                 onResult.invoke(sharedImage)
+            } else {
+                onResult.invoke(null)
             }
         }
     )

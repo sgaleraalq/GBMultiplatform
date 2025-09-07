@@ -52,7 +52,7 @@ class MainViewModel(
             /**
              * INIT NAVIGATION
              */
-            navController.navigateTo(InsertPlayer)
+            navController.navigateTo(Stats)
         } else {
             navController.navigateTo(Welcome)
         }

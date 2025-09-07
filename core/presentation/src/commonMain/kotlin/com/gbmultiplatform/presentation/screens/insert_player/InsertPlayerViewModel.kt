@@ -164,9 +164,7 @@ class InsertPlayerViewModel(
         return _player.value.let {
             it.name.isNotEmpty() &&
             it.dorsal > 0 &&
-            it.position != null &&
-            it.faceImage.isBlank() &&
-            it.bodyImage.isBlank()
+            it.position != null
         }
     }
 

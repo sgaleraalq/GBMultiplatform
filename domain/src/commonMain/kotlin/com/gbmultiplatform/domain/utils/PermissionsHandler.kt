@@ -44,8 +44,3 @@ class PermissionBridge {
         return listener?.isPermissionsGranted(permission) ?: false
     }
 }
-
-interface IPermissionHandler {
-    suspend fun askPermission(permissionType: PermissionType): PermissionStatus
-    fun isPermissionGranted(permission: String): Boolean
-}

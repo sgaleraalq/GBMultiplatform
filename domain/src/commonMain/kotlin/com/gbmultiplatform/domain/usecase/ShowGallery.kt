@@ -43,7 +43,6 @@ class ShowGallery(
                 permission = GALLERY,
                 callback = object : PermissionResultCallback {
                     override fun onPermissionsGranted() {
-                        permissionBridge.isPermissionGranted(GALLERY)
                         initGallery()
                     }
 

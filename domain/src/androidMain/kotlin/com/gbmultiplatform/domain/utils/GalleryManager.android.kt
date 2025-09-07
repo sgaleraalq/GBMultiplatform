@@ -16,20 +16,15 @@
 
 package com.gbmultiplatform.domain.utils
 
+import com.gbmultiplatform.domain.utils.BitmapUtils.getBitmapFromUri
 import android.content.ContentResolver
-import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.TakePicture
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
+import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia.ImageOnly
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import com.gbmultiplatform.domain.utils.BitmapUtils.getBitmapFromUri
-import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
 
 // CameraManager.android.kt
 @Composable
@@ -38,17 +33,19 @@ actual fun rememberGalleryManager(
 ): GalleryManager {
     val context = LocalContext.current
     val contentResolver: ContentResolver = context.contentResolver
+
     val galleryLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        rememberLauncherForActivityResult(PickVisualMedia()) { uri ->
             uri?.let {
-                onResult.invoke(SharedImage(getBitmapFromUri(uri, contentResolver)))
+                onResult(SharedImage(getBitmapFromUri(it, contentResolver)))
             }
         }
+
     return remember {
         GalleryManager(onLaunch = {
             galleryLauncher.launch(
                 PickVisualMediaRequest(
-                    mediaType = ActivityResultContracts.PickVisualMedia.ImageOnly
+                    mediaType = ImageOnly
                 )
             )
         })

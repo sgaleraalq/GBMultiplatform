@@ -114,7 +114,7 @@ open class GBMultiplatformActivity :
                 callback.onPermissionsGranted()
             }
 
-            shouldShowRequestPermissionRationale(CAMERA) -> {
+            shouldShowRequestPermissionRationale(androidPermission) -> {
                 callback.onPermissionsDenied(false)
             }
 

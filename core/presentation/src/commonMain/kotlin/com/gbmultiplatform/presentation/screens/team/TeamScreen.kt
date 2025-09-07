@@ -106,7 +106,7 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
         Box {
             GBImage(
                 modifier = Modifier.fillMaxSize(),
-                image = player.faceImage?.path
+                image = player.faceImage
             )
             Box(
                 modifier = Modifier

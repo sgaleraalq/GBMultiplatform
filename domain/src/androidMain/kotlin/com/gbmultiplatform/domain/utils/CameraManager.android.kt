@@ -17,7 +17,6 @@
 package com.gbmultiplatform.domain.utils
 
 import android.net.Uri.EMPTY
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
 import androidx.compose.runtime.Composable
@@ -26,23 +25,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.net.toUri
+import com.gbmultiplatform.domain.utils.BitmapUtils.getBitmapFromUri
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
 
 // CameraManager.android.kt
 @Composable
 actual fun rememberCameraManager(
-    onResult: (ImagePath) -> Unit
+    onResult: (SharedImage?) -> Unit
 ): CameraManager {
     var tempPhotoUri by remember { mutableStateOf(value = EMPTY) }
 
     val context = LocalContext.current
+    val contentResolver = context.contentResolver
+
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = TakePicture(),
         onResult = { success ->
             if (success) {
-                val path = ImagePath(tempPhotoUri.toString())
-                onResult.invoke(path)
+                val sharedImage = SharedImage(getBitmapFromUri(tempPhotoUri, contentResolver))
+                onResult.invoke(sharedImage)
             }
         }
     )
@@ -62,17 +63,5 @@ actual class CameraManager actual constructor(
 ) {
     actual fun launch() {
         onLaunch()
-    }
-}
-
-@Composable
-actual fun resolveImageFromPath(path: String?): ByteArray? {
-    if (path == null) return null
-    val context = LocalContext.current
-    return try {
-        context.contentResolver.openInputStream(path.toUri())?.use { it.readBytes() }
-    } catch (e: Exception) {
-        Log.e("CameraManager", "Error reading image from path: $path", e)
-        null
     }
 }

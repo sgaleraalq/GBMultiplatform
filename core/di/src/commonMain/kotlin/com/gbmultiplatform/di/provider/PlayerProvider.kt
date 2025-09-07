@@ -16,7 +16,6 @@
 
 package com.gbmultiplatform.di.provider
 
-import com.gbmultiplatform.domain.utils.generateRandomUUID
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.PlayerStatsModel
@@ -24,7 +23,7 @@ import com.gbmultiplatform.domain.model.player.Position.DEFENDER
 import com.gbmultiplatform.domain.model.player.Position.FORWARD
 import com.gbmultiplatform.domain.model.player.Position.GOALKEEPER
 import com.gbmultiplatform.domain.model.player.Position.MIDFIELDER
-import com.gbmultiplatform.domain.utils.ImagePath
+import com.gbmultiplatform.domain.utils.generateRandomUUID
 
 class PlayerProvider : IPlayerProvider {
 
@@ -128,8 +127,8 @@ class PlayerProvider : IPlayerProvider {
 
         return PlayerInformationModel(
             id = generateRandomUUID(),
-            faceImage = ImagePath(RANDOM_IMAGES.random()),
-            bodyImage = ImagePath(RANDOM_IMAGES.random()),
+            faceImage = RANDOM_IMAGES.random(),
+            bodyImage = RANDOM_IMAGES.random(),
             name = RANDOM_NAMES.random(),
             dorsal = (1..99).random(),
             position = position

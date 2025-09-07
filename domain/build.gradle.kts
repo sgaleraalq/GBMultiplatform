@@ -8,6 +8,9 @@ android {
 
 kotlin {
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.androidx.exifinterface)
+        }
         commonMain.dependencies {
             implementation(compose.components.resources)
         }

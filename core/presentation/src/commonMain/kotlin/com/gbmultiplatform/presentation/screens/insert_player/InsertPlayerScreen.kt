@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -56,6 +57,9 @@ import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
+import kotlinx.coroutines.Dispatchers.Default
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -64,17 +68,24 @@ fun InsertPlayerScreen(
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
     val player by viewModel.player.collectAsState()
+    val faceImage by viewModel.faceImage.collectAsState()
+    val bodyImage by viewModel.bodyImage.collectAsState()
     val state by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
 
+    val coroutineScope = rememberCoroutineScope()
     var showMediaOrCamera by remember { mutableStateOf(false) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
-    val cameraManager = rememberCameraManager { image ->
-        viewModel.updatePicture(image)
-        showMediaOrCamera = false
+    val cameraManager = rememberCameraManager {
+        coroutineScope.launch {
+            val bitmap = withContext(Default) { it?.toImageBitmap() }
+            viewModel.updatePicture(bitmap)
+            showMediaOrCamera = false
+        }
     }
+
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -97,8 +108,8 @@ fun InsertPlayerScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 InsertPlayerImages(
-                    faceImg = player.faceImage,
-                    bodyImg = player.bodyImage,
+                    faceImg = faceImage,
+                    bodyImg = bodyImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
                     onBodyClicked = { viewModel.updateImageSelected(BODY) },
                     showMediaOrCamera = { showMediaOrCamera = true }

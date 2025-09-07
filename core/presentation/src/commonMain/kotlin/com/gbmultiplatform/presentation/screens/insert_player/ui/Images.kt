@@ -19,11 +19,11 @@ package com.gbmultiplatform.presentation.screens.insert_player.ui
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
 import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
-import com.gbmultiplatform.domain.utils.ImagePath
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.body_image
 import gbmultiplatform.core.presentation.generated.resources.face_image
@@ -32,8 +32,8 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun InsertPlayerImages(
-    faceImg: ImagePath?,
-    bodyImg: ImagePath?,
+    faceImg: ImageBitmap?,
+    bodyImg: ImageBitmap?,
     onFaceClicked: () -> Unit,
     onBodyClicked: () -> Unit,
     showMediaOrCamera: () -> Unit

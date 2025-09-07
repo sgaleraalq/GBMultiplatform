@@ -16,6 +16,7 @@
 
 package com.gbmultiplatform.presentation.screens.insert_player
 
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
@@ -23,14 +24,13 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.utils.IToastManager
-import com.gbmultiplatform.domain.utils.ImagePath
-import com.gbmultiplatform.domain.utils.SharedImage
-import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.*
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,10 +52,17 @@ class InsertPlayerViewModel(
         PlayerInformationModel(
             name = "",
             dorsal = 0,
+            faceImage = "",
+            bodyImage = "",
             position = null
         )
     )
     val player = _player
+
+    private val _faceImage = MutableStateFlow<ImageBitmap?>(null)
+    val faceImage = _faceImage
+    private val _bodyImage = MutableStateFlow<ImageBitmap?>(null)
+    val bodyImage = _bodyImage
 
     private val _availableDorsals = MutableStateFlow<List<Int>>(emptyList())
     val dorsals = _availableDorsals
@@ -87,23 +94,23 @@ class InsertPlayerViewModel(
         _player.value = _player.value.copy(position = position)
     }
 
-    fun updatePicture(path: ImagePath?) {
+    fun updatePicture(image: ImageBitmap?) {
         viewModelScope.launch {
             when (_imageSelected.value) {
-                FACE -> updateFaceImage(path)
-                BODY -> updateBodyImage(path)
+                FACE -> updateFaceImage(image)
+                BODY -> updateBodyImage(image)
                 else -> return@launch
             }
         }
     }
 
-    private fun updateFaceImage(path: ImagePath?) {
-        _player.value = _player.value.copy(faceImage = path)
+    private fun updateFaceImage(image: ImageBitmap?) {
+        _faceImage.value = image
         updateImageSelected(NONE)
     }
 
-    private fun updateBodyImage(path: ImagePath?) {
-        _player.value = _player.value.copy(bodyImage = path)
+    private fun updateBodyImage(image: ImageBitmap?) {
+        _bodyImage.value = image
         updateImageSelected(NONE)
     }
 
@@ -145,8 +152,8 @@ class InsertPlayerViewModel(
             it.name.isNotEmpty() &&
             it.dorsal > 0 &&
             it.position != null &&
-            it.faceImage != null &&
-            it.bodyImage != null
+            it.faceImage.isBlank() &&
+            it.bodyImage.isBlank()
         }
     }
 

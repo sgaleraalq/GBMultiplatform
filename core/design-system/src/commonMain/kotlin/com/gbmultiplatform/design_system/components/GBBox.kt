@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,13 +20,13 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
-import com.gbmultiplatform.domain.utils.ImagePath
-import com.gbmultiplatform.domain.utils.resolveImageFromPath
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.description_camera_icon
 import gbmultiplatform.core.design_system.generated.resources.ic_camera
@@ -37,11 +38,10 @@ import org.jetbrains.compose.resources.stringResource
 fun GBImageBoxRequester(
     modifier: Modifier = Modifier.fillMaxSize(),
     text: String,
-    image: ImagePath?,
+    image: ImageBitmap?,
     iconSize: Dp = 32.dp,
     onClick: () -> Unit = {},
 ) {
-    val imageByteArray = resolveImageFromPath(image?.path)
     var showZoomDialog by remember { mutableStateOf(false) }
 
     Row(
@@ -70,17 +70,17 @@ fun GBImageBoxRequester(
         } else {
             GBImage(
                 modifier = Modifier
-                    .clickable { if (imageByteArray != null) showZoomDialog = true else onClick() }
+                    .clickable { showZoomDialog = true }
                     .padding(12.dp)
                     .size(iconSize),
-                image = imageByteArray
+                image = image
             )
         }
     }
 
-    if (showZoomDialog && imageByteArray != null) {
+    if (showZoomDialog && image != null) {
         ZoomableImage(
-            image = imageByteArray,
+            image = image,
             dismiss = { showZoomDialog = false }
         )
     }
@@ -88,18 +88,18 @@ fun GBImageBoxRequester(
 
 @Composable
 fun ZoomableImage(
-    image: ByteArray,
+    image: ImageBitmap,
     dismiss: () -> Unit
 ) {
-    GBDialog(
-        show = true,
-        dismiss = { dismiss() }
+    Dialog(
+        onDismissRequest = { dismiss() }
     ) {
         Box(
             modifier = Modifier.background(Black),
             contentAlignment = Center
         ) {
             GBImage(
+                modifier = Modifier.height(400.dp),
                 image = image,
                 contentScale = Fit
             )

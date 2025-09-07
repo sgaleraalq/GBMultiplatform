@@ -19,6 +19,7 @@ package com.gbmultiplatform.design_system.components
 import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import coil3.compose.AsyncImage
@@ -49,17 +50,14 @@ fun GBImage(
 @Composable
 fun GBImage(
     modifier: Modifier = Modifier,
-    image: ByteArray?,
-    saverImage: DrawableResource = Res.drawable.ic_error,
+    image: ImageBitmap,
     contentScale: ContentScale = Crop
 ) {
-    AsyncImage(
+    Image(
         modifier = modifier,
-        model = image,
+        bitmap = image,
         contentScale = contentScale,
-        contentDescription = stringResource(Res.string.description_insert_player_image),
-        error = painterResource(saverImage),
-        fallback = painterResource(saverImage)
+        contentDescription = stringResource(Res.string.description_insert_player_image)
     )
 }
 

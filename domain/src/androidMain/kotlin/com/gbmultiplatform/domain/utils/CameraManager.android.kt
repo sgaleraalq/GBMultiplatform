@@ -66,6 +66,58 @@ actual fun rememberCameraManager(
     }
 }
 
+//@Composable
+//fun FullScreenCamera(onPhotoTaken: (Uri) -> Unit) {
+//    val context = LocalContext.current
+//    val lifecycleOwner = LocalLifecycleOwner.current
+//    val previewView = remember { PreviewView(context) }
+//
+//    AndroidView(
+//        factory = { previewView },
+//        modifier = Modifier.fillMaxSize()
+//    )
+//
+//    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
+//
+//    LaunchedEffect(cameraProviderFuture) {
+//        val cameraProvider = cameraProviderFuture.get()
+//        val preview = Preview.Builder().build().also {
+//            it.setSurfaceProvider(previewView.surfaceProvider)
+//        }
+//        val imageCapture = ImageCapture.Builder()
+//            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+//            .setTargetResolution(Size(1080,1920)) // fijas resolución
+//            .build()
+//
+//        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+//        cameraProvider.unbindAll()
+//        cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
+//    }
+//
+//    // Botón de disparo overlay
+//    Box(modifier = Modifier.fillMaxSize()) {
+//        Button(
+//            onClick = {
+//                val file = File(context.cacheDir, "photo.jpg")
+//                val outputOptions = ImageCapture.OutputFileOptions.Builder(file).build()
+//                imageCapture.takePicture(
+//                    outputOptions,
+//                    ContextCompat.getMainExecutor(context),
+//                    object: ImageCapture.OnImageSavedCallback {
+//                        override fun onError(exc: ImageCaptureException) { /* manejar error */ }
+//                        override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+//                            onPhotoTaken(file.toUri())
+//                        }
+//                    }
+//                )
+//            },
+//            modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp)
+//        ) {
+//            Text("Disparar")
+//        }
+//    }
+//}
+
 private fun isPhotoWritten(context: Context, uri: Uri): Boolean {
     return try {
         context.contentResolver.openInputStream(uri)?.use { input ->

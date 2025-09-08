@@ -21,13 +21,30 @@ import android.net.Uri
 import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
+import androidx.camera.compose.CameraXViewfinder
+import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
+import androidx.camera.core.Preview
+import androidx.camera.core.SurfaceRequest
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.lifecycle.awaitInstance
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gbmultiplatform.domain.utils.ComposeFileProvider.Companion.getImageUri
+import kotlinx.coroutines.awaitCancellation
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import org.koin.compose.viewmodel.koinViewModel
 
 // CameraManager.android.kt
 @Composable
@@ -66,58 +83,6 @@ actual fun rememberCameraManager(
     }
 }
 
-//@Composable
-//fun FullScreenCamera(onPhotoTaken: (Uri) -> Unit) {
-//    val context = LocalContext.current
-//    val lifecycleOwner = LocalLifecycleOwner.current
-//    val previewView = remember { PreviewView(context) }
-//
-//    AndroidView(
-//        factory = { previewView },
-//        modifier = Modifier.fillMaxSize()
-//    )
-//
-//    val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
-//
-//    LaunchedEffect(cameraProviderFuture) {
-//        val cameraProvider = cameraProviderFuture.get()
-//        val preview = Preview.Builder().build().also {
-//            it.setSurfaceProvider(previewView.surfaceProvider)
-//        }
-//        val imageCapture = ImageCapture.Builder()
-//            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-//            .setTargetResolution(Size(1080,1920)) // fijas resolución
-//            .build()
-//
-//        val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-//        cameraProvider.unbindAll()
-//        cameraProvider.bindToLifecycle(lifecycleOwner, cameraSelector, preview, imageCapture)
-//    }
-//
-//    // Botón de disparo overlay
-//    Box(modifier = Modifier.fillMaxSize()) {
-//        Button(
-//            onClick = {
-//                val file = File(context.cacheDir, "photo.jpg")
-//                val outputOptions = ImageCapture.OutputFileOptions.Builder(file).build()
-//                imageCapture.takePicture(
-//                    outputOptions,
-//                    ContextCompat.getMainExecutor(context),
-//                    object: ImageCapture.OnImageSavedCallback {
-//                        override fun onError(exc: ImageCaptureException) { /* manejar error */ }
-//                        override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-//                            onPhotoTaken(file.toUri())
-//                        }
-//                    }
-//                )
-//            },
-//            modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp)
-//        ) {
-//            Text("Disparar")
-//        }
-//    }
-//}
-
 private fun isPhotoWritten(context: Context, uri: Uri): Boolean {
     return try {
         context.contentResolver.openInputStream(uri)?.use { input ->
@@ -133,5 +98,46 @@ actual class CameraManager actual constructor(
 ) {
     actual fun launch() {
         onLaunch()
+    }
+}
+
+@Composable
+fun GBCameraPreview(
+    modifier: Modifier = Modifier,
+    viewModel: GBCameraViewModel = koinViewModel<GBCameraViewModel>()
+) {
+    val surfaceRequest by viewModel.surfaceRequest.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val context = LocalContext.current
+    LaunchedEffect(lifecycleOwner) {
+        viewModel.bindToCamera(context.applicationContext, lifecycleOwner)
+    }
+
+    surfaceRequest?.let { request ->
+        CameraXViewfinder(
+            surfaceRequest = request,
+            modifier = modifier
+        )
+    }
+}
+
+class GBCameraViewModel : ViewModel() {
+    private val _surfaceRequest = MutableStateFlow<SurfaceRequest?>(null)
+    val surfaceRequest: StateFlow<SurfaceRequest?> = _surfaceRequest
+
+    private val cameraPreviewUseCase = Preview.Builder().build().apply {
+        setSurfaceProvider { newSurfaceRequest ->
+            _surfaceRequest.update { newSurfaceRequest }
+        }
+    }
+
+    suspend fun bindToCamera(appContext: Context, lifecycleOwner: LifecycleOwner) {
+        val processCameraProvider = ProcessCameraProvider.awaitInstance(appContext)
+        processCameraProvider.bindToLifecycle(
+            lifecycleOwner, DEFAULT_FRONT_CAMERA, cameraPreviewUseCase
+        )
+
+        // Cancellation signals we're done with the camera
+        try { awaitCancellation() } finally { processCameraProvider.unbindAll() }
     }
 }

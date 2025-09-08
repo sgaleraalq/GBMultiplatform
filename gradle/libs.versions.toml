@@ -1,6 +1,5 @@
 [versions]
 agp = "8.13.0"
-exifinterfaceVersion = "1.4.1"
 kotlin = "2.2.10"
 compose = "1.8.2"
 androidx-lifecycle = "2.9.2"
@@ -24,6 +23,7 @@ coil = "3.3.0"
 ktor = "3.2.3"
 gservices = "4.4.3"
 exifinterface = "1.4.1"
+camerax = "1.5.0-rc01"
 
 [libraries]
 # build-logic
@@ -79,7 +79,11 @@ datastore-preferences = { module = "androidx.datastore:datastore-preferences", v
 compose-preview = { group = "org.jetbrains.compose.ui", name = "ui-tooling-preview", version.ref = "compose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
-androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterfaceVersion" }
+androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
+androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "camerax" }
+androidx-camera-compose = { module = "androidx.camera:camera-compose", version.ref = "camerax" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
 
 # testing
 kotlin-test = { group = "org.jetbrains.kotlin", name="kotlin-test", version.ref = "kotlin" }

@@ -5,15 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,23 +37,21 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GBImageBoxRequester(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier,
     text: String,
-    commonImage: CommonImage?,
     iconSize: Dp = 32.dp,
+    commonImage: CommonImage?,
+    imageLoader: SharedImagesBridge,
     onClick: () -> Unit = {},
 ) {
     var showZoomDialog by remember { mutableStateOf(false) }
 
-    val imageLoader = SharedImagesBridge()
     val uri = commonImage?.uri
-    val imageState = remember(uri) { mutableStateOf<ByteArray?>(null) }
-    LaunchedEffect(uri) {
-        imageState.value = if (uri != null) {
+
+    val imageState = produceState<ByteArray?>(null, uri) {
+        value = if (uri != null) {
             imageLoader.loadImage(uri, maxWidth = 256, maxHeight = 256, quality = 80)
-        } else {
-            null
-        }
+        } else null
     }
 
     val image = imageState.value

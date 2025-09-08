@@ -16,6 +16,8 @@
 
 package com.gbmultiplatform.domain.utils
 
+import android.content.Context
+import android.net.Uri
 import android.net.Uri.EMPTY
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.TakePicture
@@ -41,11 +43,13 @@ actual fun rememberCameraManager(
         contract = TakePicture(),
         onResult = { success ->
             if (success) {
-                val commonImage = CommonImage(
-                    uri = tempPhotoUri.toString(),
-                    mimeType = contentResolver.getType(tempPhotoUri),
-                )
-                onResult.invoke(commonImage)
+                val commonImage = if (isPhotoWritten(context, tempPhotoUri)) {
+                    CommonImage(
+                        uri = tempPhotoUri.toString(),
+                        mimeType = contentResolver.getType(tempPhotoUri)
+                    )
+                } else null
+                onResult(commonImage)
             } else {
                 onResult.invoke(null)
             }
@@ -59,6 +63,16 @@ actual fun rememberCameraManager(
                 cameraLauncher.launch(tempPhotoUri)
             }
         )
+    }
+}
+
+private fun isPhotoWritten(context: Context, uri: Uri): Boolean {
+    return try {
+        context.contentResolver.openInputStream(uri)?.use { input ->
+            input.available() > 0
+        } ?: false
+    } catch (e: Exception) {
+        false
     }
 }
 

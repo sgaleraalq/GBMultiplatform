@@ -25,7 +25,7 @@ class SharedImagesBridge {
         uri: String,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int = 85
+        quality: Int
     ): ByteArray? {
         return imageLoader?.loadImage(
             uri,

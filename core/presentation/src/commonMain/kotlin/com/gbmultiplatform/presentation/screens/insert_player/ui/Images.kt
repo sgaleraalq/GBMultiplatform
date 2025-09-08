@@ -24,6 +24,7 @@ import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.domain.utils.CommonImage
+import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.body_image
 import gbmultiplatform.core.presentation.generated.resources.face_image
@@ -36,7 +37,8 @@ fun InsertPlayerImages(
     bodyImg: CommonImage?,
     onFaceClicked: () -> Unit,
     onBodyClicked: () -> Unit,
-    showMediaOrCamera: () -> Unit
+    showMediaOrCamera: () -> Unit,
+    imageLoader: SharedImagesBridge
 ) {
     GBText(
         modifier = Modifier.fillMaxWidth(),
@@ -48,6 +50,7 @@ fun InsertPlayerImages(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.face_image),
         commonImage = faceImg,
+        imageLoader = imageLoader,
         onClick = {
             onFaceClicked()
             showMediaOrCamera()
@@ -57,6 +60,7 @@ fun InsertPlayerImages(
         modifier = Modifier.fillMaxWidth(),
         text = stringResource(Res.string.body_image),
         commonImage = bodyImg,
+        imageLoader = imageLoader,
         onClick = {
             onBodyClicked()
             showMediaOrCamera()

@@ -29,7 +29,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -39,6 +38,7 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
+import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberCameraManager
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
@@ -59,11 +59,8 @@ import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.getKoin
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -76,26 +73,20 @@ fun InsertPlayerScreen(
     val state by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
 
-    val coroutineScope = rememberCoroutineScope()
+    val imageLoader = getKoin().get<SharedImagesBridge>()
     var showMediaOrCamera by remember { mutableStateOf(false) }
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
-    val cameraManager = rememberCameraManager {
-        coroutineScope.launch {
-            showMediaOrCamera = false
-            val commonImage = withContext(Dispatchers.IO) { it }
-            viewModel.updatePicture(commonImage)
-        }
+    val cameraManager = rememberCameraManager { commonImage ->
+        showMediaOrCamera = false
+        viewModel.updatePicture(commonImage)
     }
 
-    val galleryManager = rememberGalleryManager {
-        coroutineScope.launch {
-            showMediaOrCamera = false
-            val commonImage = withContext(Dispatchers.IO) { it }
-            viewModel.updatePicture(commonImage)
-        }
+    val galleryManager = rememberGalleryManager { commonImage ->
+        showMediaOrCamera = false
+        viewModel.updatePicture(commonImage)
     }
 
 
@@ -124,7 +115,8 @@ fun InsertPlayerScreen(
                     bodyImg = bodyImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
                     onBodyClicked = { viewModel.updateImageSelected(BODY) },
-                    showMediaOrCamera = { showMediaOrCamera = true }
+                    showMediaOrCamera = { showMediaOrCamera = true },
+                    imageLoader = imageLoader
                 )
             }
             Spacer(Modifier.weight(1f))

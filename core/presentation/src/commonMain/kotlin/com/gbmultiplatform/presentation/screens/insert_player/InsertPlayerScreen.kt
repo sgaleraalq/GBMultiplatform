@@ -38,8 +38,8 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
+import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
-import com.gbmultiplatform.domain.utils.rememberCameraManager
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
@@ -79,10 +79,11 @@ fun InsertPlayerScreen(
     val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
-    val cameraManager = rememberCameraManager { commonImage ->
-        showMediaOrCamera = false
-        viewModel.updatePicture(commonImage)
-    }
+//    val cameraManager = rememberCameraManager { commonImage ->
+//        showMediaOrCamera = false
+//        viewModel.updatePicture(commonImage)
+//    }
+    var showCamera by remember { mutableStateOf(false) }
 
     val galleryManager = rememberGalleryManager { commonImage ->
         showMediaOrCamera = false
@@ -145,11 +146,18 @@ fun InsertPlayerScreen(
             },
             onCameraClicked = {
                 viewModel.initCamera(
-                    launchCamera = { cameraManager.launch() },
+                    launchCamera = {
+                        showMediaOrCamera = false
+                        showCamera = true
+                    },
                     permissionDeniedMsg = permissionDeniedCamera
                 )
             }
         )
+    }
+
+    if (showCamera) {
+        CameraManagerCompose {  }
     }
 
     when (state) {

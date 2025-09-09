@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 
 
 @Composable
-expect fun rememberCameraManager(onResult: (CommonImage?) -> Unit): CameraManager
+expect fun CameraManagerCompose(onResult: (CommonImage?) -> Unit)
 
 expect class CameraManager(
     onLaunch: () -> Unit

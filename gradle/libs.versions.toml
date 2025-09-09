@@ -24,6 +24,7 @@ ktor = "3.2.3"
 gservices = "4.4.3"
 exifinterface = "1.4.1"
 camerax = "1.5.0-rc01"
+materialIcons = "1.7.8"
 
 [libraries]
 # build-logic
@@ -81,9 +82,11 @@ androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 androidx-camera-core = { module = "androidx.camera:camera-core", version.ref = "camerax" }
-androidx-camera-compose = { module = "androidx.camera:camera-compose", version.ref = "camerax" }
-androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
+androidx-camera-lifecycle = { group = "androidx.camera", name = "camera-lifecycle", version.ref = "camerax" }
+androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
+androidx-camera-extensions = { module = "androidx.camera:camera-extensions", version.ref = "camerax" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIcons" }
 
 # testing
 kotlin-test = { group = "org.jetbrains.kotlin", name="kotlin-test", version.ref = "kotlin" }

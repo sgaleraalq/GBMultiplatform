@@ -25,7 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 
-// CameraManager.android.kt
+// GalleryManager.android.kt
 @Composable
 actual fun rememberGalleryManager(
     onResult: (CommonImage?) -> Unit

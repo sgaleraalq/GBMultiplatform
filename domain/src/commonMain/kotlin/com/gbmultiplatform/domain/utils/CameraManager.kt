@@ -19,4 +19,7 @@ package com.gbmultiplatform.domain.utils
 import androidx.compose.runtime.Composable
 
 @Composable
-expect fun CameraManagerCompose(onResult: (CommonImage?) -> Unit)
+expect fun CameraManagerCompose(
+    onResult: (CommonImage?) -> Unit,
+    closeCamera: () -> Unit
+)

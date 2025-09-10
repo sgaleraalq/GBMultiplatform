@@ -157,10 +157,10 @@ fun InsertPlayerScreen(
     }
 
     if (showCamera) {
-        CameraManagerCompose {
-            showCamera = false
-            viewModel.updatePicture(it)
-        }
+        CameraManagerCompose(
+            onResult = { viewModel.updatePicture(it) },
+            closeCamera = { showCamera = false }
+        )
     }
 
     when (state) {

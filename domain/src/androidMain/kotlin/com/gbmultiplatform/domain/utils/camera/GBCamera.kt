@@ -50,7 +50,8 @@ fun GBCamera(
     uri: Uri,
     controller: LifecycleCameraController,
     changeCamera: () -> CameraSelector,
-    onPhotoTaken: (Uri) -> Unit
+    onPhotoTaken: (Uri) -> Unit,
+    closeCamera: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -95,7 +96,8 @@ fun GBCamera(
                         uri = uri,
                         controller = controller,
                         onPhotoTaken = { onPhotoTaken(it) },
-                        context = context
+                        context = context,
+                        closeCamera = { closeCamera() }
                     )
                 }
             ) {

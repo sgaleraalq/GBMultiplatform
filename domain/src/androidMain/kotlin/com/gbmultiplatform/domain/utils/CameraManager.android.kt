@@ -43,7 +43,8 @@ import com.gbmultiplatform.domain.utils.camera.GBCamera
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    onResult: (CommonImage?) -> Unit
+    onResult: (CommonImage?) -> Unit,
+    closeCamera: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -70,7 +71,8 @@ actual fun CameraManagerCompose(
         changeCamera = { changeCamera() },
         onPhotoTaken = { uri ->
             onResult(CommonImage(uri.toString()))
-        }
+        },
+        closeCamera = { closeCamera() }
     )
 }
 
@@ -79,6 +81,7 @@ internal fun takePhoto(
     context: Context,
     controller: LifecycleCameraController,
     onPhotoTaken: (Uri) -> Unit,
+    closeCamera: () -> Unit
 ) {
     val output = Builder(
         context.contentResolver,
@@ -92,6 +95,7 @@ internal fun takePhoto(
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
                 onPhotoTaken(uri)
+                closeCamera()
             }
 
             override fun onError(exception: ImageCaptureException) {

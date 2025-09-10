@@ -73,11 +73,14 @@ actual fun CameraManagerCompose(
         bitmaps = bitmaps,
         controller = controller,
         changeCamera = { changeCamera() },
-        onPhotoTaken = { bitmap -> viewModel.onTakePhoto(bitmap) }
+        onPhotoTaken = { bitmap ->
+            viewModel.onTakePhoto(bitmap)
+            onResult(null)
+        }
     )
 }
 
-class CameraViewModel: ViewModel() {
+class CameraViewModel : ViewModel() {
     private val _bitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
     val bitmaps = _bitmaps.asStateFlow()
 
@@ -85,7 +88,6 @@ class CameraViewModel: ViewModel() {
         _bitmaps.value += bitmap
     }
 }
-
 
 
 internal fun takePhoto(

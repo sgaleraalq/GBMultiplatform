@@ -46,7 +46,7 @@
         </activity>
 
         <provider
-            android:name=".domain.utils.ComposeFileProvider"
+            android:name=".domain.utils.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">

@@ -16,39 +16,27 @@
 
 package com.gbmultiplatform.domain.utils.camera
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.camera.core.CameraSelector
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells.Fixed
-import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons.Default
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Cameraswitch
-import androidx.compose.material3.BottomSheetScaffold
-import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -58,74 +46,63 @@ import com.gbmultiplatform.domain.utils.takePhoto
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GBCamera(
-    scaffoldState: BottomSheetScaffoldState,
-    bitmaps: List<Bitmap>,
+    modifier: Modifier = Modifier,
+    uri: Uri,
     controller: LifecycleCameraController,
     changeCamera: () -> CameraSelector,
-    onPhotoTaken: (Bitmap) -> Unit
+    onPhotoTaken: (Uri) -> Unit
 ) {
     val context = LocalContext.current
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = 0.dp,
-        sheetContent = {
-            PhotoBottomSheetContent(
-                bitmaps = bitmaps,
-                modifier = Modifier
-                    .fillMaxWidth()
-            )
-        }
-    ) { padding ->
-        Box(
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        GBCameraPreview(
+            controller = controller,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
-        ) {
-            GBCameraPreview(
-                controller = controller,
-                modifier = Modifier
-                    .fillMaxSize()
-            )
+        )
 
+        IconButton(
+            modifier = Modifier.offset(16.dp, 16.dp),
+            colors = IconButtonDefaults.iconButtonColors(
+                containerColor = White
+            ),
+            onClick = {
+                controller.cameraSelector = changeCamera()
+            }
+        ) {
+            Icon(
+                imageVector = Default.Cameraswitch,
+                contentDescription = "Switch camera"
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(BottomCenter)
+                .padding(16.dp),
+            contentAlignment = Center
+        ) {
             IconButton(
-                modifier = Modifier.offset(16.dp, 16.dp),
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = White
                 ),
                 onClick = {
-                    controller.cameraSelector = changeCamera()
+                    takePhoto(
+                        uri = uri,
+                        controller = controller,
+                        onPhotoTaken = { onPhotoTaken(it) },
+                        context = context
+                    )
                 }
             ) {
                 Icon(
-                    imageVector = Default.Cameraswitch,
-                    contentDescription = "Switch camera"
+                    imageVector = Default.Camera,
+                    contentDescription = "Take picture"
                 )
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(BottomCenter)
-                    .padding(16.dp),
-                contentAlignment = Center
-            ) {
-                IconButton(
-                    colors = IconButtonDefaults.iconButtonColors(
-                        containerColor = White
-                    ),
-                    onClick = {
-                        takePhoto(
-                            controller = controller,
-                            onPhotoTaken = { onPhotoTaken(it) },
-                            context = context
-                        )
-                    }
-                ) {
-                    Icon(
-                        imageVector = Default.Camera,
-                        contentDescription = "Take picture"
-                    )
-                }
             }
         }
     }
@@ -146,37 +123,4 @@ fun GBCameraPreview(
             }
         }
     )
-}
-
-@Composable
-fun PhotoBottomSheetContent(
-    bitmaps: List<Bitmap>,
-    modifier: Modifier = Modifier
-) {
-    if (bitmaps.isEmpty()) {
-        Box(
-            modifier = modifier
-                .padding(16.dp),
-            contentAlignment = Center
-        ) {
-            Text("There are no photos yet")
-        }
-    } else {
-        LazyVerticalStaggeredGrid(
-            columns = Fixed(2),
-            horizontalArrangement = spacedBy(16.dp),
-            verticalItemSpacing = 16.dp,
-            contentPadding = PaddingValues(16.dp),
-            modifier = modifier
-        ) {
-            items(bitmaps) { bitmap ->
-                Image(
-                    bitmap = bitmap.asImageBitmap(),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(10.dp))
-                )
-            }
-        }
-    }
 }

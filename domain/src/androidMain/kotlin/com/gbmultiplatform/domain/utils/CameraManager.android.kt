@@ -16,30 +16,28 @@
 
 package com.gbmultiplatform.domain.utils
 
+import android.content.ContentValues
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Matrix
+import android.net.Uri
 import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
-import androidx.camera.core.ImageCapture.OnImageCapturedCallback
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCapture.OutputFileOptions.Builder
+import androidx.camera.core.ImageCapture.OutputFileResults
 import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
 import androidx.camera.view.CameraController.IMAGE_CAPTURE
 import androidx.camera.view.LifecycleCameraController
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModel
+import androidx.core.content.ContextCompat.getMainExecutor
+import com.gbmultiplatform.domain.utils.FileProvider.Companion.getImageUri
 import com.gbmultiplatform.domain.utils.camera.GBCamera
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 // CameraManager.android.kt
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,12 +47,10 @@ actual fun CameraManagerCompose(
 ) {
     val context = LocalContext.current
 
-    val viewModel = remember { CameraViewModel() }
-    val scaffoldState = rememberBottomSheetScaffoldState()
+    val photoUri by remember { mutableStateOf(getImageUri(context)) }
     val controller = remember {
         LifecycleCameraController(context).apply { setEnabledUseCases(IMAGE_CAPTURE) }
     }
-    val bitmaps by viewModel.bitmaps.collectAsState()
 
     fun isBackCamera(): Boolean {
         return controller.cameraSelector == DEFAULT_BACK_CAMERA
@@ -69,57 +65,37 @@ actual fun CameraManagerCompose(
     }
 
     GBCamera(
-        scaffoldState = scaffoldState,
-        bitmaps = bitmaps,
+        uri = photoUri,
         controller = controller,
         changeCamera = { changeCamera() },
-        onPhotoTaken = { bitmap ->
-            viewModel.onTakePhoto(bitmap)
-            onResult(null)
+        onPhotoTaken = { uri ->
+            onResult(CommonImage(uri.toString()))
         }
     )
 }
 
-class CameraViewModel : ViewModel() {
-    private val _bitmaps = MutableStateFlow<List<Bitmap>>(emptyList())
-    val bitmaps = _bitmaps.asStateFlow()
-
-    fun onTakePhoto(bitmap: Bitmap) {
-        _bitmaps.value += bitmap
-    }
-}
-
-
 internal fun takePhoto(
+    uri: Uri,
+    context: Context,
     controller: LifecycleCameraController,
-    onPhotoTaken: (Bitmap) -> Unit,
-    context: Context
+    onPhotoTaken: (Uri) -> Unit,
 ) {
+    val output = Builder(
+        context.contentResolver,
+        uri,
+        ContentValues()
+    ).build()
+
     controller.takePicture(
-        ContextCompat.getMainExecutor(context),
-        object : OnImageCapturedCallback() {
-            override fun onCaptureSuccess(image: ImageProxy) {
-                super.onCaptureSuccess(image)
-
-                val matrix = Matrix().apply {
-                    postRotate(image.imageInfo.rotationDegrees.toFloat())
-                }
-                val rotatedBitmap = Bitmap.createBitmap(
-                    image.toBitmap(),
-                    0,
-                    0,
-                    image.width,
-                    image.height,
-                    matrix,
-                    true
-                )
-
-                onPhotoTaken(rotatedBitmap)
+        output,
+        getMainExecutor(context),
+        object : ImageCapture.OnImageSavedCallback {
+            override fun onImageSaved(outputFileResults: OutputFileResults) {
+                onPhotoTaken(uri)
             }
 
             override fun onError(exception: ImageCaptureException) {
-                super.onError(exception)
-                Log.e("Camera", "Couldn't take photo: ", exception)
+                Log.e("Camera", "Couldn't save photo: ", exception)
             }
         }
     )

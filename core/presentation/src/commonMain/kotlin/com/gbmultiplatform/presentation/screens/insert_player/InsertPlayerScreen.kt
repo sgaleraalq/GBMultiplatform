@@ -160,10 +160,6 @@ fun InsertPlayerScreen(
 
     if (showCamera) {
         state.navigateTo(Camera)
-//        CameraManagerCompose(
-//            onResult = { viewModel.updatePicture(it) },
-//            closeCamera = { showCamera = false }
-//        )
     }
 
     when (uiState) {

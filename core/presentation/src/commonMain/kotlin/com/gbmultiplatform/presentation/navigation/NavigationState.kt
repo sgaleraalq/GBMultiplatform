@@ -31,6 +31,7 @@ import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
 import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
 import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
 import com.gbmultiplatform.presentation.navigation.Destination.About
+import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
@@ -166,5 +167,6 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     About.configuration(),
     MatchDetail.configuration(),
     PlayerInformation.configuration(),
-    InsertPlayer.configuration()
+    InsertPlayer.configuration(),
+    Camera.configuration()
 )

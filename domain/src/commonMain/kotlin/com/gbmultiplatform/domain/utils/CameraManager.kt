@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 
 @Composable
 expect fun CameraManagerCompose(
-    navigateBack: () -> Unit,
     onResult: (CommonImage?) -> Unit,
     closeCamera: () -> Unit
 )

@@ -41,7 +41,6 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    navigateBack: () -> Unit,
     onResult: (CommonImage?) -> Unit,
     closeCamera: () -> Unit,
 ) {
@@ -67,7 +66,7 @@ actual fun CameraManagerCompose(
         controller = controller,
         changeCamera = { changeCamera() },
         onPhotoTaken = { uri -> onResult(CommonImage(uri.toString())) },
-        closeCamera = { navigateBack() }
+        closeCamera = { closeCamera() }
     )
 }
 

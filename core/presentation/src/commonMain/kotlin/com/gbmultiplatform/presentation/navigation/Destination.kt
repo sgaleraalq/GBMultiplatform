@@ -151,12 +151,10 @@ interface Destination {
 
         @Composable
         fun Content(
-            state: NavigationState,
             onResult: (CommonImage?) -> Unit,
             onClose: () -> Unit
         ) {
             CameraManagerCompose(
-                navigateBack = { state.navigateBack() },
                 onResult = { onResult(it) },
                 closeCamera = { onClose() }
             )
@@ -164,7 +162,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            Content(state, {}, {})
+            Content({}, {})
         }
     }
 }

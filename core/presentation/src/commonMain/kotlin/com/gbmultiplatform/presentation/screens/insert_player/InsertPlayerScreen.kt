@@ -38,9 +38,10 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
-import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
+import com.gbmultiplatform.presentation.navigation.Destination.Camera
+import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
@@ -65,12 +66,13 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun InsertPlayerScreen(
+    state: NavigationState,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
     val player by viewModel.player.collectAsState()
     val faceImage by viewModel.faceImage.collectAsState()
     val bodyImage by viewModel.bodyImage.collectAsState()
-    val state by viewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
 
     val imageLoader = getKoin().get<SharedImagesBridge>()
@@ -96,7 +98,7 @@ fun InsertPlayerScreen(
     ) {
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
 
-        if (state != LOADING) {
+        if (uiState != LOADING) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = CenterHorizontally,
@@ -157,13 +159,14 @@ fun InsertPlayerScreen(
     }
 
     if (showCamera) {
-        CameraManagerCompose(
-            onResult = { viewModel.updatePicture(it) },
-            closeCamera = { showCamera = false }
-        )
+        state.navigateTo(Camera)
+//        CameraManagerCompose(
+//            onResult = { viewModel.updatePicture(it) },
+//            closeCamera = { showCamera = false }
+//        )
     }
 
-    when (state) {
+    when (uiState) {
         DEFAULT -> {}
         LOADING -> {
             Box(Modifier.fillMaxSize()) { GBProgressDialog(true, White) }

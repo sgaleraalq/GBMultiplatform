@@ -17,6 +17,8 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import com.gbmultiplatform.domain.utils.CameraManagerCompose
+import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
@@ -136,7 +138,33 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-             InsertPlayerScreen()
+             InsertPlayerScreen(state)
+        }
+    }
+
+    /**
+     * Camera
+     */
+    @Serializable
+    object Camera: Destination {
+        override val routeName = "camera"
+
+        @Composable
+        fun Content(
+            state: NavigationState,
+            onResult: (CommonImage?) -> Unit,
+            onClose: () -> Unit
+        ) {
+            CameraManagerCompose(
+                navigateBack = { state.navigateBack() },
+                onResult = { onResult(it) },
+                closeCamera = { onClose() }
+            )
+        }
+
+        @Composable
+        override fun Content(state: NavigationState) {
+            Content(state, {}, {})
         }
     }
 }

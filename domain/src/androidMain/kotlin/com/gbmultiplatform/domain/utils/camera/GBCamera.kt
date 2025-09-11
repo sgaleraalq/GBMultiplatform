@@ -23,8 +23,8 @@ import androidx.camera.view.PreviewView
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons.Default
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Cameraswitch
@@ -34,6 +34,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -43,15 +44,16 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.gbmultiplatform.domain.utils.takePhoto
 
-@OptIn(ExperimentalMaterial3Api::class)
+const val CHANGE_CAMERA = "Change camera"
+const val TAKE_PHOTO = "Take photo"
+
 @Composable
 fun GBCamera(
     modifier: Modifier = Modifier,
-    uri: Uri,
     controller: LifecycleCameraController,
     changeCamera: () -> CameraSelector,
-    onPhotoTaken: (Uri) -> Unit,
-    closeCamera: () -> Unit
+    closeCamera: () -> Unit,
+    onPhotoTaken: (Uri) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -66,7 +68,7 @@ fun GBCamera(
         )
 
         IconButton(
-            modifier = Modifier.offset(16.dp, 16.dp),
+            modifier = Modifier.align(BottomEnd).padding(16.dp),
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = White
             ),
@@ -76,7 +78,7 @@ fun GBCamera(
         ) {
             Icon(
                 imageVector = Default.Cameraswitch,
-                contentDescription = "Switch camera"
+                contentDescription = CHANGE_CAMERA
             )
         }
 
@@ -93,7 +95,6 @@ fun GBCamera(
                 ),
                 onClick = {
                     takePhoto(
-                        uri = uri,
                         controller = controller,
                         onPhotoTaken = { onPhotoTaken(it) },
                         context = context,
@@ -102,8 +103,9 @@ fun GBCamera(
                 }
             ) {
                 Icon(
+                    modifier = Modifier.size(72.dp),
                     imageVector = Default.Camera,
-                    contentDescription = "Take picture"
+                    contentDescription = TAKE_PHOTO
                 )
             }
         }

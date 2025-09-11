@@ -16,9 +16,9 @@
 
 package com.gbmultiplatform.domain.utils
 
-import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.net.Uri.fromFile
 import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
@@ -31,24 +31,22 @@ import androidx.camera.view.CameraController.IMAGE_CAPTURE
 import androidx.camera.view.LifecycleCameraController
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getMainExecutor
-import com.gbmultiplatform.domain.utils.FileProvider.Companion.getImageUri
 import com.gbmultiplatform.domain.utils.camera.GBCamera
+import java.io.File
 
 // CameraManager.android.kt
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
+    navigateBack: () -> Unit,
     onResult: (CommonImage?) -> Unit,
-    closeCamera: () -> Unit
+    closeCamera: () -> Unit,
 ) {
     val context = LocalContext.current
 
-    val photoUri by remember { mutableStateOf(getImageUri(context)) }
     val controller = remember {
         LifecycleCameraController(context).apply { setEnabledUseCases(IMAGE_CAPTURE) }
     }
@@ -66,40 +64,38 @@ actual fun CameraManagerCompose(
     }
 
     GBCamera(
-        uri = photoUri,
         controller = controller,
         changeCamera = { changeCamera() },
-        onPhotoTaken = { uri ->
-            onResult(CommonImage(uri.toString()))
-        },
-        closeCamera = { closeCamera() }
+        onPhotoTaken = { uri -> onResult(CommonImage(uri.toString())) },
+        closeCamera = { navigateBack() }
     )
 }
 
 internal fun takePhoto(
-    uri: Uri,
     context: Context,
     controller: LifecycleCameraController,
     onPhotoTaken: (Uri) -> Unit,
     closeCamera: () -> Unit
 ) {
-    val output = Builder(
-        context.contentResolver,
-        uri,
-        ContentValues()
-    ).build()
+    val photoFile = File(
+        context.cacheDir,
+        "photo_${System.currentTimeMillis()}.jpg"
+    )
+
+    val output = Builder(photoFile).build()
 
     controller.takePicture(
         output,
         getMainExecutor(context),
         object : ImageCapture.OnImageSavedCallback {
             override fun onImageSaved(outputFileResults: OutputFileResults) {
-                onPhotoTaken(uri)
-                closeCamera()
+                Log.i("Camera", "Photo capture succeeded: ${outputFileResults.savedUri}")
+                onPhotoTaken(fromFile(photoFile))
             }
 
             override fun onError(exception: ImageCaptureException) {
                 Log.e("Camera", "Couldn't save photo: ", exception)
+                closeCamera()
             }
         }
     )

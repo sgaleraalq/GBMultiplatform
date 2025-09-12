@@ -24,6 +24,7 @@ import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import com.gbmultiplatform.domain.utils.CommonImage.FromGallery
 
 // GalleryManager.android.kt
 @Composable
@@ -38,7 +39,7 @@ actual fun rememberGalleryManager(
             uri?.let {
                 val uri = it.toString()
                 onResult(
-                    CommonImage(
+                    FromGallery(
                         uri = uri,
                         mimeType = contentResolver.getType(it),
                     )

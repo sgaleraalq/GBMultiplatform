@@ -19,10 +19,15 @@ package com.gbmultiplatform.domain.utils
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CommonImage(
-    val uri: String,
-    val mimeType: String? = null
-)
+sealed interface CommonImage {
+    val uri: String
+
+    @Serializable
+    data class FromCamera(override val uri: String) : CommonImage
+
+    @Serializable
+    data class FromGallery(override val uri: String, val mimeType: String? = null) : CommonImage
+}
 
 interface ImageLoader {
     suspend fun loadImage(

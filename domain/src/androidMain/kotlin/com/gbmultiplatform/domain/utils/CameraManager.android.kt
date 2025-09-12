@@ -34,6 +34,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getMainExecutor
+import com.gbmultiplatform.domain.utils.CommonImage.FromCamera
 import com.gbmultiplatform.domain.utils.camera.GBCamera
 import java.io.File
 
@@ -65,7 +66,7 @@ actual fun CameraManagerCompose(
     GBCamera(
         controller = controller,
         changeCamera = { changeCamera() },
-        onPhotoTaken = { uri -> onResult(CommonImage(uri.toString())) },
+        onPhotoTaken = { uri -> onResult(FromCamera(uri.toString())) },
         closeCamera = { closeCamera() }
     )
 }

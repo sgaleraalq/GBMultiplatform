@@ -147,7 +147,7 @@ interface Destination {
      */
     @Serializable
     data class Camera (
-        val onResult: (String?) -> Unit,
+        val onResult: (CommonImage?) -> Unit,
         val navigateToReview: () -> Unit,
         val onClose: () -> Unit
     ): Destination {

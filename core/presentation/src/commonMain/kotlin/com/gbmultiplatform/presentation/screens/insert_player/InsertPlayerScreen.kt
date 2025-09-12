@@ -159,7 +159,9 @@ fun InsertPlayerScreen(
     }
 
     if (showCamera) {
-        state.navigateTo(Camera)
+        state.navigateTo(Camera(
+            {}, {}, {}
+        ))
     }
 
     when (uiState) {

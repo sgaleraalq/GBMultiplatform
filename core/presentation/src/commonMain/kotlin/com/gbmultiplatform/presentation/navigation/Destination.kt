@@ -37,7 +37,7 @@ interface Destination {
     val routeName: String
 
     @Serializable
-    data object Splash: Destination {
+    data object Splash : Destination {
         override val routeName = "splash"
 
         @Composable
@@ -47,7 +47,7 @@ interface Destination {
     }
 
     @Serializable
-    data object Welcome: Destination {
+    data object Welcome : Destination {
         override val routeName = "welcome"
 
         @Composable
@@ -57,7 +57,7 @@ interface Destination {
     }
 
     @Serializable
-    object Home: Destination {
+    object Home : Destination {
         override val routeName = "home"
 
         @Composable
@@ -67,7 +67,7 @@ interface Destination {
     }
 
     @Serializable
-    object Matches: Destination {
+    object Matches : Destination {
         override val routeName = "matches"
 
         @Composable
@@ -77,7 +77,7 @@ interface Destination {
     }
 
     @Serializable
-    object Stats: Destination {
+    object Stats : Destination {
         override val routeName = "stats"
 
         @Composable
@@ -87,7 +87,7 @@ interface Destination {
     }
 
     @Serializable
-    object Team: Destination {
+    object Team : Destination {
         override val routeName = "team"
 
         @Composable
@@ -97,7 +97,7 @@ interface Destination {
     }
 
     @Serializable
-    object About: Destination {
+    object About : Destination {
         override val routeName = "about"
 
         @Composable
@@ -110,7 +110,7 @@ interface Destination {
      * Details screens
      */
     @Serializable
-    object MatchDetail: Destination {
+    object MatchDetail : Destination {
         override val routeName = "match_detail"
 
         @Composable
@@ -120,7 +120,7 @@ interface Destination {
     }
 
     @Serializable
-    object PlayerInformation: Destination {
+    object PlayerInformation : Destination {
         override val routeName = "player_information"
 
         @Composable
@@ -133,12 +133,12 @@ interface Destination {
      * Insert screens
      */
     @Serializable
-    object InsertPlayer: Destination {
+    object InsertPlayer : Destination {
         override val routeName = "insert_player"
 
         @Composable
         override fun Content(state: NavigationState) {
-             InsertPlayerScreen(state)
+            InsertPlayerScreen(state)
         }
     }
 
@@ -146,7 +146,11 @@ interface Destination {
      * Camera
      */
     @Serializable
-    object Camera: Destination {
+    data class Camera (
+        val onResult: (String?) -> Unit,
+        val navigateToReview: () -> Unit,
+        val onClose: () -> Unit
+    ): Destination {
         override val routeName = "camera"
 
         @Composable
@@ -163,6 +167,18 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             Content({}, {})
+        }
+    }
+
+    @Serializable
+    data class ReviewPhoto(
+        val path: String
+    ): Destination {
+        override val routeName = "review_photo"
+
+        @Composable
+        override fun Content(state: NavigationState) {
+
         }
     }
 }

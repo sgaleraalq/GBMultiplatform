@@ -34,7 +34,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getMainExecutor
-import com.gbmultiplatform.domain.utils.CommonImage.FromCamera
 import com.gbmultiplatform.domain.utils.camera.GBCamera
 import java.io.File
 
@@ -42,8 +41,8 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    onResult: (CommonImage?) -> Unit,
-    closeCamera: () -> Unit,
+    navigateToReview: (String) -> Unit,
+    navigateBack: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -66,8 +65,8 @@ actual fun CameraManagerCompose(
     GBCamera(
         controller = controller,
         changeCamera = { changeCamera() },
-        onPhotoTaken = { uri -> onResult(FromCamera(uri.toString())) },
-        closeCamera = { closeCamera() }
+        navigateBack = { navigateBack },
+        navigateToReview = { uri -> navigateToReview(uri.toString()) }
     )
 }
 

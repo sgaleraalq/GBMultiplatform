@@ -20,33 +20,23 @@ import android.net.Uri
 import androidx.camera.core.CameraSelector
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.PreviewView
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons.Default
 import androidx.compose.material.icons.filled.Camera
 import androidx.compose.material.icons.filled.Cameraswitch
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.BottomEnd
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -61,11 +51,10 @@ fun GBCamera(
     modifier: Modifier = Modifier,
     controller: LifecycleCameraController,
     changeCamera: () -> CameraSelector,
-    closeCamera: () -> Unit,
-    onPhotoTaken: (Uri) -> Unit
+    navigateBack: () -> Unit,
+    navigateToReview: (Uri) -> Unit
 ) {
     val context = LocalContext.current
-    var isCaptured by remember { mutableStateOf(false) }
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -105,62 +94,17 @@ fun GBCamera(
                 onClick = {
                     takePhoto(
                         controller = controller,
-                        onPhotoTaken = {
-                            isCaptured = true
-                        },
+                        onPhotoTaken = { navigateToReview(it) },
                         context = context,
-                        closeCamera = { closeCamera() }
+                        closeCamera = { navigateBack() }
                     )
                 }
             ) {
                 Icon(
-                    modifier = Modifier.size(72.dp),
+                    modifier = Modifier.size(86.dp).padding(4.dp),
                     imageVector = Default.Camera,
                     contentDescription = TAKE_PHOTO
                 )
-            }
-        }
-    }
-
-    if (isCaptured) {
-        GBReviewImageScreen(
-            image = null,
-            retakePhoto = { isCaptured = false },
-            usePhoto = { uri -> onPhotoTaken(uri) }
-        )
-    }
-}
-
-@Composable
-fun GBReviewImageScreen(
-    image: Any?,
-    retakePhoto: () -> Unit,
-    usePhoto: (Uri) -> Unit
-) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        if (image != null) {
-            Image(
-                modifier = Modifier.height(400.dp).align(Center),
-                bitmap = image as ImageBitmap,
-                contentDescription = null
-            )
-            Row(
-                modifier = Modifier.fillMaxSize().align(BottomCenter).padding(16.dp)
-            ) {
-                IconButton(
-                    modifier = Modifier.weight(1f),
-                    onClick = { retakePhoto() }
-                ) {
-                    Text(text = "Retake")
-                }
-                IconButton(
-                    modifier = Modifier.weight(1f),
-                    onClick = { /* usePhoto(uri) */ }
-                ) {
-                    Text(text = "Use Photo")
-                }
             }
         }
     }

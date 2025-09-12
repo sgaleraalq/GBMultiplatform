@@ -19,13 +19,15 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
+import com.gbmultiplatform.domain.utils.CommonImage.*
 import com.gbmultiplatform.presentation.SplashScreen
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
+import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
-import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
+import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
+import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
 import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
@@ -146,39 +148,33 @@ interface Destination {
      * Camera
      */
     @Serializable
-    data class Camera (
-        val onResult: (CommonImage?) -> Unit,
-        val navigateToReview: () -> Unit,
-        val onClose: () -> Unit
-    ): Destination {
+    data object Camera : Destination {
         override val routeName = "camera"
 
         @Composable
-        fun Content(
-            onResult: (CommonImage?) -> Unit,
-            onClose: () -> Unit
-        ) {
-            CameraManagerCompose(
-                onResult = { onResult(it) },
-                closeCamera = { onClose() }
-            )
-        }
-
-        @Composable
         override fun Content(state: NavigationState) {
-            Content({}, {})
+            CameraManagerCompose(
+                navigateToReview = { photoPath ->
+                    state.navigateTo(
+                        destination = ReviewPhoto(FromCamera(photoPath))
+                    )
+                },
+                navigateBack = { state.navigateBack() }
+            )
         }
     }
 
     @Serializable
     data class ReviewPhoto(
-        val path: String
-    ): Destination {
+        val image: CommonImage
+    ) : Destination {
         override val routeName = "review_photo"
 
         @Composable
         override fun Content(state: NavigationState) {
-
+            ReviewImageScreen(
+                image = image
+            )
         }
     }
 }

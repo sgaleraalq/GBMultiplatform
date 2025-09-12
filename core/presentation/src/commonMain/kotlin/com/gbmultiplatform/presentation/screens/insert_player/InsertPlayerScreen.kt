@@ -81,12 +81,6 @@ fun InsertPlayerScreen(
     val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
-//    val cameraManager = rememberCameraManager { commonImage ->
-//        showMediaOrCamera = false
-//        viewModel.updatePicture(commonImage)
-//    }
-    var showCamera by remember { mutableStateOf(false) }
-
     val galleryManager = rememberGalleryManager { commonImage ->
         showMediaOrCamera = false
         viewModel.updatePicture(commonImage)
@@ -148,20 +142,11 @@ fun InsertPlayerScreen(
             },
             onCameraClicked = {
                 viewModel.initCamera(
-                    launchCamera = {
-                        showMediaOrCamera = false
-                        showCamera = true
-                    },
+                    launchCamera = { state.navigateTo(Camera) },
                     permissionDeniedMsg = permissionDeniedCamera
                 )
             }
         )
-    }
-
-    if (showCamera) {
-        state.navigateTo(Camera(
-            {}, {}, {}
-        ))
     }
 
     when (uiState) {

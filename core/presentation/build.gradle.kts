@@ -8,9 +8,6 @@ android {
 }
 
 kotlin {
-//    iosX64()
-//    iosArm64()
-//    iosSimulatorArm64()
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.core.ktx)

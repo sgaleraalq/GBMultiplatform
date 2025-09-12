@@ -37,6 +37,7 @@ import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
+import com.gbmultiplatform.presentation.navigation.Destination.ReviewPhoto
 import com.gbmultiplatform.presentation.navigation.Destination.Splash
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Team
@@ -168,5 +169,6 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     MatchDetail.configuration(),
     PlayerInformation.configuration(),
     InsertPlayer.configuration(),
-    Camera::class.configuration()
+    Camera.configuration(),
+    ReviewPhoto::class.configuration()
 )

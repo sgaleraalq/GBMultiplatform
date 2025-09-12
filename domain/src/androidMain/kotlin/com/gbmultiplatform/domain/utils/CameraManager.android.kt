@@ -20,6 +20,7 @@ import android.content.Context
 import android.net.Uri
 import android.net.Uri.fromFile
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
@@ -61,6 +62,8 @@ actual fun CameraManagerCompose(
             DEFAULT_BACK_CAMERA
         }
     }
+
+    BackHandler { navigateBack() }
 
     GBCamera(
         controller = controller,

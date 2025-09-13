@@ -1,6 +1,7 @@
 plugins {
     id("com.gbmultiplatform.library")
     id("com.gbmultiplatform.koin")
+    id("com.gbmultiplatform.serialization")
 }
 
 android {

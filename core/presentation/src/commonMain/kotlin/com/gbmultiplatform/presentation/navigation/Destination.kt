@@ -156,7 +156,7 @@ interface Destination {
             CameraManagerCompose(
                 navigateToReview = { photoPath ->
                     state.navigateTo(
-                        destination = ReviewPhoto(FromCamera(photoPath))
+                        ReviewPhoto(FromCamera(photoPath))
                     )
                 },
                 navigateBack = { state.navigateBack() }

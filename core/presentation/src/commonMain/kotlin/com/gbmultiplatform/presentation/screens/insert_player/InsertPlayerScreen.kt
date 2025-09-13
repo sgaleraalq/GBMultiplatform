@@ -142,7 +142,10 @@ fun InsertPlayerScreen(
             },
             onCameraClicked = {
                 viewModel.initCamera(
-                    launchCamera = { state.navigateTo(Camera) },
+                    launchCamera = {
+                        showMediaOrCamera = false
+                        state.navigateTo(Camera)
+                    },
                     permissionDeniedMsg = permissionDeniedCamera
                 )
             }

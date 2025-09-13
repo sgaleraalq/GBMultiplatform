@@ -29,6 +29,10 @@ gradlePlugin {
         /**
          * Dependencies
          */
+        register("serialization") {
+            id = "com.gbmultiplatform.serialization"
+            implementationClass = "com.gbmultiplatform.convention.dependencies.SerializationConventionPlugin"
+        }
         register("koinConvention") {
             id = "com.gbmultiplatform.koin"
             implementationClass = "com.gbmultiplatform.convention.dependencies.KoinConventionPlugin"

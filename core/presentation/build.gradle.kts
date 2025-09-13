@@ -1,6 +1,6 @@
 plugins {
     id("com.gbmultiplatform.library")
-    kotlin("plugin.serialization")
+    id("com.gbmultiplatform.serialization")
 }
 
 android {
@@ -23,7 +23,6 @@ kotlin {
             /**
              * Navigation
              */
-            api(libs.kotlinx.serialization.json)
             api(libs.navigation.compose)
         }
     }

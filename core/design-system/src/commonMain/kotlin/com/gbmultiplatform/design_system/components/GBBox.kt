@@ -50,7 +50,7 @@ fun GBImageBoxRequester(
 
     val imageState = produceState<ByteArray?>(null, uri) {
         value = if (uri != null) {
-            imageLoader.loadImage(uri, maxWidth = 256, maxHeight = 256, quality = 80)
+            imageLoader.loadImage(uri, maxWidth = 256, maxHeight = 256, quality = 80, true)
         } else null
     }
 

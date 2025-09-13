@@ -154,9 +154,10 @@ interface Destination {
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
-                navigateToReview = { photoPath ->
+                navigateToReview = { photoPath, isBackCamera ->
+                    val photo = if (isBackCamera) FromBackCamera(photoPath) else FromFrontCamera(photoPath)
                     state.navigateTo(
-                        ReviewPhoto(FromCamera(photoPath))
+                        ReviewPhoto(photo)
                     )
                 },
                 navigateBack = { state.navigateBack() }
@@ -166,14 +167,19 @@ interface Destination {
 
     @Serializable
     data class ReviewPhoto(
-        val image: CommonImage
+        val commonImage: CommonImage
     ) : Destination {
         override val routeName = "review_photo"
 
         @Composable
         override fun Content(state: NavigationState) {
             ReviewImageScreen(
-                image = image
+                commonImage = commonImage,
+                isFrontCamera = commonImage is FromFrontCamera,
+                navigateToCamera = { state.navigateBack() },
+                navigateToInsertPlayerScreen = { img ->
+//                    state.navigateTo(InsertPlayer(image = img))
+                }
             )
         }
     }

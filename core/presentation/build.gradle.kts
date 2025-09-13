@@ -10,6 +10,7 @@ android {
 kotlin {
     sourceSets {
         androidMain.dependencies {
+            implementation(libs.androidx.exifinterface)
             implementation(libs.androidx.core.ktx)
             implementation(libs.androidx.navigation.compose)
         }

@@ -23,7 +23,10 @@ sealed interface CommonImage {
     val uri: String
 
     @Serializable
-    data class FromCamera(override val uri: String) : CommonImage
+    data class FromFrontCamera(override val uri: String) : CommonImage
+
+    @Serializable
+    data class FromBackCamera(override val uri: String) : CommonImage
 
     @Serializable
     data class FromGallery(override val uri: String, val mimeType: String? = null) : CommonImage
@@ -34,7 +37,8 @@ interface ImageLoader {
         uri: String,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int = 85
+        quality: Int,
+        isFrontCamera: Boolean
     ): ByteArray?
 }
 
@@ -49,13 +53,15 @@ class SharedImagesBridge {
         uri: String,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int
+        quality: Int,
+        isFrontCamera: Boolean
     ): ByteArray? {
         return imageLoader?.loadImage(
             uri,
             maxWidth,
             maxHeight,
-            quality
+            quality,
+            isFrontCamera
         ) ?: error("ImageLoader not set")
     }
 }

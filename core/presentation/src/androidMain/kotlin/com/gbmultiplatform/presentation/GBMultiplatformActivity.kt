@@ -23,7 +23,9 @@ import android.Manifest.permission.READ_MEDIA_VIDEO
 import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
+import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Build.VERSION_CODES.UPSIDE_DOWN_CAKE
@@ -36,6 +38,12 @@ import androidx.activity.result.contract.ActivityResultContracts.RequestPermissi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.net.toUri
+import androidx.exifinterface.media.ExifInterface
+import androidx.exifinterface.media.ExifInterface.ORIENTATION_NORMAL
+import androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_180
+import androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_270
+import androidx.exifinterface.media.ExifInterface.ORIENTATION_ROTATE_90
+import androidx.exifinterface.media.ExifInterface.TAG_ORIENTATION
 import com.gbmultiplatform.App
 import com.gbmultiplatform.domain.utils.ImageLoader
 import com.gbmultiplatform.domain.utils.PermissionBridge
@@ -216,7 +224,8 @@ open class GBMultiplatformActivity :
         uri: String,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int
+        quality: Int,
+        isFrontCamera: Boolean
     ): ByteArray? = withContext(Dispatchers.IO) {
         val androidUri = uri.toUri()
 
@@ -224,7 +233,8 @@ open class GBMultiplatformActivity :
         contentResolver.openInputStream(androidUri)?.use {
             BitmapFactory.decodeStream(it, null, bounds)
         }
-        val srcW = bounds.outWidth; val srcH = bounds.outHeight
+        val srcW = bounds.outWidth
+        val srcH = bounds.outHeight
         if (srcW <= 0 || srcH <= 0) return@withContext null
 
         var sample = 1
@@ -236,12 +246,31 @@ open class GBMultiplatformActivity :
             inSampleSize = sample
             inPreferredConfig = Bitmap.Config.RGB_565
         }
+
         val bmp = contentResolver.openInputStream(androidUri)?.use {
             BitmapFactory.decodeStream(it, null, opts)
         } ?: return@withContext null
 
+        // 4. Leer EXIF
+        val exif = contentResolver.openInputStream(androidUri)?.use { ExifInterface(it) }
+        val rotation = when (exif?.getAttributeInt(TAG_ORIENTATION, ORIENTATION_NORMAL)) {
+            ORIENTATION_ROTATE_90 -> 90
+            ORIENTATION_ROTATE_180 -> 180
+            ORIENTATION_ROTATE_270 -> 270
+            else -> 0
+        }
+
+        val matrix = Matrix().apply {
+            if (isFrontCamera) postScale(-1f, 1f, bmp.width / 2f, bmp.height / 2f)
+            val adjustedRotation = if (isFrontCamera) 90 else rotation
+            if (adjustedRotation != 0) postRotate(adjustedRotation.toFloat())
+
+        }
+
+        val finalBmp = createBitmap(bmp, 0, 0, bmp.width, bmp.height, matrix, true)
+
         ByteArrayOutputStream().use { out ->
-            bmp.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
+            finalBmp.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
             out.toByteArray()
         }
     }

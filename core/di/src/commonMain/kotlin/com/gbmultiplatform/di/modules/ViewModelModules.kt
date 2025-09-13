@@ -31,6 +31,7 @@ import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewMo
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.matches.MatchesViewModel
+import com.gbmultiplatform.presentation.screens.review_photo.ReviewPhotoViewModel
 import com.gbmultiplatform.presentation.screens.stats.StatsViewModel
 import com.gbmultiplatform.presentation.screens.team.TeamViewModel
 import org.koin.core.module.dsl.factoryOf
@@ -45,6 +46,7 @@ val viewModelModule = module {
     viewModelOf(::MatchDetailViewModel)
     viewModelOf(::TeamViewModel)
     viewModelOf(::InsertPlayerViewModel)
+    viewModelOf(::ReviewPhotoViewModel)
 }
 
 val viewModelHelpersModule = module {

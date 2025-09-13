@@ -66,7 +66,7 @@ fun GBCamera(
         )
 
         IconButton(
-            modifier = Modifier.align(BottomEnd).padding(16.dp),
+            modifier = Modifier.align(BottomEnd).padding(32.dp),
             colors = IconButtonDefaults.iconButtonColors(
                 containerColor = White
             ),
@@ -84,10 +84,11 @@ fun GBCamera(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(BottomCenter)
-                .padding(16.dp),
+                .padding(32.dp),
             contentAlignment = Center
         ) {
             IconButton(
+                modifier = Modifier.size(72.dp),
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = White
                 ),
@@ -101,7 +102,7 @@ fun GBCamera(
                 }
             ) {
                 Icon(
-                    modifier = Modifier.size(86.dp).padding(4.dp),
+                    modifier = Modifier.size(56.dp),
                     imageVector = Default.Camera,
                     contentDescription = TAKE_PHOTO
                 )

@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 expect fun CameraManagerCompose(
-    navigateToReview: (String, Boolean) -> Unit,
+    isFaceImg: Boolean,
+    navigateToReview: (String, Boolean, Boolean) -> Unit,
     navigateBack: () -> Unit
 )

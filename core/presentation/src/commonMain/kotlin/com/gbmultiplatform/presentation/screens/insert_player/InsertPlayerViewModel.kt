@@ -73,6 +73,7 @@ class InsertPlayerViewModel(
     val useSameImage = _useSameImage
 
     private val _imageSelected = MutableStateFlow(NONE)
+    val imageSelected = _imageSelected
     fun updateImageSelected(newState: CameraState) {
         _imageSelected.value = newState
     }

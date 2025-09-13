@@ -49,7 +49,7 @@ import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.presentation.navigation.Destination
+import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import org.koin.compose.viewmodel.koinViewModel
@@ -63,7 +63,7 @@ fun TeamScreen(
 
     Column {
         GBAppTopBar(isAdmin = true) {
-            state.navigateTo(Destination.InsertPlayer)
+            state.navigateTo(InsertPlayer(null, null))
         }
         TeamPlayerList(players) {
             state.navigateTo(PlayerInformation)

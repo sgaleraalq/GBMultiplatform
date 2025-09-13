@@ -19,7 +19,8 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
-import com.gbmultiplatform.domain.utils.CommonImage.*
+import com.gbmultiplatform.domain.utils.CommonImage.FromBackCamera
+import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
@@ -135,7 +136,10 @@ interface Destination {
      * Insert screens
      */
     @Serializable
-    object InsertPlayer : Destination {
+    data class InsertPlayer(
+        val faceImg: CommonImage? = null,
+        val bodyImg: CommonImage? = null
+    ) : Destination {
         override val routeName = "insert_player"
 
         @Composable
@@ -148,14 +152,22 @@ interface Destination {
      * Camera
      */
     @Serializable
-    data object Camera : Destination {
+    data class Camera(
+        val isFaceImg: Boolean
+    ) : Destination {
         override val routeName = "camera"
 
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
-                navigateToReview = { photoPath, isBackCamera ->
-                    val photo = if (isBackCamera) FromBackCamera(photoPath) else FromFrontCamera(photoPath)
+                isFaceImg = isFaceImg,
+                navigateToReview = { photoPath, isBackCamera, isFaceImg ->
+                    val photo =
+                        if (isBackCamera){
+                            FromBackCamera(photoPath, isFaceImg)
+                        } else {
+                            FromFrontCamera(photoPath, isFaceImg)
+                        }
                     state.navigateTo(
                         ReviewPhoto(photo)
                     )
@@ -178,7 +190,9 @@ interface Destination {
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
                 navigateToInsertPlayerScreen = { img ->
-                    state.navigateTo(InsertPlayer)
+                    state.navigateTo(
+                        InsertPlayer(img)
+                    )
                 }
             )
         }

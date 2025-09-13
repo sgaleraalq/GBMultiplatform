@@ -168,7 +168,7 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     About.configuration(),
     MatchDetail.configuration(),
     PlayerInformation.configuration(),
-    InsertPlayer.configuration(),
-    Camera.configuration(),
+    InsertPlayer::class.configuration(),
+    Camera::class.configuration(),
     ReviewPhoto::class.configuration()
 )

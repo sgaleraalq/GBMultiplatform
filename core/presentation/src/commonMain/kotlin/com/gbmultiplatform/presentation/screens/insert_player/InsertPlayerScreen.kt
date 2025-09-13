@@ -87,7 +87,6 @@ fun InsertPlayerScreen(
         viewModel.updatePicture(commonImage)
     }
 
-
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -147,7 +146,9 @@ fun InsertPlayerScreen(
                 viewModel.initCamera(
                     launchCamera = {
                         showMediaOrCamera = false
-                        state.navigateTo(Camera)
+                        state.navigateTo(
+                            Camera(isFaceImg = viewModel.imageSelected.value == FACE)
+                        )
                     },
                     permissionDeniedMsg = permissionDeniedCamera
                 )

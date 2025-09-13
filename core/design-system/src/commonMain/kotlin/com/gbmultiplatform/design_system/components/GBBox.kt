@@ -75,7 +75,7 @@ fun GBImageBoxRequester(
 
         if (image == null) {
             Image(
-                modifier = Modifier.clickable { onClick() }.padding(12.dp).size(iconSize),
+                modifier = Modifier.clickable { onClick() }.padding(12.dp).size(iconSize - 10.dp),
                 painter = painterResource(Res.drawable.ic_camera),
                 contentDescription = stringResource(Res.string.description_camera_icon)
             )

@@ -42,7 +42,8 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    navigateToReview: (String, Boolean) -> Unit,
+    isFaceImg: Boolean,
+    navigateToReview: (String, Boolean, Boolean) -> Unit,
     navigateBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -69,7 +70,9 @@ actual fun CameraManagerCompose(
         controller = controller,
         changeCamera = { changeCamera() },
         navigateBack = { navigateBack },
-        navigateToReview = { uri -> navigateToReview(uri.toString(), isBackCamera()) }
+        navigateToReview = { uri ->
+            navigateToReview(uri.toString(), isBackCamera(), isFaceImg)
+        }
     )
 }
 

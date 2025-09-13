@@ -74,6 +74,7 @@ fun InsertPlayerScreen(
     val bodyImage by viewModel.bodyImage.collectAsState()
     val uiState by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
+    val useSameImage by viewModel.useSameImage.collectAsState()
 
     val imageLoader = getKoin().get<SharedImagesBridge>()
     var showMediaOrCamera by remember { mutableStateOf(false) }
@@ -110,8 +111,10 @@ fun InsertPlayerScreen(
                 InsertPlayerImages(
                     faceImg = faceImage,
                     bodyImg = bodyImage,
+                    useSameImage = useSameImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
                     onBodyClicked = { viewModel.updateImageSelected(BODY) },
+                    onUseSameImageClicked = { viewModel.updateUseSameImage() },
                     showMediaOrCamera = { showMediaOrCamera = true },
                     imageLoader = imageLoader
                 )

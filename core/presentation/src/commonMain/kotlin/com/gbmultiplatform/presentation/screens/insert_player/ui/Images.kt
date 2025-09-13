@@ -16,27 +16,42 @@
 
 package com.gbmultiplatform.presentation.screens.insert_player.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImageBoxRequester
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
+import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.body_image
 import gbmultiplatform.core.presentation.generated.resources.face_image
 import gbmultiplatform.core.presentation.generated.resources.images
+import gbmultiplatform.core.presentation.generated.resources.use_same_image
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun InsertPlayerImages(
     faceImg: CommonImage?,
     bodyImg: CommonImage?,
+    useSameImage: Boolean,
     onFaceClicked: () -> Unit,
     onBodyClicked: () -> Unit,
+    onUseSameImageClicked: () -> Unit,
     showMediaOrCamera: () -> Unit,
     imageLoader: SharedImagesBridge
 ) {
@@ -66,4 +81,42 @@ fun InsertPlayerImages(
             showMediaOrCamera()
         }
     )
+    Spacer(Modifier.height(2.dp))
+    UseSameImageBox(
+        checked = useSameImage,
+        enabled = faceImg != null || bodyImg != null,
+    ) { onUseSameImageClicked() }
+}
+
+@Composable
+fun UseSameImageBox(
+    checked: Boolean,
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = CenterVertically
+    ) {
+        GBText(
+            modifier = Modifier
+                .weight(1f)
+                .clickable { if (enabled) onClick() }
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            text = stringResource(Res.string.use_same_image),
+            style = gBTypography().bodySmall.copy(
+                fontStyle = Italic
+            )
+        )
+        Checkbox(
+            checked = checked,
+            onCheckedChange = { if (enabled) onClick() },
+            enabled = enabled,
+            colors = CheckboxDefaults.colors(
+                checkmarkColor = gray_box_in_black_bg,
+                checkedColor = White,
+                uncheckedColor = White
+            )
+        )
+    }
 }

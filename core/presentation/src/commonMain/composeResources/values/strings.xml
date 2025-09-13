@@ -40,6 +40,7 @@
     <string name="permission_denied_camera">Permissions needed to open camera</string>
     <string name="permission_denied_gallery">Permissions needed to open gallery</string>
     <string name="not_valid_player_to_insert">You need to fill all fields to insert the player</string>
+    <string name="use_same_image">Use same image for body and face</string>
 
 <!--    review photo-->
     <string name="repeat">Repeat</string>

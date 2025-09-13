@@ -178,7 +178,7 @@ interface Destination {
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
                 navigateToInsertPlayerScreen = { img ->
-//                    state.navigateTo(InsertPlayer(image = img))
+                    state.navigateTo(InsertPlayer)
                 }
             )
         }

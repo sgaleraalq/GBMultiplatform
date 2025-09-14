@@ -144,7 +144,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            InsertPlayerScreen(state)
+            InsertPlayerScreen(state, faceImg, bodyImg)
         }
     }
 
@@ -168,9 +168,7 @@ interface Destination {
                         } else {
                             FromFrontCamera(photoPath, isFaceImg)
                         }
-                    state.navigateTo(
-                        ReviewPhoto(photo)
-                    )
+                    state.navigateTo(ReviewPhoto(photo))
                 },
                 navigateBack = { state.navigateBack() }
             )
@@ -189,10 +187,8 @@ interface Destination {
                 commonImage = commonImage,
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
-                navigateToInsertPlayerScreen = { img ->
-                    state.navigateTo(
-                        InsertPlayer(img)
-                    )
+                navigateToInsertPlayerScreen = { faceImg, bodyImg ->
+                    state.navigateTo(InsertPlayer(faceImg, bodyImg))
                 }
             )
         }

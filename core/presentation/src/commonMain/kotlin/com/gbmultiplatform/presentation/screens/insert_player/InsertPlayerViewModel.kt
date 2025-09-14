@@ -120,6 +120,11 @@ class InsertPlayerViewModel(
         updateImageSelected(NONE)
     }
 
+    fun updateImages(faceImage: CommonImage?, bodyImage: CommonImage?) {
+        _faceImage.value = faceImage
+        _bodyImage.value = bodyImage
+    }
+
     fun updateUseSameImage() {
         _useSameImage.value = !_useSameImage.value
         if (_useSameImage.value) {

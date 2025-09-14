@@ -25,6 +25,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +39,7 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
+import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
@@ -67,8 +69,14 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun InsertPlayerScreen(
     state: NavigationState,
+    faceImg: CommonImage?,
+    bodyImg: CommonImage?,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
+    LaunchedEffect(true) {
+        viewModel.updateImages(faceImg, bodyImg)
+    }
+
     val player by viewModel.player.collectAsState()
     val faceImage by viewModel.faceImage.collectAsState()
     val bodyImage by viewModel.bodyImage.collectAsState()
@@ -145,9 +153,10 @@ fun InsertPlayerScreen(
             onCameraClicked = {
                 viewModel.initCamera(
                     launchCamera = {
+                        val isFaceImg = viewModel.imageSelected.value == FACE
                         showMediaOrCamera = false
                         state.navigateTo(
-                            Camera(isFaceImg = viewModel.imageSelected.value == FACE)
+                            Camera(isFaceImg)
                         )
                     },
                     permissionDeniedMsg = permissionDeniedCamera

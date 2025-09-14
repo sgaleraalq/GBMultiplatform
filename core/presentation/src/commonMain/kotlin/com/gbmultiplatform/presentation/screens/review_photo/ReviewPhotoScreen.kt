@@ -50,7 +50,7 @@ fun ReviewImageScreen(
     commonImage: CommonImage,
     isFrontCamera: Boolean,
     navigateToCamera: () -> Unit,
-    navigateToInsertPlayerScreen: (CommonImage) -> Unit,
+    navigateToInsertPlayerScreen: (CommonImage?, CommonImage?) -> Unit,
     viewModel: ReviewPhotoViewModel = koinViewModel<ReviewPhotoViewModel>()
 ) {
     val image by viewModel.image.collectAsState()
@@ -76,7 +76,10 @@ fun ReviewImageScreen(
             ReviewPhotoTextButton(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.accept)
-            ) { navigateToInsertPlayerScreen(commonImage) }
+            ) { navigateToInsertPlayerScreen(
+                if (commonImage.isFaceImage) commonImage else null,
+                if (commonImage.isFaceImage) null else commonImage
+            ) }
         }
     }
 }

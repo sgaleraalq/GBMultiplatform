@@ -76,7 +76,10 @@ class AndroidNavigationState(
 
     override fun navigateTo(destination: Destination) {
         val route = getActualRoute(destination)
-        navHostController.navigate(route)
+        navHostController.navigate(route) {
+            launchSingleTop = true
+            restoreState = true
+        }
     }
 
     fun applyDestinations(builder: NavGraphBuilder) {

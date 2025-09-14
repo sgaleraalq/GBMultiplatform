@@ -77,18 +77,19 @@ fun InsertPlayerScreen(
         viewModel.updateImages(faceImg, bodyImg)
     }
 
+    val imageLoader = getKoin().get<SharedImagesBridge>()
+
     val player by viewModel.player.collectAsState()
-    val faceImage by viewModel.faceImage.collectAsState()
-    val bodyImage by viewModel.bodyImage.collectAsState()
     val uiState by viewModel.state.collectAsState()
     val dorsals by viewModel.dorsals.collectAsState()
+    val faceImage by viewModel.faceImage.collectAsState()
+    val bodyImage by viewModel.bodyImage.collectAsState()
     val useSameImage by viewModel.useSameImage.collectAsState()
-
-    val imageLoader = getKoin().get<SharedImagesBridge>()
     var showMediaOrCamera by remember { mutableStateOf(false) }
+
+    val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
-    val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
 
     val galleryManager = rememberGalleryManager { commonImage ->
         showMediaOrCamera = false
@@ -153,10 +154,9 @@ fun InsertPlayerScreen(
             onCameraClicked = {
                 viewModel.initCamera(
                     launchCamera = {
-                        val isFaceImg = viewModel.imageSelected.value == FACE
                         showMediaOrCamera = false
                         state.navigateTo(
-                            Camera(isFaceImg)
+                            Camera(viewModel.imageSelected.value == FACE)
                         )
                     },
                     permissionDeniedMsg = permissionDeniedCamera

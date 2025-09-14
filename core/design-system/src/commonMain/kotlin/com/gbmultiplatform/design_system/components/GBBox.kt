@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -46,22 +46,28 @@ fun GBImageBoxRequester(
 ) {
     var showZoomDialog by remember { mutableStateOf(false) }
 
-    val uri = commonImage?.uri
-
-    val imageState = produceState<ByteArray?>(null, uri) {
-        value = if (uri != null) {
-            imageLoader.loadImage(uri, maxWidth = 256, maxHeight = 256, quality = 80, true)
-        } else null
+    val image by produceState<ByteArray?>(initialValue = null, commonImage) {
+        value = if (commonImage != null) {
+            imageLoader.loadImage(
+                uri = commonImage.uri,
+                maxWidth = 800,
+                maxHeight = 800,
+                quality = 80,
+                isFrontCamera = when (commonImage) {
+                    is CommonImage.FromFrontCamera -> true
+                    is CommonImage.FromBackCamera  -> false
+                    is CommonImage.FromGallery     -> false
+                }
+            )
+        } else {
+            null
+        }
     }
-
-    val image = imageState.value
+    val img = image
 
     Row(
         modifier = modifier
-            .background(
-                color = gray_box_in_black_bg,
-                shape = RoundedCornerShape(8.dp)
-            ),
+            .background(gray_box_in_black_bg, RoundedCornerShape(8.dp)),
         verticalAlignment = CenterVertically
     ) {
         GBText(
@@ -73,9 +79,12 @@ fun GBImageBoxRequester(
             style = gBTypography().bodyMedium
         )
 
-        if (image == null) {
+        if (img == null) {
             Image(
-                modifier = Modifier.clickable { onClick() }.padding(12.dp).size(iconSize - 10.dp),
+                modifier = Modifier
+                    .clickable { onClick() }
+                    .padding(12.dp)
+                    .size(iconSize - 10.dp),
                 painter = painterResource(Res.drawable.ic_camera),
                 contentDescription = stringResource(Res.string.description_camera_icon)
             )
@@ -85,16 +94,18 @@ fun GBImageBoxRequester(
                     .clickable { showZoomDialog = true }
                     .padding(12.dp)
                     .size(iconSize),
-                image = image
+                image = img
             )
         }
     }
 
-    if (showZoomDialog && image != null) {
-        ZoomableImage(
-            image = image,
-            dismiss = { showZoomDialog = false }
-        )
+    if (showZoomDialog) {
+        img?.let { bytes ->
+            ZoomableImage(
+                image = bytes,
+                dismiss = { showZoomDialog = false }
+            )
+        }
     }
 }
 
@@ -111,7 +122,7 @@ fun ZoomableImage(
             contentAlignment = Center
         ) {
             GBImage(
-                modifier = Modifier.height(400.dp),
+                modifier = Modifier.fillMaxWidth(),
                 image = image,
                 contentScale = Fit
             )

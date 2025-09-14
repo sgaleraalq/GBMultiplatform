@@ -58,6 +58,7 @@ fun ReviewImageScreen(
     LaunchedEffect(true) {
         viewModel.loadImage(commonImage, isFrontCamera)
     }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {

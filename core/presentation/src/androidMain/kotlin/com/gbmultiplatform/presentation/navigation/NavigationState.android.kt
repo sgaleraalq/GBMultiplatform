@@ -82,12 +82,14 @@ class AndroidNavigationState(
         }
     }
 
-    override fun popUpTo(destination: Destination) {
+    override fun popUpToWithArgs(destination: Destination) {
+        val routeWithoutArgs = getRoute(destination::class)
         navHostController.popBackStack(
-            route = getRoute(destination::class),
-            inclusive = false,
+            route = routeWithoutArgs,
+            inclusive = true,
             saveState = true
         )
+        navigateTo(destination)
     }
 
     fun applyDestinations(builder: NavGraphBuilder) {

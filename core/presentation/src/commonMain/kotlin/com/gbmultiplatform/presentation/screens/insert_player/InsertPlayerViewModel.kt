@@ -70,6 +70,7 @@ class InsertPlayerViewModel(
     val dorsals = _availableDorsals
 
     private val _useSameImage = MutableStateFlow(false)
+    private var lastUpdatedImage = NONE
     val useSameImage = _useSameImage
 
     private val _imageSelected = MutableStateFlow(NONE)
@@ -127,11 +128,26 @@ class InsertPlayerViewModel(
 
     fun updateUseSameImage() {
         _useSameImage.value = !_useSameImage.value
-        if (_useSameImage.value) {
+        when (_useSameImage.value) {
+            true -> updateSameImage()
+            false -> removeSameImage()
+        }
+    }
+
+    private fun updateSameImage() {
+        if (_faceImage.value != null) {
             _bodyImage.value = _faceImage.value
-        } else if (_faceImage.value != null) {
+            lastUpdatedImage = FACE
+        } else if (_bodyImage.value != null) {
+            _faceImage.value = _bodyImage.value
+            lastUpdatedImage = BODY
+        }
+    }
+
+    private fun removeSameImage() {
+        if (lastUpdatedImage == FACE) {
             _bodyImage.value = null
-        } else if (_bodyImage.value == null) {
+        } else if (lastUpdatedImage == BODY) {
             _faceImage.value = null
         }
     }

@@ -61,7 +61,7 @@ fun rememberMultiplatformNavigationState(
                 stack.value = stack.value.plus(destination)
             }
 
-            override fun popUpTo(
+            override fun popUpToWithArgs(
                 destination: Destination
             ) {
                 val currentStack = stack.value

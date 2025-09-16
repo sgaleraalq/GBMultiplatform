@@ -50,7 +50,7 @@ interface NavigationState {
     val currentDestination: State<Destination?>
 
     fun navigateTo(destination: Destination)
-    fun popUpToWithArgs(destination: Destination)
+//    fun popUpToWithArgs(destination: Destination)
     fun navigateBack()
 
     /**

@@ -25,6 +25,7 @@ import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerNavArgs
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
@@ -137,14 +138,18 @@ interface Destination {
      */
     @Serializable
     data class InsertPlayer(
-        val faceImg: CommonImage? = null,
-        val bodyImg: CommonImage? = null
+        val images: InsertPlayerNavArgs = InsertPlayerNavArgs()
     ) : Destination {
         override val routeName = "insert_player"
 
         @Composable
         override fun Content(state: NavigationState) {
-            InsertPlayerScreen(state, faceImg, bodyImg)
+            InsertPlayerScreen(
+                state = state,
+                args = images,
+                faceImg = images.faceImg,
+                bodyImg = images.bodyImg,
+            )
         }
     }
 
@@ -188,7 +193,9 @@ interface Destination {
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
                 navigateToInsertPlayerScreen = { faceImg, bodyImg ->
-                    state.popUpToWithArgs(InsertPlayer(faceImg, bodyImg))
+                    state.navigateTo(
+                        InsertPlayer()
+                    )
                 }
             )
         }

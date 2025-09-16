@@ -69,6 +69,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun InsertPlayerScreen(
     state: NavigationState,
+    args: InsertPlayerNavArgs,
     faceImg: CommonImage?,
     bodyImg: CommonImage?,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()

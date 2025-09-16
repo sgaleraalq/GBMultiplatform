@@ -17,6 +17,7 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
@@ -32,7 +33,6 @@ import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 
 interface Destination {
     @Composable
@@ -149,20 +149,14 @@ interface Destination {
      * Camera
      */
     @Serializable
-    data class Camera(
-        @Transient val onPhotoCaptured: (CommonImage?) -> Unit = {}
-    ) : Destination {
+    object Camera: Destination {
         override val routeName = "camera"
 
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
                 navigateToReview = { commonImage ->
-                    state.navigateTo(
-                        ReviewPhoto(commonImage) {
-                            onPhotoCaptured(commonImage)
-                        }
-                    )
+                    state.navigateTo(ReviewPhoto(commonImage))
                 },
                 navigateBack = { state.navigateBack() }
             )
@@ -171,8 +165,7 @@ interface Destination {
 
     @Serializable
     data class ReviewPhoto(
-        val commonImage: CommonImage,
-        @Transient val onPhotoCaptured: (CommonImage?) -> Unit = {}
+        val commonImage: CommonImage
     ) : Destination {
         override val routeName = "review_photo"
 
@@ -183,8 +176,7 @@ interface Destination {
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
                 navigateToInsertPlayerScreen = {
-                    onPhotoCaptured(commonImage)
-                    state.navigateTo(InsertPlayer)
+                    state.popUpTo(InsertPlayer)
                 }
             )
         }

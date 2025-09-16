@@ -27,6 +27,7 @@ import androidx.compose.ui.window.Dialog
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.domain.utils.CommonImage
+import com.gbmultiplatform.domain.utils.CommonImage.*
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.description_camera_icon
@@ -54,9 +55,9 @@ fun GBImageBoxRequester(
                 maxHeight = 800,
                 quality = 80,
                 isFrontCamera = when (commonImage) {
-                    is CommonImage.FromFrontCamera -> true
-                    is CommonImage.FromBackCamera  -> false
-                    is CommonImage.FromGallery     -> false
+                    is FromFrontCamera -> true
+                    is FromBackCamera  -> false
+                    is FromGallery     -> false
                 }
             )
         } else {

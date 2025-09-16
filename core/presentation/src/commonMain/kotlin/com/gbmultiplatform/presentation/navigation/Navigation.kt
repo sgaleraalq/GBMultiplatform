@@ -60,6 +60,21 @@ fun rememberMultiplatformNavigationState(
             override fun navigateTo(destination: Destination) {
                 stack.value = stack.value.plus(destination)
             }
+
+            override fun popUpTo(destination: Destination) {
+                val currentStack = stack.value
+                val index = currentStack.indexOfLast { it::class == destination::class }
+                if (index == -1) return
+
+                val itemsToRemove = currentStack.size - index - 1
+                if (itemsToRemove <= 0) return
+
+                val lastItems = currentStack.takeLast(itemsToRemove)
+                stack.value = currentStack.dropLast(itemsToRemove)
+                lastItems.forEach {
+                    stateHolder.removeState(it.toString())
+                }
+            }
         }
     }
 }

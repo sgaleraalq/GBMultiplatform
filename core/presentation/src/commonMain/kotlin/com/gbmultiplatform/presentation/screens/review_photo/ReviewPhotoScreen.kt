@@ -38,11 +38,13 @@ import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
+import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.CommonImage
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.accept
 import gbmultiplatform.core.presentation.generated.resources.repeat
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.getKoin
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -54,6 +56,7 @@ fun ReviewImageScreen(
     viewModel: ReviewPhotoViewModel = koinViewModel<ReviewPhotoViewModel>()
 ) {
     val image by viewModel.image.collectAsState()
+    val cameraCallback = getKoin().get<CameraCallback>()
 
     LaunchedEffect(true) {
         viewModel.loadImage(commonImage, isFrontCamera)
@@ -77,7 +80,10 @@ fun ReviewImageScreen(
             ReviewPhotoTextButton(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.accept)
-            ) { navigateToInsertPlayerScreen() }
+            ) {
+                cameraCallback.onPhotoCaptured(commonImage)
+                navigateToInsertPlayerScreen()
+            }
         }
     }
 }

@@ -23,6 +23,7 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
+import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
@@ -41,7 +42,7 @@ class InsertPlayerViewModel(
     private val showCameraUseCase: ShowCamera,
     private val showGalleryUseCase: ShowGallery,
     private val insertNewPlayerUseCase: InsertNewPlayer
-) : ViewModel() {
+) : ViewModel(), CameraCallback {
 
     enum class InsertPlayerState { LOADING, DEFAULT, DORSAL, POSITION }
     enum class CameraState { NONE, FACE, BODY }
@@ -88,7 +89,15 @@ class InsertPlayerViewModel(
         }
     }
 
-    fun isFaceImage() = _imageSelected.value == FACE
+    private fun isFaceImage() = _imageSelected.value == FACE
+
+    override fun onPhotoCaptured(commonImage: CommonImage) {
+        if (isFaceImage()) {
+            updateFaceImage(commonImage)
+        } else {
+            updateBodyImage(commonImage)
+        }
+    }
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)
@@ -120,17 +129,6 @@ class InsertPlayerViewModel(
     private fun updateBodyImage(image: CommonImage?) {
         _bodyImage.value = image
         updateImageSelected(NONE)
-    }
-
-    fun updateImages(faceImage: CommonImage?, bodyImage: CommonImage?) {
-        faceImage?.let {
-            _faceImage.value = it
-            lastUpdatedImage = FACE
-        }
-        bodyImage?.let {
-            _bodyImage.value = it
-            lastUpdatedImage = BODY
-        }
     }
 
     fun updateUseSameImage() {

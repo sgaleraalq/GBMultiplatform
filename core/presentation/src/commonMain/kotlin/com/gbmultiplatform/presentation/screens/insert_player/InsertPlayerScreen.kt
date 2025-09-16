@@ -148,15 +148,7 @@ fun InsertPlayerScreen(
                     permissionDeniedCamera
                 ) {
                     showMediaOrCamera = false
-                    state.navigateTo(
-                        Camera { image ->
-                            if (viewModel.isFaceImage()) {
-                                viewModel.updateImages(image, null)
-                            } else {
-                                viewModel.updateImages(null, image)
-                            }
-                        }
-                    )
+                    state.navigateTo(Camera)
                 }
             }
         )

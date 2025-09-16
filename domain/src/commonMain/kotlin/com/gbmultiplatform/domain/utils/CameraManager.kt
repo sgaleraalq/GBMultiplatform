@@ -23,3 +23,7 @@ expect fun CameraManagerCompose(
     navigateToReview: (CommonImage) -> Unit,
     navigateBack: () -> Unit
 )
+
+interface CameraCallback {
+    fun onPhotoCaptured(commonImage: CommonImage)
+}

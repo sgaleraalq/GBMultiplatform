@@ -19,13 +19,11 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
-import com.gbmultiplatform.domain.utils.CommonImage.FromBackCamera
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
-import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerNavArgs
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
@@ -34,6 +32,7 @@ import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 interface Destination {
     @Composable
@@ -137,19 +136,12 @@ interface Destination {
      * Insert screens
      */
     @Serializable
-    data class InsertPlayer(
-        val images: InsertPlayerNavArgs = InsertPlayerNavArgs()
-    ) : Destination {
+    object InsertPlayer : Destination {
         override val routeName = "insert_player"
 
         @Composable
         override fun Content(state: NavigationState) {
-            InsertPlayerScreen(
-                state = state,
-                args = images,
-                faceImg = images.faceImg,
-                bodyImg = images.bodyImg,
-            )
+            InsertPlayerScreen(state)
         }
     }
 
@@ -158,22 +150,19 @@ interface Destination {
      */
     @Serializable
     data class Camera(
-        val isFaceImg: Boolean
+        @Transient val onPhotoCaptured: (CommonImage?) -> Unit = {}
     ) : Destination {
         override val routeName = "camera"
 
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
-                isFaceImg = isFaceImg,
-                navigateToReview = { photoPath, isBackCamera, isFaceImg ->
-                    val photo =
-                        if (isBackCamera){
-                            FromBackCamera(photoPath, isFaceImg)
-                        } else {
-                            FromFrontCamera(photoPath, isFaceImg)
+                navigateToReview = { commonImage ->
+                    state.navigateTo(
+                        ReviewPhoto(commonImage) {
+                            onPhotoCaptured(commonImage)
                         }
-                    state.navigateTo(ReviewPhoto(photo))
+                    )
                 },
                 navigateBack = { state.navigateBack() }
             )
@@ -182,7 +171,8 @@ interface Destination {
 
     @Serializable
     data class ReviewPhoto(
-        val commonImage: CommonImage
+        val commonImage: CommonImage,
+        @Transient val onPhotoCaptured: (CommonImage?) -> Unit = {}
     ) : Destination {
         override val routeName = "review_photo"
 
@@ -192,10 +182,9 @@ interface Destination {
                 commonImage = commonImage,
                 isFrontCamera = commonImage is FromFrontCamera,
                 navigateToCamera = { state.navigateBack() },
-                navigateToInsertPlayerScreen = { faceImg, bodyImg ->
-                    state.navigateTo(
-                        InsertPlayer()
-                    )
+                navigateToInsertPlayerScreen = {
+                    onPhotoCaptured(commonImage)
+                    state.navigateTo(InsertPlayer)
                 }
             )
         }

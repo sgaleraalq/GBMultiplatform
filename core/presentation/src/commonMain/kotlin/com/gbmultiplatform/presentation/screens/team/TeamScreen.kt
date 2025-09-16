@@ -63,7 +63,7 @@ fun TeamScreen(
 
     Column {
         GBAppTopBar(isAdmin = true) {
-            state.navigateTo(InsertPlayer())
+            state.navigateTo(InsertPlayer)
         }
         TeamPlayerList(players) {
             state.navigateTo(PlayerInformation)

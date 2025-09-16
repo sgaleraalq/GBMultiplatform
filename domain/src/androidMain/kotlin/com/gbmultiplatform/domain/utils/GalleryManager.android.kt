@@ -41,7 +41,6 @@ actual fun rememberGalleryManager(
                 onResult(
                     FromGallery(
                         uri = uri,
-                        isFaceImage = false, // TODO change
                         mimeType = contentResolver.getType(it),
                     )
                 )

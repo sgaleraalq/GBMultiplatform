@@ -74,7 +74,6 @@ class InsertPlayerViewModel(
     val useSameImage = _useSameImage
 
     private val _imageSelected = MutableStateFlow(NONE)
-    val imageSelected = _imageSelected
     fun updateImageSelected(newState: CameraState) {
         _imageSelected.value = newState
     }
@@ -88,6 +87,8 @@ class InsertPlayerViewModel(
             state.value = DEFAULT
         }
     }
+
+    fun isFaceImage() = _imageSelected.value == FACE
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)
@@ -122,8 +123,14 @@ class InsertPlayerViewModel(
     }
 
     fun updateImages(faceImage: CommonImage?, bodyImage: CommonImage?) {
-        _faceImage.value = faceImage
-        _bodyImage.value = bodyImage
+        faceImage?.let {
+            _faceImage.value = it
+            lastUpdatedImage = FACE
+        }
+        bodyImage?.let {
+            _bodyImage.value = it
+            lastUpdatedImage = BODY
+        }
     }
 
     fun updateUseSameImage() {
@@ -153,8 +160,8 @@ class InsertPlayerViewModel(
     }
 
     fun initCamera(
-        launchCamera: () -> Unit,
-        permissionDeniedMsg: String
+        permissionDeniedMsg: String,
+        launchCamera: () -> Unit
     ) {
         viewModelScope.launch {
             showCameraUseCase(

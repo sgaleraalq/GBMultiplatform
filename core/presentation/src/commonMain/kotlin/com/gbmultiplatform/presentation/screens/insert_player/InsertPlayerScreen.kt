@@ -25,7 +25,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,7 +38,6 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
-import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
@@ -69,15 +67,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun InsertPlayerScreen(
     state: NavigationState,
-    args: InsertPlayerNavArgs,
-    faceImg: CommonImage?,
-    bodyImg: CommonImage?,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
-    LaunchedEffect(true) {
-        viewModel.updateImages(faceImg, bodyImg)
-    }
-
     val imageLoader = getKoin().get<SharedImagesBridge>()
 
     val player by viewModel.player.collectAsState()
@@ -154,14 +145,19 @@ fun InsertPlayerScreen(
             },
             onCameraClicked = {
                 viewModel.initCamera(
-                    launchCamera = {
-                        showMediaOrCamera = false
-                        state.navigateTo(
-                            Camera(viewModel.imageSelected.value == FACE)
-                        )
-                    },
-                    permissionDeniedMsg = permissionDeniedCamera
-                )
+                    permissionDeniedCamera
+                ) {
+                    showMediaOrCamera = false
+                    state.navigateTo(
+                        Camera { image ->
+                            if (viewModel.isFaceImage()) {
+                                viewModel.updateImages(image, null)
+                            } else {
+                                viewModel.updateImages(null, image)
+                            }
+                        }
+                    )
+                }
             }
         )
     }

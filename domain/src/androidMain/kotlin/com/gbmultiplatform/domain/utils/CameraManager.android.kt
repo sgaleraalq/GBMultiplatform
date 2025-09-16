@@ -35,6 +35,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat.getMainExecutor
+import com.gbmultiplatform.domain.utils.CommonImage.FromBackCamera
+import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.domain.utils.camera.GBCamera
 import java.io.File
 
@@ -42,8 +44,7 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    isFaceImg: Boolean,
-    navigateToReview: (String, Boolean, Boolean) -> Unit,
+    navigateToReview: (CommonImage) -> Unit,
     navigateBack: () -> Unit
 ) {
     val context = LocalContext.current
@@ -71,7 +72,12 @@ actual fun CameraManagerCompose(
         changeCamera = { changeCamera() },
         navigateBack = { navigateBack },
         navigateToReview = { uri ->
-            navigateToReview(uri.toString(), isBackCamera(), isFaceImg)
+            val image = if (isBackCamera()) {
+                FromBackCamera(uri.toString())
+            } else {
+                FromFrontCamera(uri.toString())
+            }
+            navigateToReview(image)
         }
     )
 }

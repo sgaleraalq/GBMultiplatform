@@ -21,24 +21,19 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface CommonImage {
     val uri: String
-    val isFaceImage: Boolean
-
     @Serializable
     data class FromFrontCamera(
         override val uri: String,
-        override val isFaceImage: Boolean
     ) : CommonImage
 
     @Serializable
     data class FromBackCamera(
         override val uri: String,
-        override val isFaceImage: Boolean
     ) : CommonImage
 
     @Serializable
     data class FromGallery(
         override val uri: String,
-        override val isFaceImage: Boolean,
         val mimeType: String? = null
     ) : CommonImage
 }

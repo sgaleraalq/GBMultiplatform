@@ -24,6 +24,17 @@ expect fun CameraManagerCompose(
     navigateBack: () -> Unit
 )
 
+@Composable
+expect fun rememberCameraManagerTest(
+    onPhotoCaptured: (CommonImage) -> Unit
+): CameraManager
+
+expect class CameraManager(
+    onPhotoCaptured: () -> Unit
+) {
+    fun photoCaptured()
+}
+
 interface CameraCallback {
     fun onPhotoCaptured(commonImage: CommonImage)
 }

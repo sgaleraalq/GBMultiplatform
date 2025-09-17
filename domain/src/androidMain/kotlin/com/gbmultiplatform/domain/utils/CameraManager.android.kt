@@ -21,6 +21,8 @@ import android.net.Uri
 import android.net.Uri.fromFile
 import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.CameraSelector.DEFAULT_BACK_CAMERA
 import androidx.camera.core.CameraSelector.DEFAULT_FRONT_CAMERA
@@ -110,4 +112,29 @@ internal fun takePhoto(
             }
         }
     )
+}
+
+@Composable
+actual fun rememberCameraManagerTest(
+    onPhotoCaptured: (CommonImage) -> Unit
+): CameraManager {
+
+    val cameraLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { }
+    return remember {
+        CameraManager(
+            onPhotoCaptured = {
+                onPhotoCaptured(FromBackCamera("test_uri"))
+            }
+        )
+    }
+}
+
+actual class CameraManager actual constructor(
+    private val onPhotoCaptured: () -> Unit
+) {
+    actual fun photoCaptured() {
+        onPhotoCaptured()
+    }
 }

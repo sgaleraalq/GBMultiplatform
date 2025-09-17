@@ -23,7 +23,6 @@ import com.gbmultiplatform.domain.model.player.Position
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
-import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
@@ -42,7 +41,7 @@ class InsertPlayerViewModel(
     private val showCameraUseCase: ShowCamera,
     private val showGalleryUseCase: ShowGallery,
     private val insertNewPlayerUseCase: InsertNewPlayer
-) : ViewModel(), CameraCallback {
+) : ViewModel() {
 
     enum class InsertPlayerState { LOADING, DEFAULT, DORSAL, POSITION }
     enum class CameraState { NONE, FACE, BODY }
@@ -90,14 +89,6 @@ class InsertPlayerViewModel(
     }
 
     private fun isFaceImage() = _imageSelected.value == FACE
-
-    override fun onPhotoCaptured(commonImage: CommonImage) {
-        if (isFaceImage()) {
-            updateFaceImage(commonImage)
-        } else {
-            updateBodyImage(commonImage)
-        }
-    }
 
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)

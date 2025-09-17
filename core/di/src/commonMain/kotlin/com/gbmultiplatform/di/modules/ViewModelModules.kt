@@ -23,7 +23,6 @@ import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
-import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.presentation.MainViewModel
@@ -56,14 +55,6 @@ val viewModelHelpersModule = module {
     factory { GetMatchResultUseCase() }
     single { PermissionBridge() }
     single { SharedImagesBridge() }
-    single<CameraCallback> {
-        InsertPlayerViewModel(
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
 }
 
 val useCasesModule = module {

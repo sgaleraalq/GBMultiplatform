@@ -23,8 +23,10 @@ import android.Manifest.permission.READ_MEDIA_VIDEO
 import android.Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat.JPEG
 import android.graphics.Bitmap.createBitmap
 import android.graphics.BitmapFactory
+import android.graphics.BitmapFactory.decodeStream
 import android.graphics.Matrix
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.TIRAMISU
@@ -231,7 +233,7 @@ open class GBMultiplatformActivity :
 
         val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
         contentResolver.openInputStream(androidUri)?.use {
-            BitmapFactory.decodeStream(it, null, bounds)
+            decodeStream(it, null, bounds)
         }
         val srcW = bounds.outWidth
         val srcH = bounds.outHeight
@@ -248,7 +250,7 @@ open class GBMultiplatformActivity :
         }
 
         val bmp = contentResolver.openInputStream(androidUri)?.use {
-            BitmapFactory.decodeStream(it, null, opts)
+            decodeStream(it, null, opts)
         } ?: return@withContext null
 
         // 4. Leer EXIF
@@ -270,7 +272,7 @@ open class GBMultiplatformActivity :
         val finalBmp = createBitmap(bmp, 0, 0, bmp.width, bmp.height, matrix, true)
 
         ByteArrayOutputStream().use { out ->
-            finalBmp.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
+            finalBmp.compress(JPEG, quality.coerceIn(1, 100), out)
             out.toByteArray()
         }
     }

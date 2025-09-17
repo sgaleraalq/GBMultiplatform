@@ -30,6 +30,8 @@ import com.gbmultiplatform.design_system.icons.GBIcons
 import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
 import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
 import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
+import com.gbmultiplatform.domain.utils.CameraResults
+import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.Destination.Home
@@ -83,6 +85,20 @@ interface NavigationState {
             onNavigationPressed = { navigateTo(About) }
         )
     )
+}
+
+suspend inline fun <reified T> NavigationState.navigateForResult(
+    destination: Destination,
+    resultKey: String
+): T {
+    val wait = CameraResults.awaitResult<T>(resultKey)
+    navigateTo(destination)
+    return wait
+}
+
+suspend fun <T> NavigationState.launchAndDeliver(key: String, value: CommonImage) {
+    CameraResults.deliver(key, value)
+    popUpTo(InsertPlayer)
 }
 
 @Composable

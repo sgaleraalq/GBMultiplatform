@@ -17,24 +17,30 @@
 package com.gbmultiplatform.domain.utils
 
 import androidx.compose.runtime.Composable
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 @Composable
 expect fun CameraManagerCompose(
+    resultKey: String,
     navigateToReview: (CommonImage) -> Unit,
     navigateBack: () -> Unit
 )
 
-@Composable
-expect fun rememberCameraManagerTest(
-    onPhotoCaptured: (CommonImage) -> Unit
-): CameraManager
+object CameraResults {
+    private val mutex = Mutex()
+    private val waiters = mutableMapOf<String, CompletableDeferred<CommonImage>>()
 
-expect class CameraManager(
-    onPhotoCaptured: () -> Unit
-) {
-    fun photoCaptured()
-}
+    @Suppress("UNCHECKED_CAST")
+    suspend fun <T> awaitResult(key: String): T {
+        val deferred = CompletableDeferred<CommonImage>()
+        mutex.withLock { waiters[key] = deferred }
+        return deferred.await() as T
+    }
 
-interface CameraCallback {
-    fun onPhotoCaptured(commonImage: CommonImage)
+    suspend fun deliver(key: String, value: CommonImage) {
+        val waiter = mutex.withLock { waiters.remove(key) }
+        waiter?.complete(value)
+    }
 }

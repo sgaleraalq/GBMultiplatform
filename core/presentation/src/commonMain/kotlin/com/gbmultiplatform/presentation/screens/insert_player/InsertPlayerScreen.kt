@@ -148,7 +148,7 @@ fun InsertPlayerScreen(
                     permissionDeniedCamera
                 ) {
                     showMediaOrCamera = false
-                    state.navigateTo(Camera)
+                    state.navigateTo(Camera("TODO"))
                 }
             }
         )

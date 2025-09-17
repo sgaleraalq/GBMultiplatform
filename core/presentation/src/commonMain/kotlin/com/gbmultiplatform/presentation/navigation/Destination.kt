@@ -17,7 +17,6 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import com.gbmultiplatform.domain.utils.CameraCallback
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
@@ -149,14 +148,22 @@ interface Destination {
      * Camera
      */
     @Serializable
-    object Camera: Destination {
+    data class Camera(
+        val resultKey: String
+    ): Destination {
         override val routeName = "camera"
 
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
+                resultKey = resultKey,
                 navigateToReview = { commonImage ->
-                    state.navigateTo(ReviewPhoto(commonImage))
+                    state.navigateTo(
+                        ReviewPhoto(
+                            resultKey,
+                            commonImage
+                        )
+                    )
                 },
                 navigateBack = { state.navigateBack() }
             )
@@ -165,6 +172,7 @@ interface Destination {
 
     @Serializable
     data class ReviewPhoto(
+        val resultKey: String,
         val commonImage: CommonImage
     ) : Destination {
         override val routeName = "review_photo"
@@ -174,8 +182,8 @@ interface Destination {
             ReviewImageScreen(
                 commonImage = commonImage,
                 isFrontCamera = commonImage is FromFrontCamera,
-                navigateToCamera = { state.navigateBack() },
-                navigateToInsertPlayerScreen = {
+                onRepeat = { state.navigateBack() },
+                onAccept = {
                     state.popUpTo(InsertPlayer)
                 }
             )

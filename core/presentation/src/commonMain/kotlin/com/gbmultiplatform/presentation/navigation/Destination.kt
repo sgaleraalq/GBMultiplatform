@@ -17,6 +17,7 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
@@ -31,6 +32,7 @@ import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
 import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 interface Destination {
@@ -179,12 +181,15 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
+            val scope = rememberCoroutineScope()
             ReviewImageScreen(
                 commonImage = commonImage,
                 isFrontCamera = commonImage is FromFrontCamera,
                 onRepeat = { state.navigateBack() },
                 onAccept = {
-                    state.popUpTo(InsertPlayer)
+                    scope.launch {
+                        state.launchAndDeliver<CommonImage>(resultKey, commonImage)
+                    }
                 }
             )
         }

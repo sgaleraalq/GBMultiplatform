@@ -38,10 +38,12 @@ import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBMediaOrCamera
 import com.gbmultiplatform.design_system.components.GBProgressDialog
+import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.NavigationState
+import com.gbmultiplatform.presentation.navigation.navigateForResult
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
@@ -60,6 +62,10 @@ import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.getKoin
 import org.koin.compose.viewmodel.koinViewModel
@@ -78,6 +84,13 @@ fun InsertPlayerScreen(
     val bodyImage by viewModel.bodyImage.collectAsState()
     val useSameImage by viewModel.useSameImage.collectAsState()
     var showMediaOrCamera by remember { mutableStateOf(false) }
+
+    CoroutineScope(Dispatchers.IO).launch {
+        val myImage: CommonImage = state.navigateForResult(
+            destination = Camera(resultKey = "insert_player_camera"),
+            resultKey = "insert_player_camera"
+        )
+    }
 
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)

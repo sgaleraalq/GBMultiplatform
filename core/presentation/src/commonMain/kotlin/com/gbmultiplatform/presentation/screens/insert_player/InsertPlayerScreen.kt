@@ -85,11 +85,15 @@ fun InsertPlayerScreen(
     val useSameImage by viewModel.useSameImage.collectAsState()
     var showMediaOrCamera by remember { mutableStateOf(false) }
 
+    val myResultKey = "insert_player_camera"
+
+    var myImage by remember { mutableStateOf<CommonImage?>(null) }
     CoroutineScope(Dispatchers.IO).launch {
-        val myImage: CommonImage = state.navigateForResult(
-            destination = Camera(resultKey = "insert_player_camera"),
-            resultKey = "insert_player_camera"
+        myImage = state.navigateForResult(
+            destination = Camera(resultKey = myResultKey),
+            resultKey = myResultKey
         )
+        viewModel.updatePicture(myImage)
     }
 
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
@@ -122,7 +126,7 @@ fun InsertPlayerScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 InsertPlayerImages(
-                    faceImg = faceImage,
+                    faceImg = myImage,
                     bodyImg = bodyImage,
                     useSameImage = useSameImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
@@ -161,7 +165,7 @@ fun InsertPlayerScreen(
                     permissionDeniedCamera
                 ) {
                     showMediaOrCamera = false
-                    state.navigateTo(Camera("TODO"))
+                    state.navigateTo(Camera(myResultKey))
                 }
             }
         )

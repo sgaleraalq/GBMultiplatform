@@ -19,8 +19,6 @@ package com.gbmultiplatform.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import com.gbmultiplatform.domain.utils.CameraManagerCompose
-import com.gbmultiplatform.domain.utils.CommonImage
-import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.presentation.SplashScreen
 import com.gbmultiplatform.presentation.screens.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
@@ -28,7 +26,6 @@ import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
-import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
 import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
@@ -157,41 +154,39 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
+            val scope = rememberCoroutineScope()
             CameraManagerCompose(
                 resultKey = resultKey,
                 navigateToReview = { commonImage ->
-                    state.navigateTo(
-                        ReviewPhoto(
-                            resultKey,
-                            commonImage
-                        )
-                    )
+                    scope.launch {
+                        state.launchAndDeliver(resultKey, commonImage)
+                    }
                 },
                 navigateBack = { state.navigateBack() }
             )
         }
     }
 
-    @Serializable
-    data class ReviewPhoto(
-        val resultKey: String,
-        val commonImage: CommonImage
-    ) : Destination {
-        override val routeName = "review_photo"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            val scope = rememberCoroutineScope()
-            ReviewImageScreen(
-                commonImage = commonImage,
-                isFrontCamera = commonImage is FromFrontCamera,
-                onRepeat = { state.navigateBack() },
-                onAccept = {
-                    scope.launch {
-                        state.launchAndDeliver<CommonImage>(resultKey, commonImage)
-                    }
-                }
-            )
-        }
-    }
+//    @Serializable
+//    data class ReviewPhoto(
+//        val resultKey: String,
+//        val commonImage: CommonImage
+//    ) : Destination {
+//        override val routeName = "review_photo"
+//
+//        @Composable
+//        override fun Content(state: NavigationState) {
+//            val scope = rememberCoroutineScope()
+//            ReviewImageScreen(
+//                commonImage = commonImage,
+//                isFrontCamera = commonImage is FromFrontCamera,
+//                onRepeat = { state.navigateBack() },
+//                onAccept = {
+//                    scope.launch {
+//                        state.launchAndDeliver<CommonImage>(resultKey, commonImage)
+//                    }
+//                }
+//            )
+//        }
+//    }
 }

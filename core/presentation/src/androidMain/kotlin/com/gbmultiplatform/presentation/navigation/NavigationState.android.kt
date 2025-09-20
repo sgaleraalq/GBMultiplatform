@@ -88,7 +88,7 @@ class AndroidNavigationState(
         navHostController.popBackStack(
             route = getRoute(destination::class),
             inclusive = false,
-            saveState = true
+            saveState = false
         )
     }
 

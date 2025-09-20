@@ -88,8 +88,6 @@ class InsertPlayerViewModel(
         }
     }
 
-    private fun isFaceImage() = _imageSelected.value == FACE
-
     fun changePlayerName(name: String) {
         _player.value = _player.value.copy(name = name)
     }

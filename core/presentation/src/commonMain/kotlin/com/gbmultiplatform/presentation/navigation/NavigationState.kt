@@ -39,6 +39,7 @@ import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
+import com.gbmultiplatform.presentation.navigation.Destination.ReviewPhoto
 import com.gbmultiplatform.presentation.navigation.Destination.Splash
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Team
@@ -90,9 +91,8 @@ suspend inline fun <reified T> NavigationState.navigateForResult(
     destination: Destination,
     resultKey: String
 ): T {
-    val wait = CameraResults.awaitResult<T>(resultKey)
     navigateTo(destination)
-    return wait
+    return CameraResults.awaitResult(resultKey)
 }
 
 suspend fun NavigationState.launchAndDeliver(key: String, value: CommonImage) {
@@ -186,5 +186,5 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     PlayerInformation.configuration(),
     InsertPlayer::class.configuration(),
     Camera::class.configuration(),
-//    ReviewPhoto::class.configuration()
+    ReviewPhoto::class.configuration()
 )

@@ -41,6 +41,7 @@ import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
+import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.navigation.navigateForResult
@@ -63,8 +64,7 @@ import gbmultiplatform.core.presentation.generated.resources.permission_denied_c
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.getKoin
@@ -75,6 +75,11 @@ fun InsertPlayerScreen(
     state: NavigationState,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
+    val waitForImgResult: suspend (Destination, String) -> CommonImage? =
+        { destination, key ->
+            state.navigateForResult<CommonImage>(destination, key)
+        }
+
     val imageLoader = getKoin().get<SharedImagesBridge>()
 
     val player by viewModel.player.collectAsState()
@@ -84,17 +89,6 @@ fun InsertPlayerScreen(
     val bodyImage by viewModel.bodyImage.collectAsState()
     val useSameImage by viewModel.useSameImage.collectAsState()
     var showMediaOrCamera by remember { mutableStateOf(false) }
-
-    val myResultKey = "insert_player_camera"
-
-    var myImage by remember { mutableStateOf<CommonImage?>(null) }
-    CoroutineScope(Dispatchers.IO).launch {
-        myImage = state.navigateForResult(
-            destination = Camera(resultKey = myResultKey),
-            resultKey = myResultKey
-        )
-        viewModel.updatePicture(myImage)
-    }
 
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
@@ -126,7 +120,7 @@ fun InsertPlayerScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 InsertPlayerImages(
-                    faceImg = myImage,
+                    faceImg = faceImage,
                     bodyImg = bodyImage,
                     useSameImage = useSameImage,
                     onFaceClicked = { viewModel.updateImageSelected(FACE) },
@@ -165,7 +159,10 @@ fun InsertPlayerScreen(
                     permissionDeniedCamera
                 ) {
                     showMediaOrCamera = false
-                    state.navigateTo(Camera(myResultKey))
+                    CoroutineScope(Main).launch {
+                        val image = waitForImgResult(Camera(FACE.name), FACE.name)
+                        viewModel.updatePicture(image)
+                    }
                 }
             }
         )

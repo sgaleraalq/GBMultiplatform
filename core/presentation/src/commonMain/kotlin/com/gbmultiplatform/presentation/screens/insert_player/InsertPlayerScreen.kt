@@ -25,10 +25,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -41,7 +41,6 @@ import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
-import com.gbmultiplatform.presentation.navigation.Destination
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.navigation.navigateForResult
@@ -63,8 +62,6 @@ import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
 import gbmultiplatform.core.presentation.generated.resources.select_media_from
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.getKoin
@@ -75,61 +72,35 @@ fun InsertPlayerScreen(
     state: NavigationState,
     viewModel: InsertPlayerViewModel = koinViewModel<InsertPlayerViewModel>()
 ) {
-    val waitForImgResult: suspend (Destination, String) -> CommonImage? =
-        { destination, key ->
-            state.navigateForResult<CommonImage>(destination, key)
-        }
-
-    val imageLoader = getKoin().get<SharedImagesBridge>()
-
-    val player by viewModel.player.collectAsState()
-    val uiState by viewModel.state.collectAsState()
-    val dorsals by viewModel.dorsals.collectAsState()
-    val faceImage by viewModel.faceImage.collectAsState()
-    val bodyImage by viewModel.bodyImage.collectAsState()
-    val useSameImage by viewModel.useSameImage.collectAsState()
+    val scope = rememberCoroutineScope()
+    val ui by viewModel.collectUi()
     var showMediaOrCamera by remember { mutableStateOf(false) }
-
-    val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
-    val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
-    val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
-
     val galleryManager = rememberGalleryManager { commonImage ->
         showMediaOrCamera = false
         viewModel.updatePicture(commonImage)
     }
+
+    val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
+    val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
+    val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
 
-        if (uiState != LOADING) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = CenterHorizontally,
-                verticalArrangement = spacedBy(8.dp)
-            ) {
-                MainInformation(
-                    playerName = player.name,
-                    dorsal = player.dorsal,
-                    position = player.position,
-                    onPlayerNameChanged = { name -> viewModel.changePlayerName(name) },
-                    onDorsalClicked = { viewModel.changeState(DORSAL) },
-                    onPositionClicked = { viewModel.changeState(POSITION) }
-                )
-                Spacer(Modifier.height(16.dp))
-                InsertPlayerImages(
-                    faceImg = faceImage,
-                    bodyImg = bodyImage,
-                    useSameImage = useSameImage,
-                    onFaceClicked = { viewModel.updateImageSelected(FACE) },
-                    onBodyClicked = { viewModel.updateImageSelected(BODY) },
-                    onUseSameImageClicked = { viewModel.updateUseSameImage() },
-                    showMediaOrCamera = { showMediaOrCamera = true },
-                    imageLoader = imageLoader
-                )
-            }
+        if (ui.state != LOADING) {
+            PlayerForm(
+                ui = ui,
+                imageLoader = getKoin().get(),
+                onNameChanged = viewModel::changePlayerName,
+                onDorsalClick = { viewModel.changeState(DORSAL) },
+                onPositionClick = { viewModel.changeState(POSITION) },
+                onFaceClick = { viewModel.updateImageSelected(FACE) },
+                onBodyClick = { viewModel.updateImageSelected(BODY) },
+                onUseSameImageClick = { viewModel.updateUseSameImage() },
+                onShowMediaOrCamera = { showMediaOrCamera = true }
+            )
             Spacer(Modifier.weight(1f))
             InsertPlayerButton {
                 viewModel.insertNewPlayer(
@@ -142,54 +113,113 @@ fun InsertPlayerScreen(
     }
 
     if (showMediaOrCamera) {
-        GBMediaOrCamera(
-            title = stringResource(Res.string.select_media_from),
-            dismiss = {
+        MediaOrCameraDialog(
+            onDismiss = {
                 viewModel.updateImageSelected(NONE)
                 showMediaOrCamera = false
             },
-            onMediaClicked = {
+            onMedia = {
                 viewModel.initGallery(
                     launchGallery = { galleryManager.launch() },
                     permissionDeniedMsg = permissionDeniedGallery
                 )
             },
-            onCameraClicked = {
-                viewModel.initCamera(
-                    permissionDeniedCamera
-                ) {
+            onCamera = {
+                viewModel.initCamera(permissionDeniedCamera) {
                     showMediaOrCamera = false
-                    CoroutineScope(Main).launch {
-                        val image = waitForImgResult(Camera(FACE.name), FACE.name)
-                        viewModel.updatePicture(image)
+                    scope.launch {
+                        launchCameraAndWaitForResult(state, viewModel)
                     }
                 }
             }
         )
     }
 
-    when (uiState) {
-        DEFAULT -> {}
-        LOADING -> {
-            Box(Modifier.fillMaxSize()) { GBProgressDialog(true, White) }
-        }
+    PlayerDialogs(ui, viewModel)
+}
 
-        DORSAL -> {
-            DorsalDialog(
-                show = true,
-                dorsals = dorsals,
-                onDorsalClicked = { viewModel.updateDorsal(it) },
-                dismiss = { viewModel.changeState(DEFAULT) }
-            )
-        }
+suspend fun launchCameraAndWaitForResult(
+    state: NavigationState,
+    viewModel: InsertPlayerViewModel,
+    key: String = FACE.name // TODO
+): CommonImage? {
+    return state.navigateForResult<CommonImage>(
+        Camera(key),
+        key
+    ).also { image ->
+        viewModel.updatePicture(image)
+    }
+}
 
-        POSITION -> {
-            PositionDialog(
-                show = true,
-                onPositionClicked = { viewModel.updatePosition(it) },
-                dismiss = { viewModel.changeState(DEFAULT) }
-            )
-        }
+@Composable
+private fun PlayerForm(
+    ui: InsertPlayerUi,
+    imageLoader: SharedImagesBridge,
+    onNameChanged: (String) -> Unit,
+    onDorsalClick: () -> Unit,
+    onPositionClick: () -> Unit,
+    onFaceClick: () -> Unit,
+    onBodyClick: () -> Unit,
+    onUseSameImageClick: () -> Unit,
+    onShowMediaOrCamera: () -> Unit
+) {
+    Column(
+        modifier = Modifier.padding(16.dp),
+        horizontalAlignment = CenterHorizontally,
+        verticalArrangement = spacedBy(8.dp)
+    ) {
+        MainInformation(
+            playerName = ui.player.name,
+            dorsal = ui.player.dorsal,
+            position = ui.player.position,
+            onPlayerNameChanged = onNameChanged,
+            onDorsalClicked = onDorsalClick,
+            onPositionClicked = onPositionClick
+        )
+        Spacer(Modifier.height(16.dp))
+        InsertPlayerImages(
+            faceImg = ui.faceImage,
+            bodyImg = ui.bodyImage,
+            useSameImage = ui.useSameImage,
+            onFaceClicked = onFaceClick,
+            onBodyClicked = onBodyClick,
+            onUseSameImageClicked = onUseSameImageClick,
+            showMediaOrCamera = onShowMediaOrCamera,
+            imageLoader = imageLoader
+        )
+    }
+}
+
+@Composable
+private fun MediaOrCameraDialog(
+    onDismiss: () -> Unit,
+    onMedia: () -> Unit,
+    onCamera: () -> Unit
+) {
+    GBMediaOrCamera(
+        title = stringResource(Res.string.select_media_from),
+        dismiss = onDismiss,
+        onMediaClicked = onMedia,
+        onCameraClicked = onCamera
+    )
+}
+
+@Composable
+private fun PlayerDialogs(ui: InsertPlayerUi, viewModel: InsertPlayerViewModel) {
+    when (ui.state) {
+        DEFAULT -> Unit
+        LOADING -> Box(Modifier.fillMaxSize()) { GBProgressDialog(true, White) }
+        DORSAL -> DorsalDialog(
+            show = true,
+            dorsals = ui.dorsals,
+            onDorsalClicked = viewModel::updateDorsal,
+            dismiss = { viewModel.changeState(DEFAULT) }
+        )
+        POSITION -> PositionDialog(
+            show = true,
+            onPositionClicked = viewModel::updatePosition,
+            dismiss = { viewModel.changeState(DEFAULT) }
+        )
     }
 }
 

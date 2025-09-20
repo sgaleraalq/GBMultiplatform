@@ -41,10 +41,10 @@ sealed interface CommonImage {
 interface ImageLoader {
     suspend fun loadImage(
         uri: String,
+        isFrontCamera: Boolean,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int,
-        isFrontCamera: Boolean
+        quality: Int
     ): ByteArray?
 }
 
@@ -57,17 +57,17 @@ class SharedImagesBridge {
 
     suspend fun loadImage(
         uri: String,
-        maxWidth: Int,
-        maxHeight: Int,
-        quality: Int,
-        isFrontCamera: Boolean
+        isFrontCamera: Boolean,
+        maxWidth: Int = 1080,
+        maxHeight: Int = 1080,
+        quality: Int = 90
     ): ByteArray? {
         return imageLoader?.loadImage(
             uri,
+            isFrontCamera,
             maxWidth,
             maxHeight,
-            quality,
-            isFrontCamera
+            quality
         ) ?: error("ImageLoader not set")
     }
 }

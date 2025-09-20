@@ -224,10 +224,10 @@ open class GBMultiplatformActivity :
      */
     override suspend fun loadImage(
         uri: String,
+        isFrontCamera: Boolean,
         maxWidth: Int,
         maxHeight: Int,
-        quality: Int,
-        isFrontCamera: Boolean
+        quality: Int
     ): ByteArray? = withContext(Dispatchers.IO) {
         val androidUri = uri.toUri()
 

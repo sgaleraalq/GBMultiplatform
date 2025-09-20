@@ -30,7 +30,6 @@ import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
-import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.POSITION
@@ -96,10 +95,7 @@ fun InsertPlayerScreen(
 
     if (showMediaOrCamera) {
         MediaOrCameraDialog(
-            onDismiss = {
-                showMediaOrCamera = false
-                viewModel.updateImageSelected(NONE)
-            },
+            onDismiss = { showMediaOrCamera = false },
             onMedia = {
                 viewModel.initGallery(
                     launchGallery = { galleryManager.launch() },

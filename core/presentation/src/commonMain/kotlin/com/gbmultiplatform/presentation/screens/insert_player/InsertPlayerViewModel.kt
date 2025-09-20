@@ -27,7 +27,6 @@ import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
-import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.NONE
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +43,7 @@ class InsertPlayerViewModel(
 ) : ViewModel() {
 
     enum class InsertPlayerState { LOADING, DEFAULT, DORSAL, POSITION }
-    enum class CameraState { NONE, FACE, BODY }
+    enum class CameraState { FACE, BODY }
     val state = MutableStateFlow(LOADING)
     fun changeState(newState: InsertPlayerState) {
         state.value = newState
@@ -70,12 +69,11 @@ class InsertPlayerViewModel(
     val dorsals = _availableDorsals
 
     private val _useSameImage = MutableStateFlow(false)
-    private var lastUpdatedImage = NONE
     val useSameImage = _useSameImage
 
-    private val _imageSelected = MutableStateFlow(NONE)
+    private var imageSelected = FACE
     fun updateImageSelected(newState: CameraState) {
-        _imageSelected.value = newState
+        imageSelected = newState
     }
 
     init {
@@ -102,22 +100,19 @@ class InsertPlayerViewModel(
 
     fun updatePicture(image: CommonImage?) {
         viewModelScope.launch {
-            when (_imageSelected.value) {
+            when (imageSelected) {
                 FACE -> updateFaceImage(image)
                 BODY -> updateBodyImage(image)
-                else -> return@launch
             }
         }
     }
 
     private fun updateFaceImage(image: CommonImage?) {
         _faceImage.value = image
-        updateImageSelected(NONE)
     }
 
     private fun updateBodyImage(image: CommonImage?) {
         _bodyImage.value = image
-        updateImageSelected(NONE)
     }
 
     fun updateUseSameImage() {
@@ -131,17 +126,15 @@ class InsertPlayerViewModel(
     private fun updateSameImage() {
         if (_faceImage.value != null) {
             _bodyImage.value = _faceImage.value
-            lastUpdatedImage = FACE
         } else if (_bodyImage.value != null) {
             _faceImage.value = _bodyImage.value
-            lastUpdatedImage = BODY
         }
     }
 
     private fun removeSameImage() {
-        if (lastUpdatedImage == FACE) {
+        if (imageSelected == FACE) {
             _bodyImage.value = null
-        } else if (lastUpdatedImage == BODY) {
+        } else if (imageSelected == BODY) {
             _faceImage.value = null
         }
     }
@@ -179,8 +172,8 @@ class InsertPlayerViewModel(
                 withContext(Dispatchers.IO) {
                     val newPlayerInserted = insertNewPlayerUseCase(
                         player = _player.value,
-                        faceImg = _faceImage.value,
-                        bodyImg = _bodyImage.value
+                        faceImg = _faceImage.value!!,
+                        bodyImg = _bodyImage.value!!
                     )
                     if (newPlayerInserted) {
                         onSuccess()
@@ -199,7 +192,7 @@ class InsertPlayerViewModel(
             it.name.isNotEmpty() &&
             it.dorsal > 0 &&
             it.position != null
-        }
+        } && (_faceImage.value != null && _bodyImage.value != null)
     }
 
     private fun showToast(msg: String) {

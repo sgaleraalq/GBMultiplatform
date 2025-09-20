@@ -19,18 +19,26 @@ package com.gbmultiplatform.domain.usecase
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
 import com.gbmultiplatform.domain.utils.CommonImage
+import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
+import com.gbmultiplatform.domain.utils.ImageLoader
+import com.gbmultiplatform.domain.utils.SharedImagesBridge
 
-class InsertNewPlayer(private val repository: IPlayersInformationRepository) {
+class InsertNewPlayer(
+    private val repository: IPlayersInformationRepository,
+    private val imageLoader: SharedImagesBridge
+) {
     suspend operator fun invoke(
         player: PlayerInformationModel,
-        faceImg: CommonImage?,
-        bodyImg: CommonImage?
+        faceImg: CommonImage,
+        bodyImg: CommonImage
     ): Boolean {
-        if (faceImg == null || bodyImg == null) return false
-//        val facePath = repository.insertPlayerImage(player.id, faceImg, true)
-//        val bodyPath = repository.insertPlayerImage(player.id, bodyImg, false)
-//
-//        if (facePath.isBlank() || bodyPath.isBlank()) return false
+        val faceByteArray = imageLoader.loadImage(faceImg.uri, faceImg is FromFrontCamera)
+        val bodyByteArray = imageLoader.loadImage(bodyImg.uri, faceImg is FromFrontCamera)
+
+        val facePath = repository.insertPlayerImage(player.id, faceByteArray, true)
+        val bodyPath = repository.insertPlayerImage(player.id, bodyByteArray, false)
+
+        if (facePath.isBlank() || bodyPath.isBlank()) return false
         return repository.insertNewPlayer(player)
     }
 }

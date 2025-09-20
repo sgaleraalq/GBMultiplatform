@@ -39,6 +39,7 @@
     <string name="body_image">Upload a body image</string>
     <string name="permission_denied_camera">Permissions needed to open camera</string>
     <string name="permission_denied_gallery">Permissions needed to open gallery</string>
+    <string name="upload_error_message">There was a problem uploading player</string>
     <string name="not_valid_player_to_insert">You need to fill all fields to insert the player</string>
     <string name="use_same_image">Use same image for body and face</string>
 

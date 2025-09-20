@@ -57,8 +57,13 @@ fun rememberMultiplatformNavigationState(
                 stateHolder.removeState(lastItem.toString())
             }
 
-            override fun navigateTo(destination: Destination) {
+            override fun navigateTo(destination: Destination, clearStack: Boolean) {
                 stack.value = stack.value.plus(destination)
+                if (clearStack) {
+                    val lastItem = stack.value.last()
+                    stack.value = listOf(lastItem)
+                    stateHolder.removeState { true }
+                }
             }
 
             override fun popUpTo(destination: Destination) {

@@ -51,7 +51,7 @@ import kotlin.reflect.KClass
 interface NavigationState {
     val currentDestination: State<Destination?>
 
-    fun navigateTo(destination: Destination)
+    fun navigateTo(destination: Destination, clearStack: Boolean = false)
     fun popUpTo(destination: Destination)
     fun navigateBack()
 

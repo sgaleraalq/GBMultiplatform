@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
+import com.gbmultiplatform.presentation.navigation.Destination.Team
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
@@ -42,6 +43,7 @@ import gbmultiplatform.core.presentation.generated.resources.insert_new_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
+import gbmultiplatform.core.presentation.generated.resources.upload_error_message
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -64,6 +66,7 @@ fun InsertPlayerScreen(
     val notValidPlayerMsg = stringResource(Res.string.not_valid_player_to_insert)
     val permissionDeniedCamera = stringResource(Res.string.permission_denied_camera)
     val permissionDeniedGallery = stringResource(Res.string.permission_denied_gallery)
+    val uploadErrorMsg = stringResource(Res.string.upload_error_message)
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -85,8 +88,8 @@ fun InsertPlayerScreen(
             Spacer(Modifier.weight(1f))
             InsertPlayerButton {
                 viewModel.insertNewPlayer(
-                    onSuccess = { println("Player inserted successfully") },
-                    onFailure = { println("Failed to insert player") },
+                    onSuccess = { state.navigateTo(Team, true) },
+                    uploadErrorMsg = uploadErrorMsg,
                     notValidPlayerMsg = notValidPlayerMsg
                 )
             }

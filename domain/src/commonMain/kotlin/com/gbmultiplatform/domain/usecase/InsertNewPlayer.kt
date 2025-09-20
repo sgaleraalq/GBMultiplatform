@@ -20,7 +20,6 @@ import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
-import com.gbmultiplatform.domain.utils.ImageLoader
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 
 class InsertNewPlayer(
@@ -39,6 +38,12 @@ class InsertNewPlayer(
         val bodyPath = repository.insertPlayerImage(player.id, bodyByteArray, false)
 
         if (facePath.isBlank() || bodyPath.isBlank()) return false
-        return repository.insertNewPlayer(player)
+
+        val updatedPlayer = player.copy(
+            id = player.name + "_" + player.id,
+            faceImage = facePath,
+            bodyImage = bodyPath
+        )
+        return repository.insertNewPlayer(updatedPlayer)
     }
 }

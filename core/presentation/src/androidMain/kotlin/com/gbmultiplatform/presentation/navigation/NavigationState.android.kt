@@ -75,12 +75,19 @@ class AndroidNavigationState(
     }
 
     override fun navigateTo(
-        destination: Destination
+        destination: Destination,
+        clearStack: Boolean
     ) {
         val route = getActualRoute(destination)
         navHostController.navigate(route) {
             launchSingleTop = true
             restoreState = true
+            if (clearStack) {
+                popUpTo(navHostController.graph.startDestinationId) {
+                    saveState = false
+                    inclusive = true
+                }
+            }
         }
     }
 

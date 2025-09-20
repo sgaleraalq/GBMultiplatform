@@ -164,29 +164,33 @@ class InsertPlayerViewModel(
 
     fun insertNewPlayer(
         onSuccess: () -> Unit,
-        onFailure: () -> Unit,
+        uploadErrorMsg: String,
         notValidPlayerMsg: String
     ) {
-        if (validPlayer()) {
-            viewModelScope.launch {
-                withContext(Dispatchers.IO) {
-                    val newPlayerInserted = insertNewPlayerUseCase(
-                        player = _player.value,
-                        faceImg = _faceImage.value!!,
-                        bodyImg = _bodyImage.value!!
-                    )
-                    if (newPlayerInserted) {
-                        onSuccess()
-                    } else {
-                        onFailure()
-                    }
-                }
-            }
-        } else {
+        if (!validPlayer()) {
             showToast(notValidPlayerMsg)
+            return
+        }
+
+        viewModelScope.launch {
+            changeState(LOADING)
+
+            val newPlayerInserted = withContext(Dispatchers.IO) {
+                insertNewPlayerUseCase(
+                    player = _player.value,
+                    faceImg = _faceImage.value!!,
+                    bodyImg = _bodyImage.value!!
+                )
+            }
+
+            if (newPlayerInserted) {
+                onSuccess()
+            } else {
+                showToast(uploadErrorMsg)
+                changeState(DEFAULT)
+            }
         }
     }
-
     private fun validPlayer(): Boolean {
         return _player.value.let {
             it.name.isNotEmpty() &&

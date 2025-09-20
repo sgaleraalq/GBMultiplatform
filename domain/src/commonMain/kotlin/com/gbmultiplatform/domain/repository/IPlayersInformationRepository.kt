@@ -1,10 +1,10 @@
 package com.gbmultiplatform.domain.repository
 
-import androidx.compose.ui.graphics.ImageBitmap
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 
 interface IPlayersInformationRepository {
     companion object {
+        const val SEASON = "2025"
         const val PLAYERS = "players"
         const val INFORMATION = "information"
     }

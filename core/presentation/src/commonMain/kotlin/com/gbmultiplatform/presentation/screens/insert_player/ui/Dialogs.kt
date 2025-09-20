@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -36,20 +37,49 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBDialog
+import com.gbmultiplatform.design_system.components.GBMediaOrCamera
+import com.gbmultiplatform.design_system.components.GBProgressDialog
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
 import com.gbmultiplatform.domain.model.player.Position
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerUi
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DEFAULT
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
+import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.POSITION
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.select_dorsal
+import gbmultiplatform.core.presentation.generated.resources.select_media_from
 import gbmultiplatform.core.presentation.generated.resources.select_position
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun DorsalDialog(
+internal fun PlayerDialogs(ui: InsertPlayerUi, viewModel: InsertPlayerViewModel) {
+    when (ui.state) {
+        DEFAULT -> Unit
+        LOADING -> Box(Modifier.fillMaxSize()) { GBProgressDialog(true, White) }
+        DORSAL -> DorsalDialog(
+            show = true,
+            dorsals = ui.dorsals,
+            onDorsalClicked = viewModel::updateDorsal,
+            dismiss = { viewModel.changeState(DEFAULT) }
+        )
+        POSITION -> PositionDialog(
+            show = true,
+            onPositionClicked = viewModel::updatePosition,
+            dismiss = { viewModel.changeState(DEFAULT) }
+        )
+    }
+}
+
+@Composable
+internal fun DorsalDialog(
     show: Boolean,
     dorsals: List<Int>,
     onDorsalClicked: (Int) -> Unit,
@@ -110,7 +140,7 @@ fun DorsalDialog(
 }
 
 @Composable
-fun PositionDialog(
+internal fun PositionDialog(
     show: Boolean,
     onPositionClicked: (Position) -> Unit,
     dismiss: () -> Unit
@@ -152,4 +182,18 @@ fun PositionDialog(
             }
         }
     }
+}
+
+@Composable
+internal fun MediaOrCameraDialog(
+    onDismiss: () -> Unit,
+    onMedia: () -> Unit,
+    onCamera: () -> Unit
+) {
+    GBMediaOrCamera(
+        title = stringResource(Res.string.select_media_from),
+        dismiss = onDismiss,
+        onMediaClicked = onMedia,
+        onCameraClicked = onCamera
+    )
 }

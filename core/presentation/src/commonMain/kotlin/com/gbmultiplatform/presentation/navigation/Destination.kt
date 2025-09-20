@@ -151,16 +151,16 @@ interface Destination {
      */
     @Serializable
     data class Camera(
-        val resultKey: String
+        val key: String
     ): Destination {
         override val routeName = "camera"
 
         @Composable
         override fun Content(state: NavigationState) {
             CameraManagerCompose(
-                resultKey = resultKey,
+                key = key,
                 navigateToReview = { commonImage ->
-                    state.navigateTo(ReviewPhoto(resultKey, commonImage))
+                    state.navigateTo(ReviewPhoto(key, commonImage))
                 },
                 navigateBack = { state.navigateBack() }
             )
@@ -169,7 +169,7 @@ interface Destination {
 
     @Serializable
     data class ReviewPhoto(
-        val resultKey: String,
+        val key: String,
         val commonImage: CommonImage
     ) : Destination {
         override val routeName = "review_photo"
@@ -183,7 +183,7 @@ interface Destination {
                 onRepeat = { state.navigateBack() },
                 onAccept = {
                     scope.launch {
-                        state.launchAndDeliver(resultKey, commonImage)
+                        state.launchAndDeliver(key, commonImage)
                     }
                 }
             )

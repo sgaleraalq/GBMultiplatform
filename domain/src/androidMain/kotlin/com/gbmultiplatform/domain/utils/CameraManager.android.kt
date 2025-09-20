@@ -44,7 +44,7 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 actual fun CameraManagerCompose(
-    resultKey: String,
+    key: String,
     navigateToReview: (CommonImage) -> Unit,
     navigateBack: () -> Unit
 ) {

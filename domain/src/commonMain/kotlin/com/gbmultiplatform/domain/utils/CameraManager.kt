@@ -23,7 +23,7 @@ import kotlinx.coroutines.sync.withLock
 
 @Composable
 expect fun CameraManagerCompose(
-    resultKey: String,
+    key: String,
     navigateToReview: (CommonImage) -> Unit,
     navigateBack: () -> Unit
 )

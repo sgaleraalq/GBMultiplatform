@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.design_system.GazteluBiraUtils
 import com.gbmultiplatform.domain.usecase.FetchAllPlayersInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -31,18 +30,17 @@ import kotlinx.coroutines.withContext
 class TeamViewModel(
     playerProvider: IPlayerProvider,
     private val fetchAllPlayersInformation: FetchAllPlayersInformation
-): ViewModel() {
+) : ViewModel() {
     private val _players = MutableStateFlow<List<PlayerInformationModel>>(emptyList())
     val players = _players
 
     init {
-        _players.value = playerProvider.providePlayerInformationList() // TODO
-
         viewModelScope.launch {
             val playersList = withContext(Dispatchers.IO) {
                 fetchAllPlayersInformation()
             }
-            _players.value += playersList.sortedBy { it.dorsal }
+            _players.value =
+                (playerProvider.providePlayerInformationList() + playersList).sortedBy { it.dorsal }
         }
     }
 }

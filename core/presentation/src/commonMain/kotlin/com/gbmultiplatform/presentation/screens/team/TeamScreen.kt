@@ -16,14 +16,16 @@
 
 package com.gbmultiplatform.presentation.screens.team
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -37,18 +39,26 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gray_box_in_black_bg
+import com.gbmultiplatform.design_system.style.lightGray
+import com.gbmultiplatform.design_system.style.overlayColor
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
@@ -97,18 +107,49 @@ fun TeamPlayerList(
 
 @Composable
 fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
+    var longPressed by remember { mutableStateOf(false) }
+    // record long press on card
     Card(
+        modifier = Modifier.size(100.dp)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { onPlayerClicked() }, // Navigation to player details
+                    onLongPress = { longPressed = !longPressed }, // toggle name visibility
+                    onDoubleTap = { longPressed = !longPressed }  // toggle name visibility
+                )
+            },
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = Transparent
-        ),
-        onClick = { onPlayerClicked() }
+        )
     ) {
         Box {
+            // Image
             GBImage(
-                modifier = Modifier.size(100.dp),
+                modifier = Modifier.fillMaxSize(),
                 image = player.faceImage
             )
+
+            // Name with animation
+            this@Card.AnimatedVisibility(
+                visible = longPressed,
+                modifier = Modifier
+                    .align(BottomCenter)
+                    .fillMaxWidth()
+            ) {
+                GBText(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(overlayColor)
+                        .padding(vertical = 2.dp),
+                    text = player.name,
+                    textColor = lightGray,
+                    alignment = TextAlign.Center,
+                    style = gBTypography().bodySmall
+                )
+            }
+
+            // Dorsal
             Box(
                 modifier = Modifier
                     .padding(4.dp)

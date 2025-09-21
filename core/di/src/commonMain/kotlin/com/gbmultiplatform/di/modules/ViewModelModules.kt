@@ -20,6 +20,7 @@ import com.gbmultiplatform.di.provider.PlayerProvider
 import com.gbmultiplatform.di.provider.TeamProvider
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.team.ITeamProvider
+import com.gbmultiplatform.domain.usecase.FetchAllPlayersInformation
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
@@ -61,4 +62,5 @@ val useCasesModule = module {
     factoryOf(::ShowCamera)
     factoryOf(::ShowGallery)
     factoryOf(::InsertNewPlayer)
+    factoryOf(::FetchAllPlayersInformation)
 }

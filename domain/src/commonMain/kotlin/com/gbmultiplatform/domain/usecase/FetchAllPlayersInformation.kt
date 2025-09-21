@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.data.mappers
+package com.gbmultiplatform.domain.usecase
 
-/**
- * Maps every object to each layer of the application
- * @param Response Data layer representation
- * @param Domain Domain layer representation
- * @param Entity Cache layer representation
- */
-interface Mapper <Response, Domain, Entity> {
-    fun asResponse(domain: Domain): Response
-    fun asEntity(domain: Domain): Entity?
-    fun entityAsDomain(entity: Entity): Domain?
-    fun responseAsModel(response: Response): Domain?
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository
+
+class FetchAllPlayersInformation (
+    private val repository: IPlayersInformationRepository
+){
+    suspend operator fun invoke() = repository.fetchAllPlayersInformation()
 }

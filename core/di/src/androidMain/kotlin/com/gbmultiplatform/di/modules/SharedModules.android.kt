@@ -2,7 +2,7 @@ package com.gbmultiplatform.di.modules
 
 import androidx.activity.ComponentActivity
 import com.gbmultiplatform.data.network.firebase.PlayerInformationFirebaseAndroid
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository
 import com.gbmultiplatform.domain.utils.IToastManager
 import com.gbmultiplatform.domain.utils.ToastManagerAndroid
 import org.koin.core.module.Module

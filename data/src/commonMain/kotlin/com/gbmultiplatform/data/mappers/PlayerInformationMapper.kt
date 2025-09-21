@@ -3,6 +3,7 @@ package com.gbmultiplatform.data.mappers
 import com.gbmultiplatform.data.db.entities.PlayerInformationEntity
 import com.gbmultiplatform.data.network.response.PlayerInformationResponse
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
+import com.gbmultiplatform.domain.model.player.mapPosition
 
 object PlayerInformationMapper :
     Mapper<PlayerInformationResponse, PlayerInformationModel, PlayerInformationEntity>
@@ -21,11 +22,20 @@ object PlayerInformationMapper :
         return null
     }
 
-    override fun entityToDomain(entity: PlayerInformationEntity): PlayerInformationModel? {
+    override fun entityAsDomain(entity: PlayerInformationEntity): PlayerInformationModel? {
         return null
     }
 
-    override fun responseToDomain(response: PlayerInformationResponse): PlayerInformationModel? {
-        return null
-    }
+    override fun responseAsModel(response: PlayerInformationResponse): PlayerInformationModel? =
+        PlayerInformationModel(
+            id = response.id,
+            name = response.name,
+            dorsal = response.dorsal,
+            position = mapPosition(response.position),
+            faceImage = response.faceImage,
+            bodyImage = response.bodyImage
+        )
 }
+
+fun List<PlayerInformationResponse>.asModel() =
+    this.mapNotNull { PlayerInformationMapper.responseAsModel(it) }

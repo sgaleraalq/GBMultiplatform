@@ -17,7 +17,7 @@
 package com.gbmultiplatform.domain.usecase
 
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
@@ -31,16 +31,17 @@ class InsertNewPlayer(
         faceImg: CommonImage,
         bodyImg: CommonImage
     ): Boolean {
+        val newPlayerId = player.name + "_" + player.id
         val faceByteArray = imageLoader.loadImage(faceImg.uri, faceImg is FromFrontCamera)
         val bodyByteArray = imageLoader.loadImage(bodyImg.uri, faceImg is FromFrontCamera)
 
-        val facePath = repository.insertPlayerImage(player.id, faceByteArray, true)
-        val bodyPath = repository.insertPlayerImage(player.id, bodyByteArray, false)
+        val facePath = repository.insertPlayerImage(newPlayerId, faceByteArray, true)
+        val bodyPath = repository.insertPlayerImage(newPlayerId, bodyByteArray, false)
 
         if (facePath.isBlank() || bodyPath.isBlank()) return false
 
         val updatedPlayer = player.copy(
-            id = player.name + "_" + player.id,
+            id = newPlayerId,
             faceImage = facePath,
             bodyImage = bodyPath
         )

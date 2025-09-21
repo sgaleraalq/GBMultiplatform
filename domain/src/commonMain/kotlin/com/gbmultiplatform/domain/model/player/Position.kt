@@ -16,6 +16,11 @@
 
 package com.gbmultiplatform.domain.model.player
 
+import com.gbmultiplatform.domain.model.player.Position.DEFENDER
+import com.gbmultiplatform.domain.model.player.Position.FORWARD
+import com.gbmultiplatform.domain.model.player.Position.GOALKEEPER
+import com.gbmultiplatform.domain.model.player.Position.MIDFIELDER
+import com.gbmultiplatform.domain.model.player.Position.UNDEFINED
 import gbmultiplatform.domain.generated.resources.Res
 import gbmultiplatform.domain.generated.resources.defender
 import gbmultiplatform.domain.generated.resources.forward
@@ -42,4 +47,12 @@ enum class Position(
     FORWARD(
         Res.string.forward
     )
+}
+
+fun mapPosition(position: String): Position = when (position.uppercase()) {
+    "GOALKEEPER" -> GOALKEEPER
+    "DEFENDER" -> DEFENDER
+    "MIDFIELDER" -> MIDFIELDER
+    "FORWARD" -> FORWARD
+    else -> UNDEFINED
 }

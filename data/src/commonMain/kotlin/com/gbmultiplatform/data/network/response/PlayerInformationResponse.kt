@@ -20,10 +20,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PlayerInformationResponse(
-    val id: String,
-    val name: String,
-    val dorsal: Int,
-    val position: String,
-    val faceImage: String,
-    val bodyImage: String
+    val id: String = "",
+    val name: String = "",
+    val dorsal: Int = 0,
+    val position: String = "",
+    val faceImage: String = "",
+    val bodyImage: String = ""
 )

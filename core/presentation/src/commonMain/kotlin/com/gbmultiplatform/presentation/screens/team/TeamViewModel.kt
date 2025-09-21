@@ -17,20 +17,32 @@
 package com.gbmultiplatform.presentation.screens.team
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.design_system.GazteluBiraUtils
+import com.gbmultiplatform.domain.usecase.FetchAllPlayersInformation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TeamViewModel(
-    playerProvider: IPlayerProvider
+    playerProvider: IPlayerProvider,
+    private val fetchAllPlayersInformation: FetchAllPlayersInformation
 ): ViewModel() {
-    val players = MutableStateFlow<List<PlayerInformationModel>>(emptyList())
-    val appTeam = GazteluBiraUtils.GAZTELU_BIRA
-
+    private val _players = MutableStateFlow<List<PlayerInformationModel>>(emptyList())
+    val players = _players
 
     init {
-        players.value = playerProvider.providePlayerInformationList()
-    }
+        _players.value = playerProvider.providePlayerInformationList() // TODO
 
+        viewModelScope.launch {
+            val playersList = withContext(Dispatchers.IO) {
+                fetchAllPlayersInformation()
+            }
+            _players.value += playersList.sortedBy { it.dorsal }
+        }
+    }
 }

@@ -2,11 +2,13 @@ package com.gbmultiplatform.data.network.firebase
 
 import android.util.Log
 import com.gbmultiplatform.data.mappers.PlayerInformationMapper.asResponse
+import com.gbmultiplatform.data.mappers.asModel
+import com.gbmultiplatform.data.network.response.PlayerInformationResponse
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository.Companion.INFORMATION
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository.Companion.PLAYERS
+import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository.Companion.SEASON
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository.Companion.INFORMATION
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository.Companion.PLAYERS
-import com.gbmultiplatform.domain.repository.IPlayersInformationRepository.Companion.SEASON
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -17,9 +19,9 @@ class PlayerInformationFirebaseAndroid() : IPlayersInformationRepository {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val storage: FirebaseStorage = Firebase.storage
 
-    override suspend fun fetchAllPlayers(): List<PlayerInformationModel> {
-        return emptyList() // TODO
-    }
+    override suspend fun fetchAllPlayersInformation() =
+        firestore.collection(SEASON).document(PLAYERS).collection(INFORMATION).get().await()
+            .toObjects(PlayerInformationResponse::class.java).asModel()
 
     override suspend fun insertNewPlayer(player: PlayerInformationModel): Boolean {
         val playerResponse = asResponse(player)
@@ -49,7 +51,7 @@ class PlayerInformationFirebaseAndroid() : IPlayersInformationRepository {
     ): String {
         return if (image != null) {
             val reference = storage.reference
-                .child("$SEASON/$playerId/${if (isFace) "face" else "body"}.jpg")
+                .child("$SEASON/$PLAYERS/$playerId/${if (isFace) "face" else "body"}.jpg")
 
             reference.putBytes(image).await()
             reference.downloadUrl.await().toString()

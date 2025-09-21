@@ -21,6 +21,7 @@ import com.gbmultiplatform.di.provider.TeamProvider
 import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.team.ITeamProvider
 import com.gbmultiplatform.domain.usecase.FetchAllPlayersInformation
+import com.gbmultiplatform.domain.usecase.FetchPlayerInformation
 import com.gbmultiplatform.domain.usecase.InsertNewPlayer
 import com.gbmultiplatform.domain.usecase.ShowCamera
 import com.gbmultiplatform.domain.usecase.ShowGallery
@@ -32,6 +33,7 @@ import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewMo
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.matches.MatchesViewModel
+import com.gbmultiplatform.presentation.screens.player_info_detail.PlayerInformationViewModel
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewPhotoViewModel
 import com.gbmultiplatform.presentation.screens.stats.StatsViewModel
 import com.gbmultiplatform.presentation.screens.team.TeamViewModel
@@ -48,6 +50,15 @@ val viewModelModule = module {
     viewModelOf(::TeamViewModel)
     viewModelOf(::InsertPlayerViewModel)
     viewModelOf(::ReviewPhotoViewModel)
+    viewModelOf(::PlayerInformationViewModel)
+}
+
+val useCasesModule = module {
+    factoryOf(::ShowCamera)
+    factoryOf(::ShowGallery)
+    factoryOf(::InsertNewPlayer)
+    factoryOf(::FetchAllPlayersInformation)
+    factoryOf(::FetchPlayerInformation)
 }
 
 val viewModelHelpersModule = module {
@@ -56,11 +67,4 @@ val viewModelHelpersModule = module {
     factory { GetMatchResultUseCase() }
     single { PermissionBridge() }
     single { SharedImagesBridge() }
-}
-
-val useCasesModule = module {
-    factoryOf(::ShowCamera)
-    factoryOf(::ShowGallery)
-    factoryOf(::InsertNewPlayer)
-    factoryOf(::FetchAllPlayersInformation)
 }

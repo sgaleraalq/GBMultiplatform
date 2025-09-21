@@ -17,13 +17,13 @@
 package com.gbmultiplatform.domain.usecase
 
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
-import com.gbmultiplatform.domain.firebase.IPlayersInformationRepository
+import com.gbmultiplatform.domain.firebase.IPlayersInformation
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 
 class InsertNewPlayer(
-    private val repository: IPlayersInformationRepository,
+    private val repository: IPlayersInformation,
     private val imageLoader: SharedImagesBridge
 ) {
     suspend operator fun invoke(

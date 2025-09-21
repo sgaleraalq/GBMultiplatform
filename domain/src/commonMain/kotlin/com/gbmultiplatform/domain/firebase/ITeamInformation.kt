@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.domain.usecase
+package com.gbmultiplatform.domain.firebase
 
-import com.gbmultiplatform.domain.firebase.IPlayersInformation
-
-class FetchAllPlayersInformation (
-    private val repository: IPlayersInformation
-){
-    suspend operator fun invoke() = repository.fetchAllPlayersInformation()
+interface ITeamInformation {
 }

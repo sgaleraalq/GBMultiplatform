@@ -76,8 +76,8 @@ fun TeamScreen(
         GBAppTopBar(isAdmin = true) {
             state.navigateTo(InsertPlayer)
         }
-        TeamPlayerList(players) {
-            state.navigateTo(PlayerInformation(it))
+        TeamPlayerList(players) { id ->
+            state.navigateTo(PlayerInformation(id))
         }
     }
 }
@@ -108,7 +108,6 @@ fun TeamPlayerList(
 @Composable
 fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
     var longPressed by remember { mutableStateOf(false) }
-    // record long press on card
     Card(
         modifier = Modifier.size(100.dp)
             .pointerInput(Unit) {

@@ -14,20 +14,31 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.team_detail
+package com.gbmultiplatform.presentation.screens.player_info_detail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.design_system.components.GBText
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun PlayerInformationScreen(
-    playerId: String
+    playerId: String,
+    viewModel: PlayerInformationViewModel = koinViewModel<PlayerInformationViewModel>()
 ) {
+    val player by viewModel.player.collectAsState()
+
+    LaunchedEffect(true) {
+        viewModel.loadPlayerInformation(playerId)
+    }
+
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Center

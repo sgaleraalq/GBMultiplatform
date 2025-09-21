@@ -31,7 +31,7 @@ import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
 import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
-import com.gbmultiplatform.presentation.screens.team_detail.PlayerInformationScreen
+import com.gbmultiplatform.presentation.screens.player_info_detail.PlayerInformationScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 

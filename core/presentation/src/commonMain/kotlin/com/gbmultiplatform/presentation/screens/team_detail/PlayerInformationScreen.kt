@@ -25,13 +25,15 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.design_system.components.GBText
 
 @Composable
-fun PlayerInformationScreen() {
+fun PlayerInformationScreen(
+    playerId: String
+) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Center
     ) {
         GBText(
-            text = "Player Information Screen",
+            text = "Player Information Screen $playerId",
             textColor = White
         )
     }

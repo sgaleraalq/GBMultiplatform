@@ -183,7 +183,7 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     Team.configuration(),
     About.configuration(),
     MatchDetail.configuration(),
-    PlayerInformation.configuration(),
+    PlayerInformation::class.configuration(),
     InsertPlayer::class.configuration(),
     Camera::class.configuration(),
     ReviewPhoto::class.configuration()

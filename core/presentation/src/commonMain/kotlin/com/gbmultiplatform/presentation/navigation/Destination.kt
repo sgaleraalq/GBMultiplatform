@@ -124,12 +124,14 @@ interface Destination {
     }
 
     @Serializable
-    object PlayerInformation : Destination {
+    data class PlayerInformation(
+        val playerId: String
+    ) : Destination {
         override val routeName = "player_information"
 
         @Composable
         override fun Content(state: NavigationState) {
-            PlayerInformationScreen()
+            PlayerInformationScreen(playerId)
         }
     }
 

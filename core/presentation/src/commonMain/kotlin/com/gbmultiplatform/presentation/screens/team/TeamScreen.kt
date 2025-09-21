@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -66,7 +67,7 @@ fun TeamScreen(
             state.navigateTo(InsertPlayer)
         }
         TeamPlayerList(players) {
-            state.navigateTo(PlayerInformation)
+            state.navigateTo(PlayerInformation(it))
         }
     }
 }
@@ -105,7 +106,7 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
     ) {
         Box {
             GBImage(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.size(100.dp),
                 image = player.faceImage
             )
             Box(

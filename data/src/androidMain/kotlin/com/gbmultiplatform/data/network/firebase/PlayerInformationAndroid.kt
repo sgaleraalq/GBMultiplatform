@@ -31,7 +31,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.storage
 import kotlinx.coroutines.tasks.await
 
-class PlayerInformationFirebaseAndroid() : IPlayersInformation {
+class PlayerInformationAndroid() : IPlayersInformation {
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val storage: FirebaseStorage = Firebase.storage
 

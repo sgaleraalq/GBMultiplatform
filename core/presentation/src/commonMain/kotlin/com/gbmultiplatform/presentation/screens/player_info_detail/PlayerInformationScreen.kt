@@ -17,20 +17,28 @@
 package com.gbmultiplatform.presentation.screens.player_info_detail
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment.Companion.Center
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.components.GBBackButton
+import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBText
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun PlayerInformationScreen(
     playerId: String,
+    navigateBack: () -> Unit,
     viewModel: PlayerInformationViewModel = koinViewModel<PlayerInformationViewModel>()
 ) {
     val player by viewModel.player.collectAsState()
@@ -40,12 +48,23 @@ fun PlayerInformationScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Center
+        modifier = Modifier.fillMaxSize()
     ) {
+        GBBackButton(Modifier.align(TopStart)) { navigateBack() }
+    }
+
+    Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
         GBText(
-            text = "Player Information Screen $playerId",
+            text = player?.name ?: "",
             textColor = White
+        )
+        GBImage(
+            modifier = Modifier.size(100.dp),
+            image = player?.faceImage
+        )
+        GBImage(
+            modifier = Modifier.size(100.dp),
+            image = player?.bodyImage
         )
     }
 }

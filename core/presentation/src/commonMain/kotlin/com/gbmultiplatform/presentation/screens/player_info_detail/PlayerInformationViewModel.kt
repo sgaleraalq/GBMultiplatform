@@ -35,7 +35,7 @@ class PlayerInformationViewModel(
 
     fun loadPlayerInformation(playerId: String) {
         viewModelScope.launch {
-            val playerInfo = withContext(Dispatchers.IO) {
+            _player.value = withContext(Dispatchers.IO) {
                 fetchPlayerInformation(playerId)
             }
         }

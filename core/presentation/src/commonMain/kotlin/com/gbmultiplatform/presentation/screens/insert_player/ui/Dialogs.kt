@@ -34,6 +34,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -63,7 +64,10 @@ import org.jetbrains.compose.resources.stringResource
 internal fun PlayerDialogs(ui: InsertPlayerUi, viewModel: InsertPlayerViewModel) {
     when (ui.state) {
         DEFAULT -> Unit
-        LOADING -> Box(Modifier.fillMaxSize()) { GBProgressDialog(true, White) }
+        LOADING -> Box(Modifier.fillMaxSize()) {
+            GBProgressDialog(true, White,
+                Modifier.align(BottomCenter).padding(bottom = 18.dp))
+        }
         DORSAL -> DorsalDialog(
             show = true,
             dorsals = ui.dorsals,

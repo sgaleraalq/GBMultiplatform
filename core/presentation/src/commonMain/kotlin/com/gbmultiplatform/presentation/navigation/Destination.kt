@@ -131,7 +131,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            PlayerInformationScreen(playerId)
+            PlayerInformationScreen(playerId, state::navigateBack)
         }
     }
 

@@ -36,6 +36,7 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun GBBackButton(
+    modifier: Modifier = Modifier,
     color: Color = player_card_name_text_color,
     isVisible: Boolean = true,
     onClick: () -> Unit
@@ -43,7 +44,7 @@ fun GBBackButton(
     var isRunning by remember { mutableStateOf(false) }
 
     Icon(
-        modifier = Modifier
+        modifier = modifier
             .alpha(if (isVisible) 1f else 0f)
             .clickable {
                 if (!isRunning && isVisible) {

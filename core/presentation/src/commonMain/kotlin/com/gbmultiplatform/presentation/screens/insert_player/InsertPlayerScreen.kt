@@ -19,13 +19,17 @@ package com.gbmultiplatform.presentation.screens.insert_player
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
+import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
 import com.gbmultiplatform.presentation.navigation.Destination.Team
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -34,12 +38,12 @@ import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewMo
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.DORSAL
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.LOADING
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.InsertPlayerState.POSITION
-import com.gbmultiplatform.presentation.screens.insert_player.ui.InsertPlayerButton
 import com.gbmultiplatform.presentation.screens.insert_player.ui.MediaOrCameraDialog
 import com.gbmultiplatform.presentation.screens.insert_player.ui.PlayerDialogs
 import com.gbmultiplatform.presentation.screens.insert_player.ui.PlayerForm
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.insert_new_player
+import gbmultiplatform.core.presentation.generated.resources.insert_player
 import gbmultiplatform.core.presentation.generated.resources.not_valid_player_to_insert
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_camera
 import gbmultiplatform.core.presentation.generated.resources.permission_denied_gallery
@@ -72,27 +76,31 @@ fun InsertPlayerScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         GBAppTopBar(topBarText = stringResource(Res.string.insert_new_player))
+        PlayerForm(
+            ui = ui,
+            imageLoader = getKoin().get(),
+            onNameChanged = viewModel::changePlayerName,
+            onDorsalClick = { viewModel.changeState(DORSAL) },
+            onPositionClick = { viewModel.changeState(POSITION) },
+            onFaceClick = { viewModel.updateImageSelected(FACE) },
+            onBodyClick = { viewModel.updateImageSelected(BODY) },
+            onUseSameImageClick = { viewModel.updateUseSameImage() },
+            onShowMediaOrCamera = { showMediaOrCamera = true }
+        )
+        Spacer(Modifier.weight(1f))
 
         if (ui.state != LOADING) {
-            PlayerForm(
-                ui = ui,
-                imageLoader = getKoin().get(),
-                onNameChanged = viewModel::changePlayerName,
-                onDorsalClick = { viewModel.changeState(DORSAL) },
-                onPositionClick = { viewModel.changeState(POSITION) },
-                onFaceClick = { viewModel.updateImageSelected(FACE) },
-                onBodyClick = { viewModel.updateImageSelected(BODY) },
-                onUseSameImageClick = { viewModel.updateUseSameImage() },
-                onShowMediaOrCamera = { showMediaOrCamera = true }
+            GBElevatedButton(
+                modifier = Modifier.fillMaxWidth().padding(12.dp),
+                text = stringResource(Res.string.insert_player),
+                onClick = {
+                    viewModel.insertNewPlayer(
+                        onSuccess = { state.navigateTo(Team, true) },
+                        uploadErrorMsg = uploadErrorMsg,
+                        notValidPlayerMsg = notValidPlayerMsg
+                    )
+                }
             )
-            Spacer(Modifier.weight(1f))
-            InsertPlayerButton {
-                viewModel.insertNewPlayer(
-                    onSuccess = { state.navigateTo(Team, true) },
-                    uploadErrorMsg = uploadErrorMsg,
-                    notValidPlayerMsg = notValidPlayerMsg
-                )
-            }
         }
     }
 

@@ -17,11 +17,17 @@
 package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.ContentScale.Companion.Crop
+import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import gbmultiplatform.core.design_system.generated.resources.Res
 import gbmultiplatform.core.design_system.generated.resources.description_insert_player_image
@@ -30,6 +36,24 @@ import gbmultiplatform.core.design_system.generated.resources.img_example
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+
+@Composable
+fun GBPlayerImage(
+    modifier: Modifier = Modifier,
+    image: String?
+) {
+    GBImage(
+        modifier = modifier
+            .size(24.dp)
+            .clip(RoundedCornerShape(50))
+            .border(
+                width = 1.dp,
+                color = White,
+                shape = RoundedCornerShape(50)
+            ),
+        image = image
+    )
+}
 
 @Composable
 fun GBImage(

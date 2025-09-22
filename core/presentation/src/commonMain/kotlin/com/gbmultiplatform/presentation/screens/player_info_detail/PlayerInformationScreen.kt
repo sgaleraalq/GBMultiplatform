@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBBackButton
 import com.gbmultiplatform.design_system.components.GBImage
+import com.gbmultiplatform.design_system.components.GBPlayerImage
 import com.gbmultiplatform.design_system.components.GBText
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -41,7 +42,8 @@ fun PlayerInformationScreen(
     navigateBack: () -> Unit,
     viewModel: PlayerInformationViewModel = koinViewModel<PlayerInformationViewModel>()
 ) {
-    val player by viewModel.player.collectAsState()
+    val playerStats by viewModel.playerStats.collectAsState()
+    val playerInformation by viewModel.player.collectAsState()
 
     LaunchedEffect(true) {
         viewModel.loadPlayerInformation(playerId)
@@ -55,16 +57,16 @@ fun PlayerInformationScreen(
 
     Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
         GBText(
-            text = player?.name ?: "",
+            text = playerInformation?.name ?: "",
             textColor = White
         )
-        GBImage(
+        GBPlayerImage(
             modifier = Modifier.size(100.dp),
-            image = player?.faceImage
+            image = playerInformation?.faceImage
         )
         GBImage(
             modifier = Modifier.size(100.dp),
-            image = player?.bodyImage
+            image = playerInformation?.bodyImage
         )
     }
 }

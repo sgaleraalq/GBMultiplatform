@@ -26,3 +26,5 @@ val white_in_gray_box = Color(0xFFEAEAEA)
 
 val overlayColor = Color(0xBF000000) // 75% opacity black
 val lightGray = Color(0xFFD3D3D3) // Light gray color
+
+val primaryRed = Color(0xFFE50914)

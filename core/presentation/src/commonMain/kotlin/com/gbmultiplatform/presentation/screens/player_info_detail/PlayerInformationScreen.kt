@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,15 +34,20 @@ import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
+import com.gbmultiplatform.design_system.GazteluBiraUtils.GAZTELU_BIRA_LOGO
 import com.gbmultiplatform.design_system.components.GBBackButton
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBPlayerImage
+import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.style.gBTypography
 import com.gbmultiplatform.design_system.style.gb_text_field_label_color
-import gbmultiplatform.core.presentation.generated.resources.Res
-import gbmultiplatform.core.presentation.generated.resources.welcome_image
+import com.gbmultiplatform.design_system.style.primaryRed
 import org.koin.compose.viewmodel.koinViewModel
+
+private const val LOGO_SIZE = 50
 
 @Composable
 fun PlayerInformationScreen(
@@ -69,14 +75,29 @@ fun PlayerInformationScreen(
                 .align(BottomCenter)
                 .fillMaxWidth()
                 .fillMaxHeight(1.25f / 3f)
+                .padding(top = 25.dp)
                 .background(
                     color = White,
                     shape = RoundedCornerShape(36.dp, 36.dp, 0.dp, 0.dp)
                 )
         ) {
             GBPlayerImage(
-                modifier = Modifier.align(TopCenter).size(50.dp).background(Yellow),
-                image = Res.drawable.welcome_image
+                modifier = Modifier.align(TopCenter).size(LOGO_SIZE.dp)
+                    .offset(y = (-(LOGO_SIZE / 2)).dp),
+                image = GAZTELU_BIRA_LOGO
+            )
+
+            GBText(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = (LOGO_SIZE / 2 + 16).dp)
+                    .align(TopCenter),
+                text = playerInformation?.name?.uppercase() ?: "",
+                alignment = Center,
+                textColor = primaryRed,
+                style = gBTypography().titleLarge.copy(
+                    fontWeight = Bold
+                )
             )
         }
 

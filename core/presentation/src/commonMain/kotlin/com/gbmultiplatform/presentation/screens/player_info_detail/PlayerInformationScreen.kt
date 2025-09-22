@@ -16,24 +16,31 @@
 
 package com.gbmultiplatform.presentation.screens.player_info_detail
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Alignment.Companion.TopStart
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBBackButton
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBPlayerImage
-import com.gbmultiplatform.design_system.components.GBText
+import com.gbmultiplatform.design_system.style.gb_text_field_label_color
+import gbmultiplatform.core.presentation.generated.resources.Res
+import gbmultiplatform.core.presentation.generated.resources.welcome_image
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -43,7 +50,7 @@ fun PlayerInformationScreen(
     viewModel: PlayerInformationViewModel = koinViewModel<PlayerInformationViewModel>()
 ) {
     val playerStats by viewModel.playerStats.collectAsState()
-    val playerInformation by viewModel.player.collectAsState()
+    val playerInformation by viewModel.playerInformation.collectAsState()
 
     LaunchedEffect(true) {
         viewModel.loadPlayerInformation(playerId)
@@ -52,21 +59,35 @@ fun PlayerInformationScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        GBBackButton(Modifier.align(TopStart)) { navigateBack() }
-    }
-
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = CenterHorizontally) {
-        GBText(
-            text = playerInformation?.name ?: "",
-            textColor = White
-        )
-        GBPlayerImage(
-            modifier = Modifier.size(100.dp),
-            image = playerInformation?.faceImage
-        )
         GBImage(
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(2f / 3f),
             image = playerInformation?.bodyImage
         )
+
+        Box(
+            modifier = Modifier
+                .align(BottomCenter)
+                .fillMaxWidth()
+                .fillMaxHeight(1.25f / 3f)
+                .background(
+                    color = White,
+                    shape = RoundedCornerShape(36.dp, 36.dp, 0.dp, 0.dp)
+                )
+        ) {
+            GBPlayerImage(
+                modifier = Modifier.align(TopCenter).size(50.dp).background(Yellow),
+                image = Res.drawable.welcome_image
+            )
+        }
+
+        GBBackButton(
+            modifier = Modifier
+                .align(TopStart)
+                .padding(12.dp).background(
+                    color = White,
+                    shape = RoundedCornerShape(50)
+                ),
+            color = gb_text_field_label_color
+        ) { navigateBack() }
     }
 }

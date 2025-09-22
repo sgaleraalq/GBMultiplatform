@@ -30,7 +30,6 @@ import kotlinx.coroutines.withContext
 class PlayerInformationViewModel(
     private val fetchPlayerInformation: FetchPlayerInformation
 ) : ViewModel() {
-
     private val _playerInformation = MutableStateFlow<PlayerInformationModel?>(null)
     val playerInformation = _playerInformation
 
@@ -45,6 +44,9 @@ class PlayerInformationViewModel(
 //            _playerStats.value = withContext(Dispatchers.IO) {
 //                _playerInformation.value?.stats
 //            }
+            println(
+                "PlayerInformationViewModel loadPlayerInformation: ${_playerInformation.value}, stats: ${_playerStats.value}"
+            )
         }
     }
 }

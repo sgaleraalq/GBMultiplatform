@@ -18,7 +18,7 @@ package com.gbmultiplatform.presentation
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
+import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
 import com.gbmultiplatform.presentation.navigation.Destination.Stats
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
@@ -51,7 +51,11 @@ class MainViewModel(
             /**
              * INIT NAVIGATION
              */
-            navController.navigateTo(Stats)
+            navController.navigateTo(
+                PlayerInformation(
+                    "Haaland_f855d86b-b380-478b-a4ad-32169371bbc8"
+                )
+            )
         } else {
             navController.navigateTo(Welcome)
         }

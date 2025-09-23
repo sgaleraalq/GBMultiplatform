@@ -37,11 +37,12 @@ fun GBElevatedButton(
     onClick: () -> Unit,
     backgroundColor: Color = White,
     textColor: Color = Black,
+    roundness: Int = 8
 ) {
     ElevatedButton(
         modifier = modifier.fillMaxWidth(),
         onClick = onClick,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(roundness.dp),
         elevation = ButtonDefaults.buttonElevation(8.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = backgroundColor,

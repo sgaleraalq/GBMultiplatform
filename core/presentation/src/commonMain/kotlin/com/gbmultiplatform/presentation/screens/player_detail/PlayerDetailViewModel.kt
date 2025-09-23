@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.player_info_detail
+package com.gbmultiplatform.presentation.screens.player_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PlayerInformationViewModel(
+class PlayerDetailViewModel(
     private val fetchPlayerInformation: FetchPlayerInformation
 ) : ViewModel() {
     private val _playerInformation = MutableStateFlow<PlayerInformationModel?>(null)

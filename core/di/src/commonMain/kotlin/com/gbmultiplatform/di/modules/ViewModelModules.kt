@@ -33,7 +33,7 @@ import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewMo
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.matches.GetMatchResultUseCase
 import com.gbmultiplatform.presentation.screens.matches.MatchesViewModel
-import com.gbmultiplatform.presentation.screens.player_info_detail.PlayerInformationViewModel
+import com.gbmultiplatform.presentation.screens.player_detail.PlayerDetailViewModel
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewPhotoViewModel
 import com.gbmultiplatform.presentation.screens.stats.StatsViewModel
 import com.gbmultiplatform.presentation.screens.team.TeamViewModel
@@ -50,7 +50,7 @@ val viewModelModule = module {
     viewModelOf(::TeamViewModel)
     viewModelOf(::InsertPlayerViewModel)
     viewModelOf(::ReviewPhotoViewModel)
-    viewModelOf(::PlayerInformationViewModel)
+    viewModelOf(::PlayerDetailViewModel)
 }
 
 val useCasesModule = module {

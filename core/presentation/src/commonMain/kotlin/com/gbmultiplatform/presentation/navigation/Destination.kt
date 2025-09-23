@@ -28,10 +28,10 @@ import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
 import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
+import com.gbmultiplatform.presentation.screens.player_detail.PlayerDetailScreen
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
 import com.gbmultiplatform.presentation.screens.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.team.TeamScreen
-import com.gbmultiplatform.presentation.screens.player_info_detail.PlayerInformationScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -131,7 +131,7 @@ interface Destination {
 
         @Composable
         override fun Content(state: NavigationState) {
-            PlayerInformationScreen(playerId, state::navigateBack)
+            PlayerDetailScreen(playerId, state::navigateBack)
         }
     }
 

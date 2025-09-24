@@ -94,7 +94,7 @@ class PlayerProvider : IPlayerProvider {
         )
     }
 
-    private fun providePlayer(): PlayerStatsModel {
+    private fun provideStatsForPlayer(): PlayerStatsModel {
         val randomId = generateRandomUUID()
         val randomGoals = (0..10).random()
         val randomAssists = (0..10).random()
@@ -136,10 +136,12 @@ class PlayerProvider : IPlayerProvider {
     }
 
     override fun providePlayerList() = List((10..20).random()) {
-        providePlayer()
+        provideStatsForPlayer()
     }
 
     override fun providePlayerInformationList() = List((10..20).random()) {
         providePlayerInformation()
     }
+
+    override fun providePlayerStats() = provideStatsForPlayer()
 }

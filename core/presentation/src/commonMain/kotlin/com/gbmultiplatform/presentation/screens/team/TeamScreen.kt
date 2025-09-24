@@ -112,9 +112,9 @@ fun PlayerCard(player: PlayerInformationModel, onPlayerClicked: () -> Unit) {
         modifier = Modifier.size(100.dp)
             .pointerInput(Unit) {
                 detectTapGestures(
-                    onTap = { onPlayerClicked() }, // Navigation to player details
-                    onLongPress = { longPressed = !longPressed }, // toggle name visibility
-                    onDoubleTap = { longPressed = !longPressed }  // toggle name visibility
+                    onTap = { onPlayerClicked() },
+                    onLongPress = { longPressed = !longPressed },
+                    onDoubleTap = { longPressed = !longPressed }
                 )
             },
         shape = RoundedCornerShape(12.dp),

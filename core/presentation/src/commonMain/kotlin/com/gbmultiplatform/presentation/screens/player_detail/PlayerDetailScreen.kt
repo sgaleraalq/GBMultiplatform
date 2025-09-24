@@ -57,11 +57,9 @@ fun PlayerDetailScreen(
         PlayerDetailImage(playerInformation?.bodyImage)
         PlayerDetailInformationBox(
             modifier = Modifier.align(BottomCenter),
-            playerName = playerInformation?.name,
+            player = playerInformation,
             playerStats = playerStats
         )
-
-
         GBBackButton(
             modifier = Modifier
                 .align(TopStart)

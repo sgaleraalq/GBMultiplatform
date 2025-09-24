@@ -28,3 +28,4 @@ val overlayColor = Color(0xBF000000) // 75% opacity black
 val lightGray = Color(0xFFD3D3D3) // Light gray color
 
 val primaryRed = Color(0xFFE50914)
+val primaryBlue = Color(0xFF2E3A7C)

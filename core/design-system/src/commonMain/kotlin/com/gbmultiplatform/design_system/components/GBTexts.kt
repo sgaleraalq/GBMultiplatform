@@ -25,6 +25,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.text.style.TextAlign.Companion.Start
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextOverflow.Companion.Clip
 import com.gbmultiplatform.design_system.style.gBTypography
 
 @Composable
@@ -50,12 +52,18 @@ fun GBText(
     alignment: TextAlign = Start,
     textColor: Color = White,
     style: TextStyle = gBTypography().bodyLarge,
+    maxLines: Int = 1,
+    minLines: Int = 1,
+    overflow: TextOverflow = Clip,
 ) {
     Text(
         modifier = modifier,
         text = text,
         style = style,
         color = textColor,
-        textAlign = alignment
+        textAlign = alignment,
+        maxLines = maxLines,
+        minLines = minLines,
+        overflow = overflow
     )
 }

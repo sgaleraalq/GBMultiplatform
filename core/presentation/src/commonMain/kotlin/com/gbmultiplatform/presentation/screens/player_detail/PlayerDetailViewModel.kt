@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation.screens.player_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gbmultiplatform.domain.model.player.IPlayerProvider
 import com.gbmultiplatform.domain.model.player.PlayerInformationModel
 import com.gbmultiplatform.domain.model.player.PlayerStatsModel
 import com.gbmultiplatform.domain.usecase.FetchPlayerInformation
@@ -26,8 +27,10 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.String
 
 class PlayerDetailViewModel(
+    private val playerProvider: IPlayerProvider,
     private val fetchPlayerInformation: FetchPlayerInformation
 ) : ViewModel() {
     private val _playerInformation = MutableStateFlow<PlayerInformationModel?>(null)
@@ -44,9 +47,7 @@ class PlayerDetailViewModel(
 //            _playerStats.value = withContext(Dispatchers.IO) {
 //                _playerInformation.value?.stats
 //            }
-            println(
-                "PlayerInformationViewModel loadPlayerInformation: ${_playerInformation.value}, stats: ${_playerStats.value}"
-            )
+            _playerStats.value = playerProvider.providePlayerStats()
         }
     }
 }

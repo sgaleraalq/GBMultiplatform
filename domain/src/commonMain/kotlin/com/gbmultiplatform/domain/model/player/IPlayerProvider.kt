@@ -19,4 +19,5 @@ package com.gbmultiplatform.domain.model.player
 interface IPlayerProvider {
     fun providePlayerList(): List<PlayerStatsModel>
     fun providePlayerInformationList(): List<PlayerInformationModel>
+    fun providePlayerStats(): PlayerStatsModel
 }

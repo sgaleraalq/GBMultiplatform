@@ -18,9 +18,17 @@ package com.gbmultiplatform.design_system.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
@@ -77,14 +85,26 @@ fun GBImage(
     image: String?,
     saverImage: DrawableResource = Res.drawable.img_example // TODO
 ) {
-    AsyncImage(
-        modifier = modifier,
-        model = image,
-        contentScale = Crop,
-        contentDescription = null,
-        error = painterResource(saverImage),
-        fallback = painterResource(saverImage)
-    )
+    var isLoading by remember { mutableStateOf(false) }
+    Box(modifier) {
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = image,
+            contentScale = Crop,
+            contentDescription = null,
+            onLoading = { isLoading = true },
+            onError = { isLoading = false },
+            onSuccess = { isLoading = false },
+            error = painterResource(saverImage),
+            fallback = painterResource(saverImage)
+        )
+
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Center)
+            )
+        }
+    }
 }
 
 @Composable

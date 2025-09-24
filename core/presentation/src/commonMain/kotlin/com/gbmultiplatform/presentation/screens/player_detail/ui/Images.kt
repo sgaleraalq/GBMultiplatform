@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
 import com.gbmultiplatform.design_system.components.GBPlayerImage
@@ -30,7 +31,8 @@ import com.gbmultiplatform.design_system.components.GBPlayerImage
 fun PlayerDetailImage(bodyImage: String?) {
     GBImage(
         modifier = Modifier.fillMaxWidth().fillMaxHeight(2f / 3f),
-        image = bodyImage
+        image = bodyImage,
+        contentScale = Fit
     )
 }
 

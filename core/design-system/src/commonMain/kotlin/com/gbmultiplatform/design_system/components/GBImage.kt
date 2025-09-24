@@ -83,6 +83,7 @@ fun GBPlayerImage(
 fun GBImage(
     modifier: Modifier = Modifier,
     image: String?,
+    contentScale: ContentScale = Crop,
     saverImage: DrawableResource = Res.drawable.img_example // TODO
 ) {
     var isLoading by remember { mutableStateOf(false) }
@@ -90,7 +91,7 @@ fun GBImage(
         AsyncImage(
             modifier = Modifier.fillMaxSize(),
             model = image,
-            contentScale = Crop,
+            contentScale = contentScale,
             contentDescription = null,
             onLoading = { isLoading = true },
             onError = { isLoading = false },

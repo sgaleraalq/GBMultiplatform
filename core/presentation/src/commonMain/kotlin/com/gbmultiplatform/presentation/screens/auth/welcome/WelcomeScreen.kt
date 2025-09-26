@@ -16,47 +16,12 @@
 
 package com.gbmultiplatform.presentation.screens.auth.welcome
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBProgressDialog
-import com.gbmultiplatform.presentation.navigation.Destination
-import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun WelcomeScreen(
     state: NavigationState,
-    viewModel: WelcomeViewModel = koinViewModel<WelcomeViewModel>(),
 ) {
-    val isLoading by viewModel.isLoading.collectAsState()
-
-    Scaffold(Modifier.fillMaxSize()) {
-        Column(
-            modifier = Modifier
-                .safeDrawingPadding()
-                .padding(bottom = 16.dp)
-        ) {
-            WelcomeScreenTitle()
-            WelcomeScreenImage(Modifier.weight(1f))
-            WelcomeScreenButtons {
-                state.navigateTo(Home)
-                /* viewModel.onJoinGazteluBira() */
-            }
-        }
-    }
-
-    GBProgressDialog(
-        show = isLoading,
-        color = White
-    )
+    WelcomeScreenUI(state) { state.navigateTo(it) }
 }

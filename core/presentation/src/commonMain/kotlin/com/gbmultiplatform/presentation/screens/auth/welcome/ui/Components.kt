@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.auth.welcome
+package com.gbmultiplatform.presentation.screens.auth.welcome.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -25,11 +25,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.design_system.components.GBText
 import com.gbmultiplatform.design_system.components.GBTitle
+import com.gbmultiplatform.design_system.style.gBTypography
 import gbmultiplatform.core.presentation.generated.resources.Res
 import gbmultiplatform.core.presentation.generated.resources.app_name
 import gbmultiplatform.core.presentation.generated.resources.gaztelu_bira_welcome_text
@@ -45,11 +48,17 @@ fun WelcomeScreenTitle() {
         modifier = Modifier.fillMaxWidth().padding(24.dp),
         title = "${stringResource(Res.string.welcome_to)} \n${stringResource(Res.string.app_name)}"
     )
-    Spacer(Modifier.height(16.dp))
+}
+
+@Composable
+fun WelcomeScreenSubtitle() {
     GBText(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
         text = stringResource(Res.string.gaztelu_bira_welcome_text),
-        alignment = TextAlign.Center,
+        alignment = Center,
+        textColor = White,
+        style = gBTypography().bodyMedium,
+        maxLines = 4
     )
 }
 
@@ -71,11 +80,14 @@ fun WelcomeScreenImage(
 
 @Composable
 fun WelcomeScreenButtons(
+    navigateToSignUp: () -> Unit,
+    navigateToLogin: () -> Unit,
     navigateToCreateNewTeamScreen: () -> Unit
 ) {
     GBElevatedButton(
         modifier = Modifier.padding(horizontal = 18.dp),
         text = stringResource(Res.string.join_gaztelu_bira),
-        onClick = { navigateToCreateNewTeamScreen() }
+        onClick = { navigateToCreateNewTeamScreen() },
+        roundness = 32
     )
 }

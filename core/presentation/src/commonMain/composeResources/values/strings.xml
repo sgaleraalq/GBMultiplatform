@@ -2,9 +2,7 @@
     <string name="app_name">Gaztelu Bira</string>
     <string name="welcome_to">Welcome to</string>
 
-    <string name="gaztelu_bira_welcome_text">
-        All your Gaztelu Bira match stats and player records — ready to review and relive
-    </string>
+    <string name="gaztelu_bira_welcome_text">All your Gaztelu Bira match stats and player records — ready to review and relive</string>
 
     <string name="create_new_team">Create a new team</string>
     <string name="join_existing_team">Or join an existing one</string>

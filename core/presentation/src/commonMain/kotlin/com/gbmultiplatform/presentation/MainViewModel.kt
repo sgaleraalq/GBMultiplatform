@@ -50,9 +50,7 @@ class MainViewModel(
             /**
              * INIT NAVIGATION
              */
-            navController.navigateTo(
-                Home
-            )
+            navController.navigateTo(Welcome)
         } else {
             navController.navigateTo(Welcome)
         }

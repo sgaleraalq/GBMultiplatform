@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import com.gbmultiplatform.design_system.components.GBBackground
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberNavigationState
 import org.koin.compose.viewmodel.koinViewModel
@@ -40,8 +42,9 @@ fun MainScreen(
         viewModel.initApp(navigationState)
     }
 
-    Scaffold {
-        MainNavigation(Modifier, navigationState)
+    Scaffold { paddingValues ->
+        GBBackground()
+        MainNavigation(Modifier.padding(paddingValues), navigationState)
     }
 }
 

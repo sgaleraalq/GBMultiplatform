@@ -18,6 +18,7 @@ package com.gbmultiplatform.presentation.screens.home
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
 import com.gbmultiplatform.design_system.icons.GBIcons
 import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
 import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
@@ -28,15 +29,22 @@ import com.gbmultiplatform.presentation.screens.home.tabs.stats.StatsScreen
 import com.gbmultiplatform.presentation.screens.home.tabs.team.TeamScreen
 import org.jetbrains.compose.resources.painterResource
 
+internal const val HOME = "home"
 internal const val MATCHES = "matches"
 internal const val STATS = "stats"
 internal const val TEAM = "team"
+internal const val ABOUT = "about"
 
 enum class HomeTab(
     val id: String,
     val iconContent: @Composable () -> Unit,
     val content: @Composable (NavigationState) -> Unit
 ) {
+//    Home(
+//        id = HOME,
+//        iconContent = { Icon(GBIcons.GBHomeBottomTab, null) },
+//        content = { /*HomeScreen()*/ }
+//    ),
     Matches(
         id = MATCHES,
         iconContent = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
@@ -51,5 +59,10 @@ enum class HomeTab(
         id = TEAM,
         iconContent = { Icon(GBIcons.GBTeamBottomTab, null) },
         content = { TeamScreen(it) }
-    )
+    ),
+//    About(
+//        id = ABOUT,
+//        iconContent = { Icon(GBIcons.GBAboutBottomTab, null) },
+//        content = { AboutScreen() }
+//    )
 }

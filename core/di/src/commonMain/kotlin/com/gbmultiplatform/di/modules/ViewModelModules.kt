@@ -28,7 +28,6 @@ import com.gbmultiplatform.domain.usecase.ShowGallery
 import com.gbmultiplatform.domain.utils.PermissionBridge
 import com.gbmultiplatform.domain.utils.SharedImagesBridge
 import com.gbmultiplatform.presentation.MainViewModel
-import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
 import com.gbmultiplatform.presentation.screens.home.tabs.matches.GetMatchResultUseCase

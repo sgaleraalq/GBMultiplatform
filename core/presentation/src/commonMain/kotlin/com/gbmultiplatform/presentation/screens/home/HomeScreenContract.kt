@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.home.tabs.stats
+package com.gbmultiplatform.presentation.screens.home
 
-import androidx.compose.runtime.Composable
-import com.gbmultiplatform.presentation.navigation.NavigationState
-import org.koin.compose.viewmodel.koinViewModel
-
-@Composable
-fun StatsScreen(
-    state: NavigationState,
-    viewModel: StatsViewModel = koinViewModel<StatsViewModel>()
-) {
-    StatsScreenUI(state, viewModel)
+interface HomeScreenContract {
+    interface ViewModel {
+        val defaultTab: HomeTab
+    }
 }

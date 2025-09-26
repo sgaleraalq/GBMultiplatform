@@ -16,18 +16,30 @@
 
 package com.gbmultiplatform.presentation.screens.home
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.ui.Modifier
+import com.gbmultiplatform.design_system.components.GBBackground
 
 @Composable
 fun HomeScreenUI(
-    bottomTabs: List<HomeBottomTab>
+    bottomTabs: List<HomeTab>,
+    selectedTab: State<HomeTab>,
+    navigate: (HomeTab) -> Unit,
+    tabContent: @Composable () -> Unit
 ){
     Scaffold(
         bottomBar = {
-            GBBottomNavigation(bottomTabs)
+            GBBottomNavigation(bottomTabs, selectedTab) { navigate(it) }
         }
-    ) {
-
+    ) { paddingValues ->
+        GBBackground()
+        Box(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+            tabContent.invoke()
+        }
     }
 }

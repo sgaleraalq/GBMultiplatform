@@ -16,82 +16,40 @@
 
 package com.gbmultiplatform.presentation.screens.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
-import com.gbmultiplatform.design_system.components.GBBottomNavItem
 import com.gbmultiplatform.design_system.icons.GBIcons
 import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
 import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
 import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
 import com.gbmultiplatform.presentation.navigation.NavigationState
+import com.gbmultiplatform.presentation.screens.home.tabs.matches.MatchesScreen
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.StatsScreen
+import com.gbmultiplatform.presentation.screens.home.tabs.team.TeamScreen
 import org.jetbrains.compose.resources.painterResource
 
 internal const val MATCHES = "matches"
 internal const val STATS = "stats"
 internal const val TEAM = "team"
-enum class HomeBottomTab(
+
+enum class HomeTab(
     val id: String,
-    var isSelected: Boolean,
     val iconContent: @Composable () -> Unit,
     val content: @Composable (NavigationState) -> Unit
 ) {
     Matches(
         id = MATCHES,
-        isSelected = false,
         iconContent = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
-        content = {  }
+        content = { MatchesScreen(it) }
     ),
     Stats(
         id = STATS,
-        isSelected = true,
         iconContent = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
-        content = {}
+        content = { StatsScreen(it) }
     ),
     Team(
         id = TEAM,
-        isSelected = false,
         iconContent = { Icon(GBIcons.GBTeamBottomTab, null) },
-        content = {}
+        content = { TeamScreen(it) }
     )
-}
-
-@Composable
-fun GBBottomNavigation(
-    states: List<HomeBottomTab>
-) {
-    Column(Modifier.shadow(10.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
-                .background(MaterialTheme.colorScheme.surface)
-                .windowInsetsPadding(NavigationBarDefaults.windowInsets)
-                .wrapContentWidth(align = Alignment.CenterHorizontally)
-                .padding(horizontal = 20.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalAlignment = CenterVertically
-        ) {
-            states.forEachIndexed { index, tab ->
-                GBBottomNavItem(
-                    isSelected = tab.isSelected,
-                    content = tab.iconContent,
-                    navigate = { },
-                    isMiddleScreen = index == states.size / 2
-                )
-            }
-        }
-    }
 }

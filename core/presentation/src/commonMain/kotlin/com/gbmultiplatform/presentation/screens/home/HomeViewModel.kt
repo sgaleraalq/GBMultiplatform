@@ -16,8 +16,9 @@
 
 package com.gbmultiplatform.presentation.screens.home
 
-import androidx.lifecycle.ViewModel
+import com.gbmultiplatform.presentation.screens.home.HomeTab.Stats
 
-class HomeViewModel: ViewModel() {
+class HomeViewModel: HomeScreenContract.ViewModel{
+    override val defaultTab: HomeTab = Stats
 
 }

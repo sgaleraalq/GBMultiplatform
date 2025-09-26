@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import com.gbmultiplatform.presentation.navigation.MainNavigation
 import com.gbmultiplatform.presentation.navigation.rememberNavigationState
@@ -54,7 +55,7 @@ fun SplashScreen() {
     ) {
         Text(
             "Splash screen",
-            color = White
+            color = Black
         )
     }
 }

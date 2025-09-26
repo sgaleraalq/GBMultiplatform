@@ -67,8 +67,8 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun TeamScreen(
-    viewModel: TeamViewModel = koinViewModel<TeamViewModel>(),
-    state: NavigationState
+    state: NavigationState,
+    viewModel: TeamViewModel = koinViewModel<TeamViewModel>()
 ) {
     val players by viewModel.players.collectAsState()
 

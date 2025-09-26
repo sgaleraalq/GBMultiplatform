@@ -17,15 +17,24 @@
 package com.gbmultiplatform.presentation.screens.home
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.movableContentOf
+import androidx.compose.runtime.remember
 import com.gbmultiplatform.presentation.navigation.NavigationState
 
 @Composable
 fun HomeScreen(
-    state: NavigationState
+    state: NavigationState,
+    viewModel: HomeScreenContract.ViewModel = HomeViewModel()
 ) {
-
+    val homeNavigationState = rememberHomeNavigationState(viewModel.defaultTab)
+    val tabContent = remember {
+        movableContentOf { HomeNavigationContent(homeNavigationState, state) }
+    }
     HomeScreenUI(
-        bottomTabs = HomeBottomTab.entries
-    )
-
+        bottomTabs = HomeTab.entries,
+        selectedTab = homeNavigationState.selectedTab,
+        navigate = { homeNavigationState.navigate(it) }
+    ) {
+        tabContent()
+    }
 }

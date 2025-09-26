@@ -16,16 +16,27 @@
 
 package com.gbmultiplatform.presentation.screens.home.tabs.matches
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import com.gbmultiplatform.design_system.components.GBAppTopBar
+import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import org.koin.compose.viewmodel.koinViewModel
+import com.gbmultiplatform.presentation.screens.home.tabs.matches.ui.MatchesList
 
 @Composable
-fun MatchesScreen(
-    state: NavigationState,
-    viewModel: MatchesViewModel = koinViewModel<MatchesViewModel>(),
+fun MatchesScreenUI(
+    state: NavigationState, viewModel: MatchesViewModel
 ) {
-    MatchesScreenUI(
-        state, viewModel
-    )
+    Column {
+        GBAppTopBar()
+        MatchesList(
+            modifier = Modifier.weight(1f),
+            matches = viewModel.provideMatches(),
+            matchResult = { match -> viewModel.calculateResult(match) },
+            onMatchClicked = { matchId ->
+                state.navigateTo(MatchDetail)
+            }
+        )
+    }
 }

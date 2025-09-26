@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.matches
+package com.gbmultiplatform.presentation.screens.home.tabs.matches
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import com.gbmultiplatform.presentation.screens.matches.ui.MatchesList
+import com.gbmultiplatform.presentation.screens.home.tabs.matches.ui.MatchesList
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

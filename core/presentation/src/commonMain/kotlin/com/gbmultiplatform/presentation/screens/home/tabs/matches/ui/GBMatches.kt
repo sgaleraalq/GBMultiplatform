@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.matches.ui
+package com.gbmultiplatform.presentation.screens.home.tabs.matches.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.team
+package com.gbmultiplatform.presentation.screens.home.tabs.team
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background

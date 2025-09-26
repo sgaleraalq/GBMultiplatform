@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.about
+package com.gbmultiplatform.presentation.screens.home.tabs.about
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

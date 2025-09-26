@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.stats
+package com.gbmultiplatform.presentation.screens.home.tabs.stats
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,10 +24,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import com.gbmultiplatform.presentation.navigation.NavigationState
-import com.gbmultiplatform.presentation.screens.stats.ui.GBSelectedPlayerDialog
-import com.gbmultiplatform.presentation.screens.stats.ui.PlayerStatsImagesClassification
-import com.gbmultiplatform.presentation.screens.stats.ui.StatSelector
-import com.gbmultiplatform.presentation.screens.stats.ui.StatsClassification
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.ui.GBSelectedPlayerDialog
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.ui.PlayerStatsImagesClassification
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.ui.StatSelector
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.ui.StatsClassification
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable

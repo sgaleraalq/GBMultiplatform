@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.stats
+package com.gbmultiplatform.presentation.screens.home.tabs.stats
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.domain.model.player.IPlayerProvider

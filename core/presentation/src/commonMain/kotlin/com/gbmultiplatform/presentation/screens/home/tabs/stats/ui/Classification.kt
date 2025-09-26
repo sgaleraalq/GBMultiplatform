@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.stats.ui
+package com.gbmultiplatform.presentation.screens.home.tabs.stats.ui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBPlayerCard
 import com.gbmultiplatform.helper.formatStat
-import com.gbmultiplatform.presentation.screens.stats.StatsViewModel.PlayerDisplayStats
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.StatsViewModel.PlayerDisplayStats
 
 @Composable
 fun StatsClassification(

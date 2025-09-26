@@ -1,4 +1,4 @@
-package com.gbmultiplatform.presentation.screens.matches
+package com.gbmultiplatform.presentation.screens.home.tabs.matches
 
 import androidx.lifecycle.ViewModel
 import com.gbmultiplatform.domain.model.team.ITeamProvider

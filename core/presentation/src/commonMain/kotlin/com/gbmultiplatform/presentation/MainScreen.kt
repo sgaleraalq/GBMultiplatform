@@ -34,7 +34,6 @@ fun MainScreen(
     viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
     val navigationState = rememberNavigationState()
-    val currentDestinationName = navigationState.currentDestination.value?.routeName
 
     LaunchedEffect(true) {
         viewModel.initApp(navigationState)

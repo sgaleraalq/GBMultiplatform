@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.team
+package com.gbmultiplatform.presentation.screens.home.tabs.team
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

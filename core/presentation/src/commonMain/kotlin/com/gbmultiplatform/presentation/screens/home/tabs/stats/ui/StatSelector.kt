@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.stats.ui
+package com.gbmultiplatform.presentation.screens.home.tabs.stats.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

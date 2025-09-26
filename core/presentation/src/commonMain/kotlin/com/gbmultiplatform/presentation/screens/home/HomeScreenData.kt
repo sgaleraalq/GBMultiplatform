@@ -46,21 +46,25 @@ internal const val STATS = "stats"
 internal const val TEAM = "team"
 enum class HomeBottomTab(
     val id: String,
+    var isSelected: Boolean,
     val iconContent: @Composable () -> Unit,
     val content: @Composable (NavigationState) -> Unit
 ) {
     Matches(
-        id = "matches",
+        id = MATCHES,
+        isSelected = false,
         iconContent = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
         content = {  }
     ),
     Stats(
-        id = "stats",
+        id = STATS,
+        isSelected = true,
         iconContent = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
         content = {}
     ),
     Team(
-        id = "team",
+        id = TEAM,
+        isSelected = false,
         iconContent = { Icon(GBIcons.GBTeamBottomTab, null) },
         content = {}
     )
@@ -80,10 +84,10 @@ fun GBBottomNavigation(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = CenterVertically
         ) {
-            states.forEachIndexed { index, bottomNavTab ->
+            states.forEachIndexed { index, tab ->
                 GBBottomNavItem(
-                    isSelected = true, // TODO
-                    content = bottomNavTab.iconContent,
+                    isSelected = tab.isSelected,
+                    content = tab.iconContent,
                     navigate = { },
                     isMiddleScreen = index == states.size / 2
                 )

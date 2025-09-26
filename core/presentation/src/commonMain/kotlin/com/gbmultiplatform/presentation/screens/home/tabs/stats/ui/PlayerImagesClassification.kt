@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.stats.ui
+package com.gbmultiplatform.presentation.screens.home.tabs.stats.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -29,7 +29,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBImage
-import com.gbmultiplatform.presentation.screens.stats.StatsViewModel.PlayerDisplayStats
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.StatsViewModel.PlayerDisplayStats
 
 @Composable
 fun PlayerStatsImagesClassification(

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gbmultiplatform.presentation.screens.matches
+package com.gbmultiplatform.presentation.screens.home.tabs.matches
 
 import com.gbmultiplatform.domain.model.match.MatchModel
 import com.gbmultiplatform.domain.model.match.MatchResult

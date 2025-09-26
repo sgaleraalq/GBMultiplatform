@@ -31,12 +31,12 @@ import com.gbmultiplatform.presentation.MainViewModel
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeViewModel
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailViewModel
-import com.gbmultiplatform.presentation.screens.matches.GetMatchResultUseCase
-import com.gbmultiplatform.presentation.screens.matches.MatchesViewModel
+import com.gbmultiplatform.presentation.screens.home.tabs.matches.GetMatchResultUseCase
+import com.gbmultiplatform.presentation.screens.home.tabs.matches.MatchesViewModel
 import com.gbmultiplatform.presentation.screens.player_detail.PlayerDetailViewModel
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewPhotoViewModel
-import com.gbmultiplatform.presentation.screens.stats.StatsViewModel
-import com.gbmultiplatform.presentation.screens.team.TeamViewModel
+import com.gbmultiplatform.presentation.screens.home.tabs.stats.StatsViewModel
+import com.gbmultiplatform.presentation.screens.home.tabs.team.TeamViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module

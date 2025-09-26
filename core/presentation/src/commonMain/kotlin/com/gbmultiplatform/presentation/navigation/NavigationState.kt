@@ -17,35 +17,22 @@
 package com.gbmultiplatform.presentation.navigation
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.key
 import androidx.compose.runtime.saveable.SaveableStateHolder
 import androidx.compose.ui.Modifier
-import com.gbmultiplatform.design_system.components.GBBottomNavigationTab
-import com.gbmultiplatform.design_system.icons.GBAboutBottomTab
-import com.gbmultiplatform.design_system.icons.GBHomeBottomTab
-import com.gbmultiplatform.design_system.icons.GBIcons
-import com.gbmultiplatform.design_system.icons.GBMatchesBottomTab
-import com.gbmultiplatform.design_system.icons.GBStatsBottomTab
-import com.gbmultiplatform.design_system.icons.GBTeamBottomTab
 import com.gbmultiplatform.domain.utils.CameraResults
 import com.gbmultiplatform.domain.utils.CommonImage
-import com.gbmultiplatform.presentation.navigation.Destination.About
 import com.gbmultiplatform.presentation.navigation.Destination.Camera
 import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.InsertPlayer
 import com.gbmultiplatform.presentation.navigation.Destination.MatchDetail
-import com.gbmultiplatform.presentation.navigation.Destination.Matches
 import com.gbmultiplatform.presentation.navigation.Destination.PlayerInformation
 import com.gbmultiplatform.presentation.navigation.Destination.ReviewPhoto
 import com.gbmultiplatform.presentation.navigation.Destination.Splash
-import com.gbmultiplatform.presentation.navigation.Destination.Stats
-import com.gbmultiplatform.presentation.navigation.Destination.Team
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import kotlinx.serialization.modules.PolymorphicModuleBuilder
-import org.jetbrains.compose.resources.painterResource
 import kotlin.reflect.KClass
 
 interface NavigationState {
@@ -54,37 +41,6 @@ interface NavigationState {
     fun navigateTo(destination: Destination, clearStack: Boolean = false)
     fun popUpTo(destination: Destination)
     fun navigateBack()
-
-    /**
-     * Bottom bar
-     */
-    val bottomNavTabs: List<GBBottomNavigationTab> get() = listOf(
-        GBBottomNavigationTab(
-            destination = Home.routeName,
-            content = { Icon(GBIcons.GBHomeBottomTab, null) },
-            onNavigationPressed = { navigateTo(Home) }
-        ),
-        GBBottomNavigationTab(
-            destination = Matches.routeName,
-            content = { Icon(painterResource(GBIcons.GBMatchesBottomTab), null) },
-            onNavigationPressed = { navigateTo(Matches) }
-        ),
-        GBBottomNavigationTab(
-            destination = Stats.routeName,
-            content = { Icon(painterResource(GBIcons.GBStatsBottomTab), null) },
-            onNavigationPressed = { navigateTo(Stats) }
-        ),
-        GBBottomNavigationTab(
-            destination = Team.routeName,
-            content = { Icon(GBIcons.GBTeamBottomTab, null) },
-            onNavigationPressed = { navigateTo(Team) }
-        ),
-        GBBottomNavigationTab(
-            destination = About.routeName,
-            content = { Icon(GBIcons.GBAboutBottomTab, null) },
-            onNavigationPressed = { navigateTo(About) }
-        )
-    )
 }
 
 suspend inline fun <reified T> NavigationState.navigateForResult(
@@ -178,10 +134,6 @@ val defaultDestinations: List<DestinationConfiguration<*>> = listOf(
     Splash.configuration(),
     Welcome.configuration(),
     Home.configuration(),
-    Matches.configuration(),
-    Stats.configuration(),
-    Team.configuration(),
-    About.configuration(),
     MatchDetail.configuration(),
     PlayerInformation::class.configuration(),
     InsertPlayer::class.configuration(),

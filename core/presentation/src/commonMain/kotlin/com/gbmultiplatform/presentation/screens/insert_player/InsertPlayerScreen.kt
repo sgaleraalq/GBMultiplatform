@@ -31,7 +31,8 @@ import androidx.compose.ui.unit.dp
 import com.gbmultiplatform.design_system.components.GBAppTopBar
 import com.gbmultiplatform.design_system.components.GBElevatedButton
 import com.gbmultiplatform.domain.utils.rememberGalleryManager
-import com.gbmultiplatform.presentation.navigation.Destination.Team
+import com.gbmultiplatform.presentation.navigation.Destination
+import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.NavigationState
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.BODY
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerViewModel.CameraState.FACE
@@ -95,7 +96,7 @@ fun InsertPlayerScreen(
                 text = stringResource(Res.string.insert_player),
                 onClick = {
                     viewModel.insertNewPlayer(
-                        onSuccess = { state.navigateTo(Team, true) },
+                        onSuccess = { state.navigateTo(Home, true) },
                         uploadErrorMsg = uploadErrorMsg,
                         notValidPlayerMsg = notValidPlayerMsg
                     )

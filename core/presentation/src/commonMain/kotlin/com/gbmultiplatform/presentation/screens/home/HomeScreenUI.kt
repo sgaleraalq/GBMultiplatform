@@ -16,16 +16,18 @@
 
 package com.gbmultiplatform.presentation.screens.home
 
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import com.gbmultiplatform.presentation.navigation.NavigationState
 
 @Composable
-fun HomeScreen(
-    state: NavigationState
-) {
+fun HomeScreenUI(
+    bottomTabs: List<HomeBottomTab>
+){
+    Scaffold(
+        bottomBar = {
+            GBBottomNavigation(bottomTabs)
+        }
+    ) {
 
-    HomeScreenUI(
-        bottomTabs = HomeBottomTab.entries
-    )
-
+    }
 }

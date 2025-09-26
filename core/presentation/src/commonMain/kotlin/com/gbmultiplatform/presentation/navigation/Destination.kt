@@ -22,16 +22,12 @@ import com.gbmultiplatform.domain.utils.CameraManagerCompose
 import com.gbmultiplatform.domain.utils.CommonImage
 import com.gbmultiplatform.domain.utils.CommonImage.FromFrontCamera
 import com.gbmultiplatform.presentation.SplashScreen
-import com.gbmultiplatform.presentation.screens.about.AboutScreen
 import com.gbmultiplatform.presentation.screens.auth.welcome.WelcomeScreen
 import com.gbmultiplatform.presentation.screens.home.HomeScreen
 import com.gbmultiplatform.presentation.screens.insert_player.InsertPlayerScreen
 import com.gbmultiplatform.presentation.screens.match_detail.MatchDetailScreen
-import com.gbmultiplatform.presentation.screens.matches.MatchesScreen
 import com.gbmultiplatform.presentation.screens.player_detail.PlayerDetailScreen
 import com.gbmultiplatform.presentation.screens.review_photo.ReviewImageScreen
-import com.gbmultiplatform.presentation.screens.stats.StatsScreen
-import com.gbmultiplatform.presentation.screens.team.TeamScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
@@ -70,45 +66,45 @@ interface Destination {
         }
     }
 
-    @Serializable
-    object Matches : Destination {
-        override val routeName = "matches"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            MatchesScreen(state)
-        }
-    }
-
-    @Serializable
-    object Stats : Destination {
-        override val routeName = "stats"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            StatsScreen(state = state)
-        }
-    }
-
-    @Serializable
-    object Team : Destination {
-        override val routeName = "team"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            TeamScreen(state = state)
-        }
-    }
-
-    @Serializable
-    object About : Destination {
-        override val routeName = "about"
-
-        @Composable
-        override fun Content(state: NavigationState) {
-            AboutScreen()
-        }
-    }
+//    @Serializable
+//    object Matches : Destination {
+//        override val routeName = "matches"
+//
+//        @Composable
+//        override fun Content(state: NavigationState) {
+//            MatchesScreen(state)
+//        }
+//    }
+//
+//    @Serializable
+//    object Stats : Destination {
+//        override val routeName = "stats"
+//
+//        @Composable
+//        override fun Content(state: NavigationState) {
+//            StatsScreen(state = state)
+//        }
+//    }
+//
+//    @Serializable
+//    object Team : Destination {
+//        override val routeName = "team"
+//
+//        @Composable
+//        override fun Content(state: NavigationState) {
+//            TeamScreen(state = state)
+//        }
+//    }
+//
+//    @Serializable
+//    object About : Destination {
+//        override val routeName = "about"
+//
+//        @Composable
+//        override fun Content(state: NavigationState) {
+//            AboutScreen()
+//        }
+//    }
 
     /**
      * Details screens

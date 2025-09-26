@@ -17,7 +17,7 @@
 package com.gbmultiplatform.presentation.navigation
 
 import com.gbmultiplatform.data.db.preferences.UserPreferencesImpl
-import com.gbmultiplatform.presentation.navigation.Destination.Matches
+import com.gbmultiplatform.presentation.navigation.Destination.Home
 import com.gbmultiplatform.presentation.navigation.Destination.Welcome
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -30,7 +30,7 @@ class InitDestinationHandler(
     suspend fun initApp(): Destination {
         delay(2000L)
         return if (sessionActive()) {
-            Matches
+            Home
         } else {
             Welcome
         }
